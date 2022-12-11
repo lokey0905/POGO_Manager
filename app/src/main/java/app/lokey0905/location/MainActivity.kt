@@ -103,11 +103,15 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun devicesCheck() {
-        findViewById<TextView>(R.id.android_imformation).text = "系統代號:" + "\n" + Build.DEVICE
-        findViewById<TextView>(R.id.android_version).text = "Android版本:" + "\n" + Build.VERSION.RELEASE + "(" + Build.VERSION.SDK_INT + ")"
-        findViewById<TextView>(R.id.android_abi).text = "系統架構:" + "\n" + Build.SUPPORTED_ABIS[0] +
+        findViewById<TextView>(R.id.android_imformation).text =
+            "系統代號:" + "\n" + Build.DEVICE
+        findViewById<TextView>(R.id.android_version).text =
+            "Android版本:" + "\n" + Build.VERSION.RELEASE + "(" + Build.VERSION.SDK_INT + ")"
+        findViewById<TextView>(R.id.android_abi).text =
+            "系統架構:" + "\n" + Build.SUPPORTED_ABIS[0] +
                     if (Build.SUPPORTED_ABIS[0] == "arm64-v8a") {"(64"} else {"(32"} + "位元)"
-        findViewById<TextView>(R.id.android_supper).text ="是否支援暴力功:"+ "\n" + if(Build.SUPPORTED_ABIS[0] == "arm64-v8a"){"有"}else{"不"}+"支援"
+        findViewById<TextView>(R.id.android_supper).text =
+            "是否支援暴力功:"+ "\n" + if(Build.SUPPORTED_ABIS[0] == "arm64-v8a"){"有"}else{"不"}+"支援"
 
         findViewById<TextView>(R.id.polygon_install_verison).text =
             "已安裝版本:" + appInstalled(apkChecklist[1])
@@ -156,7 +160,12 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun getAutocatchVersion(url: String = url_autocatch){
+    private fun getAutocatchVersion(){
+        var url = url_autocatch
+        if(findViewById<MaterialSwitch>(R.id.switch1).isChecked)
+                url = url_testautocatch
+
+        devicesCheck()
         val gfgThread = Thread {
             try {
                 val json = Jsoup.connect(url).timeout(10000).ignoreContentType(true).execute().body();
@@ -240,7 +249,7 @@ class MainActivity : AppCompatActivity() {
 
             RewardedAd.load(
                 this,
-                "ca-app-pub-9117573027413270/3285311458",
+                R.string.adID_Rewarded.toString(),
                 adRequest,
                 object : RewardedAdLoadCallback() {
                     override fun onAdFailedToLoad(adError: LoadAdError) {
@@ -323,12 +332,12 @@ class MainActivity : AppCompatActivity() {
         findViewById<MaterialSwitch>(R.id.switch1).setOnCheckedChangeListener{ _, isChecked->
             if (isChecked) {
                 // 開啟時
-                getAutocatchVersion(url_testautocatch)
                 Toast.makeText(applicationContext, "請注意 測試版本可能會有不穩狀況!", Toast.LENGTH_LONG).show();
             } else {
                 // 關閉時
-                getAutocatchVersion()
+                Toast.makeText(applicationContext, "若無法使用正式版可嘗試切換正式版本", Toast.LENGTH_SHORT).show();
             }
+            getAutocatchVersion()
             devicesCheck()
         }
 
@@ -363,17 +372,17 @@ class MainActivity : AppCompatActivity() {
         MobileAds.initialize(this)
         val adView = AdView(this)
         adView.setAdSize(AdSize.BANNER)
-        adView.adUnitId = "ca-app-pub-9117573027413270/9041694963"
+        adView.adUnitId = R.string.adID_Banner.toString()
         val mAdView = findViewById<AdView>(R.id.adView)
         val adRequest = AdRequest.Builder().build()
         mAdView.loadAd(adRequest)
 
 
-        RewardedAd.load(this,"ca-app-pub-9117573027413270/3285311458", adRequest, object : RewardedAdLoadCallback() {
+        RewardedAd.load(this,R.string.adID_Rewarded.toString(), adRequest, object : RewardedAdLoadCallback() {
             override fun onAdFailedToLoad(adError: LoadAdError) {
                 Log.d(TAG, adError?.toString())
                 mRewardedAd = null
-                Toast.makeText(applicationContext, "網路錯誤 請稍後在試", Toast.LENGTH_LONG).show();
+                //Toast.makeText(applicationContext, "網路錯誤 請稍後在試", Toast.LENGTH_LONG).show();
             }
 
             override fun onAdLoaded(rewardedAd: RewardedAd) {
@@ -419,8 +428,9 @@ class MainActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        devicesCheck()
         getAutocatchVersion()
+        devicesCheck()
+
         val intent = Intent(this, IsolatedService::class.java)
         /*Binding to an isolated service */
         applicationContext.bindService(intent,mIsolatedServiceConnection,BIND_AUTO_CREATE)
@@ -511,6 +521,11 @@ class MainActivity : AppCompatActivity() {
         if (id == R.id.action_about) {
             // 按下「設定」要做的事
             Toast.makeText(this, "本APP由lokey0905製作", Toast.LENGTH_SHORT).show()
+            return true
+        }
+        else if (id == R.id.action_download) {
+            // 按下「設定」要做的事
+            downloadAPPSetup("https://www.mediafire.com/file/5mdun6u78jr96rw/app-debug.apk/file")
             return true
         }
         return super.onOptionsItemSelected(item)
