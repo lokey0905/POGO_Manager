@@ -2,6 +2,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="app.lokey0905.location.MainActivity">
+
+    <item
+        android:id="@+id/action_download"
+        android:orderInCategory="100"
+        android:title="下載"
+        app:showAsAction="never" />
+
     <item
         android:id="@+id/action_about"
         android:orderInCategory="100"
