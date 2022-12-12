@@ -216,7 +216,7 @@ class MainActivity : AppCompatActivity() {
                         // Don't forget to set the ad reference to null so you
                         // don't show the ad a second time.
                         mRewardedAd = null
-                        loadad()
+                        loadAd()
                     }
 
                     override fun onAdFailedToShowFullScreenContent(adError: AdError) {
@@ -239,17 +239,18 @@ class MainActivity : AppCompatActivity() {
         } else {
             Log.d(TAG, "The rewarded ad wasn't ready yet.")
             Toast.makeText(applicationContext, "網路錯誤 請稍後在試", Toast.LENGTH_LONG).show();
+
         }
         //downloadAPPSetup(url)
     }
 
-    private fun loadad(){
+    private fun loadAd(){
         if (mRewardedAd == null) {
             var adRequest = AdRequest.Builder().build()
 
             RewardedAd.load(
                 this,
-                R.string.adID_Rewarded.toString(),
+                resources.getString(R.string.adID_Rewarded),
                 adRequest,
                 object : RewardedAdLoadCallback() {
                     override fun onAdFailedToLoad(adError: LoadAdError) {
@@ -372,15 +373,15 @@ class MainActivity : AppCompatActivity() {
         MobileAds.initialize(this)
         val adView = AdView(this)
         adView.setAdSize(AdSize.BANNER)
-        adView.adUnitId = R.string.adID_Banner.toString()
+        adView.adUnitId = resources.getString(R.string.adID_Banner)
         val mAdView = findViewById<AdView>(R.id.adView)
         val adRequest = AdRequest.Builder().build()
         mAdView.loadAd(adRequest)
 
 
-        RewardedAd.load(this,R.string.adID_Rewarded.toString(), adRequest, object : RewardedAdLoadCallback() {
+        RewardedAd.load(this, resources.getString(R.string.adID_Rewarded), adRequest, object : RewardedAdLoadCallback() {
             override fun onAdFailedToLoad(adError: LoadAdError) {
-                Log.d(TAG, adError?.toString())
+                Log.d(TAG, adError.toString())
                 mRewardedAd = null
                 //Toast.makeText(applicationContext, "網路錯誤 請稍後在試", Toast.LENGTH_LONG).show();
             }
