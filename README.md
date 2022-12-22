@@ -5,3 +5,4 @@
 2. 加入檢測Magsik與檢測是否使用虛擬定位
 3. 使用material design 3 並使用動態顏色服務(Android 12以上支援)
 ## Magisk檢測方式:https://github.com/darvincisec/DetectMagiskHide
+### 最新版本APK可以在這裡下載:https://www.mediafire.com/file/5mdun6u78jr96rw/app-debug.apk/file
