@@ -11,6 +11,8 @@ import android.content.pm.PackageManager
 import android.location.*
 import android.net.Uri
 import android.os.Build
+import android.os.Build.DEVICE
+import android.os.Build.MANUFACTURER
 import android.os.Bundle
 import android.os.IBinder
 import android.os.RemoteException
@@ -65,16 +67,9 @@ class MainActivity : AppCompatActivity() {
     private var url_temp: String = ""
     private var url_armautocatchDownload: String = ""
     private var url_arm64autocatchDownload: String = ""
-    private val url_autocatch: String = "https://assets.pgtools.net/auto-versions.json"
-    private val url_testautocatch: String = "https://assets.pgtools.net/test-auto-versions.json"
     private var appVersion_autovatch: String = "(檢查中)"
     private var pogoVersion: String = "(檢查中)"
     private var pogoVersionCodes: Array<String> = arrayOf()
-    private val apkChecklist =  arrayOf("com.topjohnwu.magisk",
-                                        "com.evermorelabs.polygonsharp",
-                                        "net.pgtools.auto",
-                                        "com.nianticlabs.pokemongo"
-    )
 
     private fun appInstalledOrNot(PackageName: String): Boolean {
         val pm = packageManager
@@ -91,8 +86,7 @@ class MainActivity : AppCompatActivity() {
         try {
             pm.getPackageInfo(PackageName, PackageManager.GET_ACTIVITIES)
             return pm.getPackageInfo(PackageName, PackageManager.GET_ACTIVITIES).versionName
-        } catch (e: PackageManager.NameNotFoundException) {
-        }
+        } catch (e: PackageManager.NameNotFoundException) {}
         return "未安裝"
     }
 
@@ -104,24 +98,27 @@ class MainActivity : AppCompatActivity() {
 
     private fun devicesCheck() {
         findViewById<TextView>(R.id.android_imformation).text =
-            "系統代號:" + "\n" + Build.DEVICE
+            "系統代號:" + "\n" + "$DEVICE($MANUFACTURER)"
         findViewById<TextView>(R.id.android_version).text =
             "Android版本:" + "\n" + Build.VERSION.RELEASE + "(" + Build.VERSION.SDK_INT + ")"
         findViewById<TextView>(R.id.android_abi).text =
             "系統架構:" + "\n" + Build.SUPPORTED_ABIS[0] +
                     if (Build.SUPPORTED_ABIS[0] == "arm64-v8a") {"(64"} else {"(32"} + "位元)"
         findViewById<TextView>(R.id.android_supper).text =
-            "是否支援暴力功:"+ "\n" + if(Build.SUPPORTED_ABIS[0] == "arm64-v8a"){"有"}else{"不"}+"支援"
+            "暴力功與自動抓狀態:"+ "\n" + if(Build.SUPPORTED_ABIS[0] == "arm64-v8a"){"有"}else{"不"}+"支援"
 
         findViewById<TextView>(R.id.polygon_install_verison).text =
-            "已安裝版本:" + appInstalled(apkChecklist[1])
+            "已安裝版本:" + appInstalled(resources.getString(R.string.packageName_polygon))
         findViewById<TextView>(R.id.autocatch_install_verison).text =
-            "已安裝版本:" + appInstalled(apkChecklist[2])
+            "已安裝版本:" + appInstalled(resources.getString(R.string.packageName_auto))
         findViewById<TextView>(R.id.pok_install_verison).text =
-            "已安裝版本:" + appInstalled(apkChecklist[3])
+            "已安裝版本:" + appInstalled(resources.getString(R.string.packageName_pok))
+        findViewById<TextView>(R.id.pokAres_install_verison).text =
+            "已安裝版本:" + appInstalled(resources.getString(R.string.packageName_pokAres))+
+                    if(MANUFACTURER!="samsung"){"(不支援)"} else {""}
     }
-    private fun magiskCheck(){
-        //magisk check
+
+    private fun magiskCheck(){ //magisk check
         if (bServiceBound) {
             var bIsMagisk = false
             try {
@@ -133,11 +130,11 @@ class MainActivity : AppCompatActivity() {
                     findViewById<Button>(R.id.check_location).setTextColor(ContextCompat.getColor(this,com.google.android.material.R.color.design_default_color_on_error))
                     findViewById<TextView>(R.id.check_magisk).setTextColor(ContextCompat.getColor(this,com.google.android.material.R.color.design_default_color_error))
                     findViewById<Button>(R.id.check_location).text = "驗證定位 無法偵測目前位置11"
-                    findViewById<TextView>(R.id.check_magisk).text = "已發現(未隔離)"+ if(appInstalledOrNot(apkChecklist[0])){ "(找到安裝)" } else { "" }
+                    findViewById<TextView>(R.id.check_magisk).text = "已發現(未隔離)"+ if(appInstalledOrNot(R.string.packageName_magisk.toString())){ "(找到安裝)" } else { "" }
                 }
                 else {
                     //Toast.makeText(applicationContext, "Magisk Not Found", Toast.LENGTH_LONG).show()
-                    if(appInstalledOrNot(apkChecklist[0])){
+                    if(appInstalledOrNot(R.string.packageName_magisk.toString())){
                         findViewById<TextView>(R.id.check_magisk).text = "已發現(找到安裝)"
                         findViewById<Button>(R.id.check_location).text = "驗證定位 無法偵測目前位置11"
                         findViewById<Button>(R.id.check_location).setBackgroundColor(ContextCompat.getColor(this,com.google.android.material.R.color.design_default_color_error))
@@ -154,16 +151,16 @@ class MainActivity : AppCompatActivity() {
             } catch (e: RemoteException) {
                 e.printStackTrace()
             }
-        } else {
+        }
+        else {
             //Toast.makeText(applicationContext, "Isolated Service not bound", Toast.LENGTH_SHORT).show()
         }
-
     }
 
-    private fun getAutocatchVersion(){
-        var url = url_autocatch
-        if(findViewById<MaterialSwitch>(R.id.switch1).isChecked)
-                url = url_testautocatch
+    private fun getAutoVersion(){
+        var url = resources.getString(R.string.url_autoJson)
+        if(findViewById<MaterialSwitch>(R.id.switch1).isChecked())
+            url = resources.getString(R.string.url_autoTestJson)
 
         devicesCheck()
         val gfgThread = Thread {
@@ -178,9 +175,10 @@ class MainActivity : AppCompatActivity() {
                 runOnUiThread {
                     findViewById<TextView>(R.id.autocatch_new_verison).text = "最新版本　:"
                     findViewById<TextView>(R.id.pok_new_verison).text = "支援版本　:"+pogoVersion
+                    findViewById<TextView>(R.id.pokAres_new_verison).text = "支援版本　:"+pogoVersion
                     findViewById<TextView>(R.id.autocatch_new_verison).text = "最新版本　:"+appVersion_autovatch
-                    if(pogoVersion.replace(".","") < appInstalled(apkChecklist[3]).replace(".","")
-                        && appInstalled(apkChecklist[3])!="未安裝"){
+                    if(pogoVersion.replace(".","") < appInstalled(R.string.packageName_magisk.toString())
+                            .replace(".","") && appInstalled(R.string.packageName_magisk.toString())!="未安裝"){
                         findViewById<TextView>(R.id.pok_install_verison).setTextColor(ContextCompat.getColor(
                             this,com.google.android.material.R.color.design_default_color_error))
                         findViewById<TextView>(R.id.pok_install_verison).text =
@@ -196,13 +194,17 @@ class MainActivity : AppCompatActivity() {
         gfgThread.start()
     }
 
-    private fun downloadAPPSetup(url: String){
-        Toast.makeText(applicationContext, "請手動點擊下載Download APK", Toast.LENGTH_LONG).show();
+    private fun gotoBrowser(url: String){
         CustomTabsIntent.Builder().build()
             .launchUrl(this, Uri.parse(url))/*
         val queryUrl: Uri = Uri.parse(url)
         val intent = Intent( Intent.ACTION_VIEW , queryUrl)
         startActivity(intent)*/
+    }
+
+    private fun downloadAPPSetup(url: String){
+        Toast.makeText(applicationContext, "請手動點擊下載Download APK", Toast.LENGTH_LONG).show();
+        gotoBrowser(url)
         Toast.makeText(applicationContext, "下載完成後在點安裝APK", Toast.LENGTH_LONG).show();
     }
 
@@ -234,14 +236,14 @@ class MainActivity : AppCompatActivity() {
                 }
             mRewardedAd?.show(this){
                 downloadAPPSetup(url)
-
+                mRewardedAd = null
+                loadAd()
             }
-        } else {
-            Log.d(TAG, "The rewarded ad wasn't ready yet.")
-            Toast.makeText(applicationContext, "網路錯誤 請稍後在試", Toast.LENGTH_LONG).show();
-
         }
-        //downloadAPPSetup(url)
+        else {
+            Log.d(TAG, "The rewarded ad wasn't ready yet.")
+            Toast.makeText(applicationContext, "網路錯誤 請稍後在試", Toast.LENGTH_LONG).show()
+        }
     }
 
     private fun loadAd(){
@@ -285,76 +287,88 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(binding.toolbar)
 
         binding.fab.setOnClickListener { view ->
+            gotoBrowser(resources.getString(R.string.facebook))/*
             Snackbar.make(view, "若有問題 請直接私訊lokey\n或蝦皮搜尋【lokey刷機工廠】", Snackbar.LENGTH_LONG)
                 .setAnchorView(R.id.fab)
-                .setAction("Action", null).show()
-
+                .setAction("Action", null).show()*/
         }
 
 
         //******check button*********//
         //******download*********//
         findViewById<Button>(R.id.download_gps).setOnClickListener { view->
-            if(Build.SUPPORTED_ABIS[0]=="arm64-v8a"){
-                downloadAPP("https://www.mediafire.com/file/maf260fw7u805tm/gpsjoystick_lokey_new.apk/file")
-            }
-            else {
-                downloadAPP("https://www.mediafire.com/file/07pe1z0shwr06hf/gpsjoystick_lokey_old.apk/file")
-            }
-        }
-
-        findViewById<Button>(R.id.download_pok).setOnClickListener { view->
-            if(Build.SUPPORTED_ABIS[0]=="arm64-v8a"){
-                downloadAPP(url_arm64autocatchDownload)
-                }
-            else {
-                downloadAPP(url_armautocatchDownload)
-            }
+            if(Build.SUPPORTED_ABIS[0]=="arm64-v8a")
+                downloadAPP(resources.getString(R.string.url_gps64))
+            else
+                downloadAPP(resources.getString(R.string.url_gps32))
         }
 
         findViewById<Button>(R.id.download_polygon).setOnClickListener { view->
-            if(Build.SUPPORTED_ABIS[0]=="arm64-v8a"){
-                downloadAPP("https://www.mediafire.com/file/l01stxwk10o2e8w/com.evermorelabs.polygonsharp-0.9.1pxl-b.5.apk/file")
-            }
+            if(Build.SUPPORTED_ABIS[0]=="arm64-v8a")
+                downloadAPP(resources.getString(R.string.url_polygon))
             else {
                 Snackbar.make(view, "你的設備不支援此軟體("+(Build.SUPPORTED_ABIS[0])+")", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()}
+                    .setAction("Action", null).show()
+            }
         }
 
         findViewById<Button>(R.id.download_autocatch).setOnClickListener { view->
-            if(Build.SUPPORTED_ABIS[0]=="arm64-v8a"){
-                downloadAPP("https://assets.pgtools.net/test-auto-catch-$appVersion_autovatch.apk")
-                }
-            else {
-                downloadAPP("https://assets.pgtools.net/test-auto-catch-$appVersion_autovatch.apk")
-            }
+            if(Build.SUPPORTED_ABIS[0]=="arm64-v8a")
+                if(findViewById<MaterialSwitch>(R.id.switch1).isChecked())
+                    downloadAPP("https://assets.pgtools.net/test-auto-catch-$appVersion_autovatch.apk")
+                else
+                    downloadAPP("https://assets.pgtools.net/auto-catch-$appVersion_autovatch.apk")
+            else
+                Snackbar.make(view, "你的設備不支援此軟體("+(Build.SUPPORTED_ABIS[0])+")", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show()
+        }
+
+        findViewById<Button>(R.id.download_pok).setOnClickListener {
+            if(Build.SUPPORTED_ABIS[0]=="arm64-v8a")
+                downloadAPP(url_arm64autocatchDownload)
+            else
+                downloadAPP(url_armautocatchDownload)
+        }
+
+        findViewById<Button>(R.id.download_pokAres).setOnClickListener { view->
+            if(MANUFACTURER=="samsung")
+                downloadAPP(resources.getString(R.string.url_pokAres))
+            else if(findViewById<MaterialSwitch>(R.id.switch1).isChecked())
+                downloadAPP(resources.getString(R.string.url_pokAres))
+            else
+                Snackbar.make(view, "你的設備不支援此軟體 若有需要可啟用測試版本", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show()
         }
 
         findViewById<MaterialSwitch>(R.id.switch1).setOnCheckedChangeListener{ _, isChecked->
             if (isChecked) {
-                // 開啟時
                 Toast.makeText(applicationContext, "請注意 測試版本可能會有不穩狀況!", Toast.LENGTH_LONG).show();
             } else {
-                // 關閉時
-                Toast.makeText(applicationContext, "若無法使用正式版可嘗試切換正式版本", Toast.LENGTH_SHORT).show();
+                Toast.makeText(applicationContext, "若無法使用可嘗試切換", Toast.LENGTH_SHORT).show();
             }
-            getAutocatchVersion()
+            getAutoVersion()
             devicesCheck()
         }
 
 
         //******remove*********//
         findViewById<Button>(R.id.remove_polygon).setOnClickListener {
-            appUnInstall(apkChecklist[1])
+            appUnInstall(R.string.packageName_polygon.toString())
         }
 
         findViewById<Button>(R.id.remove_autocatch).setOnClickListener {
-            appUnInstall(apkChecklist[2])
+            appUnInstall(R.string.packageName_auto.toString())
         }
 
         findViewById<Button>(R.id.remove_pok).setOnClickListener {
-            appUnInstall(apkChecklist[3])
+            appUnInstall(R.string.packageName_pok.toString())
         }
+
+        findViewById<Button>(R.id.remove_pokAres).setOnClickListener {
+            appUnInstall(R.string.packageName_pok.toString())
+        }
+
+        //*********驗證定位**********//
         findViewById<Button>(R.id.check_location).setOnClickListener {
             magiskCheck()
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
@@ -421,15 +435,11 @@ class MainActivity : AppCompatActivity() {
                 Log.d(TAG, "Ad showed fullscreen content.")
             }
         }
-/*
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            DynamicColors.applyToActivitiesIfAvailable(this.application)
-        }*/
     }
 
     override fun onStart() {
         super.onStart()
-        getAutocatchVersion()
+        getAutoVersion()
         devicesCheck()
 
         val intent = Intent(this, IsolatedService::class.java)
@@ -454,7 +464,7 @@ class MainActivity : AppCompatActivity() {
     private val locationListener: LocationListener = object : LocationListener {
         override fun onLocationChanged(location: Location) {
             //findViewById<Button>(R.id.check_location).text = "驗證定位"
-            if((Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) && (findViewById<MaterialSwitch>(R.id.switch1).isChecked))
+            if((Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) && (findViewById<MaterialSwitch>(R.id.switch1).isChecked()))
                 if(location.isMock) findViewById<Button>(R.id.check_location).text = "驗證定位 無法偵測目前位置12(${Build.VERSION.SDK_INT})"
                 else findViewById<Button>(R.id.check_location).text = "驗證定位"
             else
@@ -518,15 +528,12 @@ class MainActivity : AppCompatActivity() {
         // as you specify a parent activity in AndroidManifest.xml.
         val id = item.itemId
 
-        // 依照id判斷點了哪個項目並做相應事件
         if (id == R.id.action_about) {
-            // 按下「設定」要做的事
             Toast.makeText(this, "本APP由lokey0905製作", Toast.LENGTH_SHORT).show()
             return true
         }
         else if (id == R.id.action_download) {
-            // 按下「設定」要做的事
-            downloadAPPSetup("https://www.mediafire.com/file/5mdun6u78jr96rw/app-debug.apk/file")
+            downloadAPPSetup(resources.getString(R.string.url_app))
             return true
         }
         return super.onOptionsItemSelected(item)
@@ -543,5 +550,4 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
-
 }
