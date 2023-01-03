@@ -11,13 +11,21 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        >
+        app:layout_constraintStart_toStartOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
+            <com.google.android.material.materialswitch.MaterialSwitch
+                android:id="@+id/switch1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
+                android:text="測試版本與功能" />
+
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/card"
@@ -78,43 +86,26 @@
                         android:text="暴力功與自動抓狀態:" />
 
                 </LinearLayout>
+
             </com.google.android.material.card.MaterialCardView>
 
-            <LinearLayout
+            <Button
+                android:id="@+id/LocationAccuracyActivity"
+                style="@style/Widget.Material3.Button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
-                android:orientation="horizontal">
+                android:text="快速設定-定位精確度" />
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/textView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="應用程式"/>
-
-                </LinearLayout>
-
-                <Space
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
-
-                <com.google.android.material.materialswitch.MaterialSwitch
-                    android:id="@+id/switch1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="測試版本(可能不穩)" />
-
-            </LinearLayout>
-
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginBottom="16dp"
+                android:text="應用程式"
+                app:layout_constraintStart_toStartOf="parent" />
 
             <LinearLayout
                 android:id="@+id/linearLayout0"
@@ -162,7 +153,9 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="0"
                             android:text="GPS JoyStick【lokey刷機工廠】" />
+
                     </LinearLayout>
+
                 </LinearLayout>
 
                 <LinearLayout
@@ -188,8 +181,7 @@
                             android:id="@+id/download_gps"
                             android:layout_width="80dp"
                             android:layout_height="wrap_content"
-                            android:text="下載" />
-
+                            android:text="@string/download" />
 
                     </LinearLayout>
 
@@ -244,7 +236,9 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="0"
                             android:text="Polygon【暴力功】" />
+
                     </LinearLayout>
+
                 </LinearLayout>
 
                 <LinearLayout
@@ -271,7 +265,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="0"
-                            android:text="已安裝版本:(檢查中)" />
+                            android:text="@string/format_installverison" />
 
 
                     </LinearLayout>
@@ -288,14 +282,13 @@
                             android:layout_width="80dp"
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="8dp"
-                            android:text="移除" />
+                            android:text="@string/remove" />
 
                         <Button
                             android:id="@+id/download_polygon"
                             android:layout_width="80dp"
                             android:layout_height="wrap_content"
-                            android:text="下載" />
-
+                            android:text="@string/download" />
 
                     </LinearLayout>
 
@@ -350,7 +343,9 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="0"
                             android:text="Pogo Auto Catch【自動抓】" />
+
                     </LinearLayout>
+
                 </LinearLayout>
 
                 <LinearLayout
@@ -370,14 +365,14 @@
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="16dp"
                             android:layout_weight="0"
-                            android:text="最新版本　:(檢查中)" />
+                            android:text="@string/format_newerverison" />
 
                         <TextView
                             android:id="@+id/autocatch_install_verison"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="0"
-                            android:text="已安裝版本:(檢查中)" />
+                            android:text="@string/format_installverison" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -392,14 +387,13 @@
                             android:layout_width="80dp"
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="8dp"
-                            android:text="移除" />
+                            android:text="@string/remove" />
 
                         <Button
                             android:id="@+id/download_autocatch"
                             android:layout_width="80dp"
                             android:layout_height="wrap_content"
-                            android:text="下載" />
-
+                            android:text="@string/download" />
 
                     </LinearLayout>
 
@@ -454,6 +448,7 @@
                             android:layout_weight="0"
                             android:text="Pokémon GO【寶可夢】" />
                     </LinearLayout>
+
                 </LinearLayout>
 
                 <LinearLayout
@@ -473,14 +468,14 @@
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="16dp"
                             android:layout_weight="0"
-                            android:text="支援版本　:(檢查中)" />
+                            android:text="@string/format_newerverison" />
 
                         <TextView
                             android:id="@+id/pok_install_verison"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="0"
-                            android:text="已安裝版本:(檢查中)" />
+                            android:text="@string/format_installverison" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -495,14 +490,13 @@
                             android:layout_width="80dp"
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="8dp"
-                            android:text="移除" />
+                            android:text="@string/remove" />
 
                         <Button
                             android:id="@+id/download_pok"
                             android:layout_width="80dp"
                             android:layout_height="wrap_content"
-                            android:text="下載" />
-
+                            android:text="@string/download" />
 
                     </LinearLayout>
 
@@ -557,7 +551,9 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="0"
                             android:text="Pokémon GO【寶可夢三星版本】" />
+
                     </LinearLayout>
+
                 </LinearLayout>
 
                 <LinearLayout
@@ -577,14 +573,15 @@
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="16dp"
                             android:layout_weight="0"
-                            android:text="支援版本　:(檢查中)" />
+                            android:text="@string/format_newerverison" />
 
                         <TextView
                             android:id="@+id/pokAres_install_verison"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="0"
-                            android:text="已安裝版本:(檢查中)" />
+                            android:text="@string/format_installverison" />
+
                     </LinearLayout>
 
                     <LinearLayout
@@ -599,14 +596,13 @@
                             android:layout_width="80dp"
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="8dp"
-                            android:text="移除" />
+                            android:text="@string/remove" />
 
                         <Button
                             android:id="@+id/download_pokAres"
                             android:layout_width="80dp"
                             android:layout_height="wrap_content"
                             android:text="下載" />
-
 
                     </LinearLayout>
 
@@ -648,7 +644,7 @@
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="16dp"
                         android:layout_marginEnd="16dp"
-                        android:text="檢測定位" />
+                        android:text="@string/check_button" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -664,7 +660,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
                         android:layout_marginEnd="20dp"
-                        android:text="" />
+                        android:text="未取得" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -683,6 +679,7 @@
                         android:text="未檢查" />
 
                 </LinearLayout>
+
             </com.google.android.material.card.MaterialCardView>
 
             <Space
@@ -694,7 +691,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
 
-
         </LinearLayout>
+
     </ScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

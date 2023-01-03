@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="facebook">https://www.facebook.com/android.flash.factory/</string>
+    <string name="shopee">https://shopee.tw/luokey</string>
 
     <string name="url_app">https://www.mediafire.com/file/5mdun6u78jr96rw/app-debug.apk/file</string>
     <string name="url_gps64">https://www.mediafire.com/file/maf260fw7u805tm/gpsjoystick_lokey_new.apk/file</string>
@@ -9,6 +10,7 @@
     <string name="url_autoJson">https://assets.pgtools.net/auto-versions.json</string>
     <string name="url_autoTestJson">https://assets.pgtools.net/test-auto-versions.json</string>
     <string name="url_pokAres">https://www.apkmirror.com/apk/niantic-inc/pokemon-go-samsung-galaxy-apps-version/</string>
+    <string name="url_pokAres_store">https://apps.samsung.com/appquery/appDetail.as?appId=com.nianticlabs.pokemongo.ares</string>
 
 
     <string name="packageName_magisk">com.topjohnwu.magisk</string>

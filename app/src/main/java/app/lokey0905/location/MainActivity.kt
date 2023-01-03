@@ -2,11 +2,8 @@ package app.lokey0905.location
 
 import android.Manifest
 import android.app.Application
-import android.content.ComponentName
+import android.content.*
 import android.content.ContentValues.TAG
-import android.content.Context
-import android.content.Intent
-import android.content.ServiceConnection
 import android.content.pm.PackageManager
 import android.location.*
 import android.net.Uri
@@ -20,10 +17,11 @@ import android.system.Os
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.Button
-import android.widget.Switch
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.app.ActivityCompat
@@ -34,7 +32,9 @@ import app.lokey0905.location.databinding.ActivityMainBinding
 import com.google.android.gms.ads.*
 import com.google.android.gms.ads.rewarded.RewardedAd
 import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback
+import com.google.android.material.button.MaterialButton
 import com.google.android.material.color.DynamicColors
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.materialswitch.MaterialSwitch
 import com.google.android.material.snackbar.Snackbar
 import org.json.JSONObject
@@ -108,18 +108,22 @@ class MainActivity : AppCompatActivity() {
             "暴力功與自動抓狀態:"+ "\n" + if(Build.SUPPORTED_ABIS[0] == "arm64-v8a"){"有"}else{"不"}+"支援"
 
         findViewById<TextView>(R.id.polygon_install_verison).text =
-            "已安裝版本:" + appInstalled(resources.getString(R.string.packageName_polygon))
+            String.format(resources.getString(R.string.format_installverison,
+                appInstalled(resources.getString(R.string.packageName_polygon))))
         findViewById<TextView>(R.id.autocatch_install_verison).text =
-            "已安裝版本:" + appInstalled(resources.getString(R.string.packageName_auto))
+            String.format(resources.getString(R.string.format_installverison,
+            appInstalled(resources.getString(R.string.packageName_auto))))
         findViewById<TextView>(R.id.pok_install_verison).text =
-            "已安裝版本:" + appInstalled(resources.getString(R.string.packageName_pok))
+            String.format(resources.getString(R.string.format_installverison,
+            appInstalled(resources.getString(R.string.packageName_pok))))
         findViewById<TextView>(R.id.pokAres_install_verison).text =
-            "已安裝版本:" + appInstalled(resources.getString(R.string.packageName_pokAres))+
-                    if(MANUFACTURER!="samsung"){"(不支援)"} else {""}
+            String.format(resources.getString(R.string.format_installverison,
+            appInstalled(resources.getString(R.string.packageName_pokAres))+
+                    if(MANUFACTURER!="samsung"){"(不支援)"} else {""}))
     }
 
     private fun magiskCheck(){ //magisk check
-        if (bServiceBound) {
+        if (this.bServiceBound) {
             var bIsMagisk = false
             try {
                 Log.d(TAG, "UID:" + Os.getuid())
@@ -129,14 +133,12 @@ class MainActivity : AppCompatActivity() {
                     findViewById<Button>(R.id.check_location).setBackgroundColor(ContextCompat.getColor(this,com.google.android.material.R.color.design_default_color_error))
                     findViewById<Button>(R.id.check_location).setTextColor(ContextCompat.getColor(this,com.google.android.material.R.color.design_default_color_on_error))
                     findViewById<TextView>(R.id.check_magisk).setTextColor(ContextCompat.getColor(this,com.google.android.material.R.color.design_default_color_error))
-                    findViewById<Button>(R.id.check_location).text = "驗證定位 無法偵測目前位置11"
                     findViewById<TextView>(R.id.check_magisk).text = "已發現(未隔離)"+ if(appInstalledOrNot(R.string.packageName_magisk.toString())){ "(找到安裝)" } else { "" }
                 }
                 else {
                     //Toast.makeText(applicationContext, "Magisk Not Found", Toast.LENGTH_LONG).show()
                     if(appInstalledOrNot(R.string.packageName_magisk.toString())){
                         findViewById<TextView>(R.id.check_magisk).text = "已發現(找到安裝)"
-                        findViewById<Button>(R.id.check_location).text = "驗證定位 無法偵測目前位置11"
                         findViewById<Button>(R.id.check_location).setBackgroundColor(ContextCompat.getColor(this,com.google.android.material.R.color.design_default_color_error))
                         findViewById<Button>(R.id.check_location).setTextColor(ContextCompat.getColor(this,com.google.android.material.R.color.design_default_color_on_error))
                     }
@@ -173,10 +175,10 @@ class MainActivity : AppCompatActivity() {
                 pogoVersion = jsonObject.get("pogoVersion").toString()
                 pogoVersionCodes = arrayOf(jsonObject.get("pogoVersionCodes").toString())
                 runOnUiThread {
-                    findViewById<TextView>(R.id.autocatch_new_verison).text = "最新版本　:"
-                    findViewById<TextView>(R.id.pok_new_verison).text = "支援版本　:"+pogoVersion
-                    findViewById<TextView>(R.id.pokAres_new_verison).text = "支援版本　:"+pogoVersion
-                    findViewById<TextView>(R.id.autocatch_new_verison).text = "最新版本　:"+appVersion_autovatch
+                    findViewById<TextView>(R.id.autocatch_new_verison).text = String.format(resources.getString(R.string.format_newerverison),null)
+                    findViewById<TextView>(R.id.pok_new_verison).text = String.format(resources.getString(R.string.format_newerverison),pogoVersion)
+                    findViewById<TextView>(R.id.pokAres_new_verison).text = String.format(resources.getString(R.string.format_newerverison),pogoVersion)
+                    findViewById<TextView>(R.id.autocatch_new_verison).text = String.format(resources.getString(R.string.format_newerverison),appVersion_autovatch)
                     if(pogoVersion.replace(".","") < appInstalled(R.string.packageName_magisk.toString())
                             .replace(".","") && appInstalled(R.string.packageName_magisk.toString())!="未安裝"){
                         findViewById<TextView>(R.id.pok_install_verison).setTextColor(ContextCompat.getColor(
@@ -185,7 +187,6 @@ class MainActivity : AppCompatActivity() {
                             findViewById<TextView>(R.id.pok_install_verison).text.toString()+"(過高)"
                     }
                 }
-
                 Log.i("auto_catch",json)
             } catch (e:Exception) {
                 Log.i("auto_catch", e.toString())
@@ -286,15 +287,29 @@ class MainActivity : AppCompatActivity() {
 
         setSupportActionBar(binding.toolbar)
 
-        binding.fab.setOnClickListener { view ->
+        binding.fab.setOnClickListener {
             gotoBrowser(resources.getString(R.string.facebook))/*
             Snackbar.make(view, "若有問題 請直接私訊lokey\n或蝦皮搜尋【lokey刷機工廠】", Snackbar.LENGTH_LONG)
                 .setAnchorView(R.id.fab)
                 .setAction("Action", null).show()*/
         }
 
+        binding.shoppe.setOnClickListener {
+            gotoBrowser(resources.getString(R.string.shopee))
+        }
 
         //******check button*********//
+        findViewById<Button>(R.id.LocationAccuracyActivity).setOnClickListener { view->
+            val activityIntent = Intent()
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                activityIntent.component =
+                    ComponentName("com.google.android.gms", "com.google.android.gms.location.settings.LocationAccuracyV31Activity")
+            }
+            else
+            activityIntent.component =
+                ComponentName("com.google.android.gms", "com.google.android.gms.location.settings.LocationAccuracyActivity")
+            startActivity(activityIntent)
+        }
         //******download*********//
         findViewById<Button>(R.id.download_gps).setOnClickListener { view->
             if(Build.SUPPORTED_ABIS[0]=="arm64-v8a")
@@ -331,9 +346,9 @@ class MainActivity : AppCompatActivity() {
         }
 
         findViewById<Button>(R.id.download_pokAres).setOnClickListener { view->
-            if(MANUFACTURER=="samsung")
-                downloadAPP(resources.getString(R.string.url_pokAres))
-            else if(findViewById<MaterialSwitch>(R.id.switch1).isChecked())
+            if(findViewById<MaterialSwitch>(R.id.switch1).isChecked())
+                downloadAPP(resources.getString(R.string.url_pokAres_store))
+            else if(MANUFACTURER=="samsung")
                 downloadAPP(resources.getString(R.string.url_pokAres))
             else
                 Snackbar.make(view, "你的設備不支援此軟體 若有需要可啟用測試版本", Snackbar.LENGTH_LONG)
@@ -342,7 +357,7 @@ class MainActivity : AppCompatActivity() {
 
         findViewById<MaterialSwitch>(R.id.switch1).setOnCheckedChangeListener{ _, isChecked->
             if (isChecked) {
-                Toast.makeText(applicationContext, "請注意 測試版本可能會有不穩狀況!", Toast.LENGTH_LONG).show();
+                Toast.makeText(applicationContext, "請注意 測試版本可能不穩!", Toast.LENGTH_LONG).show();
             } else {
                 Toast.makeText(applicationContext, "若無法使用可嘗試切換", Toast.LENGTH_SHORT).show();
             }
@@ -377,9 +392,9 @@ class MainActivity : AppCompatActivity() {
                 ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), MY_PERMISSIONS_REQUEST_LOCATION)
             }
             else{
-                getLocation(LocationManager.FUSED_PROVIDER)
+                getLocation()
             }
-            getLocation(LocationManager.FUSED_PROVIDER)
+            getLocation()
 
         }
 
@@ -465,35 +480,30 @@ class MainActivity : AppCompatActivity() {
         override fun onLocationChanged(location: Location) {
             //findViewById<Button>(R.id.check_location).text = "驗證定位"
             if((Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) && (findViewById<MaterialSwitch>(R.id.switch1).isChecked()))
-                if(location.isMock) findViewById<Button>(R.id.check_location).text = "驗證定位 無法偵測目前位置12(${Build.VERSION.SDK_INT})"
-                else findViewById<Button>(R.id.check_location).text = "驗證定位"
+                if(location.isMock) findViewById<Button>(R.id.check_location).text =
+                    resources.getString(R.string.check_button)+" 無法偵測目前位置12(${Build.VERSION.SDK_INT})"
+                else findViewById<Button>(R.id.check_location).text = resources.getString(R.string.check_button)
             else
-                if (location.isFromMockProvider) findViewById<Button>(R.id.check_location).text = "驗證定位 無法偵測目前位置12"
-                else findViewById<Button>(R.id.check_location).text = "驗證定位"
+                if (location.isFromMockProvider) findViewById<Button>(R.id.check_location).text =
+                    resources.getString(R.string.check_button)+" 無法偵測目前位置12"
+                else findViewById<Button>(R.id.check_location).text = resources.getString(R.string.check_button)
 
             findViewById<TextView>(R.id.location_system).text = "0.0,0.0 (${location.getProvider()})"
 
-            if (location != null) {
-                findViewById<TextView>(R.id.location_system).text =
-                    "${DecimalFormat("#.######").format(location.latitude)},${DecimalFormat("#.######").format(location.longitude)} (${location.getProvider()})"
-            }else {
-                findViewById<TextView>(R.id.location_system).text =
-                    "0.0,0.0 (${location.getProvider()})"
-            }
+            findViewById<TextView>(R.id.location_system).text =
+                "${DecimalFormat("#.######").format(location.latitude)},${DecimalFormat("#.######").format(location.longitude)} (${location.getProvider()})"
 
             val gc:Geocoder =Geocoder(this@MainActivity, Locale.getDefault())
-            var locationList=gc.getFromLocation(location.latitude,location.longitude,1);
+            val locationList=gc.getFromLocation(location.latitude,location.longitude,1);
             val address:Address= locationList!!.get(0)
-            val countryName=address.countryName
-            val locale=address.locale
             var i=0
-            var AddressLine : String = ""
+            var addressLine = ""
             while (address.getAddressLine(i)!=null){
-                AddressLine += address.getAddressLine(i)
+                addressLine += address.getAddressLine(i)
                 i++
             }
             findViewById<TextView>(R.id.location_system).text =
-                findViewById<TextView>(R.id.location_system).text.toString() +"\n"+AddressLine
+                findViewById<TextView>(R.id.location_system).text.toString() +"\n${addressLine}"
         }
 
         override fun onStatusChanged(provider: String, status: Int, extras: Bundle) {}
@@ -503,17 +513,37 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun getLocation(Mode: String) {
-        var locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
-        var bestProvider = locationManager.getBestProvider(Criteria(), true)
+    private fun getLocation() {
+        val locationManager = getSystemService(LOCATION_SERVICE) as LocationManager
+        val bestProvider = locationManager.getBestProvider(Criteria(), true).toString()
 
         if ((ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)) {
             ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), locationPermissionCode)
         }
-        findViewById<TextView>(R.id.location_system).text = "0.0,0.0"
-        locationManager.requestLocationUpdates(bestProvider.toString(), 500, 0f,locationListener)
-        //locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 100, 1f,locationListener)
-        //locationManager.requestLocationUpdates(LocationManager.FUSED_PROVIDER, 100, 1f,locationListener)
+        //findViewById<TextView>(R.id.location_system).text = "0.0,0.0"
+        /*if (locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 500, 0f,locationListener);
+        }else if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 500, 0f,locationListener);
+        }else{
+            locationManager.requestLocationUpdates(bestProvider.toString(), 500, 0f,locationListener)
+        }*/
+        locationManager.requestLocationUpdates(bestProvider, 500, 0f,locationListener)
+        //locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 500, 1f,locationListener)
+        //locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 500, 1f,locationListener)
+        //locationManager.requestLocationUpdates(LocationManager.FUSED_PROVIDER, 500, 1f,locationListener)
+    }
+
+    private fun showAboutDialog() {
+        val dialog = MaterialAlertDialogBuilder(this,
+            com.google.android.material.R.style.ThemeOverlay_Material3_MaterialAlertDialog_Centered)
+            .create()
+        val dialogView: View = View.inflate(this, R.layout.dialog_about, null)
+        dialog.setView(dialogView)
+        dialogView.findViewById<TextView>(R.id.design_about_title).text = resources.getString(R.string.app_name)
+        dialogView.findViewById<TextView>(R.id.design_about_version).text = "${BuildConfig.VERSION_NAME} (${BuildConfig.VERSION_CODE})"
+        dialogView.findViewById<TextView>(R.id.design_about_info).text = "2023 by lokey0905"
+        dialog.show()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -529,7 +559,7 @@ class MainActivity : AppCompatActivity() {
         val id = item.itemId
 
         if (id == R.id.action_about) {
-            Toast.makeText(this, "本APP由lokey0905製作", Toast.LENGTH_SHORT).show()
+            showAboutDialog()
             return true
         }
         else if (id == R.id.action_download) {
