@@ -21,18 +21,15 @@ import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.WindowCompat
-import androidx.navigation.ui.AppBarConfiguration
 import app.lokey0905.location.databinding.ActivityMainBinding
 import com.google.android.gms.ads.*
 import com.google.android.gms.ads.rewarded.RewardedAd
 import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback
-import com.google.android.material.button.MaterialButton
 import com.google.android.material.color.DynamicColors
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.materialswitch.MaterialSwitch
@@ -53,7 +50,6 @@ class DynamicColors: Application() {
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
     private val locationPermissionCode = 2
     private val MY_PERMISSIONS_REQUEST_LOCATION = 1
@@ -64,7 +60,6 @@ class MainActivity : AppCompatActivity() {
     //private var IIsolatedService = null
     private var serviceBinder: IIsolatedService? = null
 
-    private var url_temp: String = ""
     private var url_armautocatchDownload: String = ""
     private var url_arm64autocatchDownload: String = ""
     private var appVersion_autovatch: String = "(檢查中)"
@@ -204,14 +199,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun downloadAPPSetup(url: String){
-        Toast.makeText(applicationContext, "請手動點擊下載Download APK", Toast.LENGTH_LONG).show();
+        Toast.makeText(applicationContext, "請手動點擊下載Download APK", Toast.LENGTH_LONG).show()
         gotoBrowser(url)
-        Toast.makeText(applicationContext, "下載完成後在點安裝APK", Toast.LENGTH_LONG).show();
+        Toast.makeText(applicationContext, "下載完成後在點安裝APK", Toast.LENGTH_LONG).show()
     }
 
     private fun downloadAPP(url: String){
         if (mRewardedAd != null) {
-            Toast.makeText(applicationContext, "感謝您的耐心等候：）", Toast.LENGTH_LONG).show();
+            Toast.makeText(applicationContext, "感謝您的耐心等候：）", Toast.LENGTH_LONG).show()
             mRewardedAd?.fullScreenContentCallback =
                 object : FullScreenContentCallback() {
                     override fun onAdDismissedFullScreenContent() {
@@ -224,7 +219,7 @@ class MainActivity : AppCompatActivity() {
 
                     override fun onAdFailedToShowFullScreenContent(adError: AdError) {
                         Log.d(TAG, "Ad failed to show.")
-                        Toast.makeText(applicationContext, "播放失敗 請稍後在試", Toast.LENGTH_LONG).show();
+                        Toast.makeText(applicationContext, "播放失敗 請稍後在試", Toast.LENGTH_LONG).show()
                         // Don't forget to set the ad reference to null so you
                         // don't show the ad a second time.
                         mRewardedAd = null
@@ -249,7 +244,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun loadAd(){
         if (mRewardedAd == null) {
-            var adRequest = AdRequest.Builder().build()
+            val adRequest = AdRequest.Builder().build()
 
             RewardedAd.load(
                 this,
@@ -257,9 +252,9 @@ class MainActivity : AppCompatActivity() {
                 adRequest,
                 object : RewardedAdLoadCallback() {
                     override fun onAdFailedToLoad(adError: LoadAdError) {
-                        Log.d(TAG, adError?.message)
+                        Log.d(TAG, adError.message)
                         mRewardedAd = null
-                        Toast.makeText(applicationContext, "網路錯誤 請稍後在試", Toast.LENGTH_LONG).show();
+                        Toast.makeText(applicationContext, "網路錯誤 請稍後在試", Toast.LENGTH_LONG).show()
                     }
 
                     override fun onAdLoaded(rewardedAd: RewardedAd) {
@@ -299,7 +294,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         //******check button*********//
-        findViewById<Button>(R.id.LocationAccuracyActivity).setOnClickListener { view->
+        findViewById<Button>(R.id.LocationAccuracyActivity).setOnClickListener {
             val activityIntent = Intent()
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
                 activityIntent.component =
@@ -330,9 +325,9 @@ class MainActivity : AppCompatActivity() {
         findViewById<Button>(R.id.download_autocatch).setOnClickListener { view->
             if(Build.SUPPORTED_ABIS[0]=="arm64-v8a")
                 if(findViewById<MaterialSwitch>(R.id.switch1).isChecked())
-                    downloadAPP("https://assets.pgtools.net/test-auto-catch-$appVersion_autovatch.apk")
+                    downloadAPP("https://assets.pgtools.net/test-pgtools-$appVersion_autovatch.apk")
                 else
-                    downloadAPP("https://assets.pgtools.net/auto-catch-$appVersion_autovatch.apk")
+                    downloadAPP("https://assets.pgtools.net/pgtools-$appVersion_autovatch.apk")
             else
                 Snackbar.make(view, "你的設備不支援此軟體("+(Build.SUPPORTED_ABIS[0])+")", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show()
@@ -347,9 +342,9 @@ class MainActivity : AppCompatActivity() {
 
         findViewById<Button>(R.id.download_pokAres).setOnClickListener { view->
             if(findViewById<MaterialSwitch>(R.id.switch1).isChecked())
-                downloadAPP(resources.getString(R.string.url_pokAres_store))
-            else if(MANUFACTURER=="samsung")
                 downloadAPP(resources.getString(R.string.url_pokAres))
+            else if(MANUFACTURER=="samsung")
+                downloadAPP(resources.getString(R.string.url_pokAres_store))
             else
                 Snackbar.make(view, "你的設備不支援此軟體 若有需要可啟用測試版本", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show()
@@ -357,9 +352,9 @@ class MainActivity : AppCompatActivity() {
 
         findViewById<MaterialSwitch>(R.id.switch1).setOnCheckedChangeListener{ _, isChecked->
             if (isChecked) {
-                Toast.makeText(applicationContext, "請注意 測試版本可能不穩!", Toast.LENGTH_LONG).show();
+                Toast.makeText(applicationContext, "請注意 測試版本可能不穩!", Toast.LENGTH_LONG).show()
             } else {
-                Toast.makeText(applicationContext, "若無法使用可嘗試切換", Toast.LENGTH_SHORT).show();
+                Toast.makeText(applicationContext, "若無法使用可嘗試切換", Toast.LENGTH_SHORT).show()
             }
             getAutoVersion()
             devicesCheck()
