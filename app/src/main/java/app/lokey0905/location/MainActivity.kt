@@ -62,8 +62,8 @@ class MainActivity : AppCompatActivity() {
 
     private var url_armautocatchDownload: String = ""
     private var url_arm64autocatchDownload: String = ""
-    private var appVersion_autovatch: String = "(檢查中)"
-    private var pogoVersion: String = "(檢查中)"
+    private var appVersion_autovatch: String = "未安裝"
+    private var pogoVersion: String = "未安裝"
     private var pogoVersionCodes: Array<String> = arrayOf()
 
     private fun appInstalledOrNot(PackageName: String): Boolean {
@@ -103,16 +103,16 @@ class MainActivity : AppCompatActivity() {
             "暴力功與自動抓狀態:"+ "\n" + if(Build.SUPPORTED_ABIS[0] == "arm64-v8a"){"有"}else{"不"}+"支援"
 
         findViewById<TextView>(R.id.polygon_install_verison).text =
-            String.format(resources.getString(R.string.format_installverison,
+            String.format(resources.getString(R.string.format_installVersion,
                 appInstalled(resources.getString(R.string.packageName_polygon))))
         findViewById<TextView>(R.id.autocatch_install_verison).text =
-            String.format(resources.getString(R.string.format_installverison,
+            String.format(resources.getString(R.string.format_installVersion,
             appInstalled(resources.getString(R.string.packageName_auto))))
         findViewById<TextView>(R.id.pok_install_verison).text =
-            String.format(resources.getString(R.string.format_installverison,
+            String.format(resources.getString(R.string.format_installVersion,
             appInstalled(resources.getString(R.string.packageName_pok))))
         findViewById<TextView>(R.id.pokAres_install_verison).text =
-            String.format(resources.getString(R.string.format_installverison,
+            String.format(resources.getString(R.string.format_installVersion,
             appInstalled(resources.getString(R.string.packageName_pokAres))+
                     if(MANUFACTURER!="samsung"){"(不支援)"} else {""}))
     }
@@ -128,7 +128,7 @@ class MainActivity : AppCompatActivity() {
                     findViewById<Button>(R.id.check_location).setBackgroundColor(ContextCompat.getColor(this,com.google.android.material.R.color.design_default_color_error))
                     findViewById<Button>(R.id.check_location).setTextColor(ContextCompat.getColor(this,com.google.android.material.R.color.design_default_color_on_error))
                     findViewById<TextView>(R.id.check_magisk).setTextColor(ContextCompat.getColor(this,com.google.android.material.R.color.design_default_color_error))
-                    findViewById<TextView>(R.id.check_magisk).text = "已發現(未隔離)"+ if(appInstalledOrNot(R.string.packageName_magisk.toString())){ "(找到安裝)" } else { "" }
+                    findViewById<TextView>(R.id.check_magisk).text = "已發現(未隔離)"
                 }
                 else {
                     //Toast.makeText(applicationContext, "Magisk Not Found", Toast.LENGTH_LONG).show()
@@ -158,8 +158,6 @@ class MainActivity : AppCompatActivity() {
         var url = resources.getString(R.string.url_autoJson)
         if(findViewById<MaterialSwitch>(R.id.switch1).isChecked())
             url = resources.getString(R.string.url_autoTestJson)
-
-        devicesCheck()
         val gfgThread = Thread {
             try {
                 val json = Jsoup.connect(url).timeout(10000).ignoreContentType(true).execute().body();
@@ -170,16 +168,28 @@ class MainActivity : AppCompatActivity() {
                 pogoVersion = jsonObject.get("pogoVersion").toString()
                 pogoVersionCodes = arrayOf(jsonObject.get("pogoVersionCodes").toString())
                 runOnUiThread {
-                    findViewById<TextView>(R.id.autocatch_new_verison).text = String.format(resources.getString(R.string.format_newerverison),null)
-                    findViewById<TextView>(R.id.pok_new_verison).text = String.format(resources.getString(R.string.format_newerverison),pogoVersion)
-                    findViewById<TextView>(R.id.pokAres_new_verison).text = String.format(resources.getString(R.string.format_newerverison),pogoVersion)
-                    findViewById<TextView>(R.id.autocatch_new_verison).text = String.format(resources.getString(R.string.format_newerverison),appVersion_autovatch)
-                    if(pogoVersion.replace(".","") < appInstalled(R.string.packageName_magisk.toString())
-                            .replace(".","") && appInstalled(R.string.packageName_magisk.toString())!="未安裝"){
-                        findViewById<TextView>(R.id.pok_install_verison).setTextColor(ContextCompat.getColor(
-                            this,com.google.android.material.R.color.design_default_color_error))
-                        findViewById<TextView>(R.id.pok_install_verison).text =
-                            findViewById<TextView>(R.id.pok_install_verison).text.toString()+"(過高)"
+                    findViewById<TextView>(R.id.autocatch_new_verison).text = String.format(resources.getString(R.string.format_newerVersion),null)
+                    findViewById<TextView>(R.id.pok_new_verison).text = String.format(resources.getString(R.string.format_newerVersion),pogoVersion)
+                    findViewById<TextView>(R.id.pokAres_new_verison).text = String.format(resources.getString(R.string.format_newerVersion),pogoVersion)
+                    findViewById<TextView>(R.id.autocatch_new_verison).text = String.format(resources.getString(R.string.format_newerVersion),appVersion_autovatch)
+                    if(pogoVersion!="未安裝" && appInstalled(resources.getString(R.string.packageName_pok))!="未安裝"){
+                        if(pogoVersion.replace(".","").toInt() <
+                            appInstalled(resources.getString(R.string.packageName_pok)).replace(".","").toInt()){
+                            findViewById<TextView>(R.id.pok_install_verison).setTextColor(ContextCompat.getColor(
+                                this,com.google.android.material.R.color.design_default_color_error))
+                            findViewById<TextView>(R.id.pok_install_verison).text =
+                                findViewById<TextView>(R.id.pok_install_verison).text.toString()+"(過高)"
+                        }
+                        else if(pogoVersion.replace(".","").toInt() >
+                            appInstalled(resources.getString(R.string.packageName_pok)).replace(".","").toInt()) {
+                            findViewById<Button>(R.id.download_pok).text = resources.getString(R.string.update)
+                        }
+                    }
+                    if(appVersion_autovatch!="未安裝" && appInstalled(resources.getString(R.string.packageName_auto))!="未安裝"){
+                        if(appVersion_autovatch.replace(".","").toInt() >
+                            appInstalled(resources.getString(R.string.packageName_auto)).replace(".","").toInt()){
+                            findViewById<Button>(R.id.download_autocatch).text = resources.getString(R.string.update)
+                        }
                     }
                 }
                 Log.i("auto_catch",json)
@@ -188,6 +198,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
         gfgThread.start()
+        devicesCheck()
     }
 
     private fun gotoBrowser(url: String){
@@ -346,7 +357,7 @@ class MainActivity : AppCompatActivity() {
             else if(MANUFACTURER=="samsung")
                 downloadAPP(resources.getString(R.string.url_pokAres_store))
             else
-                Snackbar.make(view, "你的設備不支援此軟體 若有需要可啟用測試版本", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "你的設備不支援此軟體 若有需要可啟用測試版本在下載", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show()
         }
 
@@ -363,19 +374,19 @@ class MainActivity : AppCompatActivity() {
 
         //******remove*********//
         findViewById<Button>(R.id.remove_polygon).setOnClickListener {
-            appUnInstall(R.string.packageName_polygon.toString())
+            appUnInstall(resources.getString(R.string.packageName_polygon))
         }
 
         findViewById<Button>(R.id.remove_autocatch).setOnClickListener {
-            appUnInstall(R.string.packageName_auto.toString())
+            appUnInstall(resources.getString(R.string.packageName_auto))
         }
 
         findViewById<Button>(R.id.remove_pok).setOnClickListener {
-            appUnInstall(R.string.packageName_pok.toString())
+            appUnInstall(resources.getString(R.string.packageName_pok))
         }
 
         findViewById<Button>(R.id.remove_pokAres).setOnClickListener {
-            appUnInstall(R.string.packageName_pok.toString())
+            appUnInstall(resources.getString(R.string.packageName_pokAres))
         }
 
         //*********驗證定位**********//

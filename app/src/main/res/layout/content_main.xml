@@ -110,7 +110,7 @@
             <LinearLayout
                 android:id="@+id/linearLayout0"
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:gravity="center"
@@ -161,29 +161,23 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:gravity="end"
                     android:orientation="horizontal">
 
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="51dp"
-                        android:gravity="center|start"
-                        android:orientation="vertical">
+                    <Button
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="16dp"
+                        android:visibility="invisible"
+                        android:text="@string/remove" />
 
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="end"
-                        android:orientation="horizontal">
-
-                        <Button
-                            android:id="@+id/download_gps"
-                            android:layout_width="80dp"
-                            android:layout_height="wrap_content"
-                            android:text="@string/download" />
-
-                    </LinearLayout>
+                    <Button
+                        android:layout_weight="1"
+                        android:id="@+id/download_gps"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/download" />
 
                 </LinearLayout>
 
@@ -192,7 +186,7 @@
             <LinearLayout
                 android:id="@+id/linearLayout1"
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
@@ -243,7 +237,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="51dp"
                     android:orientation="horizontal">
 
                     <LinearLayout
@@ -265,32 +259,33 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="0"
-                            android:text="@string/format_installverison" />
-
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="end"
-                        android:orientation="horizontal">
-
-                        <Button
-                            android:id="@+id/remove_polygon"
-                            style="@style/Widget.Material3.Button.OutlinedButton"
-                            android:layout_width="80dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginEnd="8dp"
-                            android:text="@string/remove" />
-
-                        <Button
-                            android:id="@+id/download_polygon"
-                            android:layout_width="80dp"
-                            android:layout_height="wrap_content"
-                            android:text="@string/download" />
+                            android:text="@string/format_installVersion" />
 
                     </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="end"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:layout_weight="1"
+                        android:id="@+id/remove_polygon"
+                        style="@style/Widget.Material3.Button.OutlinedButton"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="16dp"
+                        android:text="@string/remove" />
+
+                    <Button
+                        android:layout_weight="1"
+                        android:id="@+id/download_polygon"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/download" />
 
                 </LinearLayout>
 
@@ -299,7 +294,7 @@
             <LinearLayout
                 android:id="@+id/linearLayout2"
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
@@ -365,37 +360,40 @@
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="16dp"
                             android:layout_weight="0"
-                            android:text="@string/format_newerverison" />
+                            android:text="@string/format_newerVersion" />
 
                         <TextView
                             android:id="@+id/autocatch_install_verison"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="0"
-                            android:text="@string/format_installverison" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="end"
-                        android:orientation="horizontal">
-
-                        <Button
-                            android:id="@+id/remove_autocatch"
-                            style="@style/Widget.Material3.Button.OutlinedButton"
-                            android:layout_width="80dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginEnd="8dp"
-                            android:text="@string/remove" />
-
-                        <Button
-                            android:id="@+id/download_autocatch"
-                            android:layout_width="80dp"
-                            android:layout_height="wrap_content"
-                            android:text="@string/download" />
+                            android:text="@string/format_installVersion" />
 
                     </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="end"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:layout_weight="1"
+                        android:id="@+id/remove_autocatch"
+                        style="@style/Widget.Material3.Button.OutlinedButton"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="16dp"
+                        android:text="@string/remove" />
+
+                    <Button
+                        android:layout_weight="1"
+                        android:id="@+id/download_autocatch"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/download" />
 
                 </LinearLayout>
 
@@ -404,7 +402,7 @@
             <LinearLayout
                 android:id="@+id/linearLayout5"
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
@@ -468,37 +466,39 @@
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="16dp"
                             android:layout_weight="0"
-                            android:text="@string/format_newerverison" />
+                            android:text="@string/format_newerVersion" />
 
                         <TextView
                             android:id="@+id/pok_install_verison"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="0"
-                            android:text="@string/format_installverison" />
+                            android:text="@string/format_installVersion" />
                     </LinearLayout>
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="end"
-                        android:orientation="horizontal">
+                </LinearLayout>
 
-                        <Button
-                            android:id="@+id/remove_pok"
-                            style="@style/Widget.Material3.Button.OutlinedButton"
-                            android:layout_width="80dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginEnd="8dp"
-                            android:text="@string/remove" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="end"
+                    android:orientation="horizontal">
 
-                        <Button
-                            android:id="@+id/download_pok"
-                            android:layout_width="80dp"
-                            android:layout_height="wrap_content"
-                            android:text="@string/download" />
+                    <Button
+                        android:layout_weight="1"
+                        android:id="@+id/remove_pok"
+                        style="@style/Widget.Material3.Button.OutlinedButton"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="16dp"
+                        android:text="@string/remove" />
 
-                    </LinearLayout>
+                    <Button
+                        android:layout_weight="1"
+                        android:id="@+id/download_pok"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/download" />
 
                 </LinearLayout>
 
@@ -507,7 +507,7 @@
             <LinearLayout
                 android:id="@+id/linearLayout4"
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
@@ -573,38 +573,40 @@
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="16dp"
                             android:layout_weight="0"
-                            android:text="@string/format_newerverison" />
+                            android:text="@string/format_newerVersion" />
 
                         <TextView
                             android:id="@+id/pokAres_install_verison"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="0"
-                            android:text="@string/format_installverison" />
+                            android:text="@string/format_installVersion" />
 
                     </LinearLayout>
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="end"
-                        android:orientation="horizontal">
+                </LinearLayout>
 
-                        <Button
-                            android:id="@+id/remove_pokAres"
-                            style="@style/Widget.Material3.Button.OutlinedButton"
-                            android:layout_width="80dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginEnd="8dp"
-                            android:text="@string/remove" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="end"
+                    android:orientation="horizontal">
 
-                        <Button
-                            android:id="@+id/download_pokAres"
-                            android:layout_width="80dp"
-                            android:layout_height="wrap_content"
-                            android:text="下載" />
+                    <Button
+                        android:layout_weight="1"
+                        android:id="@+id/remove_pokAres"
+                        style="@style/Widget.Material3.Button.OutlinedButton"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="16dp"
+                        android:text="@string/remove" />
 
-                    </LinearLayout>
+                    <Button
+                        android:layout_weight="1"
+                        android:id="@+id/download_pokAres"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/download" />
 
                 </LinearLayout>
 
