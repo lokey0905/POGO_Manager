@@ -4,11 +4,12 @@
     <string name="remove">移除</string>
     <string name="download">下載</string>
     <string name="update">更新</string>
+    <string name="unlockPremium">解鎖付費版本</string>
     <string name="checking">(檢查中)</string>
     <string name="check_button">檢測定位與設備</string>
 
-    <string name="format_newerVersion">最新支援版本:%1$s</string>
-    <string name="format_installVersion">目前安裝版本:%1$s</string>
+    <string name="format_newerVersion">支援版本:%1$s</string>
+    <string name="format_installVersion">安裝版本:%1$s</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
