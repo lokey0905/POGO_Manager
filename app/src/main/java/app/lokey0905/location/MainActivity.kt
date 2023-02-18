@@ -317,10 +317,6 @@ class MainActivity : AppCompatActivity() {
             startActivity(activityIntent)
         }
         //******unlockPremium*********//
-        findViewById<Button>(R.id.polygon_unlockPremium).setOnClickListener {
-            Toast.makeText(this, "本服務還在研究中~ 過幾天再試試", Toast.LENGTH_LONG).show()
-            //gotoBrowser(resources.getString(R.string.shopee_polygon))
-        }
         findViewById<Button>(R.id.autocatch_unlockPremium).setOnClickListener {
             Toast.makeText(this, "本服務為合作夥伴服務項目，高級版相關問題請洽詢合作夥伴處理", Toast.LENGTH_LONG).show()
             gotoBrowser(resources.getString(R.string.shopee_auto))
