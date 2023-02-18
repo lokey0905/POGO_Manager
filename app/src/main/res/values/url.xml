@@ -2,7 +2,6 @@
 <resources>
     <string name="facebook">https://www.facebook.com/android.flash.factory/</string>
     <string name="shopee">https://shopee.tw/luokey</string>
-    <string name="shopee_polygon">https://shp.ee/</string>
     <string name="shopee_auto">https://shp.ee/3fkcrua</string>
 
     <string name="url_app">https://www.mediafire.com/file/5mdun6u78jr96rw/app-debug.apk/file</string>

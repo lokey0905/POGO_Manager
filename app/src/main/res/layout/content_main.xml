@@ -253,7 +253,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="0"
-                            android:text="最新版本支援:0.9.1" />
+                            android:text="最新版本:0.9.1" />
 
                         <TextView
                             android:id="@+id/polygon_install_verison"
@@ -269,6 +269,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:visibility="invisible"
                         android:text="@string/unlockPremium" />
 
                 </LinearLayout>
