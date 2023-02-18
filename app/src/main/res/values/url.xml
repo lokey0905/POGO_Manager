@@ -2,11 +2,13 @@
 <resources>
     <string name="facebook">https://www.facebook.com/android.flash.factory/</string>
     <string name="shopee">https://shopee.tw/luokey</string>
+    <string name="shopee_polygon">https://shp.ee/</string>
+    <string name="shopee_auto">https://shp.ee/3fkcrua</string>
 
     <string name="url_app">https://www.mediafire.com/file/5mdun6u78jr96rw/app-debug.apk/file</string>
     <string name="url_gps64">https://www.mediafire.com/file/maf260fw7u805tm/gpsjoystick_lokey_new.apk/file</string>
     <string name="url_gps32">https://www.mediafire.com/file/07pe1z0shwr06hf/gpsjoystick_lokey_old.apk/file</string>
-    <string name="url_polygon">https://www.mediafire.com/file/l01stxwk10o2e8w/com.evermorelabs.polygonsharp-0.9.1pxl-b.5.apk/file</string>
+    <string name="url_polygon">https://www.mediafire.com/file/rwgf8tpzr94hqew/com.evermorelabs.polygonsharp-0.9.1.apk/file</string>
     <string name="url_autoJson">https://assets.pgtools.net/auto-versions.json</string>
     <string name="url_autoTestJson">https://assets.pgtools.net/test-auto-versions.json</string>
     <string name="url_pokAres">https://www.apkmirror.com/apk/niantic-inc/pokemon-go-samsung-galaxy-apps-version/</string>

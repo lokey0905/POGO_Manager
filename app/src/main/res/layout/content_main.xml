@@ -237,12 +237,14 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="51dp"
+                    android:layout_height="match_parent"
                     android:orientation="horizontal">
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="51dp"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="16dp"
                         android:gravity="center|start"
                         android:orientation="vertical">
 
@@ -250,9 +252,8 @@
                             android:id="@+id/polygon_new_verison"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginEnd="16dp"
                             android:layout_weight="0"
-                            android:text="最新版本　:0.9.1pxl b.5" />
+                            android:text="最新版本支援:0.9.1" />
 
                         <TextView
                             android:id="@+id/polygon_install_verison"
@@ -262,6 +263,13 @@
                             android:text="@string/format_installVersion" />
 
                     </LinearLayout>
+
+                    <Button
+                        android:id="@+id/polygon_unlockPremium"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/unlockPremium" />
 
                 </LinearLayout>
 
@@ -349,8 +357,10 @@
                     android:orientation="horizontal">
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="51dp"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="16dp"
                         android:gravity="center|start"
                         android:orientation="vertical">
 
@@ -358,7 +368,6 @@
                             android:id="@+id/autocatch_new_verison"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginEnd="16dp"
                             android:layout_weight="0"
                             android:text="@string/format_newerVersion" />
 
@@ -370,6 +379,13 @@
                             android:text="@string/format_installVersion" />
 
                     </LinearLayout>
+
+                    <Button
+                        android:id="@+id/autocatch_unlockPremium"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/unlockPremium" />
 
                 </LinearLayout>
 
