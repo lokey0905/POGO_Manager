@@ -1,6 +1,7 @@
 package app.lokey0905.location
 
 import android.Manifest
+import android.app.ActivityManager
 import android.app.Application
 import android.content.*
 import android.content.ContentValues.TAG
@@ -19,6 +20,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Button
+import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -38,6 +40,7 @@ import org.json.JSONObject
 import org.jsoup.Jsoup
 import java.text.DecimalFormat
 import java.util.*
+import kotlin.math.roundToInt
 
 class DynamicColors: Application() {
     override fun onCreate() {
@@ -92,28 +95,40 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun devicesCheck() {
-        findViewById<TextView>(R.id.android_imformation).text =
-            "系統代號:" + "\n" + "$DEVICE($MANUFACTURER)"
-        findViewById<TextView>(R.id.android_version).text =
-            "Android版本:" + "\n" + Build.VERSION.RELEASE + "(" + Build.VERSION.SDK_INT + ")"
-        findViewById<TextView>(R.id.android_abi).text =
-            "系統架構:" + "\n" + Build.SUPPORTED_ABIS[0] +
-                    if (Build.SUPPORTED_ABIS[0] == "arm64-v8a") {"(64"} else {"(32"} + "位元)"
-        findViewById<TextView>(R.id.android_supper).text =
-            "暴力功與自動抓狀態:"+ "\n" + if(Build.SUPPORTED_ABIS[0] == "arm64-v8a"){"有"}else{"不"}+"支援"
+        val actManager = getSystemService(ACTIVITY_SERVICE) as ActivityManager
+        val memInfo = ActivityManager.MemoryInfo()
+        actManager.getMemoryInfo(memInfo)
+        val totalMemory= (memInfo.totalMem.toDouble()/(1024*1024*1024)).roundToInt()
 
-        findViewById<TextView>(R.id.polygon_install_verison).text =
+        if(totalMemory < 5 && !(findViewById<MaterialSwitch>(R.id.switch1).isChecked()))
+            findViewById<LinearLayout>(R.id.linearLayout_pokAres).visibility = View.GONE
+        else
+            findViewById<LinearLayout>(R.id.linearLayout_pokAres).visibility = View.VISIBLE
+
+        findViewById<TextView>(R.id.android_imformation).text =
+            "系統代號:\n$DEVICE($MANUFACTURER)"
+        findViewById<TextView>(R.id.android_version).text =
+            "Android版本:\n${Build.VERSION.RELEASE}(${Build.VERSION.SDK_INT})"
+        findViewById<TextView>(R.id.android_abi).text =
+            "系統架構:\n" + Build.SUPPORTED_ABIS[0] +
+                    if (Build.SUPPORTED_ABIS[0] == "arm64-v8a") {"(64"} else {"(32"} + "位元)"
+        findViewById<TextView>(R.id.android_ramSize).text =
+            "記憶體大小:\n$totalMemory GB("+if(totalMemory >= 5){"有"}else{"不"}+"支援雙開)"
+        findViewById<TextView>(R.id.android_supper).text =
+            "暴力功與自動抓狀態:\n" + if(Build.SUPPORTED_ABIS[0] == "arm64-v8a"){"有"}else{"不"}+"支援"
+
+        findViewById<TextView>(R.id.polygon_install_version).text =
             String.format(resources.getString(R.string.format_installVersion,
                 appInstalled(resources.getString(R.string.packageName_polygon))))
-        findViewById<TextView>(R.id.autocatch_install_verison).text =
+        findViewById<TextView>(R.id.pgtools_install_version).text =
             String.format(resources.getString(R.string.format_installVersion,
             appInstalled(resources.getString(R.string.packageName_auto))))
-        findViewById<TextView>(R.id.pok_install_verison).text =
+        findViewById<TextView>(R.id.pok_install_version).text =
             String.format(resources.getString(R.string.format_installVersion,
             appInstalled(resources.getString(R.string.packageName_pok))))
-        findViewById<TextView>(R.id.pokAres_install_verison).text =
+        findViewById<TextView>(R.id.pokAres_install_version).text =
             String.format(resources.getString(R.string.format_installVersion,
-            appInstalled(resources.getString(R.string.packageName_pokAres))+
+                appInstalled(resources.getString(R.string.packageName_pokAres))+
                     if(MANUFACTURER!="samsung"){"(不支援)"} else {""}))
     }
 
@@ -168,17 +183,17 @@ class MainActivity : AppCompatActivity() {
                 pogoVersion = jsonObject.get("pogoVersion").toString()
                 pogoVersionCodes = arrayOf(jsonObject.get("pogoVersionCodes").toString())
                 runOnUiThread {
-                    findViewById<TextView>(R.id.autocatch_new_verison).text = String.format(resources.getString(R.string.format_newerVersion),null)
-                    findViewById<TextView>(R.id.pok_new_verison).text = String.format(resources.getString(R.string.format_newerVersion),pogoVersion)
-                    findViewById<TextView>(R.id.pokAres_new_verison).text = String.format(resources.getString(R.string.format_newerVersion),pogoVersion)
-                    findViewById<TextView>(R.id.autocatch_new_verison).text = String.format(resources.getString(R.string.format_newerVersion),appVersion_autovatch)
+                    findViewById<TextView>(R.id.pgtools_new_version).text = String.format(resources.getString(R.string.format_newerVersion),null)
+                    findViewById<TextView>(R.id.pok_new_version).text = String.format(resources.getString(R.string.format_newerVersion),pogoVersion)
+                    findViewById<TextView>(R.id.pokAres_new_version).text = String.format(resources.getString(R.string.format_newerVersion),pogoVersion)
+                    findViewById<TextView>(R.id.pgtools_new_version).text = String.format(resources.getString(R.string.format_newerVersion),appVersion_autovatch)
                     if(pogoVersion!="未安裝" && appInstalled(resources.getString(R.string.packageName_pok))!="未安裝"){
                         if(pogoVersion.replace(".","").toInt() <
                             appInstalled(resources.getString(R.string.packageName_pok)).replace(".","").toInt()){
-                            findViewById<TextView>(R.id.pok_install_verison).setTextColor(ContextCompat.getColor(
+                            findViewById<TextView>(R.id.pok_install_version).setTextColor(ContextCompat.getColor(
                                 this,com.google.android.material.R.color.design_default_color_error))
-                            findViewById<TextView>(R.id.pok_install_verison).text =
-                                findViewById<TextView>(R.id.pok_install_verison).text.toString()+"(過高)"
+                            findViewById<TextView>(R.id.pok_install_version).text =
+                                findViewById<TextView>(R.id.pok_install_version).text.toString()+"(過高)"
                         }
                         else if(pogoVersion.replace(".","").toInt() >
                             appInstalled(resources.getString(R.string.packageName_pok)).replace(".","").toInt()) {
@@ -188,7 +203,7 @@ class MainActivity : AppCompatActivity() {
                     if(appVersion_autovatch!="未安裝" && appInstalled(resources.getString(R.string.packageName_auto))!="未安裝"){
                         if(appVersion_autovatch.replace(".","").toInt() >
                             appInstalled(resources.getString(R.string.packageName_auto)).replace(".","").toInt()){
-                            findViewById<Button>(R.id.download_autocatch).text = resources.getString(R.string.update)
+                            findViewById<Button>(R.id.download_pgtools).text = resources.getString(R.string.update)
                         }
                     }
                 }
@@ -317,7 +332,7 @@ class MainActivity : AppCompatActivity() {
             startActivity(activityIntent)
         }
         //******unlockPremium*********//
-        findViewById<Button>(R.id.autocatch_unlockPremium).setOnClickListener {
+        findViewById<Button>(R.id.pgtools_unlockPremium).setOnClickListener {
             Toast.makeText(this, "本服務為合作夥伴服務項目，高級版相關問題請洽詢合作夥伴處理", Toast.LENGTH_LONG).show()
             gotoBrowser(resources.getString(R.string.shopee_auto))
         }
@@ -338,7 +353,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        findViewById<Button>(R.id.download_autocatch).setOnClickListener { view->
+        findViewById<Button>(R.id.download_pgtools).setOnClickListener { view->
             if(Build.SUPPORTED_ABIS[0]=="arm64-v8a")
                 if(findViewById<MaterialSwitch>(R.id.switch1).isChecked())
                     downloadAPP("https://assets.pgtools.net/test-pgtools-$appVersion_autovatch.apk")
@@ -382,7 +397,7 @@ class MainActivity : AppCompatActivity() {
             appUnInstall(resources.getString(R.string.packageName_polygon))
         }
 
-        findViewById<Button>(R.id.remove_autocatch).setOnClickListener {
+        findViewById<Button>(R.id.remove_pgtools).setOnClickListener {
             appUnInstall(resources.getString(R.string.packageName_auto))
         }
 
@@ -567,17 +582,30 @@ class MainActivity : AppCompatActivity() {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        val id = item.itemId
 
-        if (id == R.id.action_about) {
-            showAboutDialog()
-            return true
+        return when (item.itemId) {
+            R.id.action_about -> {
+                showAboutDialog()
+                true
+            }
+            R.id.action_download -> {
+                downloadAPPSetup(resources.getString(R.string.url_app))
+                true
+            }
+            R.id.action_contact -> {
+                gotoBrowser(resources.getString(R.string.facebook))
+                true
+            }
+            R.id.action_PokList -> {
+                downloadAPP(resources.getString(R.string.url_pokelist))
+                true
+            }
+            R.id.action_wecatch -> {
+                downloadAPP(resources.getString(R.string.url_wecatch))
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
         }
-        else if (id == R.id.action_download) {
-            downloadAPPSetup(resources.getString(R.string.url_app))
-            return true
-        }
-        return super.onOptionsItemSelected(item)
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {

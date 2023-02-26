@@ -26,7 +26,6 @@
                 android:layout_marginEnd="24dp"
                 android:text="測試版本與功能" />
 
-
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/card"
                 android:layout_width="match_parent"
@@ -76,6 +75,15 @@
                         android:text="系統架構:" />
 
                     <TextView
+                        android:id="@+id/android_ramSize"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginEnd="20dp"
+                        android:text="記憶體大小:" />
+
+                    <TextView
                         android:id="@+id/android_supper"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -108,7 +116,7 @@
                 app:layout_constraintStart_toStartOf="parent" />
 
             <LinearLayout
-                android:id="@+id/linearLayout0"
+                android:id="@+id/linearLayout_gps"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -184,7 +192,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/linearLayout1"
+                android:id="@+id/linearLayout_polygon"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -249,14 +257,14 @@
                         android:orientation="vertical">
 
                         <TextView
-                            android:id="@+id/polygon_new_verison"
+                            android:id="@+id/polygon_new_version"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="0"
                             android:text="最新版本:0.9.1" />
 
                         <TextView
-                            android:id="@+id/polygon_install_verison"
+                            android:id="@+id/polygon_install_version"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="0"
@@ -301,7 +309,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/linearLayout2"
+                android:id="@+id/linearLayout_pgtools"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -324,7 +332,7 @@
                         android:id="@+id/imageView2"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
-                        app:srcCompat="@drawable/autocatch_icon"
+                        app:srcCompat="@drawable/pgtools_icon"
                         tools:layout_editor_absoluteX="50dp"
                         tools:layout_editor_absoluteY="50dp" />
 
@@ -366,14 +374,14 @@
                         android:orientation="vertical">
 
                         <TextView
-                            android:id="@+id/autocatch_new_verison"
+                            android:id="@+id/pgtools_new_version"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="0"
                             android:text="@string/format_newerVersion" />
 
                         <TextView
-                            android:id="@+id/autocatch_install_verison"
+                            android:id="@+id/pgtools_install_version"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="0"
@@ -382,7 +390,7 @@
                     </LinearLayout>
 
                     <Button
-                        android:id="@+id/autocatch_unlockPremium"
+                        android:id="@+id/pgtools_unlockPremium"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -398,7 +406,7 @@
 
                     <Button
                         android:layout_weight="1"
-                        android:id="@+id/remove_autocatch"
+                        android:id="@+id/remove_pgtools"
                         style="@style/Widget.Material3.Button.OutlinedButton"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -407,7 +415,7 @@
 
                     <Button
                         android:layout_weight="1"
-                        android:id="@+id/download_autocatch"
+                        android:id="@+id/download_pgtools"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:text="@string/download" />
@@ -417,7 +425,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/linearLayout5"
+                android:id="@+id/linearLayout_pok"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -478,7 +486,7 @@
                         android:orientation="vertical">
 
                         <TextView
-                            android:id="@+id/pok_new_verison"
+                            android:id="@+id/pok_new_version"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="16dp"
@@ -486,7 +494,7 @@
                             android:text="@string/format_newerVersion" />
 
                         <TextView
-                            android:id="@+id/pok_install_verison"
+                            android:id="@+id/pok_install_version"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="0"
@@ -522,7 +530,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/linearLayout4"
+                android:id="@+id/linearLayout_pokAres"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -585,7 +593,7 @@
                         android:orientation="vertical">
 
                         <TextView
-                            android:id="@+id/pokAres_new_verison"
+                            android:id="@+id/pokAres_new_version"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="16dp"
@@ -593,7 +601,7 @@
                             android:text="@string/format_newerVersion" />
 
                         <TextView
-                            android:id="@+id/pokAres_install_verison"
+                            android:id="@+id/pokAres_install_version"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="0"
@@ -671,7 +679,7 @@
                         android:layout_marginStart="20dp"
                         android:layout_marginTop="20dp"
                         android:layout_marginEnd="20dp"
-                        android:text="系統取得位置:" />
+                        android:text="系統取得定位位置:" />
 
                     <TextView
                         android:id="@+id/location_system"
@@ -686,7 +694,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
                         android:layout_marginTop="20dp"
-                        android:text="是否安裝Magsik:" />
+                        android:text="是否安裝Magsik(偵測刷機):" />
 
                     <TextView
                         android:id="@+id/check_magisk"

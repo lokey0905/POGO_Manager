@@ -3,16 +3,32 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="app.lokey0905.location.MainActivity">
 
+    <item android:id="@+id/action_download"
+        android:title="@string/update"
+        app:showAsAction="ifRoom" />
+
     <item
-        android:id="@+id/action_download"
+        android:id="@+id/action_PokList"
         android:orderInCategory="100"
-        android:title="下載"
+        android:title="下載PokList"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_wecatch"
+        android:orderInCategory="100"
+        android:title="下載wecatch"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_contact"
+        android:orderInCategory="100"
+        android:title="@string/contact"
         app:showAsAction="never" />
 
     <item
         android:id="@+id/action_about"
         android:orderInCategory="100"
-        android:title="關於"
+        android:title="@string/about"
         app:showAsAction="never" />
 
 </menu>
