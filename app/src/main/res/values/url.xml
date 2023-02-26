@@ -2,7 +2,7 @@
 <resources>
     <string name="facebook">https://www.facebook.com/android.flash.factory/</string>
     <string name="shopee">https://shopee.tw/luokey</string>
-    <string name="shopee_auto">https://shp.ee/3fkcrua</string>
+    <string name="shopee_auto">https://shopee.tw/product/167452417/23624874950?d_id=542d5</string>
 
     <string name="url_app">https://www.mediafire.com/file/5mdun6u78jr96rw/app-debug.apk/file</string>
     <string name="url_gps64">https://www.mediafire.com/file/maf260fw7u805tm/gpsjoystick_lokey_new.apk/file</string>
@@ -12,7 +12,8 @@
     <string name="url_autoTestJson">https://assets.pgtools.net/test-auto-versions.json</string>
     <string name="url_pokAres">https://www.apkmirror.com/apk/niantic-inc/pokemon-go-samsung-galaxy-apps-version/</string>
     <string name="url_pokAres_store">https://apps.samsung.com/appquery/appDetail.as?appId=com.nianticlabs.pokemongo.ares</string>
-
+    <string name="url_pokelist">https://moonani.com/PokeList/PokeList.apk</string>
+    <string name="url_wecatch">https://github.com/daydreamer1222/WeCatch-Android/releases/download/v4.4.5/wecatch.apk</string>
 
     <string name="packageName_magisk">com.topjohnwu.magisk</string>
     <string name="packageName_polygon">com.evermorelabs.polygonsharp</string>
