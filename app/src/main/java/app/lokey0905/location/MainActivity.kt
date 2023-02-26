@@ -596,7 +596,7 @@ class MainActivity : AppCompatActivity() {
                 gotoBrowser(resources.getString(R.string.facebook))
                 true
             }
-            R.id.action_PokList -> {
+            R.id.action_PokeList -> {
                 downloadAPP(resources.getString(R.string.url_pokelist))
                 true
             }

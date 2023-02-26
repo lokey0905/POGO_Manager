@@ -8,9 +8,9 @@
         app:showAsAction="ifRoom" />
 
     <item
-        android:id="@+id/action_PokList"
+        android:id="@+id/action_PokeList"
         android:orderInCategory="100"
-        android:title="下載PokList"
+        android:title="下載PokeList"
         app:showAsAction="never" />
 
     <item
