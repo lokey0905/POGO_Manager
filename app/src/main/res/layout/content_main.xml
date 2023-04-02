@@ -24,7 +24,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
                 android:layout_marginEnd="24dp"
-                android:text="測試版本與功能" />
+                android:text="測試版本與功能(若無法使用可嘗試切換)" />
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/card"
@@ -104,7 +104,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                android:text="快速設定-定位精確度" />
+                android:text="@string/widget_description" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -174,11 +174,11 @@
 
                     <Button
                         android:layout_weight="1"
+                        android:id="@+id/download_gpx"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="16dp"
-                        android:visibility="invisible"
-                        android:text="@string/remove" />
+                        android:text="@string/download_gpx" />
 
                     <Button
                         android:layout_weight="1"
@@ -480,8 +480,10 @@
                     android:orientation="horizontal">
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="51dp"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="16dp"
                         android:gravity="center|start"
                         android:orientation="vertical">
 
@@ -501,6 +503,12 @@
                             android:text="@string/format_installVersion" />
                     </LinearLayout>
 
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:visibility="invisible"
+                    android:text="@string/download_gpx" />
                 </LinearLayout>
 
                 <LinearLayout

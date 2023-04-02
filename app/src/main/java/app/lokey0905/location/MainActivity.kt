@@ -1,6 +1,7 @@
 package app.lokey0905.location
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.app.ActivityManager
 import android.app.Application
 import android.content.*
@@ -14,6 +15,7 @@ import android.os.Build.MANUFACTURER
 import android.os.Bundle
 import android.os.IBinder
 import android.os.RemoteException
+import android.provider.Settings
 import android.system.Os
 import android.util.Log
 import android.view.Menu
@@ -32,6 +34,7 @@ import app.lokey0905.location.databinding.ActivityMainBinding
 import com.google.android.gms.ads.*
 import com.google.android.gms.ads.rewarded.RewardedAd
 import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback
+import com.google.android.gms.common.api.GoogleApiClient
 import com.google.android.material.color.DynamicColors
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.materialswitch.MaterialSwitch
@@ -41,6 +44,7 @@ import org.jsoup.Jsoup
 import java.text.DecimalFormat
 import java.util.*
 import kotlin.math.roundToInt
+
 
 class DynamicColors: Application() {
     override fun onCreate() {
@@ -153,7 +157,7 @@ class MainActivity : AppCompatActivity() {
                         findViewById<Button>(R.id.check_location).setTextColor(ContextCompat.getColor(this,com.google.android.material.R.color.design_default_color_on_error))
                     }
                     else{
-                        findViewById<TextView>(R.id.check_magisk).text = "未發現"
+                        findViewById<TextView>(R.id.check_magisk).text = "未發現刷機"
                         findViewById<TextView>(R.id.check_magisk).setTextColor(ContextCompat.getColor(this,R.color.green))
                         //findViewById<Button>(R.id.check_location).setBackgroundColor(ContextCompat.getColor(this,com.google.android.material.R.color.design_default_color_primary))
                     }
@@ -325,11 +329,20 @@ class MainActivity : AppCompatActivity() {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
                 activityIntent.component =
                     ComponentName("com.google.android.gms", "com.google.android.gms.location.settings.LocationAccuracyV31Activity")
+                startActivity(activityIntent)
             }
-            else
-            activityIntent.component =
-                ComponentName("com.google.android.gms", "com.google.android.gms.location.settings.LocationAccuracyActivity")
-            startActivity(activityIntent)
+            else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P){
+                activityIntent.component =
+                    ComponentName("com.google.android.gms", "com.google.android.gms.location.settings.LocationAccuracyActivity")
+                startActivity(activityIntent)
+            }
+            else {
+                startActivity(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS))
+            }
+        }
+        //******gpx*********//
+        findViewById<Button>(R.id.download_gpx).setOnClickListener {
+            downloadAPP(resources.getString(R.string.url_gpx))
         }
         //******unlockPremium*********//
         findViewById<Button>(R.id.pgtools_unlockPremium).setOnClickListener {
@@ -560,6 +573,7 @@ class MainActivity : AppCompatActivity() {
         //locationManager.requestLocationUpdates(LocationManager.FUSED_PROVIDER, 500, 1f,locationListener)
     }
 
+    @SuppressLint("SetTextI18n")
     private fun showAboutDialog() {
         val dialog = MaterialAlertDialogBuilder(this,
             com.google.android.material.R.style.ThemeOverlay_Material3_MaterialAlertDialog_Centered)
@@ -568,7 +582,7 @@ class MainActivity : AppCompatActivity() {
         dialog.setView(dialogView)
         dialogView.findViewById<TextView>(R.id.design_about_title).text = resources.getString(R.string.app_name)
         dialogView.findViewById<TextView>(R.id.design_about_version).text = "${BuildConfig.VERSION_NAME} (${BuildConfig.VERSION_CODE})"
-        dialogView.findViewById<TextView>(R.id.design_about_info).text = "2023 by lokey0905"
+        dialogView.findViewById<TextView>(R.id.design_about_info).text = "相關檔案皆為網路搜尋取得\n檔案不歸我擁有\n2023 by lokey0905"
         dialog.show()
     }
 

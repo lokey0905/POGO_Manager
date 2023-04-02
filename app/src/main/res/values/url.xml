@@ -2,7 +2,7 @@
 <resources>
     <string name="facebook">https://www.facebook.com/android.flash.factory/</string>
     <string name="shopee">https://shopee.tw/luokey</string>
-    <string name="shopee_auto">https://shopee.tw/product/167452417/23624874950?d_id=542d5</string>
+    <string name="shopee_auto">https://shopee.tw/product/167452417/21574723590?d_id=459a0</string>
 
     <string name="url_app">https://www.mediafire.com/file/5mdun6u78jr96rw/app-debug.apk/file</string>
     <string name="url_gps64">https://www.mediafire.com/file/maf260fw7u805tm/gpsjoystick_lokey_new.apk/file</string>
@@ -12,8 +12,10 @@
     <string name="url_autoTestJson">https://assets.pgtools.net/test-auto-versions.json</string>
     <string name="url_pokAres">https://www.apkmirror.com/apk/niantic-inc/pokemon-go-samsung-galaxy-apps-version/</string>
     <string name="url_pokAres_store">https://apps.samsung.com/appquery/appDetail.as?appId=com.nianticlabs.pokemongo.ares</string>
-    <string name="url_pokelist">https://moonani.com/PokeList/PokeList.apk</string>
+    <!--string name="url_pokelist">https://moonani.com/PokeList/PokeList.apk</string-->
+    <string name="url_pokelist">https://www.mediafire.com/file/zs6baik33minkq3/PokeList%25E4%25B8%25AD%25E6%2596%2587%25E5%258C%2596–1.3.13.apk/file</string>
     <string name="url_wecatch">https://github.com/daydreamer1222/WeCatch-Android/releases/download/v4.4.5/wecatch.apk</string>
+    <string name="url_gpx">https://www.mediafire.com/file/xa0ml3uwz0l8uon/%25E7%2586%25B1%25E9%2596%2580%25E8%258A%25B1%25E5%258D%2580%25E9%25BB%259E_gpx.zip/file</string>
 
     <string name="packageName_magisk">com.topjohnwu.magisk</string>
     <string name="packageName_polygon">com.evermorelabs.polygonsharp</string>
