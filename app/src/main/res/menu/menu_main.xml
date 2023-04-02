@@ -10,13 +10,13 @@
     <item
         android:id="@+id/action_PokeList"
         android:orderInCategory="100"
-        android:title="下載PokeList"
+        android:title="@string/download_poklist"
         app:showAsAction="never" />
 
     <item
         android:id="@+id/action_wecatch"
         android:orderInCategory="100"
-        android:title="下載wecatch"
+        android:title="@string/download_wecatch"
         app:showAsAction="never" />
 
     <item

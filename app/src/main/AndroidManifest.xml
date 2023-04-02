@@ -1,21 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="app.lokey0905.location">
+    package="app.lokey0905.location" >
 
     <queries>
         <package android:name="com.topjohnwu.magisk" />
-        <package android:name="com.evermorelabs.polygonsharp"/>
-        <package android:name="net.pgtools.auto"/>
-        <package android:name="com.nianticlabs.pokemongo"/>
-        <package android:name="com.nianticlabs.pokemongo.ares"/>
+        <package android:name="com.evermorelabs.polygonsharp" />
+        <package android:name="net.pgtools.auto" />
+        <package android:name="com.nianticlabs.pokemongo" />
+        <package android:name="com.nianticlabs.pokemongo.ares" />
     </queries>
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.REQUEST_DELETE_PACKAGES" />
-
 
     <application
         android:name=".DynamicColors"
@@ -27,26 +26,38 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.DynamicColors"
-        tools:targetApi="31">
+        tools:targetApi="31" >
+        <receiver
+            android:name=".LocationAccuracyActivity"
+            android:exported="false" >
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/locationaccuracyactivity_info" />
+        </receiver>
+
         <activity
             android:name=".MainActivity"
             android:exported="true"
-            android:label="@string/app_name">
+            android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <service
             android:name=".IsolatedService"
             android:exported="false"
             android:isolatedProcess="true"
             android:useAppZygote="true" />
-            <!-- Sample AdMob app ID: ca-app-pub-3940256099942544~3347511713 -->
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-3940256099942544~3347511713"/>
+            android:value="ca-app-pub-3940256099942544~3347511713" />
     </application>
 
 </manifest>
