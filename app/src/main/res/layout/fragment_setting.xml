@@ -419,7 +419,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="我的FaceBook紛絲專業"
+                    android:text="我的FaceBook紛絲專頁"
                     android:textSize="16sp" />
 
                 <TextView
@@ -458,7 +458,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="我的Dcard群組"
+                    android:text="我的Discord群組"
                     android:textSize="16sp" />
 
                 <TextView
