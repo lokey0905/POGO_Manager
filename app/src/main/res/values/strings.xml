@@ -1,9 +1,11 @@
 <resources>
     <string name="app_name">PoGo外掛管理器【lokey刷機】</string>
     <string name="action_settings">Settings</string>
+    <string name="home">首頁</string>
     <string name="about">關於</string>
     <string name="contact">聯絡我</string>
     <string name="remove">移除</string>
+    <string name="setting">設定</string>
     <string name="download">下載</string>
     <string name="download_poklist">下載poklist(中文版)</string>
     <string name="download_wecatch">下載wecatch</string>
@@ -12,12 +14,19 @@
     <string name="checking">檢查中</string>
     <string name="check_button">檢測定位與設備</string>
     <string name="unlockPremium">解鎖付費版本</string>
+    <string name="location">定位</string>
     <string name="locationaccuracyactivity1">定位精確度</string>
     <string name="locationaccuracyactivity2">開關捷徑</string>
     <string name="widget_description">定位精確度 開關捷徑</string>
 
     <string name="format_newerVersion">支援版本:%1$s</string>
     <string name="format_installVersion">安裝版本:%1$s</string>
+
+    <string name="androidDevices">裝置名稱:</string>
+    <string name="androidVersion">系統版本:</string>
+    <string name="androidAbi">系統架構:</string>
+    <string name="androidRamSize">記憶體大小:</string>
+    <string name="android_PgtoolsSupper">外掛支援狀態:</string>
 
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
@@ -27,4 +36,6 @@
     <string name="appwidget_text">EXAMPLE</string>
     <string name="add_widget">Add widget</string>
     <string name="app_widget_description">This is an app widget description</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -8,18 +8,6 @@
         app:showAsAction="ifRoom" />
 
     <item
-        android:id="@+id/action_PokeList"
-        android:orderInCategory="100"
-        android:title="@string/download_poklist"
-        app:showAsAction="never" />
-
-    <item
-        android:id="@+id/action_wecatch"
-        android:orderInCategory="100"
-        android:title="@string/download_wecatch"
-        app:showAsAction="never" />
-
-    <item
         android:id="@+id/action_contact"
         android:orderInCategory="100"
         android:title="@string/contact"
