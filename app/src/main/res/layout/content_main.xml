@@ -48,7 +48,7 @@
                     app:layout_constraintTop_toTopOf="parent">
 
                     <TextView
-                        android:id="@+id/android_imformation"
+                        android:id="@+id/aandroid_imformation"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
@@ -57,7 +57,7 @@
                         android:text="系統版本:" />
 
                     <TextView
-                        android:id="@+id/android_version"
+                        android:id="@+id/aandroid_version"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
@@ -66,7 +66,7 @@
                         android:text="Android 版本:" />
 
                     <TextView
-                        android:id="@+id/android_abi"
+                        android:id="@+id/aandroid_abi"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
@@ -75,7 +75,7 @@
                         android:text="系統架構:" />
 
                     <TextView
-                        android:id="@+id/android_ramSize"
+                        android:id="@+id/aandroid_ramSize"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
@@ -84,7 +84,7 @@
                         android:text="記憶體大小:" />
 
                     <TextView
-                        android:id="@+id/android_supper"
+                        android:id="@+id/aandroid_supper"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
@@ -354,7 +354,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="0"
-                            android:text="Pogo Auto Catch【自動抓】" />
+                            android:text="Pgtools【自動抓】" />
 
                     </LinearLayout>
 
@@ -507,8 +507,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:visibility="invisible"
-                    android:text="@string/download_gpx" />
+                    android:text="商店關閉更新" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -577,7 +576,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="16dp"
                             android:layout_weight="0"
-                            android:text="原版寶可夢三星版本客戶端" />
+                            android:text="原版寶可夢客戶端三星版本" />
 
                         <TextView
                             android:layout_width="wrap_content"
