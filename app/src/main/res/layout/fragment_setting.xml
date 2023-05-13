@@ -26,7 +26,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:textSize="16sp"
-                android:textColor="?attr/colorSecondary"
+                android:textColor="?attr/colorPrimary"
                 android:text="測試版" />
 
         </LinearLayout>
@@ -88,7 +88,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:textSize="16sp"
-                android:textColor="?attr/colorSecondary"
+                android:textColor="?attr/colorPrimary"
                 android:text="@string/location" />
 
         </LinearLayout>
@@ -196,7 +196,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:textSize="16sp"
-                android:textColor="?attr/colorSecondary"
+                android:textColor="?attr/colorPrimary"
                 android:text="Pokémon GO【寶可夢】相關設定" />
 
         </LinearLayout>
@@ -347,7 +347,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:textSize="16sp"
-                android:textColor="?attr/colorSecondary"
+                android:textColor="?attr/colorPrimary"
                 android:text="@string/about"/>
 
         </LinearLayout>
