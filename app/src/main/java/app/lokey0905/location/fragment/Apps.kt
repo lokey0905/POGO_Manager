@@ -65,7 +65,7 @@ class Apps : Fragment() {
                         if(MANUFACTURER =="samsung"||pokAresNoSupportDevices) {""} else {"(不支援)"}))
         view.findViewById<TextView>(R.id.gps_install_version).text =
             String.format(resources.getString(R.string.format_installVersion,
-                boolToInstalled(appInstalledOrNot(resources.getString(R.string.packageName_polygon)))))
+                boolToInstalled(appInstalledOrNot(resources.getString(R.string.packageName_gps)))))
         view.findViewById<TextView>(R.id.pokelist_install_version).text =
             String.format(resources.getString(R.string.format_installVersion,
                 appInstalledVersion(resources.getString(R.string.packageName_PokeList))))
@@ -89,11 +89,12 @@ class Apps : Fragment() {
                 pogoVersion = jsonObject.get("pogoVersion").toString()
                 pogoVersionCodes = arrayOf(jsonObject.get("pogoVersionCodes").toString())
                 activity?.runOnUiThread {
-                    view.findViewById<TextView>(R.id.pok_new_version).text = String.format(resources.getString(R.string.format_newerVersion),pogoVersion)+
-                            if(testPgtools){"(測試版)"} else {""}
-                    view.findViewById<TextView>(R.id.pokAres_new_version).text = String.format(resources.getString(R.string.format_newerVersion),pogoVersion)
-                    view.findViewById<TextView>(R.id.pgtools_new_version).text = String.format(resources.getString(R.string.format_newerVersion),appVersion_autovatch)+
-                            if(testPgtools){"(測試版)"} else {""}
+                    view.findViewById<TextView>(R.id.pok_new_version).text =
+                        String.format(resources.getString(R.string.format_newerVersion),pogoVersion) + if(testPgtools){"(測試版)"} else {""}
+                    view.findViewById<TextView>(R.id.pokAres_new_version).text =
+                        String.format(resources.getString(R.string.format_newerVersion),pogoVersion)
+                    view.findViewById<TextView>(R.id.pgtools_new_version).text =
+                        String.format(resources.getString(R.string.format_newerVersion),appVersion_autovatch) + if(testPgtools){"(測試版)"} else {""}
 
                     if(pogoVersion!="未安裝" && appInstalledVersion(resources.getString(R.string.packageName_pok))!="未安裝"){
                         if(pogoVersion.replace(".","").toInt() <
@@ -107,6 +108,9 @@ class Apps : Fragment() {
                         } else if(pogoVersion.replace(".","").toInt() >
                             appInstalledVersion(resources.getString(R.string.packageName_pok)).replace(".","").toInt()) {
                             view.findViewById<Button>(R.id.download_pok).text = resources.getString(R.string.update)
+                            view.findViewById<Button>(R.id.download_pok).isEnabled = true
+                        } else{
+                            view.findViewById<Button>(R.id.download_pok).text = resources.getString(R.string.download)
                             view.findViewById<Button>(R.id.download_pok).isEnabled = true
                         }
                     }
@@ -325,6 +329,7 @@ class Apps : Fragment() {
         fun setFragmentResultListener(){
             setFragmentResultListener("testPgtools") { _, bundle ->
                 testPgtools = bundle.getBoolean("bundleKey")
+                checkAppVersion(requireActivity())
                 getAutoVersion(requireActivity())
             }
 
