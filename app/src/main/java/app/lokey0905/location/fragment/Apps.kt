@@ -133,6 +133,11 @@ class Apps : Fragment() {
     ): View {
         val view: View = inflater.inflate(R.layout.fragment_apps, container, false)
 
+        val actManager = activity?.getSystemService(AppCompatActivity.ACTIVITY_SERVICE) as ActivityManager
+        val memInfo = ActivityManager.MemoryInfo()
+        actManager.getMemoryInfo(memInfo)
+        val totalMemory= (memInfo.totalMem.toDouble()/(1024*1024*1024)).roundToInt()
+
         fun gotoBrowser(url: String){
             context?.let {
                 CustomTabsIntent.Builder().build()
@@ -331,10 +336,6 @@ class Apps : Fragment() {
             setFragmentResultListener("pokAresNoSupportDevices") { _, bundle ->
                 pokAresNoSupportDevices = bundle.getBoolean("bundleKey")
                 checkAppVersion(requireActivity())
-                val actManager = activity?.getSystemService(AppCompatActivity.ACTIVITY_SERVICE) as ActivityManager
-                val memInfo = ActivityManager.MemoryInfo()
-                actManager.getMemoryInfo(memInfo)
-                val totalMemory= (memInfo.totalMem.toDouble()/(1024*1024*1024)).roundToInt()
                 if((totalMemory > 5 && pokAresNoSupportDevices))
                     view.findViewById<LinearLayout>(R.id.linearLayout_pokAres).visibility = View.VISIBLE
                 else if(MANUFACTURER!="samsung")
@@ -347,7 +348,7 @@ class Apps : Fragment() {
         }
 
 
-        if(MANUFACTURER=="samsung")
+        if(totalMemory > 5 && MANUFACTURER=="samsung")
             view.findViewById<LinearLayout>(R.id.linearLayout_pokAres).visibility = View.VISIBLE
         else
             view.findViewById<LinearLayout>(R.id.linearLayout_pokAres).visibility = View.GONE

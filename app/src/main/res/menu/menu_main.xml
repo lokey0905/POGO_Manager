@@ -4,7 +4,7 @@
     tools:context="app.lokey0905.location.MainActivity">
 
     <item android:id="@+id/action_download"
-        android:title="@string/update"
+        android:title="@string/download_manager"
         app:showAsAction="ifRoom" />
 
     <item
