@@ -30,12 +30,10 @@ class Home : Fragment() {
     private val MY_PERMISSIONS_REQUEST_LOCATION = 1
 
     var newerCheckMockLocationApi = false
+    var bIsMagisk = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setFragmentResultListener("newerCheckMockLocationApi") { _, bundle ->
-            newerCheckMockLocationApi = bundle.getBoolean("bundleKey")
-        }
     }
 
     @SuppressLint("SetTextI18n")
@@ -45,8 +43,7 @@ class Home : Fragment() {
         val view: View = inflater.inflate(R.layout.fragment_home, container, false)
 
         fun magiskCheck(){
-            MainActivity().magiskCheck()
-            if (MainActivity().bIsMagisk) {
+            if (bIsMagisk) {
                 //Toast.makeText(applicationContext, "Magisk Found", Toast.LENGTH_LONG).show()
                 view.findViewById<Button>(R.id.check_location)
                     .setBackgroundColor(ContextCompat.getColor(this.requireContext(),com.google.android.material.R.color.design_default_color_error))
@@ -155,7 +152,18 @@ class Home : Fragment() {
             //locationManager.requestLocationUpdates(LocationManager.FUSED_PROVIDER, 500, 1f,locationListener)
         }
 
+        fun setFragmentResultListener() {
+            setFragmentResultListener("newerCheckMockLocationApi") { _, bundle ->
+                newerCheckMockLocationApi = bundle.getBoolean("bundleKey")
+            }
+            setFragmentResultListener("bIsMagisk") { _, bundle ->
+                bIsMagisk = bundle.getBoolean("bundleKey")
+                magiskCheck()
+            }
+        }
+
         getDevice()
+        setFragmentResultListener()
 
         view.findViewById<Button>(R.id.check_location).setOnClickListener {
             magiskCheck()
