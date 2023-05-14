@@ -24,8 +24,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.os.bundleOf
 import androidx.core.view.WindowCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResult
 import app.lokey0905.location.databinding.ActivityMainBinding
 import app.lokey0905.location.fragment.Apps
 import app.lokey0905.location.fragment.Home
@@ -60,7 +62,6 @@ class MainActivity : AppCompatActivity() {
     var bServiceBound = false
     //private var IIsolatedService = null
     var serviceBinder: IIsolatedService? = null
-    var bIsMagisk = false
 
     private fun gotoBrowser(url: String){
         CustomTabsIntent.Builder().build()
@@ -144,7 +145,6 @@ class MainActivity : AppCompatActivity() {
         val mAdView = findViewById<AdView>(R.id.adView)
         val adRequest = AdRequest.Builder().build()
         mAdView.loadAd(adRequest)
-
     }
 
     override fun onStart() {
@@ -156,18 +156,20 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    fun magiskCheck() { //magisk check
+    fun magiskCheck() {
         if (this.bServiceBound) {
-            bIsMagisk = false
+            var bIsMagisk =false
             try {
                 Log.d(TAG, "UID:" + Os.getuid())
                 bIsMagisk = serviceBinder!!.isMagiskPresent
+                Log.d(TAG, "bIsMagisk: $bIsMagisk")
+                supportFragmentManager.setFragmentResult("bIsMagisk", bundleOf("bundleKey" to bIsMagisk))
             } catch (e: RemoteException) {
                 e.printStackTrace()
             }
         }
         else {
-            //Toast.makeText(applicationContext, "Isolated Service not bound", Toast.LENGTH_SHORT).show()
+            Log.d(TAG, "Isolated Service not bound")
         }
     }
 
@@ -176,6 +178,7 @@ class MainActivity : AppCompatActivity() {
             serviceBinder = IIsolatedService.Stub.asInterface(iBinder)
             bServiceBound = true
             Log.d(TAG, "Service bound")
+            magiskCheck()
         }
 
         override fun onServiceDisconnected(componentName: ComponentName) {
