@@ -352,7 +352,7 @@ class Apps : Fragment() {
         actManager.getMemoryInfo(memInfo)
         val totalMemory= (memInfo.totalMem.toDouble()/(1024*1024*1024)).roundToInt()
 
-        if(totalMemory > 5 && MANUFACTURER=="samsung")
+        if(totalMemory >= 5 && MANUFACTURER=="samsung")
             view.findViewById<LinearLayout>(R.id.linearLayout_pokAres).visibility = View.VISIBLE
         else
             view.findViewById<LinearLayout>(R.id.linearLayout_pokAres).visibility = View.GONE
