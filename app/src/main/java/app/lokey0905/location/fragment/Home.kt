@@ -158,7 +158,6 @@ class Home : Fragment() {
             }
             setFragmentResultListener("bIsMagisk") { _, bundle ->
                 bIsMagisk = bundle.getBoolean("bundleKey")
-                magiskCheck()
             }
         }
 
