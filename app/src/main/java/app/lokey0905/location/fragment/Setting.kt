@@ -133,20 +133,19 @@ class Setting : Fragment() {
         }
 
         view.findViewById<LinearLayout>(R.id.LocationAccuracyActivity).setOnClickListener {
-            val activityIntent = Intent()
+            var activityIntent = Intent()
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
                 activityIntent.component =
                     ComponentName("com.google.android.gms", "com.google.android.gms.location.settings.LocationAccuracyV31Activity")
-                startActivity(activityIntent)
             }
             else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P){
                 activityIntent.component =
                     ComponentName("com.google.android.gms", "com.google.android.gms.location.settings.LocationAccuracyActivity")
-                startActivity(activityIntent)
             }
             else {
-                startActivity(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS))
+                activityIntent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
             }
+            startActivity(activityIntent)
         }
 
 
