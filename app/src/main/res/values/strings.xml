@@ -16,6 +16,7 @@
     <string name="check_button">檢測定位與設備</string>
     <string name="unlockPremium">解鎖付費版本</string>
     <string name="location">定位</string>
+    <string name="nearbySharing">鄰近分享</string>
     <string name="locationaccuracyactivity1">定位精確度</string>
     <string name="locationaccuracyactivity2">開關捷徑</string>
     <string name="widget_description">定位精確度 開關捷徑</string>

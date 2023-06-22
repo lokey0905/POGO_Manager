@@ -145,9 +145,9 @@ class Apps : Fragment() {
         }
 
         fun downloadAPPSetup(url: String){
-            //Toast.makeText(context, "請手動點擊下載Download APK", Toast.LENGTH_LONG).show()
             gotoBrowser(url)
-            //Toast.makeText(context, "下載完成後在點安裝APK", Toast.LENGTH_LONG).show()
+            Toast.makeText(context, "請手動點擊下載Download APK按鈕", Toast.LENGTH_LONG).show()
+            Toast.makeText(context, "下載完成後在點安裝APK", Toast.LENGTH_LONG).show()
         }
 
         fun downloadAPPWithAd(url: String){

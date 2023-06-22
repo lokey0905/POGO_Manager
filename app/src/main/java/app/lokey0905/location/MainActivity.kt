@@ -13,6 +13,7 @@ import android.os.Build
 import android.os.Bundle
 import android.os.IBinder
 import android.os.RemoteException
+import android.provider.Settings
 import android.system.Os
 import android.util.Log
 import android.view.Menu
@@ -118,6 +119,23 @@ class MainActivity : AppCompatActivity() {
             gotoBrowser(resources.getString(R.string.shopee))
         }*/
 
+        //*************ad**********//
+        MobileAds.initialize(this)
+        val adView = AdView(this)
+        adView.setAdSize(AdSize.BANNER)
+        adView.adUnitId = resources.getString(R.string.adID_Banner)
+        val mAdView = findViewById<AdView>(R.id.adView)
+        val adRequest = AdRequest.Builder().build()
+        mAdView.loadAd(adRequest)
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        val intent = Intent(this, IsolatedService::class.java)
+        /*Binding to an isolated service */
+        applicationContext.bindService(intent,mIsolatedServiceConnection,BIND_AUTO_CREATE)
+
         findViewById<BottomNavigationView>(R.id.navigation).setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.nav_home -> {
@@ -136,23 +154,6 @@ class MainActivity : AppCompatActivity() {
             false }
 
         findViewById<BottomNavigationView>(R.id.navigation).selectedItemId= R.id.nav_home
-
-        //*************ad**********//
-        MobileAds.initialize(this)
-        val adView = AdView(this)
-        adView.setAdSize(AdSize.BANNER)
-        adView.adUnitId = resources.getString(R.string.adID_Banner)
-        val mAdView = findViewById<AdView>(R.id.adView)
-        val adRequest = AdRequest.Builder().build()
-        mAdView.loadAd(adRequest)
-    }
-
-    override fun onStart() {
-        super.onStart()
-
-        val intent = Intent(this, IsolatedService::class.java)
-        /*Binding to an isolated service */
-        applicationContext.bindService(intent,mIsolatedServiceConnection,BIND_AUTO_CREATE)
 
     }
 
@@ -214,6 +215,14 @@ class MainActivity : AppCompatActivity() {
         return when (item.itemId) {
             R.id.action_about -> {
                 showAboutDialog()
+                true
+            }
+            R.id.action_nearbySharing -> {
+                val activityIntent = Intent()
+                activityIntent.component =
+                    ComponentName("com.google.android.gms",
+                        "com.google.android.gms.nearby.sharing.SettingsCollapsingToolbarActivity")
+                startActivity(activityIntent)
                 true
             }
             R.id.action_download -> {
