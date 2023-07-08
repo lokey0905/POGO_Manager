@@ -26,6 +26,7 @@ import app.lokey0905.location.R
 import com.google.android.gms.ads.*
 import com.google.android.gms.ads.rewarded.RewardedAd
 import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import org.json.JSONObject
 import org.jsoup.Jsoup
@@ -83,6 +84,7 @@ class Apps : Fragment() {
             try {
                 val json = Jsoup.connect(url).timeout(10000).ignoreContentType(true).execute().body()
                 val jsonObject = JSONObject(json)
+                Log.i("auto_catch",json)
                 url_armautocatchDownload = jsonObject.get("pogoARM").toString()
                 url_arm64autocatchDownload = jsonObject.get("pogoARM64").toString()
                 appVersion_autovatch = jsonObject.get("appName").toString()
@@ -97,33 +99,49 @@ class Apps : Fragment() {
                         String.format(resources.getString(R.string.format_newerVersion),appVersion_autovatch) + if(testPgtools){"(測試版)"} else {""}
 
                     if(pogoVersion!="未安裝" && appInstalledVersion(resources.getString(R.string.packageName_pok))!="未安裝"){
-                        if(pogoVersion.replace(".","").toInt() <
-                            appInstalledVersion(resources.getString(R.string.packageName_pok)).replace(".","").toInt()){
-                            /*view.findViewById<TextView>(R.id.pok_install_version).setTextColor(
-                                ContextCompat.getColor(
-                                    this,com.google.android.material.R.color.design_default_color_error))*/
+                        if(pogoVersion.substringAfter("0.").toFloat() <
+                            appInstalledVersion(resources.getString(R.string.packageName_pok))
+                                .substringAfter("0.").toFloat()){
                             view.findViewById<TextView>(R.id.pok_install_version).text =
                                 "${ view.findViewById<TextView>(R.id.pok_install_version).text} (版本過高)"
                             view.findViewById<Button>(R.id.download_pok).isEnabled = false
-                        } else if(pogoVersion.replace(".","").toInt() >
-                            appInstalledVersion(resources.getString(R.string.packageName_pok)).replace(".","").toInt()) {
+
+                            val builder = MaterialAlertDialogBuilder(requireContext())
+                                builder.setTitle(resources.getString(R.string.dialogVersionTooHighTitle))
+                                builder.setMessage(resources.getString(R.string.dialogVersionTooHighMessage))
+                                builder.apply {
+                                    setPositiveButton(R.string.ok) { _, _ ->
+                                    }
+                                }
+                                builder.create().show()
+                        } else if(pogoVersion.substringAfter("0.").toFloat() >
+                            appInstalledVersion(resources.getString(R.string.packageName_pok)).substringAfter("0.").toFloat()) {
                             view.findViewById<Button>(R.id.download_pok).text = resources.getString(R.string.update)
                             view.findViewById<Button>(R.id.download_pok).isEnabled = true
+
+                            val builder = MaterialAlertDialogBuilder(requireContext())
+                            builder.setTitle(resources.getString(R.string.dialogUpdateTitle))
+                            builder.setMessage(resources.getString(R.string.dialogUpdatePokMessage))
+                            builder.apply {
+                                setPositiveButton(R.string.ok) { _, _ ->
+                                }
+                            }
+                            builder.create().show()
                         } else{
                             view.findViewById<Button>(R.id.download_pok).text = resources.getString(R.string.download)
                             view.findViewById<Button>(R.id.download_pok).isEnabled = true
                         }
                     }
                     if(appVersion_autovatch!="未安裝" && appInstalledVersion(resources.getString(R.string.packageName_pgtools))!="未安裝"){
-                        if(appVersion_autovatch.replace(".","").toInt() >
-                            appInstalledVersion(resources.getString(R.string.packageName_pgtools)).replace(".","").toInt()){
+                        if(appVersion_autovatch.substringAfter("0.").toFloat() >
+                            appInstalledVersion(resources.getString(R.string.packageName_pgtools)).substringAfter("0.").toFloat()){
                             view.findViewById<Button>(R.id.download_pgtools).text = resources.getString(R.string.update)
                         } else{
                             view.findViewById<Button>(R.id.download_pgtools).text = resources.getString(R.string.download)
                         }
                     }
                 }
-                Log.i("auto_catch",json)
+                //Log.i("auto_catch",json)
             } catch (e:Exception) {
                 Log.i("auto_catch", e.toString())
             }
@@ -145,12 +163,6 @@ class Apps : Fragment() {
         }
 
         fun downloadAPPSetup(url: String){
-            gotoBrowser(url)
-            Toast.makeText(context, "請手動點擊下載Download APK按鈕", Toast.LENGTH_LONG).show()
-            Toast.makeText(context, "下載完成後在點安裝APK", Toast.LENGTH_LONG).show()
-        }
-
-        fun downloadAPPWithAd(url: String){
             if (mRewardedAd != null) {
                 Toast.makeText(context, "感謝您的耐心等候：）", Toast.LENGTH_LONG).show()
                 mRewardedAd?.fullScreenContentCallback =
@@ -177,15 +189,40 @@ class Apps : Fragment() {
                         }
                     }
                 mRewardedAd?.show(requireActivity()) {
-                    downloadAPPSetup(url)
-                    mRewardedAd = null
                     loadAd()
+                    mRewardedAd = null
+
+                    gotoBrowser(url)
                 }
             }
             else {
                 Log.d(ContentValues.TAG, "The rewarded ad wasn't ready yet.")
-                Toast.makeText(context, "網路錯誤 請5秒後在試", Toast.LENGTH_LONG).show()
+                val builder = MaterialAlertDialogBuilder(requireContext())
+                    builder.setTitle("網路錯誤")
+                    builder.setMessage("您的操作過快 請5秒後在試")
+                    builder.apply {
+                        setPositiveButton(R.string.ok) { _, _ ->
+                        }
+                    }
+                    builder.create().show()
+                //Toast.makeText(context, "網路錯誤 請5秒後在試", Toast.LENGTH_LONG).show()
             }
+        }
+
+        fun downloadAPPWithAd(url: String){
+            val builder = MaterialAlertDialogBuilder(requireContext())
+            builder.setTitle(resources.getString(R.string.dialogDownloadTitle))
+            builder.setMessage(resources.getString(R.string.dialogDownloadMessage))
+            builder.apply {
+                setPositiveButton(R.string.ok) { _, _ ->
+                    downloadAPPSetup(url)
+                }
+                setNegativeButton(R.string.cancel) { _, _ ->
+                    Toast.makeText(context, getString(R.string.cancelOperation), Toast.LENGTH_SHORT)
+                        .show()
+                }
+            }
+            builder.create().show()
         }
 
         fun checkButton(){

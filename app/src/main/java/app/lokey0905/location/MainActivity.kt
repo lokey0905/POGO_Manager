@@ -13,7 +13,6 @@ import android.os.Build
 import android.os.Bundle
 import android.os.IBinder
 import android.os.RemoteException
-import android.provider.Settings
 import android.system.Os
 import android.util.Log
 import android.view.Menu
@@ -28,7 +27,6 @@ import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.core.view.WindowCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.setFragmentResult
 import app.lokey0905.location.databinding.ActivityMainBinding
 import app.lokey0905.location.fragment.Apps
 import app.lokey0905.location.fragment.Home
@@ -40,6 +38,14 @@ import com.google.android.gms.ads.MobileAds
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.color.DynamicColors
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import org.json.JSONObject
+import java.io.BufferedReader
+import java.io.InputStreamReader
+import java.net.HttpURLConnection
+import java.net.URL
 
 
 class DynamicColors: Application() {
@@ -60,9 +66,70 @@ class MainActivity : AppCompatActivity() {
     private var apps: Apps = Apps()
     private var setting: Setting = Setting()
 
+    var latestVersion = BuildConfig.VERSION_NAME.toFloat()
+
     var bServiceBound = false
     //private var IIsolatedService = null
     var serviceBinder: IIsolatedService? = null
+
+    private fun checkForUpdate(currentRelease: Float, githubUrl: String, onUpdateAvailable: (Boolean) -> Unit) {
+        GlobalScope.launch(Dispatchers.IO) {
+            var updateAvailable = false
+
+            try {
+                val url = URL(githubUrl)
+                val connection: HttpURLConnection = url.openConnection() as HttpURLConnection
+                connection.requestMethod = "GET"
+
+                val inputStream = connection.inputStream
+                val bufferedReader = BufferedReader(InputStreamReader(inputStream))
+                val response = StringBuilder()
+
+                var line: String? = bufferedReader.readLine()
+                while (line != null) {
+                    response.append(line)
+                    line = bufferedReader.readLine()
+                }
+
+                bufferedReader.close()
+
+                val jsonObject = JSONObject(response.toString())
+                latestVersion = jsonObject.getString("name").toFloat()
+                updateAvailable = currentRelease < latestVersion
+                //println("$currentRelease ++ $latestVersion")
+
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+
+            launch(Dispatchers.Main) {
+                onUpdateAvailable(updateAvailable)
+            }
+        }
+    }
+    private fun checkUpdate(){
+        val currentVersion = BuildConfig.VERSION_NAME.toFloat()
+        val githubUrl = resources.getString(R.string.githubApi)
+        checkForUpdate(currentVersion, githubUrl) { updateAvailable ->
+            if (updateAvailable) {
+                val builder = MaterialAlertDialogBuilder(this@MainActivity)
+                builder.setTitle(resources.getString(R.string.dialogUpdateTitle))
+                builder.setMessage(resources.getString(R.string.dialogUpdateManagerMessage))
+                builder.apply {
+                    setPositiveButton(R.string.ok) { _, _ ->
+                        downloadAPPSetup("https://github.com/lokey0905/POGO_Manager/releases/download/$latestVersion/app-debug.apk")
+                    }
+                    setNegativeButton(R.string.cancel) { _, _ ->
+                        Toast.makeText(context, getString(R.string.cancelOperation), Toast.LENGTH_SHORT)
+                            .show()
+                    }
+                }
+                builder.create().show()
+            } else {
+                Toast.makeText(this, "已經是最新版本", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
 
     private fun gotoBrowser(url: String){
         CustomTabsIntent.Builder().build()
@@ -72,10 +139,28 @@ class MainActivity : AppCompatActivity() {
         startActivity(intent)*/
     }
 
+    private fun shareText(text: String, title: String) {
+        val intent = Intent(Intent.ACTION_SEND)
+            intent.type = "text/plain"
+            intent.putExtra(Intent.EXTRA_TEXT, text)
+            intent.putExtra(Intent.EXTRA_TITLE, title)
+        startActivity(Intent.createChooser(intent, "分享"))
+    }
+
     private fun downloadAPPSetup(url: String){
-        Toast.makeText(applicationContext, "請手動點擊下載Download APK", Toast.LENGTH_LONG).show()
-        gotoBrowser(url)
-        Toast.makeText(applicationContext, "下載完成後在點安裝APK", Toast.LENGTH_LONG).show()
+        val builder = MaterialAlertDialogBuilder(this@MainActivity)
+            builder.setTitle(resources.getString(R.string.dialogDownloadTitle))
+            builder.setMessage(resources.getString(R.string.dialogDownloadMessage))
+            builder.apply {
+                setPositiveButton(R.string.ok) { _, _ ->
+                    gotoBrowser(url)
+                }
+                setNegativeButton(R.string.cancel) { _, _ ->
+                    Toast.makeText(context, getString(R.string.cancelOperation), Toast.LENGTH_SHORT)
+                        .show()
+                }
+            }
+            builder.create().show()
     }
 
     private fun replaceFragment(fragment: Fragment) {
@@ -108,13 +193,6 @@ class MainActivity : AppCompatActivity() {
 
         setSupportActionBar(binding.toolbar)
 /*
-        binding.fab.setOnClickListener {
-            gotoBrowser(resources.getString(R.string.facebook))/*
-            Snackbar.make(view, "若有問題 請直接私訊lokey\n或蝦皮搜尋【lokey刷機工廠】", Snackbar.LENGTH_LONG)
-                .setAnchorView(R.id.fab)
-                .setAction("Action", null).show()*/
-        }
-
         binding.shoppe.setOnClickListener {
             gotoBrowser(resources.getString(R.string.shopee))
         }*/
@@ -150,6 +228,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
+        checkUpdate()
 
         val intent = Intent(this, IsolatedService::class.java)
         /*Binding to an isolated service */
@@ -225,8 +304,8 @@ class MainActivity : AppCompatActivity() {
                 startActivity(activityIntent)
                 true
             }
-            R.id.action_download -> {
-                downloadAPPSetup(resources.getString(R.string.url_app))
+            R.id.action_share -> {
+                shareText(resources.getString(R.string.url_app), resources.getString(R.string.shareManager))
                 true
             }
             R.id.action_contact -> {

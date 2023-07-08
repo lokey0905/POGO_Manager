@@ -6,6 +6,7 @@
     <string name="discord">https://discord.gg/rjz2s42</string>
     <string name="youtube">https://www.youtube.com/@key94lo?sub_confirmation=1</string>
     <string name="github">https://github.com/lokey0905/POGO_Manager</string>
+    <string name="githubApi">https://api.github.com/repos/lokey0905/POGO_Manager/releases/latest</string>
 
     <string name="url_app">https://www.mediafire.com/file/5mdun6u78jr96rw/app-debug.apk/file</string>
     <string name="url_gps64">https://www.mediafire.com/file/maf260fw7u805tm/gpsjoystick_lokey_new.apk/file</string>

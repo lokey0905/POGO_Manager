@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">PoGo外掛管理器【lokey刷機】</string>
     <string name="action_settings">Settings</string>
+    <string name="ok">確定</string>
+    <string name="cancel">取消</string>
     <string name="home">首頁</string>
     <string name="about">關於</string>
     <string name="contact">聯絡我</string>
@@ -17,6 +19,8 @@
     <string name="unlockPremium">解鎖付費版本</string>
     <string name="location">定位</string>
     <string name="nearbySharing">鄰近分享</string>
+    <string name="shareManager">分享管理器</string>
+    <string name="cancelOperation">取消操作</string>
     <string name="locationaccuracyactivity1">定位精確度</string>
     <string name="locationaccuracyactivity2">開關捷徑</string>
     <string name="widget_description">定位精確度 開關捷徑</string>
@@ -24,11 +28,19 @@
     <string name="format_newerVersion">支援版本:%1$s</string>
     <string name="format_installVersion">安裝版本:%1$s</string>
 
+    <string name="dialogDownloadTitle">即將開始下載</string>
+    <string name="dialogDownloadMessage">請點擊網頁的【Download】或【Download APK】或是【下載】按鈕以下載APK</string>
+    <string name="dialogVersionTooHighTitle">偵測到版本過高</string>
+    <string name="dialogVersionTooHighMessage">請嘗試降版本或是使用測試版本的自動抓</string>
+    <string name="dialogUpdateTitle">偵測到有新版本</string>
+    <string name="dialogUpdateManagerMessage">建議更新至最新版本以取得最好的體驗，是否要更新管理器?</string>
+    <string name="dialogUpdatePokMessage">建議更新至最新版本以取得最好的體驗，請手動點擊【更新】按鈕</string>
+
     <string name="androidDevices">裝置名稱:</string>
     <string name="androidVersion">系統版本:</string>
     <string name="androidAbi">系統架構:</string>
     <string name="androidRamSize">記憶體大小:</string>
-    <string name="android_PgtoolsSupper">外掛支援狀態:</string>
+    <string name="androidPgtoolsSupper">外掛支援狀態:</string>
 
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
