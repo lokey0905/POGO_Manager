@@ -2,11 +2,16 @@
 這個是我的第一個Android APP，使用koltin編寫，先前都還沒用過java與koltin，編寫方式大部分都是Google與使用github copilot
 # 關於這個APP
 - [x] 整合寶可夢外掛的下載與管理功能，方便用戶直接從管理器更新或安裝。
-- [x] 加入檢測Magsik與檢測是否使用虛擬定位(測試版本使用新版檢測方式)
+- [x] 加入檢測Magsik與檢測是否使用虛擬定位(使用Anddroid 12新版api檢測方式)
 - [x] 使用material design 3 並使用動態顏色服務(Android 12以上支援)
+- [x] 中文化不適配中文的APP，包括polygon與pokelist
+- [x] 自動檢測管理器是否有更新
 
 下載
 - [最新版本apk](https://www.mediafire.com/file/5mdun6u78jr96rw/app-debug.apk/file)
+
+APK反編譯工具
+- [Apktool](https://github.com/iBotPeaches/Apktool)
 
 應用布局參考
 - [LSPosed Manager](https://github.com/LSPosed/LSPosed)
