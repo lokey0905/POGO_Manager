@@ -12,6 +12,7 @@
 
 APK反編譯工具
 - [Apktool](https://github.com/iBotPeaches/Apktool)
+- [jadx](https://github.com/skylot/jadx)
 
 應用布局參考
 - [LSPosed Manager](https://github.com/LSPosed/LSPosed)
