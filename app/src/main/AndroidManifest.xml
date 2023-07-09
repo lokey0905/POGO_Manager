@@ -8,7 +8,7 @@
         <package android:name="com.theyerbnosob.vxpdplqpbzmhzbw" />
         <package android:name="com.evermorelabs.polygonsharp" />
         <package android:name="net.pgtools.auto" />
-        <package android:name="net.pgtools.gps_wrapperdec" />
+        <package android:name="net.pgtools.gps_wrapper" />
         <package android:name="com.nianticlabs.pokemongo" />
         <package android:name="com.nianticlabs.pokemongo.ares" />
         <package android:name="com.antvn.pokelist" />
