@@ -20,12 +20,14 @@
     <!--string name="url_pokelist">https://moonani.com/PokeList/PokeList.apk</string-->
     <string name="url_pokelist">https://www.mediafire.com/file/zs6baik33minkq3/PokeList%25E4%25B8%25AD%25E6%2596%2587%25E5%258C%2596–1.3.13.apk/file</string>
     <string name="url_wecatch">https://github.com/daydreamer1222/WeCatch-Android/releases/download/v4.4.5/wecatch.apk</string>
+    <string name="url_wrapper">https://www.mediafire.com/file/hjkbrj513oi3v1l/gpsjoystick_wrapper%25E4%25B8%25AD%25E6%2596%2587%25E5%258C%25961.7.9.apk/file</string>
     <string name="url_gpx">https://www.mediafire.com/file/xa0ml3uwz0l8uon/%25E7%2586%25B1%25E9%2596%2580%25E8%258A%25B1%25E5%258D%2580%25E9%25BB%259E_gpx.zip/file</string>
 
     <string name="packageName_magisk">com.topjohnwu.magisk</string>
     <string name="packageName_gps">com.theyerbnosob.vxpdplqpbzmhzbw</string>
     <string name="packageName_polygon">com.evermorelabs.polygonsharp</string>
     <string name="packageName_pgtools">net.pgtools.auto</string>
+    <string name="packageName_wrapper">net.pgtools.gps_wrapperdec</string>
     <string name="packageName_pok">com.nianticlabs.pokemongo</string>
     <string name="packageName_pokAres">com.nianticlabs.pokemongo.ares</string>
     <string name="packageName_PokeList">com.antvn.pokelist</string>
