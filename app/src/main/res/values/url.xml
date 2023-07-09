@@ -27,7 +27,7 @@
     <string name="packageName_gps">com.theyerbnosob.vxpdplqpbzmhzbw</string>
     <string name="packageName_polygon">com.evermorelabs.polygonsharp</string>
     <string name="packageName_pgtools">net.pgtools.auto</string>
-    <string name="packageName_wrapper">net.pgtools.gps_wrapperdec</string>
+    <string name="packageName_wrapper">net.pgtools.gps_wrapper</string>
     <string name="packageName_pok">com.nianticlabs.pokemongo</string>
     <string name="packageName_pokAres">com.nianticlabs.pokemongo.ares</string>
     <string name="packageName_PokeList">com.antvn.pokelist</string>
