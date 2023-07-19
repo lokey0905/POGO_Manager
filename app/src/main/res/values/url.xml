@@ -7,13 +7,14 @@
     <string name="youtube">https://www.youtube.com/@key94lo?sub_confirmation=1</string>
     <string name="github">https://github.com/lokey0905/POGO_Manager</string>
     <string name="githubApi">https://api.github.com/repos/lokey0905/POGO_Manager/releases/latest</string>
+    <string name="github_manual">https://lokey0905.github.io/POGO_Manager/</string>
+
+    <string name="url_pgtoolsJson">https://assets.pgtools.net/auto-versions.json</string>
+    <string name="url_pgtoolsJsonTest">https://assets.pgtools.net/test-auto-versions.json</string>
 
     <string name="url_app">https://www.mediafire.com/file/5mdun6u78jr96rw/app-debug.apk/file</string>
     <string name="url_gps64">https://www.mediafire.com/file/maf260fw7u805tm/gpsjoystick_lokey_new.apk/file</string>
-    <string name="url_gps32">https://www.mediafire.com/file/07pe1z0shwr06hf/gpsjoystick_lokey_old.apk/file</string>
     <string name="url_polygon">https://www.mediafire.com/file/rwgf8tpzr94hqew/com.evermorelabs.polygonsharp-0.9.1.apk/file</string>
-    <string name="url_autoJson">https://assets.pgtools.net/auto-versions.json</string>
-    <string name="url_autoTestJson">https://assets.pgtools.net/test-auto-versions.json</string>
     <string name="url_pok_store">https://play.google.com/store/apps/details?id=com.nianticlabs.pokemongo</string>
     <string name="url_pokAres">https://www.apkmirror.com/apk/niantic-inc/pokemon-go-samsung-galaxy-apps-version/</string>
     <string name="url_pokAres_store">https://apps.samsung.com/appquery/appDetail.as?appId=com.nianticlabs.pokemongo.ares</string>
@@ -23,7 +24,6 @@
     <string name="url_wrapper">https://www.mediafire.com/file/hjkbrj513oi3v1l/gpsjoystick_wrapper%25E4%25B8%25AD%25E6%2596%2587%25E5%258C%25961.7.9.apk/file</string>
     <string name="url_gpx">https://www.mediafire.com/file/xa0ml3uwz0l8uon/%25E7%2586%25B1%25E9%2596%2580%25E8%258A%25B1%25E5%258D%2580%25E9%25BB%259E_gpx.zip/file</string>
 
-    <string name="packageName_magisk">com.topjohnwu.magisk</string>
     <string name="packageName_gps">com.theyerbnosob.vxpdplqpbzmhzbw</string>
     <string name="packageName_polygon">com.evermorelabs.polygonsharp</string>
     <string name="packageName_pgtools">net.pgtools.auto</string>

@@ -27,6 +27,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.core.view.WindowCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentContainerView
 import app.lokey0905.location.databinding.ActivityMainBinding
 import app.lokey0905.location.fragment.Apps
 import app.lokey0905.location.fragment.Home
@@ -38,6 +39,7 @@ import com.google.android.gms.ads.MobileAds
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.color.DynamicColors
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -66,15 +68,17 @@ class MainActivity : AppCompatActivity() {
     private var apps: Apps = Apps()
     private var setting: Setting = Setting()
 
-    var latestVersion = BuildConfig.VERSION_NAME.toFloat()
 
     var bServiceBound = false
     //private var IIsolatedService = null
     var serviceBinder: IIsolatedService? = null
 
-    private fun checkForUpdate(currentRelease: Float, githubUrl: String, onUpdateAvailable: (Boolean) -> Unit) {
+    @OptIn(DelicateCoroutinesApi::class)
+    private fun checkForUpdate(currentRelease: Float, githubUrl: String, onUpdateAvailable: (Boolean, Float, String) -> Unit) {
         GlobalScope.launch(Dispatchers.IO) {
             var updateAvailable = false
+            var latestVersion = 0.0f
+            var latestVersionInformation = ""
 
             try {
                 val url = URL(githubUrl)
@@ -96,37 +100,37 @@ class MainActivity : AppCompatActivity() {
                 val jsonObject = JSONObject(response.toString())
                 latestVersion = jsonObject.getString("name").toFloat()
                 updateAvailable = currentRelease < latestVersion
-                //println("$currentRelease ++ $latestVersion")
+                latestVersionInformation = jsonObject.getString("body")
 
             } catch (e: Exception) {
                 e.printStackTrace()
             }
 
             launch(Dispatchers.Main) {
-                onUpdateAvailable(updateAvailable)
+                onUpdateAvailable(updateAvailable,latestVersion,latestVersionInformation)
             }
         }
     }
     private fun checkUpdate(){
         val currentVersion = BuildConfig.VERSION_NAME.toFloat()
-        val githubUrl = resources.getString(R.string.githubApi)
-        checkForUpdate(currentVersion, githubUrl) { updateAvailable ->
+        val githubUrl = getString(R.string.githubApi)
+        checkForUpdate(currentVersion, githubUrl) { updateAvailable,latestVersion,latestVersionInformation ->
             if (updateAvailable) {
-                val builder = MaterialAlertDialogBuilder(this@MainActivity)
-                builder.setTitle(resources.getString(R.string.dialogUpdateTitle))
-                builder.setMessage(resources.getString(R.string.dialogUpdateManagerMessage))
-                builder.apply {
-                    setPositiveButton(R.string.ok) { _, _ ->
-                        downloadAPPSetup("https://github.com/lokey0905/POGO_Manager/releases/download/$latestVersion/app-debug.apk")
+                MaterialAlertDialogBuilder(this@MainActivity)
+                    .setTitle(getString(R.string.dialogUpdateAvailableTitle)+latestVersion)
+                    .setMessage("${getString(R.string.dialogUpdateAvailableManagerMessage)}\n\n${getString(R.string.updateContent)}\n$latestVersionInformation")
+                    .apply {
+                        setPositiveButton(R.string.ok) { _, _ ->
+                            downloadAPPSetup("https://github.com/lokey0905/POGO_Manager/releases/download/$latestVersion/app-debug.apk")
+                        }
+                        setNegativeButton(R.string.cancel) { _, _ ->
+                            Toast.makeText(context, getString(R.string.cancelOperation), Toast.LENGTH_SHORT)
+                                .show()
+                        }
                     }
-                    setNegativeButton(R.string.cancel) { _, _ ->
-                        Toast.makeText(context, getString(R.string.cancelOperation), Toast.LENGTH_SHORT)
-                            .show()
-                    }
-                }
-                builder.create().show()
+                    .show()
             } else {
-                Toast.makeText(this, "已經是最新版本", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.dialogIsLatestVersion)+currentVersion, Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -144,30 +148,27 @@ class MainActivity : AppCompatActivity() {
             intent.type = "text/plain"
             intent.putExtra(Intent.EXTRA_TEXT, text)
             intent.putExtra(Intent.EXTRA_TITLE, title)
-        startActivity(Intent.createChooser(intent, "分享"))
+        startActivity(Intent.createChooser(intent, getString(R.string.share)))
     }
 
     private fun downloadAPPSetup(url: String){
-        val builder = MaterialAlertDialogBuilder(this@MainActivity)
-            builder.setTitle(resources.getString(R.string.dialogDownloadTitle))
-            builder.setMessage(resources.getString(R.string.dialogDownloadMessage))
-            builder.apply {
+        MaterialAlertDialogBuilder(this@MainActivity)
+            .setTitle(getString(R.string.dialogDownloadTitle))
+            .setMessage(getString(R.string.dialogDownloadMessage))
+            .apply {
                 setPositiveButton(R.string.ok) { _, _ ->
                     gotoBrowser(url)
                 }
                 setNegativeButton(R.string.cancel) { _, _ ->
-                    Toast.makeText(context, getString(R.string.cancelOperation), Toast.LENGTH_SHORT)
-                        .show()
+                    Toast.makeText(context, getString(R.string.cancelOperation), Toast.LENGTH_SHORT).show()
                 }
             }
-            builder.create().show()
+            .show()
     }
 
     private fun replaceFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction().apply {
-            if (fragment.isAdded) {
-                show(fragment)
-            } else {
+            if (!fragment.isAdded) {
                 add(R.id.fragment_container_view, fragment)
             }
             supportFragmentManager.fragments.forEach {
@@ -175,6 +176,7 @@ class MainActivity : AppCompatActivity() {
                     hide(it)
                 }
             }
+            show(fragment)
         }.commit()
     }
 
@@ -196,6 +198,9 @@ class MainActivity : AppCompatActivity() {
         binding.shoppe.setOnClickListener {
             gotoBrowser(resources.getString(R.string.shopee))
         }*/
+
+        val fragmentContainerView = findViewById<FragmentContainerView>(R.id.fragment_container_view)
+        fragmentContainerView.removeAllViewsInLayout()
 
         findViewById<BottomNavigationView>(R.id.navigation).setOnItemSelectedListener { item ->
             when (item.itemId) {
@@ -238,7 +243,7 @@ class MainActivity : AppCompatActivity() {
 
     fun magiskCheck() {
         if (this.bServiceBound) {
-            var bIsMagisk =false
+            val bIsMagisk: Boolean
             try {
                 Log.d(TAG, "UID:" + Os.getuid())
                 bIsMagisk = serviceBinder!!.isMagiskPresent
@@ -276,7 +281,7 @@ class MainActivity : AppCompatActivity() {
         dialog.setView(dialogView)
         dialogView.findViewById<TextView>(R.id.design_about_title).text = resources.getString(R.string.app_name)
         dialogView.findViewById<TextView>(R.id.design_about_version).text = "${BuildConfig.VERSION_NAME} (${BuildConfig.VERSION_CODE})"
-        dialogView.findViewById<TextView>(R.id.design_about_info).text = "相關檔案皆為網路搜尋取得\n檔案不歸我擁有\n2023 by lokey0905"
+        dialogView.findViewById<TextView>(R.id.design_about_info).text = resources.getString(R.string.dialogAbout)
         dialog.show()
     }
 
@@ -292,8 +297,12 @@ class MainActivity : AppCompatActivity() {
         // as you specify a parent activity in AndroidManifest.xml.
 
         return when (item.itemId) {
-            R.id.action_about -> {
-                showAboutDialog()
+            R.id.action_share -> {
+                shareText(getString(R.string.url_app), resources.getString(R.string.shareManager))
+                true
+            }
+            R.id.manual -> {
+                gotoBrowser(getString(R.string.github_manual))
                 true
             }
             R.id.action_nearbySharing -> {
@@ -304,12 +313,12 @@ class MainActivity : AppCompatActivity() {
                 startActivity(activityIntent)
                 true
             }
-            R.id.action_share -> {
-                shareText(resources.getString(R.string.url_app), resources.getString(R.string.shareManager))
+            R.id.action_contact -> {
+                gotoBrowser(getString(R.string.facebook))
                 true
             }
-            R.id.action_contact -> {
-                gotoBrowser(resources.getString(R.string.facebook))
+            R.id.action_about -> {
+                showAboutDialog()
                 true
             }
             else -> super.onOptionsItemSelected(item)

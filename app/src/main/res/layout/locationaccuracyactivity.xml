@@ -28,7 +28,7 @@
             android:autoSizeMinTextSize="8sp"
             android:autoSizeMaxTextSize="100sp"
             android:autoSizeStepGranularity="1sp"
-            android:text="@string/locationaccuracyactivity1" />
+            android:text="@string/locationAccuracyActivity1" />
 
         <TextView
             android:layout_width="match_parent"
@@ -39,7 +39,7 @@
             android:autoSizeMinTextSize="8sp"
             android:autoSizeMaxTextSize="100sp"
             android:autoSizeStepGranularity="1sp"
-            android:text="@string/locationaccuracyactivity2" />
+            android:text="@string/locationAccuracyActivity2" />
     </LinearLayout>
 
 </LinearLayout>

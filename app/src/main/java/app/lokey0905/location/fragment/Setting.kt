@@ -127,9 +127,19 @@ class Setting : Fragment() {
         }
 
         view.findViewById<LinearLayout>(R.id.LinearLayout_disabledPgAutoUpdate).setOnClickListener {
-            Toast.makeText(context, "點擊右上角三個點取消勾選自動更新", Toast.LENGTH_LONG).show()
-            gotoBrowser(resources.getString(R.string.url_pok_store))
-            Toast.makeText(context, "點擊右上角三個點取消勾選自動更新", Toast.LENGTH_LONG).show()
+            MaterialAlertDialogBuilder(requireContext())
+                .setTitle("取消寶可夢自動更新")
+                .setMessage("點擊右上角三個點取消勾選自動更新")
+                .apply {
+                    setNeutralButton(resources.getString(R.string.ok)) { _, _ ->
+                        gotoBrowser(resources.getString(R.string.url_pok_store))
+                        Toast.makeText(context, "點擊右上角三個點取消勾選自動更新", Toast.LENGTH_LONG).show()
+                    }
+                    setPositiveButton(resources.getString(R.string.cancel)) { _, _ ->
+                        Toast.makeText(context, getString(R.string.cancelOperation), Toast.LENGTH_SHORT).show()
+                    }
+                }
+                .show()
         }
 
         view.findViewById<LinearLayout>(R.id.LocationAccuracyActivity).setOnClickListener {
@@ -172,7 +182,7 @@ class Setting : Fragment() {
         dialog.setView(dialogView)
         dialogView.findViewById<TextView>(R.id.design_about_title).text = resources.getString(R.string.app_name)
         dialogView.findViewById<TextView>(R.id.design_about_version).text = "${BuildConfig.VERSION_NAME} (${BuildConfig.VERSION_CODE})"
-        dialogView.findViewById<TextView>(R.id.design_about_info).text = "相關檔案皆為網路搜尋取得\n檔案不歸我擁有\n2023 by lokey0905"
+        dialogView.findViewById<TextView>(R.id.design_about_info).text = resources.getString(R.string.dialogAbout)
         dialog.show()
     }
 }
