@@ -28,8 +28,15 @@ import com.google.android.gms.ads.rewarded.RewardedAd
 import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import org.json.JSONObject
 import org.jsoup.Jsoup
+import java.io.BufferedReader
+import java.io.InputStreamReader
+import java.net.HttpURLConnection
+import java.net.URL
 import kotlin.math.roundToInt
 
 class Apps : Fragment() {
@@ -39,7 +46,6 @@ class Apps : Fragment() {
     private var pgtoolsUrlARM64: String = ""
     private var pgtoolsVersion: String = "未安裝"
     private var pogoVersion: String = "未安裝"
-    private var pogoVersionCodes: Array<String> = arrayOf()
 
     private var testPgtools = false
     var pokAresNoSupportDevices = false
@@ -50,105 +56,12 @@ class Apps : Fragment() {
         super.onCreate(savedInstanceState)
     }
 
-    private fun checkAppVersion(view: FragmentActivity){
-        view.findViewById<TextView>(R.id.polygon_install_version).text =
-            String.format(resources.getString(R.string.format_installVersion,
-                appInstalledVersion(resources.getString(R.string.packageName_polygon))))
-        view.findViewById<TextView>(R.id.pgtools_install_version).text =
-            String.format(resources.getString(R.string.format_installVersion,
-                appInstalledVersion(resources.getString(R.string.packageName_pgtools))))
-        view.findViewById<TextView>(R.id.pok_install_version).text =
-            String.format(resources.getString(R.string.format_installVersion,
-                appInstalledVersion(resources.getString(R.string.packageName_pok))))
-        view.findViewById<TextView>(R.id.pokAres_install_version).text =
-            String.format(resources.getString(R.string.format_installVersion,
-                appInstalledVersion(resources.getString(R.string.packageName_pokAres))+
-                        if(MANUFACTURER =="samsung"||pokAresNoSupportDevices) {""} else {"(不支援)"}))
-        view.findViewById<TextView>(R.id.gps_install_version).text =
-            String.format(resources.getString(R.string.format_installVersion,
-                boolToInstalled(appInstalledOrNot(resources.getString(R.string.packageName_gps)))))
-        view.findViewById<TextView>(R.id.pokelist_install_version).text =
-            String.format(resources.getString(R.string.format_installVersion,
-                appInstalledVersion(resources.getString(R.string.packageName_PokeList))))
-        view.findViewById<TextView>(R.id.wecatch_install_version).text =
-            String.format(resources.getString(R.string.format_installVersion,
-                appInstalledVersion(resources.getString(R.string.packageName_WeCatch))))
-        view.findViewById<TextView>(R.id.wrapper_install_version).text =
-            String.format(resources.getString(R.string.format_installVersion,
-                appInstalledVersion(resources.getString(R.string.packageName_wrapper))))
-    }
-
-    @SuppressLint("SetTextI18n")
-    fun getAutoVersion(view: FragmentActivity){
-        var url = resources.getString(R.string.url_autoJson)
-        if(testPgtools)
-            url = resources.getString(R.string.url_autoTestJson)
-        val gfgThread = Thread {
-            try {
-                val json = Jsoup.connect(url).timeout(10000).ignoreContentType(true).execute().body()
-                val jsonObject = JSONObject(json)
-                Log.i("auto_catch",json)
-                pgtoolsUrlARM = jsonObject.get("pogoARM").toString()
-                pgtoolsUrlARM64 = jsonObject.get("pogoARM64").toString()
-                pgtoolsVersion = jsonObject.get("appName").toString()
-                pogoVersion = jsonObject.get("pogoVersion").toString()
-                pogoVersionCodes = arrayOf(jsonObject.get("pogoVersionCodes").toString())
-                activity?.runOnUiThread {
-                    view.findViewById<TextView>(R.id.pok_new_version).text =
-                        String.format(resources.getString(R.string.format_newerVersion),pogoVersion) + if(testPgtools){"(測試版)"} else {""}
-                    view.findViewById<TextView>(R.id.pokAres_new_version).text =
-                        String.format(resources.getString(R.string.format_newerVersion),pogoVersion)
-                    view.findViewById<TextView>(R.id.pgtools_new_version).text =
-                        String.format(resources.getString(R.string.format_newerVersion),pgtoolsVersion) + if(testPgtools){"(測試版)"} else {""}
-
-                    if(pogoVersion!="未安裝" && appInstalledVersion(resources.getString(R.string.packageName_pok))!="未安裝"){
-                        if(pogoVersion.substringAfter("0.").toFloat() <
-                            appInstalledVersion(resources.getString(R.string.packageName_pok)).substringAfter("0.").toFloat()){
-                            view.findViewById<TextView>(R.id.pok_install_version).text =
-                                "${ view.findViewById<TextView>(R.id.pok_install_version).text} (版本過高)"
-                            view.findViewById<Button>(R.id.download_pok).isEnabled = false
-
-                            val builder = MaterialAlertDialogBuilder(requireContext())
-                            builder.setTitle(resources.getString(R.string.dialogVersionTooHighTitle))
-                            builder.setMessage(resources.getString(R.string.dialogVersionTooHighMessage))
-                            builder.apply {
-                                setPositiveButton(R.string.ok) { _, _ ->
-                                }
-                            }
-                            builder.create().show()
-                        } else if(pogoVersion.substringAfter("0.").toFloat() >
-                            appInstalledVersion(resources.getString(R.string.packageName_pok)).substringAfter("0.").toFloat()) {
-                            view.findViewById<Button>(R.id.download_pok).text = resources.getString(R.string.update)
-                            view.findViewById<Button>(R.id.download_pok).isEnabled = true
-
-                            val builder = MaterialAlertDialogBuilder(requireContext())
-                            builder.setTitle(resources.getString(R.string.dialogUpdateTitle))
-                            builder.setMessage(resources.getString(R.string.dialogUpdatePokMessage))
-                            builder.apply {
-                                setPositiveButton(R.string.ok) { _, _ ->
-                                }
-                            }
-                            builder.create().show()
-                        } else{
-                            view.findViewById<Button>(R.id.download_pok).text = resources.getString(R.string.download)
-                            view.findViewById<Button>(R.id.download_pok).isEnabled = true
-                        }
-                    }
-                    if(pgtoolsVersion!="未安裝" && appInstalledVersion(resources.getString(R.string.packageName_pgtools))!="未安裝"){
-                        if(pgtoolsVersion.replace(".","").toInt() >
-                            appInstalledVersion(resources.getString(R.string.packageName_pgtools)).replace(".","").toInt()){
-                            view.findViewById<Button>(R.id.download_pgtools).text = resources.getString(R.string.update)
-                        } else{
-                            view.findViewById<Button>(R.id.download_pgtools).text = resources.getString(R.string.download)
-                        }
-                    }
-                }
-                //Log.i("auto_catch",json)
-            } catch (e:Exception) {
-                Log.i("auto_catch", e.toString())
-            }
-        }
-        gfgThread.start()
+    private fun showAlertDialog(title: String, message: String) {
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle(title)
+            .setMessage(message)
+            .setNeutralButton(R.string.ok) { _, _ -> }
+            .show()
     }
 
     override fun onCreateView(
@@ -156,6 +69,147 @@ class Apps : Fragment() {
         savedInstanceState: Bundle?,
     ): View {
         val view: View = inflater.inflate(R.layout.fragment_apps, container, false)
+
+        fun checkAppVersion(){
+            view.findViewById<TextView>(R.id.polygon_install_version).text =
+                String.format(resources.getString(R.string.format_installVersion,
+                    appInstalledVersion(resources.getString(R.string.packageName_polygon))))
+            view.findViewById<TextView>(R.id.pgtools_install_version).text =
+                String.format(resources.getString(R.string.format_installVersion,
+                    appInstalledVersion(resources.getString(R.string.packageName_pgtools))))
+            view.findViewById<TextView>(R.id.pok_install_version).text =
+                String.format(resources.getString(R.string.format_installVersion,
+                    appInstalledVersion(resources.getString(R.string.packageName_pok))))
+            view.findViewById<TextView>(R.id.pokAres_install_version).text =
+                String.format(resources.getString(R.string.format_installVersion,
+                    appInstalledVersion(resources.getString(R.string.packageName_pokAres))+
+                            if(MANUFACTURER =="samsung"||pokAresNoSupportDevices) {""} else {"(不支援)"}))
+            view.findViewById<TextView>(R.id.gps_install_version).text =
+                String.format(resources.getString(R.string.format_installVersion,
+                    boolToInstalled(appInstalledOrNot(resources.getString(R.string.packageName_gps)))))
+            view.findViewById<TextView>(R.id.pokelist_install_version).text =
+                String.format(resources.getString(R.string.format_installVersion,
+                    appInstalledVersion(resources.getString(R.string.packageName_PokeList))))
+            view.findViewById<TextView>(R.id.wecatch_install_version).text =
+                String.format(resources.getString(R.string.format_installVersion,
+                    appInstalledVersion(resources.getString(R.string.packageName_WeCatch))))
+            view.findViewById<TextView>(R.id.wrapper_install_version).text =
+                String.format(resources.getString(R.string.format_installVersion,
+                    appInstalledVersion(resources.getString(R.string.packageName_wrapper))))
+        }
+
+        fun extractPogoVersionFromJson(url: String, onPogoVersionExtracted: (String,String) -> Unit) {
+            GlobalScope.launch(Dispatchers.IO) {
+
+                try {
+                    val url = URL(url)
+                    val connection: HttpURLConnection = url.openConnection() as HttpURLConnection
+                    connection.requestMethod = "GET"
+
+                    val inputStream = connection.inputStream
+                    val bufferedReader = BufferedReader(InputStreamReader(inputStream))
+                    val response = StringBuilder()
+
+                    var line: String? = bufferedReader.readLine()
+                    while (line != null) {
+                        response.append(line)
+                        line = bufferedReader.readLine()
+                    }
+
+                    bufferedReader.close()
+
+                    val jsonObject = JSONObject(response.toString())
+                    pogoVersion = jsonObject.getString("pogoVersion")
+                    pgtoolsUrlARM = jsonObject.getString("pogoARM")
+                    pgtoolsUrlARM64 = jsonObject.getString("pogoARM64")
+                    pgtoolsVersion = jsonObject.getString("appName")
+                    Log.i("auto_catch","pogoVersion:$pogoVersion\npgtoolsVersion:$pgtoolsVersion\npgtoolsUrlARM:$pgtoolsUrlARM\npgtoolsUrlARM64:$pgtoolsUrlARM64")
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+
+                launch(Dispatchers.Main) {
+                    onPogoVersionExtracted(pogoVersion,pgtoolsVersion)
+                }
+            }
+        }
+
+        fun getAutoVersion(){
+            fun showAlertDialog(title: String, message: String,NegativeButton:String,PositiveButton:String) {
+                MaterialAlertDialogBuilder(requireContext())
+                    .setTitle(title)
+                    .setMessage(message)
+                    .setNeutralButton(R.string.ok) { _, _ -> }
+                    .setNegativeButton(NegativeButton) { _, _ ->
+                        showAlertDialog(title, "1. 請先移除較新版本寶可夢 \n2. 重新下載支援版本寶可夢 \n3. 重啟手機嘗試啟動")}
+                    .setPositiveButton(PositiveButton) { _, _ ->
+                        showAlertDialog(title, "1. 至設定打開測試版自動抓開關 \n2. 直接下載支援版本寶可夢 \n3. 重啟手機嘗試啟動")}
+                    .show()
+            }
+
+            var url = resources.getString(R.string.url_pgtoolsJson)
+            if(testPgtools)
+                url = resources.getString(R.string.url_pgtoolsJsonTest)
+
+            //Snackbar.make(view, "正在取得資料", Snackbar.LENGTH_INDEFINITE).show();
+            extractPogoVersionFromJson(url) { pogoVersion, pgtoolsVersion ->
+                val versionType = if (testPgtools) " ${resources.getString(R.string.versionTest)}" else ""
+                view.findViewById<TextView>(R.id.pok_new_version).text =
+                    String.format(resources.getString(R.string.format_newerVersion),pogoVersion,versionType)
+                view.findViewById<TextView>(R.id.pokAres_new_version).text =
+                    String.format(resources.getString(R.string.format_newerVersion),pogoVersion,"")
+                view.findViewById<TextView>(R.id.pgtools_new_version).text =
+                    String.format(resources.getString(R.string.format_newerVersion),pgtoolsVersion,versionType)
+
+                val pokInstalledVersion = appInstalledVersion(resources.getString(R.string.packageName_pok))
+                val pgtoolsInstalledVersion = appInstalledVersion(resources.getString(R.string.packageName_pgtools))
+                if (pogoVersion != "未安裝" && pokInstalledVersion != "未安裝") {
+                    val pogoVersionFloat = pogoVersion.substringAfter("0.").toFloat()
+                    val pokInstalledVersionFloat = pokInstalledVersion.substringAfter("0.").toFloat()
+
+                    when {
+                        pogoVersionFloat < pokInstalledVersionFloat -> {
+                            view.findViewById<TextView>(R.id.pok_install_version).text =
+                                "${view.findViewById<TextView>(R.id.pok_install_version).text} ${resources.getString(R.string.versionTooHigh)}"
+                            view.findViewById<Button>(R.id.download_pok).isEnabled = false
+
+                            showAlertDialog(
+                                resources.getString(R.string.dialogVersionTooHighTitle),
+                                resources.getString(R.string.dialogVersionTooHighMessage),
+                                "如何降版",
+                                "使用測試版"
+                            )
+                        }
+                        pogoVersionFloat > pokInstalledVersionFloat -> {
+                            view.findViewById<Button>(R.id.download_pok).text = resources.getString(R.string.update)
+                            view.findViewById<Button>(R.id.download_pok).isEnabled = true
+
+                            showAlertDialog(
+                                resources.getString(R.string.dialogUpdateAvailableTitle),
+                                resources.getString(R.string.dialogUpdateAvailablePokMessage)
+                            )
+                        }
+                        else -> {
+                            view.findViewById<Button>(R.id.download_pok).text = resources.getString(R.string.download)
+                            view.findViewById<Button>(R.id.download_pok).isEnabled = true
+                        }
+                    }
+                }
+
+                if (pgtoolsVersion != "未安裝" && pgtoolsInstalledVersion != "未安裝") {
+                    val pgtoolsVersionInt = pgtoolsVersion.replace(".", "").toInt()
+                    val pgtoolsInstalledVersionInt = pgtoolsInstalledVersion.replace(".", "").toInt()
+
+                    if (pgtoolsVersionInt > pgtoolsInstalledVersionInt) {
+                        view.findViewById<Button>(R.id.download_pgtools).text = resources.getString(R.string.update)
+                    } else {
+                        view.findViewById<Button>(R.id.download_pgtools).text = resources.getString(R.string.download)
+                    }
+                }
+
+                //Snackbar.make(requireActivity().findViewById(android.R.id.content), "完成", 500).show();
+            }
+        }
 
         fun gotoBrowser(url: String){
             context?.let {
@@ -199,42 +253,32 @@ class Apps : Fragment() {
             }
             else {
                 Log.d(ContentValues.TAG, "The rewarded ad wasn't ready yet.")
-                val builder = MaterialAlertDialogBuilder(requireContext())
-                builder.setTitle("網路錯誤")
-                builder.setMessage("您的操作過快 請5秒後在試")
-                builder.apply {
-                    setPositiveButton(R.string.ok) { _, _ ->
-                    }
-                }
-                builder.create().show()
+                showAlertDialog(
+                    resources.getString(R.string.dialogAdNotReadyTitle),
+                    resources.getString(R.string.dialogAdNotReadyMessage)
+                )
                 //Toast.makeText(context, "網路錯誤 請5秒後在試", Toast.LENGTH_LONG).show()
             }
         }
 
         fun downloadAPPWithAd(url: String){
-            val builder = MaterialAlertDialogBuilder(requireContext())
-            builder.setTitle(resources.getString(R.string.dialogDownloadTitle))
-            builder.setMessage(resources.getString(R.string.dialogDownloadMessage))
-            builder.apply {
-                setPositiveButton(R.string.ok) { _, _ ->
-                    downloadAPPSetup(url)
+            MaterialAlertDialogBuilder(requireContext())
+                .setTitle(resources.getString(R.string.dialogDownloadTitle))
+                .setMessage(resources.getString(R.string.dialogDownloadMessage))
+                .apply {
+                    setNeutralButton(R.string.ok) { _, _ ->
+                        downloadAPPSetup(url)
+                    }
+                    setNegativeButton(R.string.cancel) { _, _ ->
+                        Toast.makeText(context, getString(R.string.cancelOperation), Toast.LENGTH_SHORT).show()
+                    }
                 }
-                setNegativeButton(R.string.cancel) { _, _ ->
-                    Toast.makeText(context, getString(R.string.cancelOperation), Toast.LENGTH_SHORT)
-                        .show()
-                }
-            }
-            builder.create().show()
+                .show()
         }
 
         fun checkButton(){
             view.findViewById<Button>(R.id.download_gpx).setOnClickListener {
                 downloadAPPWithAd(resources.getString(R.string.url_gpx))
-            }
-            //******unlockPremium*********//
-            view.findViewById<Button>(R.id.pgtools_unlockPremium).setOnClickListener {
-                Toast.makeText(context, "本服務為合作夥伴服務項目，高級版相關問題請洽詢合作夥伴處理", Toast.LENGTH_LONG).show()
-                gotoBrowser(resources.getString(R.string.shopee_auto))
             }
             //******download*********//
             view.findViewById<Button>(R.id.download_gps).setOnClickListener {
@@ -253,7 +297,7 @@ class Apps : Fragment() {
                 if(Build.SUPPORTED_ABIS[0]=="arm64-v8a")
                     downloadAPPWithAd(resources.getString(R.string.url_polygon))
                 else {
-                    Snackbar.make(view, "你的設備不支援此軟體("+(Build.SUPPORTED_ABIS[0])+")", Snackbar.LENGTH_LONG)
+                    Snackbar.make(view, "${resources.getString(R.string.unsupportedDevices)}(${Build.SUPPORTED_ABIS[0]})", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show()
                 }
             }
@@ -265,7 +309,7 @@ class Apps : Fragment() {
                     else
                         downloadAPPWithAd("https://assets.pgtools.net/pgtools-${pgtoolsVersion}.apk")
                 else
-                    Snackbar.make(view, "你的設備不支援此軟體("+(Build.SUPPORTED_ABIS[0])+")", Snackbar.LENGTH_LONG)
+                    Snackbar.make(view, "${resources.getString(R.string.unsupportedDevices)}(${Build.SUPPORTED_ABIS[0]})", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show()
             }
 
@@ -284,7 +328,7 @@ class Apps : Fragment() {
                 else if(pokAresNoSupportDevices)
                     Toast.makeText(context, "請在設定中啟用\"一律下載三星版APK\"以繼續", Toast.LENGTH_LONG).show()
                 else
-                    Snackbar.make(view, "你的設備不支援此軟體", Snackbar.LENGTH_LONG)
+                    Snackbar.make(view, resources.getString(R.string.unsupportedDevices), Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show()
             }
 
@@ -297,7 +341,7 @@ class Apps : Fragment() {
             }
 
             //******remove*********//
-            view.findViewById<Button>(R.id.remove_polygon).setOnClickListener {
+            view.findViewById<Button>(R.id.remove_wrapper).setOnClickListener {
                 appUnInstall(resources.getString(R.string.packageName_wrapper))
             }
 
@@ -377,13 +421,13 @@ class Apps : Fragment() {
         fun setFragmentResultListener(){
             setFragmentResultListener("testPgtools") { _, bundle ->
                 testPgtools = bundle.getBoolean("bundleKey")
-                checkAppVersion(requireActivity())
-                getAutoVersion(requireActivity())
+                checkAppVersion()
+                getAutoVersion()
             }
 
             setFragmentResultListener("pokAresNoSupportDevices") { _, bundle ->
                 pokAresNoSupportDevices = bundle.getBoolean("bundleKey")
-                checkAppVersion(requireActivity())
+                checkAppVersion()
                 if((pokAresNoSupportDevices))
                     view.findViewById<LinearLayout>(R.id.linearLayout_pokAres).visibility = View.VISIBLE
                 else if(MANUFACTURER!="samsung")
@@ -408,18 +452,11 @@ class Apps : Fragment() {
 
         setFragmentResultListener()
         setupAd()
-        //checkAppVersion(requireActivity())
-        //getAutoVersion(requireActivity())
         checkButton()
-
+        checkAppVersion()
+        getAutoVersion()
         // Inflate the layout for this fragment
         return view
-    }
-
-    override fun onStart() {
-        super.onStart()
-        checkAppVersion(requireActivity())
-        getAutoVersion(requireActivity())
     }
 
     private fun boolToInstalled(boolean: Boolean): String {
@@ -467,7 +504,7 @@ class Apps : Fragment() {
                         override fun onAdFailedToLoad(adError: LoadAdError) {
                             Log.d(ContentValues.TAG, adError.message)
                             mRewardedAd = null
-                            Toast.makeText(context, "網路錯誤 請稍後在試", Toast.LENGTH_LONG).show()
+                            Toast.makeText(context, resources.getString(R.string.dialogAdNotReadyMessage), Toast.LENGTH_LONG).show()
                         }
 
                         override fun onAdLoaded(rewardedAd: RewardedAd) {

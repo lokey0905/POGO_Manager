@@ -6,7 +6,6 @@
     android:padding="24dp">
 
     <ImageView
-        android:id="@+id/design_about_icon"
         android:layout_width="48dp"
         android:layout_height="48dp"
         app:srcCompat="@drawable/ic_launcher_foreground" />

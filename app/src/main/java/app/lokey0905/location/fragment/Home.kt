@@ -36,7 +36,7 @@ class Home : Fragment() {
         super.onCreate(savedInstanceState)
     }
 
-    @SuppressLint("SetTextI18n")
+    //@SuppressLint("SetTextI18n")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?,
     ): View {

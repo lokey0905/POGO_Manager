@@ -14,7 +14,6 @@
         tools:ignore="UselessParent">
 
         <LinearLayout
-            android:id="@+id/linearLayout_pok"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -233,7 +232,6 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/linearLayout_gps"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -294,7 +292,6 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/gps_new_version"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="16dp"
@@ -338,7 +335,6 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/linearLayout_wrapper"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -399,7 +395,6 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/wrapper_new_version"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="16dp"
@@ -444,7 +439,6 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/linearLayout_polygon"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -505,7 +499,6 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/polygon_new_version"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="0"
@@ -529,12 +522,12 @@
                 android:orientation="horizontal">
 
                 <Button
-                    android:layout_weight="1"
                     android:id="@+id/remove_polygon"
                     style="@style/Widget.Material3.Button.OutlinedButton"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="16dp"
+                    android:layout_weight="1"
                     android:text="@string/remove" />
 
                 <Button
@@ -549,7 +542,6 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/linearLayout_pgtools"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -664,7 +656,6 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/linearLayout_pokelist"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -725,7 +716,6 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/pokelist_new_version"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="0"
@@ -769,7 +759,6 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/linearLayout_wecatch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -831,7 +820,6 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/wecatch_new_version"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="0"

@@ -7,6 +7,10 @@
         android:title="@string/shareManager"
         app:showAsAction="ifRoom" />
 
+    <item android:id="@+id/manual"
+        android:title="@string/manual"
+        app:showAsAction="never" />
+
     <item
         android:id="@+id/action_nearbySharing"
         android:orderInCategory="100"
