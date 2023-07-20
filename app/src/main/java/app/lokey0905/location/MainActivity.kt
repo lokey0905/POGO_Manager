@@ -74,7 +74,7 @@ class MainActivity : AppCompatActivity() {
     var serviceBinder: IIsolatedService? = null
 
     @OptIn(DelicateCoroutinesApi::class)
-    private fun checkForUpdate(currentRelease: Float, githubUrl: String, onUpdateAvailable: (Boolean, Float, String) -> Unit) {
+    private fun checkForUpdate(githubUrl: String, onUpdateAvailable: (Boolean, Float, String) -> Unit) {
         GlobalScope.launch(Dispatchers.IO) {
             var updateAvailable = false
             var latestVersion = 0.0f
@@ -99,6 +99,7 @@ class MainActivity : AppCompatActivity() {
 
                 val jsonObject = JSONObject(response.toString())
                 latestVersion = jsonObject.getString("name").toFloat()
+                val currentRelease = BuildConfig.VERSION_NAME.toFloat()
                 updateAvailable = currentRelease < latestVersion
                 latestVersionInformation = jsonObject.getString("body")
 
@@ -112,9 +113,8 @@ class MainActivity : AppCompatActivity() {
         }
     }
     private fun checkUpdate(){
-        val currentVersion = BuildConfig.VERSION_NAME.toFloat()
         val githubUrl = getString(R.string.githubApi)
-        checkForUpdate(currentVersion, githubUrl) { updateAvailable,latestVersion,latestVersionInformation ->
+        checkForUpdate(githubUrl) { updateAvailable,latestVersion,latestVersionInformation ->
             if (updateAvailable) {
                 MaterialAlertDialogBuilder(this@MainActivity)
                     .setTitle(getString(R.string.dialogUpdateAvailableTitle)+latestVersion)
@@ -130,8 +130,15 @@ class MainActivity : AppCompatActivity() {
                     }
                     .show()
             } else {
-                Toast.makeText(this, getString(R.string.dialogIsLatestVersion)+currentVersion, Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.dialogIsLatestVersion)+BuildConfig.VERSION_NAME.toFloat(), Toast.LENGTH_SHORT).show()
             }
+        }
+    }
+
+    private fun download(){
+        val githubUrl = getString(R.string.githubApi)
+        checkForUpdate(githubUrl) { _, latestVersion, _ ->
+            downloadAPPSetup("https://github.com/lokey0905/POGO_Manager/releases/download/$latestVersion/app-debug.apk")
         }
     }
 
@@ -281,7 +288,8 @@ class MainActivity : AppCompatActivity() {
         dialog.setView(dialogView)
         dialogView.findViewById<TextView>(R.id.design_about_title).text = resources.getString(R.string.app_name)
         dialogView.findViewById<TextView>(R.id.design_about_version).text = "${BuildConfig.VERSION_NAME} (${BuildConfig.VERSION_CODE})"
-        dialogView.findViewById<TextView>(R.id.design_about_info).text = resources.getString(R.string.dialogAbout)
+        dialogView.findViewById<TextView>(R.id.design_about_info).text = resources.getString(R.string.dialogAboutInfo)
+        dialogView.findViewById<TextView>(R.id.design_about_maker).text = resources.getString(R.string.dialogAboutMaker)
         dialog.show()
     }
 
@@ -297,6 +305,24 @@ class MainActivity : AppCompatActivity() {
         // as you specify a parent activity in AndroidManifest.xml.
 
         return when (item.itemId) {
+            R.id.action_download -> {
+                MaterialAlertDialogBuilder(this@MainActivity)
+                    .setTitle(getString(R.string.download))
+                    .setMessage("是否要重新下載管理器?")
+                    .apply {
+                        setPositiveButton("重新下載") { _, _ ->
+                            download()
+                        }
+                        setNegativeButton(getString(R.string.checkUpdate)) { _, _ ->
+                            checkUpdate()
+                        }
+                        setNeutralButton(R.string.cancel) { _, _ ->
+                            Toast.makeText(context, getString(R.string.cancelOperation), Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                    .show()
+                true
+            }
             R.id.action_share -> {
                 shareText(getString(R.string.url_app), resources.getString(R.string.shareManager))
                 true
