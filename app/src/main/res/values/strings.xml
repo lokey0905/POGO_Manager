@@ -14,6 +14,7 @@
     <string name="update">更新</string>
     <string name="updateContent">更新內容:</string>
     <string name="unsupportedDevices">不支援的設備</string>
+    <string name="checkUpdate">檢查更新</string>
     <string name="check_button">檢測定位與設備</string>
     <string name="unlockPremium">解鎖付費版本</string>
     <string name="location">定位</string>
@@ -38,7 +39,8 @@
     <string name="dialogUpdateAvailableManagerMessage">建議更新至最新版本以取得最好的體驗，是否要更新管理器?</string>
     <string name="dialogUpdateAvailablePokMessage">建議更新至最新版本以取得最好的體驗，請手動點擊【更新】按鈕更新APP</string>
     <string name="dialogIsLatestVersion">已經是最新版本</string>
-    <string name="dialogAbout">相關檔案皆為網路搜尋取得\n檔案不歸我擁有\n2023 by lokey0905</string>
+    <string name="dialogAboutInfo">相關檔案皆為網路搜尋取得,檔案不歸我擁有,pokemon與本APP無關</string>
+    <string name="dialogAboutMaker">軟體作者:lokey0905 \n圖示作者:梧銳#4486</string>
     <string name="dialogAdNotReadyTitle">發生一些錯誤</string>
     <string name="dialogAdNotReadyMessage">您的操作過快 或是網路不穩 請5秒後在試</string>
 

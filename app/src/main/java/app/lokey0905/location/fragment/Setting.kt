@@ -182,7 +182,8 @@ class Setting : Fragment() {
         dialog.setView(dialogView)
         dialogView.findViewById<TextView>(R.id.design_about_title).text = resources.getString(R.string.app_name)
         dialogView.findViewById<TextView>(R.id.design_about_version).text = "${BuildConfig.VERSION_NAME} (${BuildConfig.VERSION_CODE})"
-        dialogView.findViewById<TextView>(R.id.design_about_info).text = resources.getString(R.string.dialogAbout)
+        dialogView.findViewById<TextView>(R.id.design_about_info).text = resources.getString(R.string.dialogAboutInfo)
+        dialogView.findViewById<TextView>(R.id.design_about_maker).text = resources.getString(R.string.dialogAboutMaker)
         dialog.show()
     }
 }

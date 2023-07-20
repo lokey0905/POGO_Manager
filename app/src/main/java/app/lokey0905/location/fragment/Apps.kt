@@ -135,18 +135,6 @@ class Apps : Fragment() {
         }
 
         fun getAutoVersion(){
-            fun showAlertDialog(title: String, message: String,NegativeButton:String,PositiveButton:String) {
-                MaterialAlertDialogBuilder(requireContext())
-                    .setTitle(title)
-                    .setMessage(message)
-                    .setNeutralButton(R.string.ok) { _, _ -> }
-                    .setNegativeButton(NegativeButton) { _, _ ->
-                        showAlertDialog(title, "1. 請先移除較新版本寶可夢 \n2. 重新下載支援版本寶可夢 \n3. 重啟手機嘗試啟動")}
-                    .setPositiveButton(PositiveButton) { _, _ ->
-                        showAlertDialog(title, "1. 至設定打開測試版自動抓開關 \n2. 直接下載支援版本寶可夢 \n3. 重啟手機嘗試啟動")}
-                    .show()
-            }
-
             var url = resources.getString(R.string.url_pgtoolsJson)
             if(testPgtools)
                 url = resources.getString(R.string.url_pgtoolsJsonTest)
@@ -173,12 +161,17 @@ class Apps : Fragment() {
                                 "${view.findViewById<TextView>(R.id.pok_install_version).text} ${resources.getString(R.string.versionTooHigh)}"
                             view.findViewById<Button>(R.id.download_pok).isEnabled = false
 
-                            showAlertDialog(
-                                resources.getString(R.string.dialogVersionTooHighTitle),
-                                resources.getString(R.string.dialogVersionTooHighMessage),
-                                "如何降版",
-                                "使用測試版"
-                            )
+                            MaterialAlertDialogBuilder(requireContext())
+                                .setTitle(resources.getString(R.string.dialogVersionTooHighTitle))
+                                .setMessage(resources.getString(R.string.dialogVersionTooHighMessage))
+                                .setNeutralButton(R.string.ok) { _, _ -> }
+                                .setNegativeButton("如何降版") { _, _ ->
+                                    showAlertDialog(resources.getString(R.string.dialogVersionTooHighTitle),
+                                        "1. 請先移除較新版本寶可夢 \n2. 重新下載支援版本寶可夢 \n3. 重啟手機嘗試啟動")}
+                                .setPositiveButton("使用測試版") { _, _ ->
+                                    showAlertDialog(resources.getString(R.string.dialogVersionTooHighTitle),
+                                        "1. 至設定打開測試版自動抓開關 \n2. 直接下載支援版本寶可夢 \n3. 重啟手機嘗試啟動")}
+                                .show()
                         }
                         pogoVersionFloat > pokInstalledVersionFloat -> {
                             view.findViewById<Button>(R.id.download_pok).text = resources.getString(R.string.update)
