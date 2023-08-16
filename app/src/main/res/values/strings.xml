@@ -43,6 +43,8 @@
     <string name="dialogAboutMaker">軟體作者:lokey0905 \n圖示作者:梧銳#4486</string>
     <string name="dialogAdNotReadyTitle">發生一些錯誤</string>
     <string name="dialogAdNotReadyMessage">您的操作過快 或是網路不穩 請5秒後在試</string>
+    <string name="dialogCheckLocationAccuracyTitle">偵測到精確定位模式</string>
+    <string name="dialogCheckLocationAccuracyMessage">偵測到精確定位，建議關閉防止模擬定位跳轉，是否前往關閉?\n若已啟動搖桿可能會觸發這則通知，可以忽略</string>
 
     <string name="androidDevices">裝置名稱:</string>
     <string name="androidVersion">系統版本:</string>

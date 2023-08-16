@@ -8,11 +8,13 @@ import android.content.ContentValues.TAG
 import android.content.Intent
 import android.content.ServiceConnection
 import android.content.pm.PackageManager
+import android.location.LocationManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.IBinder
 import android.os.RemoteException
+import android.provider.Settings
 import android.system.Os
 import android.util.Log
 import android.view.Menu
@@ -241,6 +243,34 @@ class MainActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         checkUpdate()
+
+        val locationManager = getSystemService(LOCATION_SERVICE) as LocationManager
+        if(locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)){
+            MaterialAlertDialogBuilder(this@MainActivity)
+                .setTitle(getString(R.string.dialogCheckLocationAccuracyTitle))
+                .setMessage(getString(R.string.dialogCheckLocationAccuracyMessage))
+                .apply {
+                    setPositiveButton(resources.getString(R.string.ok)) { _, _ ->
+                        var activityIntent = Intent()
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                            activityIntent.component =
+                                ComponentName("com.google.android.gms", "com.google.android.gms.location.settings.LocationAccuracyV31Activity")
+                        }
+                        else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P){
+                            activityIntent.component =
+                                ComponentName("com.google.android.gms", "com.google.android.gms.location.settings.LocationAccuracyActivity")
+                        }
+                        else {
+                            activityIntent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
+                        }
+                        startActivity(activityIntent)
+                    }
+                    setNeutralButton(resources.getString(R.string.cancel)) { _, _ ->
+                        Toast.makeText(context, getString(R.string.cancelOperation), Toast.LENGTH_SHORT).show()
+                    }
+                }
+                .show()
+        }
 
         val intent = Intent(this, IsolatedService::class.java)
         /*Binding to an isolated service */
