@@ -4,6 +4,7 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.ActivityManager
+import android.content.Context.LOCATION_SERVICE
 import android.content.pm.PackageManager
 import android.location.*
 import android.os.Build
@@ -19,7 +20,6 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
-import app.lokey0905.location.MainActivity
 import app.lokey0905.location.R
 import java.text.DecimalFormat
 import java.util.*
@@ -36,7 +36,7 @@ class Home : Fragment() {
         super.onCreate(savedInstanceState)
     }
 
-    //@SuppressLint("SetTextI18n")
+    @SuppressLint("SetTextI18n")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?,
     ): View {
@@ -47,8 +47,6 @@ class Home : Fragment() {
                 //Toast.makeText(applicationContext, "Magisk Found", Toast.LENGTH_LONG).show()
                 view.findViewById<Button>(R.id.check_location)
                     .setBackgroundColor(ContextCompat.getColor(this.requireContext(),com.google.android.material.R.color.design_default_color_error))
-                view.findViewById<Button>(R.id.check_location)
-                    .setTextColor(ContextCompat.getColor(this.requireContext(),com.google.android.material.R.color.design_default_color_on_error))
                 view.findViewById<TextView>(R.id.check_magisk)
                     .setTextColor(ContextCompat.getColor(this.requireContext(),com.google.android.material.R.color.design_default_color_error))
                 view.findViewById<TextView>(R.id.check_magisk)?.text = "❌已發現(未隔離)"
@@ -96,21 +94,57 @@ class Home : Fragment() {
         val locationListener: LocationListener = object : LocationListener {
             @SuppressLint("SetTextI18n")
             override fun onLocationChanged(location: Location) {
-                if((Build.VERSION.SDK_INT >= Build.VERSION_CODES.S)&&newerCheckMockLocationApi)
-                    if(location.isMock) view.findViewById<Button>(R.id.check_location).text =
-                        "${resources.getString(R.string.check_button)} 無法偵測目前位置12(${Build.VERSION.SDK_INT})"
-                    else view.findViewById<Button>(R.id.check_location).text = resources.getString(R.string.check_button)
-                else
-                    if (location.isFromMockProvider) view.findViewById<Button>(R.id.check_location).text =
-                        "${resources.getString(R.string.check_button)} 無法偵測目前位置12"
-                    else view.findViewById<Button>(R.id.check_location).text = resources.getString(R.string.check_button)
+                val locationManager = requireActivity().getSystemService(LOCATION_SERVICE) as LocationManager
+                val wifiFix = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
+                if(!wifiFix) {
+                    view.findViewById<Button>(R.id.check_location)
+                        .setBackgroundColor(
+                            ContextCompat.getColor(
+                                requireActivity(),
+                                com.google.android.material.R.color.design_default_color_error
+                            )
+                        )
+                    view.findViewById<Button>(R.id.check_location).text =
+                        "${resources.getString(R.string.check_button)} 無法偵測目前位置11"
+                } else {
+                    view.findViewById<Button>(R.id.check_location).text =
+                        resources.getString(R.string.check_button)
+                }
 
+                if((Build.VERSION.SDK_INT >= Build.VERSION_CODES.S)&&newerCheckMockLocationApi) {
+                    if (location.isMock) {
+                        view.findViewById<Button>(R.id.check_location)
+                            .setBackgroundColor(
+                                ContextCompat.getColor(
+                                    requireActivity(),
+                                    com.google.android.material.R.color.design_default_color_error
+                                )
+                            )
+                        view.findViewById<Button>(R.id.check_location).text =
+                            "${resources.getString(R.string.check_button)} 無法偵測目前位置12(${Build.VERSION.SDK_INT})"
+                    } else view.findViewById<Button>(R.id.check_location).text =
+                        resources.getString(R.string.check_button)
+                }else {
+                    if (location.isFromMockProvider) {
+                        view.findViewById<Button>(R.id.check_location)
+                            .setBackgroundColor(
+                                ContextCompat.getColor(
+                                    requireActivity(),
+                                    com.google.android.material.R.color.design_default_color_error
+                                )
+                            )
+                        view.findViewById<Button>(R.id.check_location).text =
+                            "${resources.getString(R.string.check_button)} 無法偵測目前位置12"
+                    } else view.findViewById<Button>(R.id.check_location).text =
+                        resources.getString(R.string.check_button)
+                }
                 view.findViewById<TextView>(R.id.location_system).text =
-                    "${DecimalFormat("#.######").format(location.latitude)},${DecimalFormat("#.######").format(location.longitude)} (${location.provider})"
+                    "${DecimalFormat("#.######").format(location.latitude)},${DecimalFormat("#.######").format(location.longitude)} " +
+                            "(${location.provider}) (${if(wifiFix) "Network fix" else "No fix"})"
 
-                val gc: Geocoder = Geocoder(requireActivity(), Locale.getDefault())
+                val gc = Geocoder(requireActivity(), Locale.getDefault())
                 val locationList=gc.getFromLocation(location.latitude,location.longitude,1)
-                val address: Address = locationList!!.get(0)
+                val address: Address = locationList!![0]
                 var i=0
                 var addressLine = ""
                 while (address.getAddressLine(i)!=null){
