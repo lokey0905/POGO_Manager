@@ -33,7 +33,8 @@ import androidx.fragment.app.FragmentContainerView
 import app.lokey0905.location.databinding.ActivityMainBinding
 import app.lokey0905.location.fragment.Apps
 import app.lokey0905.location.fragment.Home
-import app.lokey0905.location.fragment.Setting
+import app.lokey0905.location.fragment.Preferences
+import app.lokey0905.location.fragment.ShortCuts
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdSize
 import com.google.android.gms.ads.AdView
@@ -68,7 +69,9 @@ class MainActivity : AppCompatActivity() {
 
     private var home: Home = Home()
     private var apps: Apps = Apps()
-    private var setting: Setting = Setting()
+    private var shortcuts: ShortCuts = ShortCuts()
+    //private var setting: Setting = Setting()
+    private var preferenceFragmentCompat: Preferences = Preferences()
 
 
     var bServiceBound = false
@@ -195,20 +198,26 @@ class MainActivity : AppCompatActivity() {
         WindowCompat.setDecorFitsSystemWindows(window, false)
 
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-            != PackageManager.PERMISSION_GRANTED){
-            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), MY_PERMISSIONS_REQUEST_LOCATION)
+            != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                MY_PERMISSIONS_REQUEST_LOCATION
+            )
         }
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         setSupportActionBar(binding.toolbar)
-/*
+        /*
         binding.shoppe.setOnClickListener {
             gotoBrowser(resources.getString(R.string.shopee))
         }*/
 
-        val fragmentContainerView = findViewById<FragmentContainerView>(R.id.fragment_container_view)
+        val fragmentContainerView =
+            findViewById<FragmentContainerView>(R.id.fragment_container_view)
         fragmentContainerView.removeAllViewsInLayout()
 
         findViewById<BottomNavigationView>(R.id.navigation).setOnItemSelectedListener { item ->
@@ -217,18 +226,62 @@ class MainActivity : AppCompatActivity() {
                     replaceFragment(home)
                     return@setOnItemSelectedListener true
                 }
+
                 R.id.nav_apps -> {
                     replaceFragment(apps)
                     return@setOnItemSelectedListener true
                 }
+
+                R.id.nav_shortcuts -> {
+                    replaceFragment(shortcuts)
+                    return@setOnItemSelectedListener true
+                }
+
                 R.id.nav_setting -> {
-                    replaceFragment(setting)
+                    replaceFragment(preferenceFragmentCompat)
                     return@setOnItemSelectedListener true
                 }
             }
-            false }
+            false
+        }
 
-        findViewById<BottomNavigationView>(R.id.navigation).selectedItemId= R.id.nav_home
+        findViewById<BottomNavigationView>(R.id.navigation).selectedItemId = R.id.nav_home
+
+        val locationManager = getSystemService(LOCATION_SERVICE) as LocationManager
+        if (locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
+            MaterialAlertDialogBuilder(this@MainActivity)
+                .setTitle(getString(R.string.dialogCheckLocationAccuracyTitle))
+                .setMessage(getString(R.string.dialogCheckLocationAccuracyMessage))
+                .apply {
+                    setPositiveButton(resources.getString(R.string.ok)) { _, _ ->
+                        var activityIntent = Intent()
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                            activityIntent.component =
+                                ComponentName(
+                                    "com.google.android.gms",
+                                    "com.google.android.gms.location.settings.LocationAccuracyV31Activity"
+                                )
+                        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                            activityIntent.component =
+                                ComponentName(
+                                    "com.google.android.gms",
+                                    "com.google.android.gms.location.settings.LocationAccuracyActivity"
+                                )
+                        } else {
+                            activityIntent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
+                        }
+                        startActivity(activityIntent)
+                    }
+                    setNeutralButton(resources.getString(R.string.cancel)) { _, _ ->
+                        Toast.makeText(
+                            context,
+                            getString(R.string.cancelOperation),
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+                .show()
+        }
 
         //*************ad**********//
         MobileAds.initialize(this)
@@ -243,34 +296,6 @@ class MainActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         checkUpdate()
-
-        val locationManager = getSystemService(LOCATION_SERVICE) as LocationManager
-        if(locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)){
-            MaterialAlertDialogBuilder(this@MainActivity)
-                .setTitle(getString(R.string.dialogCheckLocationAccuracyTitle))
-                .setMessage(getString(R.string.dialogCheckLocationAccuracyMessage))
-                .apply {
-                    setPositiveButton(resources.getString(R.string.ok)) { _, _ ->
-                        var activityIntent = Intent()
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                            activityIntent.component =
-                                ComponentName("com.google.android.gms", "com.google.android.gms.location.settings.LocationAccuracyV31Activity")
-                        }
-                        else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P){
-                            activityIntent.component =
-                                ComponentName("com.google.android.gms", "com.google.android.gms.location.settings.LocationAccuracyActivity")
-                        }
-                        else {
-                            activityIntent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
-                        }
-                        startActivity(activityIntent)
-                    }
-                    setNeutralButton(resources.getString(R.string.cancel)) { _, _ ->
-                        Toast.makeText(context, getString(R.string.cancelOperation), Toast.LENGTH_SHORT).show()
-                    }
-                }
-                .show()
-        }
 
         val intent = Intent(this, IsolatedService::class.java)
         /*Binding to an isolated service */
@@ -353,30 +378,25 @@ class MainActivity : AppCompatActivity() {
                     .show()
                 true
             }
+
             R.id.action_share -> {
-                shareText(getString(R.string.url_app), resources.getString(R.string.shareManager))
+                shareText(
+                    "我發現了Pogo外掛管理器 趕快來下載使用!\n${getString(R.string.url_app)}",
+                    resources.getString(R.string.shareManager)
+                )
                 true
             }
-            R.id.manual -> {
-                gotoBrowser(getString(R.string.github_manual))
-                true
-            }
-            R.id.action_nearbySharing -> {
-                val activityIntent = Intent()
-                activityIntent.component =
-                    ComponentName("com.google.android.gms",
-                        "com.google.android.gms.nearby.sharing.QuickSettingsActivity")
-                startActivity(activityIntent)
-                true
-            }
+
             R.id.action_contact -> {
                 gotoBrowser(getString(R.string.facebook))
                 true
             }
+
             R.id.action_about -> {
                 showAboutDialog()
                 true
             }
+
             else -> super.onOptionsItemSelected(item)
         }
     }

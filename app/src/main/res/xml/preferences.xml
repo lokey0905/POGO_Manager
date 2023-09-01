@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <PreferenceCategory
+        android:title="測試版本"
+        app:allowDividerAbove="false"
+        app:allowDividerBelow="false">
+
+        <SwitchPreferenceCompat
+            android:key="test_pgtools"
+            android:title="Pgtools測試版"
+            android:icon="@drawable/ic_baseline_catching_pokemon_24"
+            app:summary="測試版本的pgtools可能可相容較新版本的寶可夢,可能導致不穩定"
+            android:persistent="false"
+            android:defaultValue="false" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="定位設定"
+        app:allowDividerAbove="false"
+        app:allowDividerBelow="false">
+
+        <Preference
+            android:key="location_accuracy"
+            android:title="@string/locationAccuracyActivity1"
+            android:icon="@drawable/ic_baseline_share_location_24"
+            app:summary="如需使用虛擬定位,須關閉定位精確度,需使用實體定位可開啟,點擊此處前往設定。" />
+
+        <SwitchPreferenceCompat
+            android:key="location_check_A12"
+            android:title="新方式檢測虛擬定位"
+            android:icon="@drawable/ic_baseline_catching_pokemon_24"
+            app:summary="使用Android 12的新版API檢測裝置是否使用虛擬定位"
+            android:persistent="false"
+            android:defaultValue="false" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="Pokémon GO【寶可夢】相關設定"
+        app:allowDividerAbove="false"
+        app:allowDividerBelow="false">
+
+        <Preference
+            android:key="disable_auto_update"
+            android:title="關閉寶可夢自動更新"
+            android:icon="@drawable/ic_baseline_sync_disabled_24"
+            app:summary="關閉商店自動更新,點擊此處前往關閉" />
+
+        <SwitchPreferenceCompat
+            android:key="allow_download_on_non_samsung"
+            android:title="允許在非三星裝置下載寶可夢"
+            android:icon="@drawable/ic_baseline_download_24"
+            app:summary="允許用戶在非三星(Ssmsung)裝置上下載三星版本寶可夢"
+            android:persistent="false"
+            android:defaultValue="false" />
+
+        <SwitchPreferenceCompat
+            android:key="always_download_apk_from_apk"
+            android:title="一律從下載寶可夢三星版APK"
+            android:icon="@drawable/ic_baseline_browser_updated_24"
+            app:summary="一律使用ApkMirror下載寶可夢三星版本APK,而非透過三星應用商店"
+            android:persistent="false"
+            android:defaultValue="false" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/about"
+        app:allowDividerAbove="false"
+        app:allowDividerBelow="false">
+
+        <Preference
+            android:key="shopee"
+            android:title="我的蝦皮賣場"
+            android:icon="@drawable/ic_baseline_shopping_bag_24"
+            app:summary="歡迎購買賣場內刷機好的手機，也可幫忙代刷機" />
+
+        <Preference
+            android:key="facebook"
+            android:title="我的FaceBook紛絲專頁"
+            android:icon="@drawable/ic_baseline_email_24"
+            app:summary="方便的話，可以來幫我按個讚喔~" />
+
+        <Preference
+            android:key="discord"
+            android:title="我的Discord群組"
+            android:icon="@drawable/ic_baseline_mark_unread_chat_alt_24"
+            app:summary="歡迎加入討論各式各樣的問題" />
+
+        <Preference
+            android:key="github"
+            android:title="Github開源程式碼"
+            android:icon="@drawable/ic_baseline_code_24" />
+
+        <Preference
+            android:key="app"
+            android:title="APP版本"
+            android:icon="@drawable/ic_baseline_info_24"
+            app:summary="" />
+    </PreferenceCategory>
+</PreferenceScreen>

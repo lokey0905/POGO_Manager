@@ -58,9 +58,6 @@ class Apps : Fragment() {
         val view: View = inflater.inflate(R.layout.fragment_apps, container, false)
 
         fun checkButton(){
-            view.findViewById<Button>(R.id.download_gpx).setOnClickListener {
-                downloadAPPWithAd(resources.getString(R.string.url_gpx))
-            }
             //******download*********//
             view.findViewById<Button>(R.id.download_gps).setOnClickListener {
                 downloadAPPWithAd(resources.getString(R.string.url_gps64))
@@ -118,6 +115,10 @@ class Apps : Fragment() {
             }
 
             //******remove*********//
+            view.findViewById<Button>(R.id.remove_gps).setOnClickListener {
+                appUnInstall(resources.getString(R.string.packageName_gps))
+            }
+
             view.findViewById<Button>(R.id.remove_wrapper).setOnClickListener {
                 appUnInstall(resources.getString(R.string.packageName_wrapper))
             }
@@ -218,6 +219,23 @@ class Apps : Fragment() {
         val view: View = requireView()
 
         fun checkAppVersion(){
+            view.findViewById<TextView>(R.id.remove_gps).visibility =
+                if(appInstalledVersion(resources.getString(R.string.packageName_gps))=="未安裝") View.GONE else View.VISIBLE
+            view.findViewById<TextView>(R.id.remove_polygon).visibility =
+                if(appInstalledVersion(resources.getString(R.string.packageName_polygon))=="未安裝") View.GONE else View.VISIBLE
+            view.findViewById<TextView>(R.id.remove_pgtools).visibility =
+                if(appInstalledVersion(resources.getString(R.string.packageName_pgtools))=="未安裝") View.GONE else View.VISIBLE
+            view.findViewById<TextView>(R.id.remove_pok).visibility =
+                if(appInstalledVersion(resources.getString(R.string.packageName_pok))=="未安裝") View.GONE else View.VISIBLE
+            view.findViewById<TextView>(R.id.remove_pokAres).visibility =
+                if(appInstalledVersion(resources.getString(R.string.packageName_pokAres))=="未安裝") View.GONE else View.VISIBLE
+            view.findViewById<TextView>(R.id.remove_pokelist).visibility =
+                if(appInstalledVersion(resources.getString(R.string.packageName_PokeList))=="未安裝") View.GONE else View.VISIBLE
+            view.findViewById<TextView>(R.id.remove_wecatch).visibility =
+                if(appInstalledVersion(resources.getString(R.string.packageName_WeCatch))=="未安裝") View.GONE else View.VISIBLE
+            view.findViewById<TextView>(R.id.remove_wrapper).visibility =
+                if(appInstalledVersion(resources.getString(R.string.packageName_wrapper))=="未安裝") View.GONE else View.VISIBLE
+
             view.findViewById<TextView>(R.id.polygon_install_version).text =
                 String.format(resources.getString(R.string.format_installVersion,
                     appInstalledVersion(resources.getString(R.string.packageName_polygon))))
@@ -334,6 +352,9 @@ class Apps : Fragment() {
                             view.findViewById<Button>(R.id.download_pok).isEnabled = true
                         }
                     }
+                } else{
+                    view.findViewById<Button>(R.id.download_pok).text = resources.getString(R.string.download)
+                    view.findViewById<Button>(R.id.download_pok).isEnabled = true
                 }
 
                 if (pgtoolsVersion != "未安裝" && pgtoolsInstalledVersion != "未安裝") {
@@ -345,9 +366,9 @@ class Apps : Fragment() {
                     } else {
                         view.findViewById<Button>(R.id.download_pgtools).text = resources.getString(R.string.download)
                     }
+                } else {
+                    view.findViewById<Button>(R.id.download_pgtools).text = resources.getString(R.string.download)
                 }
-
-                //Snackbar.make(requireActivity().findViewById(android.R.id.content), "完成", 500).show();
             }
         }
 

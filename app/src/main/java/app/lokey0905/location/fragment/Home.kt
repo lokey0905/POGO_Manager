@@ -42,46 +42,32 @@ class Home : Fragment() {
     ): View {
         val view: View = inflater.inflate(R.layout.fragment_home, container, false)
 
-        fun magiskCheck(){
-            if (bIsMagisk) {
-                //Toast.makeText(applicationContext, "Magisk Found", Toast.LENGTH_LONG).show()
-                view.findViewById<Button>(R.id.check_location)
-                    .setBackgroundColor(ContextCompat.getColor(this.requireContext(),com.google.android.material.R.color.design_default_color_error))
-                view.findViewById<TextView>(R.id.check_magisk)
-                    .setTextColor(ContextCompat.getColor(this.requireContext(),com.google.android.material.R.color.design_default_color_error))
-                view.findViewById<TextView>(R.id.check_magisk)?.text = "❌已發現(未隔離)"
-            }
-            else {
-                view.findViewById<TextView>(R.id.check_magisk).text = "✅未發現刷機"
-                view.findViewById<TextView>(R.id.check_magisk).setTextColor(ContextCompat.getColor(this.requireContext(),R.color.green))
-            }
-        }
-
-        fun getDevice(){
-            val actManager = requireActivity().getSystemService(AppCompatActivity.ACTIVITY_SERVICE) as ActivityManager
+        fun getDevice() {
+            val actManager =
+                requireActivity().getSystemService(AppCompatActivity.ACTIVITY_SERVICE) as ActivityManager
             val memInfo = ActivityManager.MemoryInfo()
             actManager.getMemoryInfo(memInfo)
-            val totalMemory= (memInfo.totalMem.toDouble()/(1024*1024*1024)).roundToInt()
+            val totalMemory = (memInfo.totalMem.toDouble() / (1024 * 1024 * 1024)).roundToInt()
 
             view.findViewById<TextView>(R.id.android_devices)?.text =
                 getDeviceName()
             view.findViewById<TextView>(R.id.android_version)?.text =
                 "${Build.VERSION.RELEASE}(${Build.VERSION.SDK_INT})"
-            if (Build.SUPPORTED_ABIS[0] == "arm64-v8a"){
+            if (Build.SUPPORTED_ABIS[0] == "arm64-v8a") {
                 view.findViewById<TextView>(R.id.android_abi)?.text =
                     "${Build.SUPPORTED_ABIS[0]} (64位元)"
                 view.findViewById<TextView>(R.id.android_ramSize)?.text =
                     "$totalMemory GB(${boolToSupport(totalMemory >= 5)}雙開)"
                 view.findViewById<TextView>(R.id.android_pgtoolsSupper)?.text =
                     "✅完整支援暴力功自動抓"
-            } else if(Build.SUPPORTED_ABIS[0] == "armeabi-v7a"){
+            } else if (Build.SUPPORTED_ABIS[0] == "armeabi-v7a") {
                 view.findViewById<TextView>(R.id.android_abi)?.text =
                     "${Build.SUPPORTED_ABIS[0]} (32位元)"
                 view.findViewById<TextView>(R.id.android_ramSize)?.text =
                     "$totalMemory GB"
                 view.findViewById<TextView>(R.id.android_pgtoolsSupper)?.text =
                     "❌不支援暴力功自動抓"
-            } else{
+            } else {
                 view.findViewById<TextView>(R.id.android_abi)?.text =
                     Build.SUPPORTED_ABIS[0]
                 view.findViewById<TextView>(R.id.android_ramSize)?.text =
@@ -91,12 +77,38 @@ class Home : Fragment() {
             }
         }
 
+        fun magiskCheck() {
+            if (bIsMagisk) {
+                //Toast.makeText(applicationContext, "Magisk Found", Toast.LENGTH_LONG).show()
+                view.findViewById<Button>(R.id.check_location)
+                    .setBackgroundColor(
+                        ContextCompat.getColor(
+                            this.requireContext(),
+                            com.google.android.material.R.color.design_default_color_error
+                        )
+                    )
+                view.findViewById<TextView>(R.id.check_magisk)
+                    .setTextColor(
+                        ContextCompat.getColor(
+                            this.requireContext(),
+                            com.google.android.material.R.color.design_default_color_error
+                        )
+                    )
+                view.findViewById<TextView>(R.id.check_magisk)?.text = "❌已發現(未隔離)"
+            } else {
+                view.findViewById<TextView>(R.id.check_magisk).text = "✅未發現刷機"
+                view.findViewById<TextView>(R.id.check_magisk)
+                    .setTextColor(ContextCompat.getColor(this.requireContext(), R.color.green))
+            }
+        }
+
         val locationListener: LocationListener = object : LocationListener {
             @SuppressLint("SetTextI18n")
             override fun onLocationChanged(location: Location) {
-                val locationManager = requireActivity().getSystemService(LOCATION_SERVICE) as LocationManager
+                val locationManager =
+                    requireActivity().getSystemService(LOCATION_SERVICE) as LocationManager
                 val wifiFix = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
-                if(!wifiFix) {
+                if (!wifiFix) {
                     view.findViewById<Button>(R.id.check_location)
                         .setBackgroundColor(
                             ContextCompat.getColor(
@@ -111,7 +123,7 @@ class Home : Fragment() {
                         resources.getString(R.string.check_button)
                 }
 
-                if((Build.VERSION.SDK_INT >= Build.VERSION_CODES.S)&&newerCheckMockLocationApi) {
+                if ((Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) && newerCheckMockLocationApi) {
                     if (location.isMock) {
                         view.findViewById<Button>(R.id.check_location)
                             .setBackgroundColor(
@@ -124,7 +136,7 @@ class Home : Fragment() {
                             "${resources.getString(R.string.check_button)} 無法偵測目前位置12(${Build.VERSION.SDK_INT})"
                     } else view.findViewById<Button>(R.id.check_location).text =
                         resources.getString(R.string.check_button)
-                }else {
+                } else {
                     if (location.isFromMockProvider) {
                         view.findViewById<Button>(R.id.check_location)
                             .setBackgroundColor(
@@ -139,38 +151,53 @@ class Home : Fragment() {
                         resources.getString(R.string.check_button)
                 }
                 view.findViewById<TextView>(R.id.location_system).text =
-                    "${DecimalFormat("#.######").format(location.latitude)},${DecimalFormat("#.######").format(location.longitude)} " +
-                            "(${location.provider}) (${if(wifiFix) "Network fix" else "No fix"})"
+                    "${DecimalFormat("#.######").format(location.latitude)},${
+                        DecimalFormat("#.######").format(
+                            location.longitude
+                        )
+                    } " + "(${location.provider}) (${if (wifiFix) "Network fix" else "No fix"})"
 
                 val gc = Geocoder(requireActivity(), Locale.getDefault())
-                val locationList=gc.getFromLocation(location.latitude,location.longitude,1)
+                val locationList = gc.getFromLocation(location.latitude, location.longitude, 1)
                 val address: Address = locationList!![0]
-                var i=0
+                var i = 0
                 var addressLine = ""
-                while (address.getAddressLine(i)!=null){
+                while (address.getAddressLine(i) != null) {
                     addressLine += address.getAddressLine(i)
                     i++
                 }
                 view.findViewById<TextView>(R.id.location_system).text =
-                    view.findViewById<TextView>(R.id.location_system).text.toString() +"\n${addressLine}"
+                    view.findViewById<TextView>(R.id.location_system).text.toString() + "\n${addressLine}"
             }
 
             @Deprecated("Deprecated in Java")
-            override fun onStatusChanged(provider: String, status: Int, extras: Bundle) {}
+            override fun onStatusChanged(provider: String, status: Int, extras: Bundle) {
+            }
+
             override fun onProviderEnabled(provider: String) {
                 Toast.makeText(context, "已偵測到定位開啟", Toast.LENGTH_SHORT).show()
             }
+
             override fun onProviderDisabled(provider: String) {
                 Toast.makeText(context, "請開啟gps或是網路", Toast.LENGTH_SHORT).show()
             }
         }
 
         fun getLocation() {
-            val locationManager = requireActivity().getSystemService(AppCompatActivity.LOCATION_SERVICE) as LocationManager
+            val locationManager =
+                requireActivity().getSystemService(AppCompatActivity.LOCATION_SERVICE) as LocationManager
             val bestProvider = locationManager.getBestProvider(Criteria(), true).toString()
 
-            if ((ContextCompat.checkSelfPermission(requireActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)) {
-                ActivityCompat.requestPermissions(requireActivity(), arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), locationPermissionCode)
+            if ((ContextCompat.checkSelfPermission(
+                    requireActivity(),
+                    Manifest.permission.ACCESS_FINE_LOCATION
+                ) != PackageManager.PERMISSION_GRANTED)
+            ) {
+                ActivityCompat.requestPermissions(
+                    requireActivity(),
+                    arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                    locationPermissionCode
+                )
             }
             //findViewById<TextView>(R.id.location_system).text = "0.0,0.0"
             /*if (locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
@@ -180,7 +207,7 @@ class Home : Fragment() {
             }else{
                 locationManager.requestLocationUpdates(bestProvider.toString(), 500, 0f,locationListener)
             }*/
-            locationManager.requestLocationUpdates(bestProvider, 500, 0f,locationListener)
+            locationManager.requestLocationUpdates(bestProvider, 500, 0f, locationListener)
             //locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 500, 1f,locationListener)
             //locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 500, 1f,locationListener)
             //locationManager.requestLocationUpdates(LocationManager.FUSED_PROVIDER, 500, 1f,locationListener)
@@ -200,12 +227,20 @@ class Home : Fragment() {
 
         view.findViewById<Button>(R.id.check_location).setOnClickListener {
             magiskCheck()
-            if (context?.let { it1 -> ContextCompat.checkSelfPermission(it1, Manifest.permission.ACCESS_FINE_LOCATION) }
-                != PackageManager.PERMISSION_GRANTED){
+            if (context?.let { it1 ->
+                    ContextCompat.checkSelfPermission(
+                        it1,
+                        Manifest.permission.ACCESS_FINE_LOCATION
+                    )
+                }
+                != PackageManager.PERMISSION_GRANTED) {
                 Toast.makeText(context, "請允許定位權限後在重試", Toast.LENGTH_LONG).show()
-                ActivityCompat.requestPermissions(context as Activity, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), MY_PERMISSIONS_REQUEST_LOCATION)
-            }
-            else{
+                ActivityCompat.requestPermissions(
+                    context as Activity,
+                    arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                    MY_PERMISSIONS_REQUEST_LOCATION
+                )
+            } else {
                 getLocation()
             }
             getLocation()

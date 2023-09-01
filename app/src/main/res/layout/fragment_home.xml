@@ -141,7 +141,7 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="20dp"
                     android:layout_marginEnd="20dp"
-                    android:text="系統取得定位位置:" />
+                    android:text="@string/DetectionPositionTitle" />
 
                 <TextView
                     android:id="@+id/location_system"
@@ -149,14 +149,14 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="20dp"
-                    android:text="未取得" />
+                    android:text="@string/notChecked" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="20dp"
-                    android:text="是否安裝Magsik(偵測刷機):" />
+                    android:text="@string/checkROOTTitle" />
 
                 <TextView
                     android:id="@+id/check_magisk"
@@ -165,7 +165,7 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="20dp"
                     android:layout_marginBottom="20dp"
-                    android:text="未檢查" />
+                    android:text="@string/notChecked" />
 
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="facebook">https://www.facebook.com/android.flash.factory/</string>
-    <string name="shopee">https://shopee.tw/luokey</string>
+    <string name="facebook">https://facebook.台灣/</string>
+    <string name="shopee">https://shopee.idv.tw/</string>
     <string name="shopee_auto">https://shopee.tw/product/167452417/21574723590?d_id=459a0</string>
     <string name="discord">https://discord.gg/rjz2s42</string>
     <string name="youtube">https://www.youtube.com/@key94lo?sub_confirmation=1</string>
@@ -23,6 +23,11 @@
     <string name="url_wecatch">https://github.com/daydreamer1222/WeCatch-Android/releases/download/v4.4.5/wecatch.apk</string>
     <string name="url_wrapper">https://www.mediafire.com/file/hjkbrj513oi3v1l/gpsjoystick_wrapper%25E4%25B8%25AD%25E6%2596%2587%25E5%258C%25961.7.9.apk/file</string>
     <string name="url_gpx">https://www.mediafire.com/file/xa0ml3uwz0l8uon/%25E7%2586%25B1%25E9%2596%2580%25E8%258A%25B1%25E5%258D%2580%25E9%25BB%259E_gpx.zip/file</string>
+    <string name="url_island_official">https://play.google.com/store/apps/details?id=com.oasisfeng.island</string>
+    <string name="url_island_unofficial">https://d.apkpure.com/b/APK/com.oasisfeng.island?version=latest</string>
+    <string name="url_split_official">https://play.google.com/store/apps/details?id=com.github.ericytsang.multiwindow.app.android</string>
+    <string name="url_split_unofficial">https://d.apkpure.com/b/XAPK/com.github.ericytsang.multiwindow.app.android?version=latest</string>
+
 
     <string name="packageName_gps">com.theyerbnosob.vxpdplqpbzmhzbw</string>
     <string name="packageName_polygon">com.evermorelabs.polygonsharp</string>
