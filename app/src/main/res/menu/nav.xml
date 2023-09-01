@@ -8,6 +8,10 @@
         android:title="@string/home"
         android:icon="@drawable/ic_baseline_house_24" />
 
+    <item android:id="@+id/nav_shortcuts"
+        android:title="@string/shortcuts"
+        android:icon="@drawable/baseline_app_shortcut_24" />
+
     <item android:id="@+id/nav_setting"
         android:title="@string/setting"
         android:icon="@drawable/ic_baseline_settings_24" />

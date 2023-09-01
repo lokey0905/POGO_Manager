@@ -115,10 +115,10 @@
                     android:text="@string/remove" />
 
                 <Button
-                    android:layout_weight="1"
                     android:id="@+id/download_pok"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:text="@string/download" />
 
             </LinearLayout>
@@ -316,12 +316,13 @@
                 android:orientation="horizontal">
 
                 <Button
-                    android:layout_weight="1"
-                    android:id="@+id/download_gpx"
+                    android:id="@+id/remove_gps"
+                    style="@style/Widget.Material3.Button.OutlinedButton"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="16dp"
-                    android:text="@string/download_gpx" />
+                    android:layout_weight="1"
+                    android:text="@string/remove" />
 
                 <Button
                     android:layout_weight="1"
@@ -419,12 +420,12 @@
                 android:orientation="horizontal">
 
                 <Button
-                    android:layout_weight="1"
                     android:id="@+id/remove_wrapper"
                     style="@style/Widget.Material3.Button.OutlinedButton"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="16dp"
+                    android:layout_weight="1"
                     android:text="@string/remove" />
 
                 <Button

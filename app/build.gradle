@@ -11,7 +11,7 @@ android {
         minSdk 23
         targetSdk 33
         versionCode 3
-        versionName "1.4"
+        versionName "1.5"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         externalNativeBuild {
@@ -55,6 +55,7 @@ android {
 }
 
 dependencies {
+    implementation 'androidx.preference:preference:1.2.0'
     constraints {
         implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.0") {
             because("kotlin-stdlib-jdk7 is now a part of kotlin-stdlib")
@@ -78,6 +79,6 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
     implementation 'org.jsoup:jsoup:1.15.3'
     implementation 'androidx.compose.material3:material3:1.1.1'
-
+    implementation("com.squareup.okhttp3:okhttp:4.11.0")
 }
 

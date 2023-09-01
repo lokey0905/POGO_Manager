@@ -8,6 +8,7 @@
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:windowLightStatusBar">?attr/isLightTheme</item>
 
+        <item name="preferenceTheme">@style/ThemeOverlay.App.Preference</item>
     </style>
 
     <style name="Theme.DynamicColors.AppWidgetContainerParent" parent="@android:style/Theme.DeviceDefault">
@@ -23,6 +24,14 @@
     <style name="Theme.DynamicColors.AppWidgetContainer" parent="Theme.DynamicColors.AppWidgetContainerParent">
         <!-- Apply padding to avoid the content of the widget colliding with the rounded corners -->
         <item name="appWidgetPadding">4dp</item>
+    </style>
+
+    <style name="ThemeOverlay.App.Preference" parent="PreferenceThemeOverlay">
+        <item name="switchPreferenceCompatStyle">@style/PreferenceMaterialSwitch</item>
+    </style>
+
+    <style name="PreferenceMaterialSwitch" parent="@style/Preference.SwitchPreferenceCompat.Material">
+        <item name="widgetLayout">@layout/preference_switch</item>
     </style>
 
 </resources>
