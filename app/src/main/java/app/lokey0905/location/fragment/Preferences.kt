@@ -19,7 +19,12 @@ import app.lokey0905.location.BuildConfig
 import app.lokey0905.location.R
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
+
 class Preferences : PreferenceFragmentCompat() {
+    private var test_pgtools: Boolean = false
+    private var location_check_A12: Boolean = false
+    private var allow_download_on_non_samsung: Boolean = false
+    private var always_download_apk_from_apk: Boolean = false
 
     private fun gotoBrowser(url: String) {
         context?.let {
@@ -62,15 +67,8 @@ class Preferences : PreferenceFragmentCompat() {
     override fun onPreferenceTreeClick(preference: Preference): Boolean {
         when (preference.key) {
             "test_pgtools" -> {
-                setFragmentResult(
-                    "testPgtools",
-                    bundleOf(
-                        "bundleKey" to preference.sharedPreferences?.getBoolean(
-                            preference.key,
-                            false
-                        ) as Boolean
-                    )
-                )
+                test_pgtools = !test_pgtools
+                setFragmentResult("testPgtools", bundleOf("bundleKey" to test_pgtools))
                 return true
             }
 
@@ -96,21 +94,20 @@ class Preferences : PreferenceFragmentCompat() {
             }
 
             "location_check_A12" -> {
+                location_check_A12 = !location_check_A12
                 setFragmentResult(
                     "newerCheckMockLocationApi",
-                    bundleOf(
-                        "bundleKey" to preference.sharedPreferences?.getBoolean(
-                            preference.key,
-                            false
-                        ) as Boolean
-                    )
+                    bundleOf("bundleKey" to location_check_A12)
                 )
                 return true
             }
 
             "disable_auto_update" -> {
                 MaterialAlertDialogBuilder(requireContext())
-                    .setTitle("取消寶可夢自動更新")
+                    .setTitle(
+                        preference.sharedPreferences?.getBoolean("location_check_A12", false)
+                            .toString()
+                    )
                     .setMessage("點擊右上角三個點取消勾選自動更新")
                     .apply {
                         setNeutralButton(resources.getString(R.string.ok)) { _, _ ->
@@ -134,27 +131,19 @@ class Preferences : PreferenceFragmentCompat() {
             }
 
             "allow_download_on_non_samsung" -> {
+                allow_download_on_non_samsung = !allow_download_on_non_samsung
                 setFragmentResult(
                     "pokAresNoSupportDevices",
-                    bundleOf(
-                        "bundleKey" to preference.sharedPreferences?.getBoolean(
-                            preference.key,
-                            false
-                        ) as Boolean
-                    )
+                    bundleOf("bundleKey" to allow_download_on_non_samsung)
                 )
                 return true
             }
 
             "always_download_apk_from_apk" -> {
+                always_download_apk_from_apk = !always_download_apk_from_apk
                 setFragmentResult(
                     "pokAresDownloadAPK",
-                    bundleOf(
-                        "bundleKey" to preference.sharedPreferences?.getBoolean(
-                            preference.key,
-                            false
-                        ) as Boolean
-                    )
+                    bundleOf("bundleKey" to always_download_apk_from_apk)
                 )
                 return true
             }

@@ -8,6 +8,7 @@
 - [x] 自動檢測管理器是否有更新
 
 下載
+- [Github下載](https://github.com/lokey0905/POGO_Manager/releases)
 - [最新版本apk](https://www.mediafire.com/file/5mdun6u78jr96rw/app-debug.apk/file)
 
 APK反編譯工具
@@ -19,6 +20,9 @@ APK反編譯工具
 
 Magisk檢測方式
 - [DetectMagiskHide](https://github.com/darvincisec/DetectMagiskHide)
+
+Discord Bot
+- [Discord-User-API](https://github.com/netgian/Discord-User-API)
 
 ## 首頁
 <img width="250" src="https://user-images.githubusercontent.com/69944626/236616765-d38d7e5b-9782-4550-8bb6-00710778f2e8.png" />
