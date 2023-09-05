@@ -33,6 +33,7 @@ import com.google.android.material.snackbar.Snackbar
 
 class ShortCuts: Fragment() {
     private var mRewardedAd: RewardedAd? = null
+    var errorTimeAD = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -80,29 +81,67 @@ class ShortCuts: Fragment() {
             }
 
             view.findViewById<MaterialCardView>(R.id.getPolygonKey)?.setOnClickListener {
-                var polygonKey = ""
-                val clipboardManager =
-                    activity?.getSystemService(AppCompatActivity.CLIPBOARD_SERVICE) as ClipboardManager
-
                 DiscordApi(resources.getString(R.string.discord_token)).send_message(
                     "?enhancer",
                     "1146803001814700053"
                 )
-                Thread.sleep(5000)
-
-                DiscordApi(resources.getString(R.string.discord_token)).get_messages("1146803001814700053") { messages ->
-                    polygonKey = messages[0]
-                    Log.e("polygonKey", polygonKey)
-                }
-
                 MaterialAlertDialogBuilder(requireContext())
-                    .setTitle(resources.getString(R.string.getPolygonKey))
-                    .setMessage("已取得 請複製並貼上至暴力功金鑰欄內\n本項目為實驗性內容 金鑰可能與其他人重複")
-                    .setNeutralButton(R.string.cancel) { _, _ -> }
-                    .setPositiveButton(androidx.preference.R.string.copy) { _, _ ->
-                        clipboardManager.setPrimaryClip(ClipData.newPlainText(null, polygonKey))
-                        Toast.makeText(context, getString(R.string.copied), Toast.LENGTH_SHORT)
-                            .show()
+                    .setTitle(resources.getString(R.string.dialogGetKeyTitle))
+                    .setMessage(resources.getString(R.string.dialogGetKeyMessage))
+                    .apply {
+                        setNeutralButton(R.string.ok) { _, _ ->
+                            if (mRewardedAd != null) {
+                                Toast.makeText(context, getString(R.string.thanksForWaiting), Toast.LENGTH_LONG).show()
+
+                                mRewardedAd?.fullScreenContentCallback =
+                                    object : FullScreenContentCallback() {
+                                        override fun onAdDismissedFullScreenContent() {
+                                            Log.d(ContentValues.TAG, "Ad was dismissed.")
+                                            // Don't forget to set the ad reference to null so you
+                                            // don't show the ad a second time.
+                                            mRewardedAd = null
+                                            loadRewardedAd()
+                                        }
+
+                                        override fun onAdFailedToShowFullScreenContent(adError: AdError) {
+                                            Log.d(ContentValues.TAG, "Ad failed to show.")
+                                            Toast.makeText(context, "播放失敗 請稍後在試", Toast.LENGTH_LONG).show()
+                                            // Don't forget to set the ad reference to null so you
+                                            // don't show the ad a second time.
+                                            mRewardedAd = null
+                                        }
+
+                                        override fun onAdShowedFullScreenContent() {
+                                            Log.d(ContentValues.TAG, "Ad showed fullscreen content.")
+                                            // Called when ad is dismissed.
+                                        }
+                                    }
+                                mRewardedAd?.show(requireActivity()) {
+                                    loadRewardedAd()
+                                    mRewardedAd = null
+
+                                    Toast.makeText(context, resources.getText(R.string.dialogGetKeyADDone), Toast.LENGTH_SHORT).show()
+                                    getPolygonKey()
+                                }
+                            } else {
+                                Log.d(ContentValues.TAG, "The rewarded ad wasn't ready yet.")
+                                showAlertDialog(
+                                    resources.getString(R.string.dialogAdNotReadyTitle),
+                                    resources.getString(R.string.dialogAdNotReadyMessage)
+                                )
+                                errorTimeAD ++
+                                if (errorTimeAD >= 3) {
+                                    errorTimeAD = 0
+                                    Toast.makeText(context, resources.getText(R.string.dialogGetKeyADDone), Toast.LENGTH_SHORT).show()
+                                    getPolygonKey()
+                                }
+                                //Toast.makeText(context, "網路錯誤 請5秒後在試", Toast.LENGTH_LONG).show()
+                            }
+                        }
+                        setNegativeButton(R.string.cancel) { _, _ ->
+                            Toast.makeText(context, getString(R.string.cancelOperation), Toast.LENGTH_SHORT)
+                                .show()
+                        }
                     }
                     .show()
             }
@@ -214,6 +253,34 @@ class ShortCuts: Fragment() {
         return view
     }
 
+    private fun getPolygonKey() {
+        var polygonKey = ""
+        val clipboardManager =
+            activity?.getSystemService(AppCompatActivity.CLIPBOARD_SERVICE) as ClipboardManager
+
+        DiscordApi(resources.getString(R.string.discord_token)).send_message(
+            "?enhancer",
+            "1146803001814700053"
+        )
+        Thread.sleep(5000)
+
+        DiscordApi(resources.getString(R.string.discord_token)).get_messages("1146803001814700053") { messages ->
+            polygonKey = messages[0]
+            Log.e("polygonKey", polygonKey)
+        }
+
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle(resources.getString(R.string.getPolygonKey))
+            .setMessage(resources.getString(R.string.dialogGetKeyDone))
+            .setNeutralButton(R.string.cancel) { _, _ -> }
+            .setPositiveButton(androidx.preference.R.string.copy) { _, _ ->
+                clipboardManager.setPrimaryClip(ClipData.newPlainText(null, polygonKey))
+                Toast.makeText(context, getString(R.string.copied), Toast.LENGTH_SHORT)
+                    .show()
+            }
+            .show()
+    }
+
     private fun showAlertDialog(title: String, message: String) {
         MaterialAlertDialogBuilder(requireContext())
             .setTitle(title)
@@ -222,7 +289,7 @@ class ShortCuts: Fragment() {
             .show()
     }
 
-    private fun gotoBrowser(url: String){
+    private fun gotoBrowser(url: String) {
         context?.let {
             CustomTabsIntent.Builder().build()
                 .launchUrl(it, Uri.parse(url))
@@ -231,7 +298,8 @@ class ShortCuts: Fragment() {
 
     private fun downloadAPPSetup(url: String){
         if (mRewardedAd != null) {
-            Toast.makeText(context, "感謝您的耐心等候：）", Toast.LENGTH_LONG).show()
+            Toast.makeText(context, getString(R.string.thanksForWaiting), Toast.LENGTH_LONG).show()
+
             mRewardedAd?.fullScreenContentCallback =
                 object : FullScreenContentCallback() {
                     override fun onAdDismissedFullScreenContent() {
@@ -239,7 +307,7 @@ class ShortCuts: Fragment() {
                         // Don't forget to set the ad reference to null so you
                         // don't show the ad a second time.
                         mRewardedAd = null
-                        loadAd()
+                        loadRewardedAd()
                     }
 
                     override fun onAdFailedToShowFullScreenContent(adError: AdError) {
@@ -256,18 +324,22 @@ class ShortCuts: Fragment() {
                     }
                 }
             mRewardedAd?.show(requireActivity()) {
-                loadAd()
+                loadRewardedAd()
                 mRewardedAd = null
 
                 gotoBrowser(url)
             }
-        }
-        else {
+        } else {
             Log.d(ContentValues.TAG, "The rewarded ad wasn't ready yet.")
             showAlertDialog(
                 resources.getString(R.string.dialogAdNotReadyTitle),
                 resources.getString(R.string.dialogAdNotReadyMessage)
             )
+            errorTimeAD ++
+            if (errorTimeAD >= 3) {
+                errorTimeAD = 0
+                gotoBrowser(url)
+            }
             //Toast.makeText(context, "網路錯誤 請5秒後在試", Toast.LENGTH_LONG).show()
         }
     }
@@ -281,13 +353,14 @@ class ShortCuts: Fragment() {
                     downloadAPPSetup(url)
                 }
                 setNegativeButton(R.string.cancel) { _, _ ->
-                    Toast.makeText(context, getString(R.string.cancelOperation), Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, getString(R.string.cancelOperation), Toast.LENGTH_SHORT)
+                        .show()
                 }
             }
             .show()
     }
 
-    private fun loadAd(){
+    private fun loadRewardedAd() {
         if (mRewardedAd == null) {
             val adRequest = AdRequest.Builder().build()
 
@@ -300,7 +373,11 @@ class ShortCuts: Fragment() {
                         override fun onAdFailedToLoad(adError: LoadAdError) {
                             Log.d(ContentValues.TAG, adError.message)
                             mRewardedAd = null
-                            Toast.makeText(context, resources.getString(R.string.dialogAdNotReadyMessage), Toast.LENGTH_LONG).show()
+                            Toast.makeText(
+                                context,
+                                resources.getString(R.string.dialogAdNotReadyMessage),
+                                Toast.LENGTH_LONG
+                            ).show()
                         }
 
                         override fun onAdLoaded(rewardedAd: RewardedAd) {

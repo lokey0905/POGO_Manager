@@ -60,8 +60,8 @@ class Preferences : PreferenceFragmentCompat() {
             "${BuildConfig.VERSION_NAME} (${BuildConfig.VERSION_CODE})"
         findPreference<Preference>("location_check_A12")?.isEnabled =
             Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
-        findPreference<Preference>("allow_download_on_non_samsung")?.isEnabled =
-            Build.MANUFACTURER != "samsung"
+        findPreference<Preference>("always_download_apk_from_apk")?.isVisible =
+            Build.MANUFACTURER == "samsung"
     }
 
     override fun onPreferenceTreeClick(preference: Preference): Boolean {

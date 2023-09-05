@@ -62,7 +62,7 @@
             android:useAppZygote="true" />
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-3940256099942544~3347511713" />
+            android:value="ca-app-pub-9117573027413270~1732244523" />
     </application>
 
 </manifest>
