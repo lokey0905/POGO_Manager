@@ -1,7 +1,16 @@
 # POGO寶可夢外掛管理器 POGOManager
 
+## 閱讀模式
+### [書本閱讀模式頁面(HackMD)](https://hackmd.io/@lokey0905/B1x_pZAT2)
+### [一般閱讀模式頁面(Github)](https://lokey0905.github.io/POGO_Manager/)
+
+## 目錄(閱讀模式)
+[TOC]
+
 ## 介紹
-POGO寶可夢外掛管理器是一個可以管理多個寶可夢外掛的管理器，可以讓你更方便的管理你的寶可夢外掛，並且可以自動更新外掛
+POGO寶可夢外掛管理器是一個可以管理多個寶可夢外掛的管理器，可以讓你更方便的管理你的寶可夢外掛
+
+**相關資料來源皆為網路取得，pokemon與本軟體無關**
 
 ## 安裝
 本APP只能在Android系統上運行，並且需要Android 7.0以上的系統才能運行
@@ -12,13 +21,13 @@ POGO寶可夢外掛管理器是一個可以管理多個寶可夢外掛的管理�
 ## 更新寶可夢與自動抓
 - 如果安裝版本低於支援版本，表示需要更新自動抓與寶可夢，請點擊更新按鈕，並且等待更新完成
 
-<img width="300" src="NewVersion.jpg" style="margin-right:10px" /><img width="400" src="NewVersion2.jpg" style="margin-right:10px" />
+<img width="300" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/NewVersion.jpg" style="margin-right:10px" /><img width="400" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/NewVersion2.jpg" style="margin-right:10px" />
 
 - 如果寶可夢版本過高，表示可能被play商店自動更新了，關閉方法商店搜尋寶可夢，右上角三個點自動更新取消打勾，若無顯示重啟商店後即可關閉，之後先移除寶可夢，再到下載頁面下載支援版本的寶可夢
 
 - 如果遇到強制更新，可以先到設定中啟用測試版自動抓開關，然後再到下載頁面下載測試版的寶可夢與自動抓，若還是不支援請等待自動抓團隊更新
 
-<img width="400" src="testPgtools.jpg" style="margin-right:10px" />
+<img width="400" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/testPgtools.jpg" style="margin-right:10px" />
 
 # 建議玩法
 ## 手動玩
@@ -27,89 +36,98 @@ POGO寶可夢外掛管理器是一個可以管理多個寶可夢外掛的管理�
 
 ## 單純掛機
 - 搖桿設定路線+Pgtools
-- 須注意掛機時間，時間太長可能會達到帳號當日上限，甚至軟體鎖
+- 須注意掛機時間，時間太長可能會達到帳號當日上限，甚至軟體鎖(可參考最下方說明)
 
 ## 掛機刷星辰
 - 搖桿設定路線+wrapper+Pgtools 自動抓刷火箭隊(須付費版本)
 - 搖桿設定路線+wrapper+Polygon 暴力功半自動刷火箭隊(免費但須手動點擊)
-- 須注意掛機時間，時間太長可能會達到帳號當日上限，甚至軟體鎖
+- 須注意掛機時間，時間太長可能會達到帳號當日上限，甚至軟體鎖(可參考最下方說明)
+
+
+## 寶可夢雙開(以上)
+- 雙開版本的寶可夢無法使用暴力功跟Pgtools的功能，只能使用虛擬定位，建議記憶體6G以上，說明如下
+1. 三星商店版本:需到三星商店下載，也可在管理器內啟用非三星裝置上下載，直接下載APK安裝
+2. 安卓環境雙開:例如MIUI的應用雙開與island的環境，若需降版本APP需要同步移除其他環境的應用程式
+
+- 搭配三星版本與環境雙開，理論來說可以達到最多6個寶可夢客戶端，但Android的分割畫面只能同時開啟兩個畫面，除非有特殊需求，否則不建議安裝超過2個客戶端
+
 
 # 外掛列表
-## GPS Joystick 搖桿改定位 <img width="50" src="icon/gps_icon.png"/>
+## GPS Joystick 搖桿改定位 <img width="50" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/icon/gps_icon.png"/>
 可以讓你在遊戲中使用搖桿來移動你的位置，並且可以設定路徑移動與移動速度
 
 ### 預先設定
 
 修正GPS跳轉到真正的位置
 
-<img width="400" src="JoystickSetting.jpg" style="margin-right:10px" />
+<img width="400" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/JoystickSetting.jpg" style="margin-right:10px" />
 
 設定中關閉【啟用間接模擬】選項
 
-<img width="400" src="JoystickSetting2.jpg" style="margin-right:10px" />
+<img width="400" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/JoystickSetting2.jpg" style="margin-right:10px" />
 
 ### 權限與設定
 允許顯示於上方懸浮權限與模擬定位應用程式為搖桿
 
 ### 匯入GPX路徑檔案
-先到管理器內下載路徑zip檔案，下載後解壓縮，選擇匯入GPX檔案並轉換成路徑檔即可
+先到管理器內下載路徑zip檔案，下載後解壓縮，左上角選項選擇匯入GPX檔案並轉換成路徑檔即可
 
-- [資料來源](https://drive.google.com/drive/u/0/folders/1iz4vnBLGwNq-3qishs-RkCuGMkoGeMEQ?sort=13&direction=a&fbclid=IwAR2BpvMIhlf-Awr6kku54O5kwk5F6Cd7k5b6QU7seMaXw-snf1cf03wrRhM)
+- [下載GPX路徑檔](https://drive.google.com/drive/u/0/folders/1iz4vnBLGwNq-3qishs-RkCuGMkoGeMEQ?sort=13&direction=a&fbclid=IwAR2BpvMIhlf-Awr6kku54O5kwk5F6Cd7k5b6QU7seMaXw-snf1cf03wrRhM)
 
 ### 啟動搖桿
 點右上角的圖示可切換模式選擇，可以選擇使用單一位置或是路徑移動
 - 單一位置: 點擊地圖上的位置或是輸入經位度，按下開始後移動到該位置
 
-<img width="200" src="JoystickStart1-1.jpg" style="margin-right:10px" /> <img width="200" src="JoystickStart1-2.jpg" style="margin-right:10px" />
+<img width="200" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/JoystickStart1-1.jpg" style="margin-right:10px" /> <img width="200" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/JoystickStart1-2.jpg" style="margin-right:10px" />
 
 - 路徑移動: 點擊地圖上的設置路徑，在選擇生成或是加載路徑，按下開始後就會依照路徑位置移動
 
-<img width="200" src="JoystickStart2-1.jpg" style="margin-right:10px" /> <img width="200" src="JoystickStart2-2.jpg" style="margin-right:10px" />
+<img width="200" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/JoystickStart2-1.jpg" style="margin-right:10px" /> <img width="200" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/JoystickStart2-2.jpg" style="margin-right:10px" />
 
-**三星Android 10以上在快捷欄中請不要按這<img width="50" src="JoystickMapIcon.jpg"/>按鈕，可能會導致搖桿崩潰，須重啟搖桿才能正常使用**
+**三星Android 10以上在快捷欄中請不要按這<img width="50" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/JoystickMapIcon.jpg"/>按鈕，可能會導致搖桿崩潰，須重啟搖桿才能正常使用**
 
 ### 冷卻時間
-搖桿內地圖可察看冷卻剩餘時間，三星用戶請勿直接點擊懸浮的地圖按鈕<img width="50" src="JoystickMapIcon.jpg"/>，會導致搖桿崩潰，請直接開啟搖桿APP內的地圖
+搖桿內地圖可察看冷卻剩餘時間，三星用戶請勿直接點擊懸浮的地圖按鈕<img width="50" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/JoystickMapIcon.jpg"/>，會導致搖桿崩潰，請直接開啟搖桿APP內的地圖
 
 其他冷卻說明，可參考下方冷卻計算
 
-## GPS Joystick Wrapper <img width="50" src="icon/Wrapper.jpg"/>
+## GPS Joystick Wrapper <img width="50" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/icon/Wrapper.jpg"/>
 可以快速尋找火箭隊的軟體
 
 ### 使用
 點擊左上角的▶按鈕即可開始尋找火箭隊，點擊⏩按鈕尋找下一個目標，以此類推，需搭配GPS Joystick搖桿使用
 
-## Polygon 暴力功 <img width="50" src="icon/polygon_icon.png"/>
+## Polygon 暴力功 <img width="50" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/icon/polygon_icon.png"/>
 可以用來顯示寶可夢IV三圍、偵測色違；自動E球、半自動轉補給站、火箭隊直接勝利等功能
 
-**本軟體不適用:32位元裝置,雙開版本(小米應用雙開,island),三星版本寶可夢**
+**本軟體不適用:32位元裝置,雙開版本(Miui應用雙開,island),三星版本寶可夢**
 
 ### 權限與設定
-允許顯示於上方懸浮權限與ROOT超級使用者權限(請先關閉其他懸浮APP 否則無法允許權限)
+允許顯示於上方懸浮權限與ROOT超級使用者權限(**請先關閉其他懸浮APP 否則無法允許權限**)
 
 ### 使用
 輸入KEYS金鑰後，點擊START或是啟動即可開始使用，大部分功能皆以預先設定完成 
 
 功能如下(可在一般設定中查看):
 
-<img width="400" src="PolygonSetting.jpg" style="margin-right:10px" />
+<img width="400" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/PolygonSetting.jpg" style="margin-right:10px" />
 
-進階設定不建議自行設定，可能會導致不可預知的後果
+**進階設定不建議自行設定，可能會導致不可預知的後果**
 
 ### 使用點擊傳送功能
 請在暴力功的一般設定中，啟用點擊傳送功能，並選擇模擬定位應用程式為Polygon 暴力功
 
 若要將定位切換回搖桿，請在暴力功的一般設定中，關閉點擊傳送功能，並選擇模擬定位應用程式為GPS Joystick 搖桿
 
-定位功能 搖桿與暴力功只能二選一，不能同時使用
+**模擬定位服務，搖桿與暴力功只能二選一，不能同時使用**
 
-## Pgtools 自動抓 <img width="50" src="icon/pgtools_icon.png"/>
+## Pgtools 自動抓 <img width="50" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/icon/pgtools_icon.png"/>
 可以自動掛機抓寶可夢，並且可以自動轉補給站等功能
 
 **本軟體不適用:32位元裝置,雙開版本(小米應用雙開,island),三星版本寶可夢**
 
 ### 權限與設定
-啟動後，需要先允許ROOT超級使用者權限(請先關閉其他懸浮APP 否則無法允許權限)
+啟動後，需要先允許ROOT超級使用者權限(**請先關閉其他懸浮APP 否則無法允許權限**)
 
 進入後，點選右上角地圖圖示，可將語言切換成中文
 
@@ -122,28 +140,46 @@ POGO寶可夢外掛管理器是一個可以管理多個寶可夢外掛的管理�
 
 若有發生無限重啟的狀況，可以嘗試重新啟動手機
 
-## PokeList 寶可夢列表 <img width="50" src="icon/pokelist_icon.png"/>
+## PokeList 寶可夢列表 <img width="50" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/icon/pokelist_icon.png"/>
 可用來追蹤寶可夢
 
 ### 權限與設定
 允許顯示於上方懸浮權限與允許定位權限
 
 ### 使用
-點擊左邊的啟動服務按鈕或是start service即可開始使用，點擊選項即可跳轉位置
+直接點擊寶可夢，可跳轉至該寶可夢位置
+
+若要在遊戲中使用，點擊左邊上角的啟動服務按鈕或是start service即可開始使用，點擊寶可夢選項即可跳轉位置
+
+### 顯示冷卻時間
+若要查看冷卻時間請點快捷欄中房子的按鈕，會設定當前位置並計算冷卻時間並顯示於畫面上方
+
+若無顯示，請長按房子按鈕，將會移除儲存位置，在點擊一次即可重新顯示
 
 ### 自動追擊
-點擊右上角三個點的自動狙擊，啟動自動狙擊在允許通知存取權限，啟動後會自動狙擊附近的寶可夢
+點擊右上角三個點的自動狙擊，啟動自動狙擊在允許通知存取權限，啟動服務點擊開始按鈕後會自動狙擊附近的寶可夢
+
+可依狀況自行設定等待時間與偵測提示
+
+
 
 自動點擊功能需搭配Polygon 暴力功的付費功能使用
 
-## WeCatch 寶可夢地圖 <img width="50" src="icon/wecatch_icon.png"/>
-可用來追蹤寶可夢
+## WeCatch 寶可夢地圖 <img width="50" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/icon/wecatch_icon.png"/>
+可用來尋找與追蹤寶可夢、補給站、道館等等
 
 ### 權限與設定
 允許定位權限
 
 ### 使用
-點擊下方五個按鈕執行相關功能
+點擊下方五個按鈕執行相關功能，從左至右分別是:
+
+1. 追蹤特定IV與頭目
+2. 顯示天氣
+3. 顯示補給站
+4. 顯示道館與相關資訊
+5. 顯示篩館的寶可夢
+(需搭配右上角選項篩選)
 
 # 飛人基本常識
 有效動作：完成捕抓寶可夢動作（逃跑或成功捕獲）、丟球、攻塔 、佔塔、翻塔牌。在上述情形下皆算有效動作。
@@ -171,3 +207,48 @@ POGO寶可夢外掛管理器是一個可以管理多個寶可夢外掛的管理�
 獲得方式：依循遊戲常規，每星期都會發放一次VIP邀請函。在此次邀請函發送日往前涵括一星期內，曾經於VIP道館挑戰頭目過，才會有一定機率抽中VIP邀請函。
 
 邀請函所顯示的邀請參戰時間，請依自己手機的時間為準。切勿自行換算時間。票面時間會因為擅改時區而隨著更改。
+
+## 軟體鎖
+### 🧚‍♀️🧚🏻精靈篇：
+- 每天：4800隻
+- 每週：1萬4000隻
+
+### 🛑補給站上限：
+- 單日1200轉
+- 周上限7000轉。
+
+### 🔐已達上限被軟鎖
+- 若已達上限後、將被軟鎖，完全解軟鎖需24小時（由達軟鎖最後時間起算、可參考冒險筆記之 最後轉牌/捕捉紀錄）
+
+### 🌷友情建議🌷
+1. 🎯勤奮型：（每日掛機玩家）
+- 單日捕捉800-900支精靈，補給站轉到最大球數(不會被軟鎖之補給站)
+
+2. 🎯佛系型：（不常掛機玩家）
+- 單日捕捉1千支怪，補給站1200轉。
+
+### 🍬寵糖
+- 夥伴（伴寵）單日40公里、以首次給糖🍬之時間起算24小時後重新計算。
+
+### 🔁交換
+- 單日：99次普通精靈交換；1 次特殊交換（神獸／色違）（如遇特殊活動 除外）
+
+### 💢重點提醒💢
+- 原當日為99+1次交換、但如果先進行特殊交換一次、再進行一般交換、則可以101次。
+- 當日時區之24:00結算、可以跨隔日時區但不可逆轉昨日時區
+
+### 🎁好友禮盒：
+- 送100/ 開30
+- 重置時間：當地00:00
+
+### 🌟觸發亮晶晶
+- 🤝四❤️正港好友:400回
+- 單人單日僅能觸發一次
+
+### 🤜🤛交換:101回（請參閱交換說明）
+- 重置時間：當地時間00:00
+
+### 🏦道館P幣
+- 1.單帳可同時至多佔20道館
+- 2.每10分鐘1P、單日最多50P(8小時20分鐘）
+- 3.佔崗輪值無收入、需下崗才結算計薪
