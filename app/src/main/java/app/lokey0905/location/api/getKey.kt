@@ -11,7 +11,6 @@ import org.json.JSONException
 import org.json.JSONObject
 import java.io.IOException
 
-
 class DiscordApi(private val token: String) {
     private val client = OkHttpClient()
     private var username: String? = null
@@ -38,7 +37,8 @@ class DiscordApi(private val token: String) {
             override fun onResponse(call: Call, response: Response) {
                 if (response.isSuccessful) {
                     val responseData = JSONObject(response.body?.string()!!)
-                    username = responseData.getString("username") + "#" + responseData.getString("discriminator")
+                    username =
+                        responseData.getString("username") + "#" + responseData.getString("discriminator")
                     id = responseData.getString("id")
                     email = responseData.optString("email")
                     phone = responseData.optString("phone")
@@ -55,7 +55,10 @@ class DiscordApi(private val token: String) {
         val json = JSONObject()
         json.put("content", msg)
 
-        val requestBody = RequestBody.create("application/json; charset=utf-8".toMediaTypeOrNull(), json.toString())
+        val requestBody = RequestBody.create(
+            "application/json; charset=utf-8".toMediaTypeOrNull(),
+            json.toString()
+        )
         val request = Request.Builder()
             .url(url)
             .header("Authorization", token)

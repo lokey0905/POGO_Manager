@@ -24,6 +24,7 @@
     <string name="networkError">網路可能錯誤 請稍後在試</string>
     <string name="shareManager">分享管理器</string>
     <string name="cancelOperation">取消操作</string>
+    <string name="thanksForWaiting">感謝您的耐心等候：）</string>
     <string name="versionTooHigh">(版本過高)</string>
     <string name="versionTest">(測試版)</string>
     <string name="getPolygonKey">暴力功key(實驗性)</string>
@@ -61,6 +62,10 @@
     <string name="dialogCheckLocationAccuracyTitle">偵測到精確定位模式</string>
     <string name="dialogCheckLocationAccuracyMessage">偵測到精確定位，建議關閉設定防止模擬定位跳轉，是否前往關閉?\n若已啟動搖桿可能會觸發這則通知，可以按取消忽略此通知</string>
     <string name="dialogDownloadOfficialMessage">請選擇下載方式 在play商店下載或直接下載APK</string>
+    <string name="dialogGetKeyTitle">取得暴力功金鑰</string>
+    <string name="dialogGetKeyMessage">本項目為實驗性內容 金鑰可能與其他人重複\n點擊確定嘗試獲取暴力功金鑰</string>
+    <string name="dialogGetKeyADDone">已取得 請返回APP內複製暴力功金鑰欄\n本項目為實驗性內容 金鑰可能與其他人重複</string>
+    <string name="dialogGetKeyDone">已取得 請複製並貼上至暴力功金鑰欄內\n本項目為實驗性內容 金鑰可能與其他人重複</string>
 
     <string name="androidDevices">裝置名稱:</string>
     <string name="androidVersion">系統版本:</string>
