@@ -17,6 +17,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResultListener
 import app.lokey0905.location.R
 import app.lokey0905.location.api.DiscordApi
 import com.google.android.gms.ads.AdError
@@ -35,6 +36,8 @@ class ShortCuts: Fragment() {
     private var mRewardedAd: RewardedAd? = null
     var errorTimeAD = 0
 
+    private var customTabsOff: Boolean = false
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
@@ -48,6 +51,14 @@ class ShortCuts: Fragment() {
 
             view.findViewById<MaterialCardView>(R.id.manual)?.setOnClickListener {
                 gotoBrowser(getString(R.string.github_manual))
+            }
+
+            view.findViewById<MaterialCardView>(R.id.pgtoolsFile)?.setOnClickListener {
+                downloadAPPWithAd(getString(R.string.pgtoolsFile))
+            }
+
+            view.findViewById<MaterialCardView>(R.id.coolDownCalculator)?.setOnClickListener {
+                gotoBrowser(getString(R.string.url_coolDownCalculator))
             }
 
             view.findViewById<MaterialCardView>(R.id.LocationAccuracyActivity)?.setOnClickListener {
@@ -142,6 +153,25 @@ class ShortCuts: Fragment() {
                             Toast.makeText(context, getString(R.string.cancelOperation), Toast.LENGTH_SHORT)
                                 .show()
                         }
+                    }
+                    .show()
+            }
+
+            view.findViewById<MaterialCardView>(R.id.PackageDisablerPro)?.setOnClickListener {
+                downloadAPPWithAd(resources.getString(R.string.url_PackageDisablerPro))
+
+            }
+
+            view.findViewById<MaterialCardView>(R.id.AFWall)?.setOnClickListener {
+                MaterialAlertDialogBuilder(requireContext())
+                    .setTitle(resources.getString(R.string.dialogDownloadTitle))
+                    .setMessage(resources.getString(R.string.dialogDownloadOfficialMessage))
+                    .setNeutralButton(R.string.cancel) { _, _ -> }
+                    .setNegativeButton(getString(R.string.downloadAPK)) { _, _ ->
+                        downloadAPPWithAd(resources.getString(R.string.url_AFWall_unofficial))
+                    }
+                    .setPositiveButton(getString(R.string.downloadOnGooglePlay)) { _, _ ->
+                        downloadAPPWithAd(resources.getString(R.string.url_AFWall_official))
                     }
                     .show()
             }
@@ -253,6 +283,14 @@ class ShortCuts: Fragment() {
         return view
     }
 
+    override fun onResume() {
+        super.onResume()
+
+        setFragmentResultListener("customTabsOff") { _, bundle ->
+            customTabsOff = bundle.getBoolean("bundleKey")
+        }
+    }
+
     private fun getPolygonKey() {
         var polygonKey = ""
         val clipboardManager =
@@ -291,8 +329,11 @@ class ShortCuts: Fragment() {
 
     private fun gotoBrowser(url: String) {
         context?.let {
-            CustomTabsIntent.Builder().build()
-                .launchUrl(it, Uri.parse(url))
+            if (customTabsOff)
+                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
+            else
+                CustomTabsIntent.Builder().build()
+                    .launchUrl(it, Uri.parse(url))
         }
     }
 

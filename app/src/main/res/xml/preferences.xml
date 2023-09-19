@@ -2,6 +2,20 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <PreferenceCategory
+        android:title="開啟網頁"
+        app:allowDividerAbove="false"
+        app:allowDividerBelow="false">
+
+        <SwitchPreferenceCompat
+            android:key="customTabsOff"
+            android:title="在瀏覽器中開啟網頁"
+            android:icon="@drawable/baseline_open_in_browser_24"
+            app:summary="在預設瀏覽器中開啟網頁,而不是使用Custom Tabs,若無法下載檔案可嘗試開啟"
+            android:persistent="false"
+            android:defaultValue="false" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
         android:title="測試版本"
         app:allowDividerAbove="false"
         app:allowDividerBelow="false">

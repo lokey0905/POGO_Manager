@@ -34,6 +34,8 @@
     <string name="DetectionPositionTitle">系統取得定位位置:</string>
     <string name="checkROOTTitle">偵測ROOT環境:</string>
     <string name="MiuiXSpace">MIUI應用雙開</string>
+    <string name="coolDownCalculator">冷卻計算機</string>
+    <string name="pgtoolsFile">pgtools設定檔案(僅限贊助版本)</string>
 
     <string name="download_gpx">下載GPX路徑檔</string>
     <string name="downloadOnGooglePlay">從play商店下載</string>
@@ -46,6 +48,8 @@
 
     <string name="format_newerVersion">支援版本:%1$s %2$s</string>
     <string name="format_installVersion">安裝版本:%1$s</string>
+
+    <string name="aboutDetectRoot">本檢測方式使用公開檢測方式(請參考Github)。\n\n本軟體不會掃描相關APP列表，Google play已要求適配Android 11，應用則無法獲取應用列表，檢測是否安裝特定應用已毫無意義。(本段來源:momo)</string>
 
     <string name="dialogDownloadTitle">即將開始下載</string>
     <string name="dialogDownloadMessage">請點擊網頁的【Download】或【Download APK】或是【下載】按鈕以下載APK</string>

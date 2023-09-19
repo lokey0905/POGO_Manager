@@ -7,12 +7,13 @@
     <string name="youtube">https://www.youtube.com/@key94lo?sub_confirmation=1</string>
     <string name="github">https://github.com/lokey0905/POGO_Manager</string>
     <string name="githubApi">https://api.github.com/repos/lokey0905/POGO_Manager/releases/latest</string>
-    <string name="github_manual">https://lokey0905.github.io/POGO_Manager/</string>
+    <string name="github_manual">https://hackmd.io/@lokey0905/B1x_pZAT2</string>
 
     <string name="version_polygon">0.9.1</string>
     <string name="version_wrapper">1.7.9</string>
     <string name="version_pokelist">1.3.15</string>
     <string name="version_wecatch">4.4.5</string>
+    <string name="version_pokemod">6.9.3</string>
 
     <string name="url_pgtoolsJson">https://assets.pgtools.net/auto-versions.json</string>
     <string name="url_pgtoolsJsonTest">https://assets.pgtools.net/test-auto-versions.json</string>
@@ -23,16 +24,21 @@
     <string name="url_pok_store">https://play.google.com/store/apps/details?id=com.nianticlabs.pokemongo</string>
     <string name="url_pokAres">https://www.apkmirror.com/apk/niantic-inc/pokemon-go-samsung-galaxy-apps-version/</string>
     <string name="url_pokAres_store">https://apps.samsung.com/appquery/appDetail.as?appId=com.nianticlabs.pokemongo.ares</string>
+    <string name="url_pokeMod">https://pokemod.dev/zh/</string>
+    <string name="url_pgtoolsFile">https://www.mediafire.com/file/fecfev2pr5c8x6d/GilbertMike_100523_1.txt/file</string>
     <!--string name="url_pokelist">https://moonani.com/PokeList/PokeList.apk</string-->
     <string name="url_pokelist">https://www.mediafire.com/file/zs6baik33minkq3/PokeList%25E4%25B8%25AD%25E6%2596%2587%25E5%258C%2596–1.3.13.apk/file</string>
     <string name="url_wecatch">https://github.com/daydreamer1222/WeCatch-Android/releases/download/v4.4.5/wecatch.apk</string>
     <string name="url_wrapper">https://www.mediafire.com/file/hjkbrj513oi3v1l/gpsjoystick_wrapper%25E4%25B8%25AD%25E6%2596%2587%25E5%258C%25961.7.9.apk/file</string>
     <string name="url_gpx">https://www.mediafire.com/file/xa0ml3uwz0l8uon/%25E7%2586%25B1%25E9%2596%2580%25E8%258A%25B1%25E5%258D%2580%25E9%25BB%259E_gpx.zip/file</string>
+    <string name="url_coolDownCalculator">https://cool.android.ovh/</string>
     <string name="url_island_official">https://play.google.com/store/apps/details?id=com.oasisfeng.island</string>
     <string name="url_island_unofficial">https://d.apkpure.com/b/APK/com.oasisfeng.island?version=latest</string>
     <string name="url_split_official">https://play.google.com/store/apps/details?id=com.github.ericytsang.multiwindow.app.android</string>
-    <string name="url_split_unofficial">https://d.apkpure.com/b/XAPK/com.github.ericytsang.multiwindow.app.android?version=latest</string>
-
+    <string name="url_split_unofficial">https://www.mediafire.com/file/ufyvz2dm6inulxj/com.github.ericytsang.multiwindow.app.android.apk/file</string>
+    <string name="url_PackageDisablerPro">https://www.mediafire.com/file/ufyvz2dm6inulxj/com.github.ericytsang.multiwindow.app.android.apk/file</string>
+    <string name="url_AFWall_official">https://play.google.com/store/apps/details?id=dev.ukanth.ufirewall</string>
+    <string name="url_AFWall_unofficial">https://github.com/ukanth/afwall/releases/download/v3.6.0/AFWall_3.6.0_Free.apk</string>
 
     <string name="packageName_gps">com.theyerbnosob.vxpdplqpbzmhzbw</string>
     <string name="packageName_polygon">com.evermorelabs.polygonsharp</string>
@@ -42,4 +48,5 @@
     <string name="packageName_pokAres">com.nianticlabs.pokemongo.ares</string>
     <string name="packageName_PokeList">com.antvn.pokelist</string>
     <string name="packageName_WeCatch">com.daydreamer.wecatch</string>
+    <string name="packageName_pokeMod">com.pokemod.app.public</string>
 </resources>

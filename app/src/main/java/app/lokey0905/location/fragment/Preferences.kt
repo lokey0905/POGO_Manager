@@ -25,11 +25,15 @@ class Preferences : PreferenceFragmentCompat() {
     private var location_check_A12: Boolean = false
     private var allow_download_on_non_samsung: Boolean = false
     private var always_download_apk_from_apk: Boolean = false
+    private var customTabsOff: Boolean = false
 
     private fun gotoBrowser(url: String) {
         context?.let {
-            CustomTabsIntent.Builder().build()
-                .launchUrl(it, Uri.parse(url))
+            if (customTabsOff)
+                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
+            else
+                CustomTabsIntent.Builder().build()
+                    .launchUrl(it, Uri.parse(url))
         }
     }
 
@@ -66,6 +70,15 @@ class Preferences : PreferenceFragmentCompat() {
 
     override fun onPreferenceTreeClick(preference: Preference): Boolean {
         when (preference.key) {
+            "customTabsOff" -> {
+                customTabsOff = !customTabsOff
+                setFragmentResult(
+                    "customTabsOff",
+                    bundleOf("bundleKey" to customTabsOff)
+                )
+                return true
+            }
+
             "test_pgtools" -> {
                 test_pgtools = !test_pgtools
                 setFragmentResult("testPgtools", bundleOf("bundleKey" to test_pgtools))
@@ -104,10 +117,7 @@ class Preferences : PreferenceFragmentCompat() {
 
             "disable_auto_update" -> {
                 MaterialAlertDialogBuilder(requireContext())
-                    .setTitle(
-                        preference.sharedPreferences?.getBoolean("location_check_A12", false)
-                            .toString()
-                    )
+                    .setTitle("取消寶可夢自動更新")
                     .setMessage("點擊右上角三個點取消勾選自動更新")
                     .apply {
                         setNeutralButton(resources.getString(R.string.ok)) { _, _ ->

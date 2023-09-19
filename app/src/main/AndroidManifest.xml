@@ -13,6 +13,7 @@
         <package android:name="com.nianticlabs.pokemongo.ares" />
         <package android:name="com.antvn.pokelist" />
         <package android:name="com.daydreamer.wecatch" />
+        <package android:name="com.pokemod.app.public" />
 
     </queries>
 
