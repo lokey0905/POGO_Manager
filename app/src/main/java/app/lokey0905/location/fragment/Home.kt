@@ -21,6 +21,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
 import app.lokey0905.location.R
+import com.google.android.material.card.MaterialCardView
 import java.text.DecimalFormat
 import java.util.*
 import kotlin.math.roundToInt
@@ -224,6 +225,11 @@ class Home : Fragment() {
 
         getDevice()
         setFragmentResultListener()
+
+        view.findViewById<MaterialCardView>(R.id.check)?.setOnClickListener {
+            view.findViewById<TextView>(R.id.aboutDetectRoot).visibility = View.VISIBLE
+
+        }
 
         view.findViewById<Button>(R.id.check_location).setOnClickListener {
             magiskCheck()
