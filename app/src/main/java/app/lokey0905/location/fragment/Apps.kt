@@ -352,7 +352,7 @@ class Apps : Fragment() {
                         appInstalledVersion(resources.getString(R.string.packageName_wrapper))
                     )
                 )
-            view.findViewById<TextView>(R.id.wrapper_install_version).text =
+            view.findViewById<TextView>(R.id.pokemod_install_version).text =
                 String.format(
                     resources.getString(
                         R.string.format_installVersion,
@@ -634,10 +634,10 @@ class Apps : Fragment() {
             "未安裝"
     }
 
-    private fun appInstalledOrNot(PackageName: String): Boolean {
+    private fun appInstalledOrNot(packageName: String): Boolean {
         val pm = activity?.packageManager
         try {
-            pm?.getPackageInfo(PackageName, PackageManager.GET_ACTIVITIES)
+            pm?.getPackageInfo(packageName, PackageManager.GET_ACTIVITIES)
             return true
         } catch (_: PackageManager.NameNotFoundException) {
         }

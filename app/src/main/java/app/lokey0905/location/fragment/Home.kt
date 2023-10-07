@@ -5,8 +5,10 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.ActivityManager
 import android.content.Context.LOCATION_SERVICE
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.*
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -22,6 +24,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
 import app.lokey0905.location.R
 import com.google.android.material.card.MaterialCardView
+import com.google.android.material.color.MaterialColors
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import java.text.DecimalFormat
 import java.util.*
 import kotlin.math.roundToInt
@@ -104,53 +108,56 @@ class Home : Fragment() {
         }
 
         val locationListener: LocationListener = object : LocationListener {
+            fun setButtonErrorColor(){
+                view.findViewById<Button>(R.id.check_location)
+                    .setBackgroundColor(
+                        MaterialColors.getColor(view, androidx.appcompat.R.attr.colorError)
+                    )
+            }
+
+            fun setButtonNormal(){
+                view.findViewById<Button>(R.id.check_location)
+                    .setBackgroundColor(
+                        MaterialColors.getColor(view, androidx.appcompat.R.attr.colorPrimary)
+                    )
+            }
+
             @SuppressLint("SetTextI18n")
             override fun onLocationChanged(location: Location) {
                 val locationManager =
                     requireActivity().getSystemService(LOCATION_SERVICE) as LocationManager
                 val wifiFix = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
+                var errorFlag = false
+
                 if (!wifiFix) {
-                    view.findViewById<Button>(R.id.check_location)
-                        .setBackgroundColor(
-                            ContextCompat.getColor(
-                                requireActivity(),
-                                com.google.android.material.R.color.design_default_color_error
-                            )
-                        )
+                    errorFlag = true
+                    setButtonErrorColor()
                     view.findViewById<Button>(R.id.check_location).text =
                         "${resources.getString(R.string.check_button)} 無法偵測目前位置11"
-                } else {
-                    view.findViewById<Button>(R.id.check_location).text =
-                        resources.getString(R.string.check_button)
                 }
 
                 if ((Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) && newerCheckMockLocationApi) {
                     if (location.isMock) {
-                        view.findViewById<Button>(R.id.check_location)
-                            .setBackgroundColor(
-                                ContextCompat.getColor(
-                                    requireActivity(),
-                                    com.google.android.material.R.color.design_default_color_error
-                                )
-                            )
+                        errorFlag = true
+                        setButtonErrorColor()
                         view.findViewById<Button>(R.id.check_location).text =
                             "${resources.getString(R.string.check_button)} 無法偵測目前位置12(${Build.VERSION.SDK_INT})"
-                    } else view.findViewById<Button>(R.id.check_location).text =
-                        resources.getString(R.string.check_button)
+                    }
                 } else {
                     if (location.isFromMockProvider) {
-                        view.findViewById<Button>(R.id.check_location)
-                            .setBackgroundColor(
-                                ContextCompat.getColor(
-                                    requireActivity(),
-                                    com.google.android.material.R.color.design_default_color_error
-                                )
-                            )
+                        errorFlag = true
+                        setButtonErrorColor()
                         view.findViewById<Button>(R.id.check_location).text =
                             "${resources.getString(R.string.check_button)} 無法偵測目前位置12"
-                    } else view.findViewById<Button>(R.id.check_location).text =
+                    }
+                }
+
+                if(!errorFlag){
+                    setButtonNormal()
+                    view.findViewById<Button>(R.id.check_location).text =
                         resources.getString(R.string.check_button)
                 }
+
                 view.findViewById<TextView>(R.id.location_system).text =
                     "${DecimalFormat("#.######").format(location.latitude)},${
                         DecimalFormat("#.######").format(
@@ -227,7 +234,8 @@ class Home : Fragment() {
         setFragmentResultListener()
 
         view.findViewById<MaterialCardView>(R.id.check)?.setOnClickListener {
-            view.findViewById<TextView>(R.id.aboutDetectRoot).visibility = View.VISIBLE
+            view.findViewById<Button>(R.id.check_safetynet).visibility = View.VISIBLE
+            view.findViewById<Button>(R.id.check_appList).visibility = View.VISIBLE
 
         }
 
@@ -251,6 +259,64 @@ class Home : Fragment() {
             }
             getLocation()
         }
+
+        view.findViewById<Button>(R.id.check_safetynet).setOnClickListener {
+            if (appInstalledOrNot(resources.getString(R.string.packageName_safetynetChecker))) {
+                val launchIntent =
+                    requireActivity().packageManager.getLaunchIntentForPackage(resources.getString(R.string.packageName_safetynetChecker))
+                if (launchIntent != null) {
+                    startActivity(launchIntent)
+                }
+            } else {
+                MaterialAlertDialogBuilder(requireActivity())
+                    .setTitle(resources.getString(R.string.dialogDownloadTitle))
+                    .setMessage(resources.getString(R.string.dialogDownloadDetectorMessage))
+                    .apply {
+                        setPositiveButton(getString(R.string.downloadOnGooglePlay)) { _, _ ->
+                            gotoBrowser(resources.getString(R.string.url_safetynetChecker_official))
+                        }
+                        setNegativeButton(getString(R.string.downloadAPK)) { _, _ ->
+                            gotoBrowser(resources.getString(R.string.url_safetynetChecker_unofficial))
+                        }
+                        setNeutralButton(R.string.cancel) { _, _ ->
+                            Toast.makeText(
+                                context,
+                                getString(R.string.cancelOperation),
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    }
+                    .show()
+            }
+        }
+
+        view.findViewById<Button>(R.id.check_appList).setOnClickListener {
+            if (appInstalledOrNot(resources.getString(R.string.packageName_appListDetector))) {
+                val launchIntent =
+                    requireActivity().packageManager.getLaunchIntentForPackage(resources.getString(R.string.packageName_appListDetector))
+                if (launchIntent != null) {
+                    startActivity(launchIntent)
+                }
+            } else {
+                MaterialAlertDialogBuilder(requireActivity())
+                    .setTitle(resources.getString(R.string.dialogDownloadTitle))
+                    .setMessage(resources.getString(R.string.dialogDownloadDetectorMessage))
+                    .apply {
+                        setPositiveButton(getString(R.string.downloadAPK)) { _, _ ->
+                            gotoBrowser(resources.getString(R.string.url_appListDetector))
+                        }
+                        setNeutralButton(R.string.cancel) { _, _ ->
+                            Toast.makeText(
+                                context,
+                                getString(R.string.cancelOperation),
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    }
+                    .show()
+            }
+        }
+
         return view
     }
 
@@ -269,5 +335,21 @@ class Home : Fragment() {
         }
         manufacturer += " " + Build.MODEL + " "
         return manufacturer
+    }
+
+    private fun gotoBrowser(url: String) {
+        context?.let {
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
+        }
+    }
+
+    private fun appInstalledOrNot(packageName: String): Boolean {
+        val pm = activity?.packageManager
+        try {
+            pm?.getPackageInfo(packageName, PackageManager.GET_ACTIVITIES)
+            return true
+        } catch (_: PackageManager.NameNotFoundException) {
+        }
+        return false
     }
 }
