@@ -152,11 +152,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun gotoBrowser(url: String){
-        CustomTabsIntent.Builder().build()
-            .launchUrl(this, Uri.parse(url))/*
-        val queryUrl: Uri = Uri.parse(url)
-        val intent = Intent( Intent.ACTION_VIEW , queryUrl)
-        startActivity(intent)*/
+        startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
     }
 
     private fun shareText(text: String, title: String) {
