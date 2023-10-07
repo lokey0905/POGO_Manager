@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="facebook">https://facebook.台灣/</string>
+    <string name="facebook">https://shopee.idv.tw/facebook</string>
     <string name="shopee">https://shopee.idv.tw/</string>
     <string name="shopee_auto">https://shopee.tw/product/167452417/21574723590?d_id=459a0</string>
     <string name="discord">https://discord.gg/rjz2s42</string>
@@ -39,6 +39,9 @@
     <string name="url_PackageDisablerPro">https://www.mediafire.com/file/ufyvz2dm6inulxj/com.github.ericytsang.multiwindow.app.android.apk/file</string>
     <string name="url_AFWall_official">https://play.google.com/store/apps/details?id=dev.ukanth.ufirewall</string>
     <string name="url_AFWall_unofficial">https://github.com/ukanth/afwall/releases/download/v3.6.0/AFWall_3.6.0_Free.apk</string>
+    <string name="url_safetynetChecker_official">https://play.google.com/store/apps/details?id=rikka.safetynetchecker</string>
+    <string name="url_safetynetChecker_unofficial">https://github.com/RikkaW/YASNAC/releases/latest</string>
+    <string name="url_appListDetector">https://github.com/Dr-TSNG/ApplistDetector/releases/latest</string>
 
     <string name="packageName_gps">com.theyerbnosob.vxpdplqpbzmhzbw</string>
     <string name="packageName_polygon">com.evermorelabs.polygonsharp</string>
@@ -49,4 +52,6 @@
     <string name="packageName_PokeList">com.antvn.pokelist</string>
     <string name="packageName_WeCatch">com.daydreamer.wecatch</string>
     <string name="packageName_pokeMod">com.pokemod.app.public</string>
+    <string name="packageName_safetynetChecker">rikka.safetynetchecker</string>
+    <string name="packageName_appListDetector">icu.nullptr.applistdetector</string>
 </resources>

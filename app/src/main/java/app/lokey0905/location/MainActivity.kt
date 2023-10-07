@@ -140,10 +140,14 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun download(){
-        val githubUrl = getString(R.string.githubApi)
-        checkForUpdate(githubUrl) { _, latestVersion, _ ->
-            downloadAPPSetup("https://github.com/lokey0905/POGO_Manager/releases/download/$latestVersion/app-debug.apk")
+    private fun download(isBackUp: Boolean = false) {
+        if (isBackUp) {
+            downloadAPPSetup(resources.getString(R.string.url_app))
+        } else {
+            val githubUrl = getString(R.string.githubApi)
+            checkForUpdate(githubUrl) { _, latestVersion, _ ->
+                downloadAPPSetup("https://github.com/lokey0905/POGO_Manager/releases/download/$latestVersion/app-debug.apk")
+            }
         }
     }
 
@@ -384,6 +388,25 @@ class MainActivity : AppCompatActivity() {
                     "我發現了Pogo外掛管理器 趕快來下載使用!\n${getString(R.string.url_app)}",
                     resources.getString(R.string.shareManager)
                 )
+                true
+            }
+
+            R.id.action_download2 -> {
+                MaterialAlertDialogBuilder(this@MainActivity)
+                    .setTitle(getString(R.string.download))
+                    .setMessage("是否要重新下載管理器?(備用連結)")
+                    .apply {
+                        setPositiveButton("重新下載") { _, _ ->
+                            download(true)
+                        }
+                        setNegativeButton(getString(R.string.checkUpdate)) { _, _ ->
+                            checkUpdate()
+                        }
+                        setNeutralButton(R.string.cancel) { _, _ ->
+                            Toast.makeText(context, getString(R.string.cancelOperation), Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                    .show()
                 true
             }
 

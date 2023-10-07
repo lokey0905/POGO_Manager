@@ -54,7 +54,7 @@ class ShortCuts: Fragment() {
             }
 
             view.findViewById<MaterialCardView>(R.id.pgtoolsFile)?.setOnClickListener {
-                downloadAPPWithAd(getString(R.string.pgtoolsFile))
+                downloadAPPWithAd(getString(R.string.url_pgtoolsFile))
             }
 
             view.findViewById<MaterialCardView>(R.id.coolDownCalculator)?.setOnClickListener {
