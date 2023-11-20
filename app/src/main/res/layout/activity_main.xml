@@ -26,7 +26,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
                 app:adSize="BANNER"
-                app:adUnitId="@string/adID_Banner">
+                app:adUnitId="@string/adB">
 
             </com.google.android.gms.ads.AdView>
 
