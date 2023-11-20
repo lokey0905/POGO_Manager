@@ -165,7 +165,7 @@ class Apps : Fragment() {
 
             RewardedAd.load(
                 requireActivity(),
-                resources.getString(R.string.adID_Rewarded),
+                resources.getString(R.string.adR),
                 adRequest,
                 object : RewardedAdLoadCallback() {
                     override fun onAdFailedToLoad(adError: LoadAdError) {
@@ -647,7 +647,7 @@ class Apps : Fragment() {
             context?.let {
                 RewardedAd.load(
                     it,
-                    resources.getString(R.string.adID_Rewarded),
+                    resources.getString(R.string.adR),
                     adRequest,
                     object : RewardedAdLoadCallback() {
                         override fun onAdFailedToLoad(adError: LoadAdError) {

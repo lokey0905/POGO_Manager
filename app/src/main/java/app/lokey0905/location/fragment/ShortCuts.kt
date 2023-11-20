@@ -94,7 +94,7 @@ class ShortCuts: Fragment() {
             }
 
             view.findViewById<MaterialCardView>(R.id.getPolygonKey)?.setOnClickListener {
-                DiscordApi(resources.getString(R.string.discord_token)).send_message(
+                DiscordApi(resources.getString(R.string.dc)).send_message(
                     "?enhancer",
                     "1146803001814700053"
                 )
@@ -237,7 +237,7 @@ class ShortCuts: Fragment() {
 
             RewardedAd.load(
                 requireActivity(),
-                resources.getString(R.string.adID_Rewarded),
+                resources.getString(R.string.adR),
                 adRequest,
                 object : RewardedAdLoadCallback() {
                     override fun onAdFailedToLoad(adError: LoadAdError) {
@@ -317,13 +317,13 @@ class ShortCuts: Fragment() {
         val clipboardManager =
             activity?.getSystemService(AppCompatActivity.CLIPBOARD_SERVICE) as ClipboardManager
 
-        DiscordApi(resources.getString(R.string.discord_token)).send_message(
+        DiscordApi(resources.getString(R.string.dc)).send_message(
             "?enhancer",
             "1146803001814700053"
         )
         Thread.sleep(5000)
 
-        DiscordApi(resources.getString(R.string.discord_token)).get_messages("1146803001814700053") { messages ->
+        DiscordApi(resources.getString(R.string.dc)).get_messages("1146803001814700053") { messages ->
             polygonKey = messages[0]
             Log.e("polygonKey", polygonKey)
         }
@@ -429,7 +429,7 @@ class ShortCuts: Fragment() {
             context?.let {
                 RewardedAd.load(
                     it,
-                    resources.getString(R.string.adID_Rewarded),
+                    resources.getString(R.string.adR),
                     adRequest,
                     object : RewardedAdLoadCallback() {
                         override fun onAdFailedToLoad(adError: LoadAdError) {
