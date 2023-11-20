@@ -7,6 +7,7 @@ import android.app.ActivityManager
 import android.content.Context.LOCATION_SERVICE
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.content.res.Configuration
 import android.location.*
 import android.net.Uri
 import android.os.Build
@@ -15,6 +16,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.GridLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -318,6 +320,18 @@ class Home : Fragment() {
         }
 
         return view
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        val gridLayout = view?.findViewById<GridLayout>(R.id.gridLayout)
+
+        if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            gridLayout?.columnCount = 2
+        } else {
+            gridLayout?.columnCount = 1
+        }
     }
 
     private fun boolToSupport(boolean: Boolean): String {

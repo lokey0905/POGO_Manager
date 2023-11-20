@@ -30,24 +30,24 @@
 
     <string name="widget_description">定位精確度 開關捷徑</string>
 
+    <string name="checkTitle_DetectLocationStatus">系統取得定位位置:</string>
+    <string name="checkTilte_deviceIsRoot">偵測ROOT環境:</string>
     <string name="check_button">檢測定位與設備</string>
     <string name="check_safetynet">檢測SafetyNet</string>
     <string name="check_appList">進階檢測測試</string>
 
-    <string name="DetectionPositionTitle">系統取得定位位置:</string>
-    <string name="checkROOTTitle">偵測ROOT環境:</string>
-    <string name="MiuiXSpace">MIUI應用雙開</string>
-    <string name="coolDownCalculator">冷卻計算機</string>
-    <string name="pgtoolsFile">pgtools設定檔案(僅限贊助版本)</string>
-
-    <string name="shortcuts_docAndTool">文檔與工具</string>
-    <string name="shortcuts_download">檔案下載</string>
+    <string name="shortcutsTitle_docAndTool">文檔與工具</string>
+    <string name="shortcutsTitle_download">檔案下載</string>
+    <string name="shortcuts_MiuiXSpace">MIUI應用雙開</string>
+    <string name="shortcuts_coolDownCalculator">冷卻計算機</string>
+    <string name="shortcuts_pgtoolsFile">pgtools設定檔(贊助版本)</string>
+    <string name="shortcuts_splitScreen">split screen 分割畫面app</string>
+    <string name="shortcuts_island">island 創建雙開環境</string>
+    <string name="shortcuts_pokeMod">下載PokeMod</string>
 
     <string name="download_gpx">下載GPX路徑檔</string>
     <string name="downloadOnGooglePlay">從play商店下載</string>
     <string name="downloadAPK">下載APK檔</string>
-    <string name="downloadIsland">下載island</string>
-    <string name="downloadSplitScreen">下載分割畫面app</string>
 
     <string name="locationAccuracyActivity1">定位精確度</string>
     <string name="locationAccuracyActivity2">開關捷徑</string>

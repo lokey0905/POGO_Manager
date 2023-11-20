@@ -5,6 +5,7 @@ import android.content.ClipboardManager
 import android.content.ComponentName
 import android.content.ContentValues
 import android.content.Intent
+import android.content.res.Configuration
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -13,6 +14,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.GridLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.browser.customtabs.CustomTabsIntent
@@ -223,6 +225,10 @@ class ShortCuts: Fragment() {
                     }
                     .show()
             }
+
+            view.findViewById<MaterialCardView>(R.id.downloadPokeMod)?.setOnClickListener {
+                downloadAPPWithAd(getString(R.string.url_pokeMod))
+            }
         }
 
         fun setupAd() {
@@ -288,6 +294,21 @@ class ShortCuts: Fragment() {
 
         setFragmentResultListener("customTabsOff") { _, bundle ->
             customTabsOff = bundle.getBoolean("bundleKey")
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        val gridLayout1 = view?.findViewById<GridLayout>(R.id.gridLayout1)
+        val gridLayout2 = view?.findViewById<GridLayout>(R.id.gridLayout2)
+
+        if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            gridLayout1?.columnCount = 4
+            gridLayout2?.columnCount = 4
+        } else {
+            gridLayout1?.columnCount = 2
+            gridLayout2?.columnCount = 2
         }
     }
 

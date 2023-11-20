@@ -46,11 +46,11 @@ class Apps : Fragment() {
     private var pogoVersion: String = "未安裝"
 
     private var testPgtools = false
-    var pokAresNoSupportDevices = false
-    var pokAresDownloadAPK = false
-    var customTabsOff = false
+    private var pokAresNoSupportDevices = false
+    private var pokAresDownloadAPK = false
+    private var customTabsOff = false
 
-    var errorTimeAD = 0
+    private var errorTimeAD = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -66,10 +66,6 @@ class Apps : Fragment() {
 
             view.findViewById<Button>(R.id.download_wrapper).setOnClickListener {
                 downloadAPPWithAd(resources.getString(R.string.url_wrapper))
-            }
-
-            view.findViewById<Button>(R.id.download_pokemod).setOnClickListener {
-                downloadAPPWithAd(resources.getString(R.string.url_pokeMod))
             }
 
             view.findViewById<Button>(R.id.download_polygon).setOnClickListener { view ->
@@ -160,10 +156,6 @@ class Apps : Fragment() {
 
             view.findViewById<Button>(R.id.remove_wecatch).setOnClickListener {
                 appUnInstall(resources.getString(R.string.packageName_WeCatch))
-            }
-
-            view.findViewById<Button>(R.id.remove_pokemod).setOnClickListener {
-                appUnInstall(resources.getString(R.string.packageName_pokeMod))
             }
         }
 
@@ -259,8 +251,6 @@ class Apps : Fragment() {
                 if (appInstalledVersion(resources.getString(R.string.packageName_WeCatch)) == "未安裝") View.GONE else View.VISIBLE
             view.findViewById<TextView>(R.id.remove_wrapper).visibility =
                 if (appInstalledVersion(resources.getString(R.string.packageName_wrapper)) == "未安裝") View.GONE else View.VISIBLE
-            view.findViewById<TextView>(R.id.remove_pokemod).visibility =
-                if (appInstalledVersion(resources.getString(R.string.packageName_pokeMod)) == "未安裝") View.GONE else View.VISIBLE
 
             view.findViewById<TextView>(R.id.wrapper_new_version).text =
                 String.format(
@@ -284,12 +274,6 @@ class Apps : Fragment() {
                 String.format(
                     resources.getString(R.string.format_newerVersion),
                     resources.getString(R.string.version_wecatch),
-                    ""
-                )
-            view.findViewById<TextView>(R.id.pokemod_new_version).text =
-                String.format(
-                    resources.getString(R.string.format_newerVersion),
-                    resources.getString(R.string.version_pokemod),
                     ""
                 )
 
@@ -350,13 +334,6 @@ class Apps : Fragment() {
                     resources.getString(
                         R.string.format_installVersion,
                         appInstalledVersion(resources.getString(R.string.packageName_wrapper))
-                    )
-                )
-            view.findViewById<TextView>(R.id.pokemod_install_version).text =
-                String.format(
-                    resources.getString(
-                        R.string.format_installVersion,
-                        appInstalledVersion(resources.getString(R.string.packageName_pokeMod))
                     )
                 )
         }

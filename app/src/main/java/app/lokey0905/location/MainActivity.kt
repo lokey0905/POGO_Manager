@@ -211,10 +211,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setSupportActionBar(binding.toolbar)
-        /*
-        binding.shoppe.setOnClickListener {
-            gotoBrowser(resources.getString(R.string.shopee))
-        }*/
 
         val fragmentContainerView =
             findViewById<FragmentContainerView>(R.id.fragment_container_view)
@@ -245,7 +241,8 @@ class MainActivity : AppCompatActivity() {
             false
         }
 
-        findViewById<BottomNavigationView>(R.id.navigation).selectedItemId = R.id.nav_home
+        if (savedInstanceState == null)
+            findViewById<BottomNavigationView>(R.id.navigation).selectedItemId = R.id.nav_home
 
         val locationManager = getSystemService(LOCATION_SERVICE) as LocationManager
         if (locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
@@ -300,7 +297,6 @@ class MainActivity : AppCompatActivity() {
         val intent = Intent(this, IsolatedService::class.java)
         /*Binding to an isolated service */
         applicationContext.bindService(intent,mIsolatedServiceConnection,BIND_AUTO_CREATE)
-
     }
 
     fun magiskCheck() {

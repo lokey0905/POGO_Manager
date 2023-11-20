@@ -20,18 +20,21 @@
             android:layout_marginEnd="16dp"
             android:textSize="16sp"
             android:textColor="?attr/colorPrimary"
-            android:text="@string/shortcuts_docAndTool" />
+            android:text="@string/shortcutsTitle_docAndTool" />
 
-        <TableRow
+        <GridLayout
+            android:id="@+id/gridLayout1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:columnCount="2"
+            android:rowCount="2">
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/manual"
-                android:layout_weight="1"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="160dp"
                 android:layout_margin="16dp"
+                android:layout_columnWeight="1"
                 android:checkable="true"
                 android:clickable="true"
                 android:focusable="true"
@@ -61,10 +64,10 @@
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/coolDownCalculator"
-                android:layout_weight="1"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="160dp"
                 android:layout_margin="16dp"
+                android:layout_columnWeight="1"
                 android:checkable="true"
                 android:clickable="true"
                 android:focusable="true"
@@ -87,23 +90,17 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:gravity="center"
-                        android:text="@string/coolDownCalculator" />
+                        android:text="@string/shortcuts_coolDownCalculator" />
                 </LinearLayout>
 
             </com.google.android.material.card.MaterialCardView>
 
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/LocationAccuracyActivity"
-                android:layout_weight="1"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="160dp"
                 android:layout_margin="16dp"
+                android:layout_columnWeight="1"
                 android:checkable="true"
                 android:clickable="true"
                 android:focusable="true"
@@ -133,10 +130,10 @@
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/MiuiXSpace"
-                android:layout_weight="1"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="160dp"
                 android:layout_margin="16dp"
+                android:layout_columnWeight="1"
                 android:checkable="true"
                 android:clickable="true"
                 android:focusable="true"
@@ -159,23 +156,17 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:gravity="center"
-                        android:text="@string/MiuiXSpace" />
+                        android:text="@string/shortcuts_MiuiXSpace" />
                 </LinearLayout>
 
             </com.google.android.material.card.MaterialCardView>
 
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/getPolygonKey"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="160dp"
                 android:layout_margin="16dp"
-                android:layout_weight="1"
+                android:layout_columnWeight="1"
                 android:checkable="true"
                 android:clickable="true"
                 android:focusable="true"
@@ -205,10 +196,10 @@
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/action_nearbySharing"
-                android:layout_weight="1"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="160dp"
                 android:layout_margin="16dp"
+                android:layout_columnWeight="1"
                 android:checkable="true"
                 android:clickable="true"
                 android:focusable="true"
@@ -236,7 +227,7 @@
 
             </com.google.android.material.card.MaterialCardView>
 
-        </TableRow>
+        </GridLayout>
 
         <TextView
             android:layout_width="wrap_content"
@@ -246,18 +237,21 @@
             android:layout_marginEnd="16dp"
             android:textSize="16sp"
             android:textColor="?attr/colorPrimary"
-            android:text="@string/shortcuts_download" />
+            android:text="@string/shortcutsTitle_download" />
 
-        <TableRow
+        <GridLayout
+            android:id="@+id/gridLayout2"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:columnCount="2"
+            android:rowCount="2">
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/download_gpx"
-                android:layout_weight="1"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="160dp"
                 android:layout_margin="16dp"
+                android:layout_columnWeight="1"
                 android:checkable="true"
                 android:clickable="true"
                 android:focusable="true"
@@ -288,9 +282,9 @@
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/pgtoolsFile"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="160dp"
                 android:layout_margin="16dp"
-                android:layout_weight="1"
+                android:layout_columnWeight="1"
                 android:checkable="true"
                 android:clickable="true"
                 android:focusable="true"
@@ -313,23 +307,50 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:gravity="center"
-                        android:text="@string/pgtoolsFile" />
+                        android:text="@string/shortcuts_pgtoolsFile" />
                 </LinearLayout>
 
             </com.google.android.material.card.MaterialCardView>
 
-        </TableRow>
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/downloadPokeMod"
+                android:layout_width="0dp"
+                android:layout_height="160dp"
+                android:layout_margin="16dp"
+                android:layout_columnWeight="1"
+                android:checkable="true"
+                android:clickable="true"
+                android:focusable="true"
+                app:contentPadding="32dp">
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_gravity="center">
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_gravity="center"
+                        app:srcCompat="@drawable/baseline_mode_standby_24" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:text="@string/shortcuts_pokeMod"/>
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/PackageDisablerPro"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="160dp"
                 android:layout_margin="16dp"
-                android:layout_weight="1"
+                android:layout_columnWeight="1"
                 android:checkable="true"
                 android:clickable="true"
                 android:focusable="true"
@@ -359,10 +380,10 @@
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/AFWall"
-                android:layout_weight="1"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="160dp"
                 android:layout_margin="16dp"
+                android:layout_columnWeight="1"
                 android:checkable="true"
                 android:clickable="true"
                 android:focusable="true"
@@ -385,23 +406,17 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:gravity="center"
-                        android:text="AFWall防火牆 禁止APP連線網路" />
+                        android:text="AFWall防火牆" />
                 </LinearLayout>
 
             </com.google.android.material.card.MaterialCardView>
 
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/downloadSplitScreen"
-                android:layout_weight="1"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="160dp"
                 android:layout_margin="16dp"
+                android:layout_columnWeight="1"
                 android:checkable="true"
                 android:clickable="true"
                 android:focusable="true"
@@ -424,17 +439,17 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:gravity="center"
-                        android:text="@string/downloadSplitScreen"/>
+                        android:text="@string/shortcuts_splitScreen"/>
                 </LinearLayout>
 
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/downloadIsland"
-                android:layout_weight="1"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="160dp"
                 android:layout_margin="16dp"
+                android:layout_columnWeight="1"
                 android:checkable="true"
                 android:clickable="true"
                 android:focusable="true"
@@ -457,11 +472,10 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:gravity="center"
-                        android:text="@string/downloadIsland" />
+                        android:text="@string/shortcuts_island" />
                 </LinearLayout>
 
             </com.google.android.material.card.MaterialCardView>
-
-        </TableRow>
+        </GridLayout>
     </TableLayout>
 </ScrollView>
