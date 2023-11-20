@@ -247,7 +247,7 @@
             android:rowCount="2">
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/download_gpx"
+                android:id="@+id/download_gpx1"
                 android:layout_width="0dp"
                 android:layout_height="160dp"
                 android:layout_margin="16dp"
@@ -267,14 +267,113 @@
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_gravity="center"
-                        app:srcCompat="@drawable/ic_baseline_download_24" />
+                        app:srcCompat="@drawable/baseline_map_24" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:gravity="center"
-                        android:text="@string/download_gpx"/>
+                        android:text="@string/shortcuts_gpx1"/>
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/download_gpx2"
+                android:layout_width="0dp"
+                android:layout_height="160dp"
+                android:layout_margin="16dp"
+                android:layout_columnWeight="1"
+                android:checkable="true"
+                android:clickable="true"
+                android:focusable="true"
+                app:contentPadding="32dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_gravity="center">
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_gravity="center"
+                        app:srcCompat="@drawable/baseline_map_24" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:text="@string/shortcuts_gpx2"/>
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/download_gpx3"
+                android:layout_width="0dp"
+                android:layout_height="160dp"
+                android:layout_margin="16dp"
+                android:layout_columnWeight="1"
+                android:checkable="true"
+                android:clickable="true"
+                android:focusable="true"
+                app:contentPadding="32dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_gravity="center">
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_gravity="center"
+                        app:srcCompat="@drawable/baseline_map_24" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:text="@string/shortcuts_gpx3"/>
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/download_gpx4"
+                android:layout_width="0dp"
+                android:layout_height="160dp"
+                android:layout_margin="16dp"
+                android:layout_columnWeight="1"
+                android:checkable="true"
+                android:clickable="true"
+                android:focusable="true"
+                app:contentPadding="32dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_gravity="center">
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_gravity="center"
+                        app:srcCompat="@drawable/baseline_map_24" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:text="@string/shortcuts_gpx4"/>
                 </LinearLayout>
 
             </com.google.android.material.card.MaterialCardView>

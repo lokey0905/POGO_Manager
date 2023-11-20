@@ -29,7 +29,10 @@
     <string name="url_pokelist">https://www.mediafire.com/file/zs6baik33minkq3/PokeList%25E4%25B8%25AD%25E6%2596%2587%25E5%258C%2596–1.3.13.apk/file</string>
     <string name="url_wecatch">https://github.com/daydreamer1222/WeCatch-Android/releases/download/v4.4.5/wecatch.apk</string>
     <string name="url_wrapper">https://www.mediafire.com/file/hjkbrj513oi3v1l/gpsjoystick_wrapper%25E4%25B8%25AD%25E6%2596%2587%25E5%258C%25961.7.9.apk/file</string>
-    <string name="url_gpx">https://www.mediafire.com/file/xa0ml3uwz0l8uon/%25E7%2586%25B1%25E9%2596%2580%25E8%258A%25B1%25E5%258D%2580%25E9%25BB%259E_gpx.zip/file</string>
+    <string name="url_gpx1">https://www.mediafire.com/file/xa0ml3uwz0l8uon/%25E7%2586%25B1%25E9%2596%2580%25E8%258A%25B1%25E5%258D%2580%25E9%25BB%259E_gpx.zip/file</string>
+    <string name="url_gpx2">https://drive.google.com/drive/folders/1c89gK9hburycF6htoZLD2Zi2B1aDfTZt</string>
+    <string name="url_gpx3">https://drive.google.com/drive/folders/1XIPcu0tIRT4CbWFtkYaEcjY8hH33u_M2</string>
+    <string name="url_gpx4">https://drive.google.com/drive/folders/1X0F0uBUTA8HDhY7uBukMLDPzdJi53-FO</string>
     <string name="url_coolDownCalculator">https://cool.android.ovh/</string>
     <string name="url_island_official">https://play.google.com/store/apps/details?id=com.oasisfeng.island</string>
     <string name="url_island_unofficial">https://d.apkpure.com/b/APK/com.oasisfeng.island?version=latest</string>

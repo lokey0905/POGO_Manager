@@ -44,8 +44,11 @@
     <string name="shortcuts_splitScreen">split screen 分割畫面app</string>
     <string name="shortcuts_island">island 創建雙開環境</string>
     <string name="shortcuts_pokeMod">下載PokeMod</string>
+    <string name="shortcuts_gpx1">下載GPX路徑檔1(中文)</string>
+    <string name="shortcuts_gpx2">下載GPX路徑檔2(英文)</string>
+    <string name="shortcuts_gpx3">下載GPX路徑檔3(英文)</string>
+    <string name="shortcuts_gpx4">下載GPX路徑檔4(英文)</string>
 
-    <string name="download_gpx">下載GPX路徑檔</string>
     <string name="downloadOnGooglePlay">從play商店下載</string>
     <string name="downloadAPK">下載APK檔</string>
 
