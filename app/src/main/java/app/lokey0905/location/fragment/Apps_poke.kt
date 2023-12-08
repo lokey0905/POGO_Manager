@@ -236,15 +236,20 @@ class Apps_poke : Fragment() {
 
         val formatNewerVersion:String = resources.getString(R.string.format_newerVersion)
 
+        val pokePackageName = resources.getString(R.string.packageName_pok)
+        val pgToolsPackageName = resources.getString(R.string.packageName_pgtools)
+        val pokeDownloadButton = view.findViewById<Button>(R.id.download_pok)
+        val pgToolsDownloadButton = view.findViewById<Button>(R.id.download_pgtools)
+
         fun checkAppVersion() {
             view.findViewById<TextView>(R.id.remove_gps).visibility =
                 if (appInstalledVersion(resources.getString(R.string.packageName_gps)) == "未安裝") View.GONE else View.VISIBLE
             view.findViewById<TextView>(R.id.remove_polygon).visibility =
                 if (appInstalledVersion(resources.getString(R.string.packageName_polygon)) == "未安裝") View.GONE else View.VISIBLE
             view.findViewById<TextView>(R.id.remove_pgtools).visibility =
-                if (appInstalledVersion(resources.getString(R.string.packageName_pgtools)) == "未安裝") View.GONE else View.VISIBLE
+                if (appInstalledVersion(pgToolsPackageName) == "未安裝") View.GONE else View.VISIBLE
             view.findViewById<TextView>(R.id.remove_pok).visibility =
-                if (appInstalledVersion(resources.getString(R.string.packageName_pok)) == "未安裝") View.GONE else View.VISIBLE
+                if (appInstalledVersion(pokePackageName) == "未安裝") View.GONE else View.VISIBLE
             view.findViewById<TextView>(R.id.remove_pokAres).visibility =
                 if (appInstalledVersion(resources.getString(R.string.packageName_pokAres)) == "未安裝") View.GONE else View.VISIBLE
             view.findViewById<TextView>(R.id.remove_pokelist).visibility =
@@ -289,12 +294,12 @@ class Apps_poke : Fragment() {
             view.findViewById<TextView>(R.id.pgtools_install_version).text =
                 String.format(
                     formatInstallVersion,
-                    appInstalledVersion(resources.getString(R.string.packageName_pgtools))
+                    appInstalledVersion(pgToolsPackageName)
                 )
             view.findViewById<TextView>(R.id.pok_install_version).text =
                 String.format(
                     formatInstallVersion,
-                    appInstalledVersion(resources.getString(R.string.packageName_pok))
+                    appInstalledVersion(pokePackageName)
                 )
             view.findViewById<TextView>(R.id.pokAres_install_version).text =
                 String.format(
@@ -325,10 +330,8 @@ class Apps_poke : Fragment() {
                 )
         }
 
-        val pokInstalledVersion =
-            appInstalledVersion(resources.getString(R.string.packageName_pok))
-        val pgToolsInstalledVersion =
-            appInstalledVersion(resources.getString(R.string.packageName_pgtools))
+        val pokInstalledVersion = appInstalledVersion(pokePackageName)
+        val pgToolsInstalledVersion = appInstalledVersion(pgToolsPackageName)
         val download = resources.getString(R.string.download)
         val update = resources.getString(R.string.update)
 
@@ -404,19 +407,31 @@ class Apps_poke : Fragment() {
 
 
                 if (pogoVersion != "未安裝" && pokInstalledVersion != "未安裝") {
-                    val pogoVersionFloat = pogoVersion.substringAfter("0.").toFloat()
-                    val pokInstalledVersionFloat =
-                        pokInstalledVersion.substringAfter("0.").toFloat()
+                    val pogoVersionInt: List<String> = pogoVersion.split(".")
+                    val pokInstalledVersionInt: List<String> = pokInstalledVersion.split(".")
+                    var needUpdate = false
+                    var needDowngrade = false
+
+                    for (i in pogoVersionInt.indices) {
+                        val currentVersion = pogoVersionInt[i].toInt()
+                        val installedVersion = pokInstalledVersionInt[i].toInt()
+
+                        if (currentVersion > installedVersion) {
+                            needUpdate = true
+                        } else if (currentVersion < installedVersion) {
+                            needDowngrade = true
+                        }
+                    }
 
                     when {
-                        pogoVersionFloat < pokInstalledVersionFloat -> {
+                        needDowngrade -> {
                             view.findViewById<TextView>(R.id.pok_install_version).text =
                                 "${view.findViewById<TextView>(R.id.pok_install_version).text} ${
                                     resources.getString(
                                         R.string.versionTooHigh
                                     )
                                 }"
-                            view.findViewById<Button>(R.id.download_pok).isEnabled = false
+                            pokeDownloadButton.isEnabled = false
 
                             MaterialAlertDialogBuilder(requireContext())
                                 .setTitle(resources.getString(R.string.dialogVersionTooHighTitle))
@@ -437,9 +452,9 @@ class Apps_poke : Fragment() {
                                 .show()
                         }
 
-                        pogoVersionFloat > pokInstalledVersionFloat -> {
-                            view.findViewById<Button>(R.id.download_pok).text = update
-                            view.findViewById<Button>(R.id.download_pok).isEnabled = true
+                        needUpdate -> {
+                            pokeDownloadButton.text = update
+                            pokeDownloadButton.isEnabled = true
 
                             showAlertDialog(
                                 resources.getString(R.string.dialogUpdateAvailableTitle),
@@ -448,27 +463,36 @@ class Apps_poke : Fragment() {
                         }
 
                         else -> {
-                            view.findViewById<Button>(R.id.download_pok).text = download
-                            view.findViewById<Button>(R.id.download_pok).isEnabled = true
+                            pokeDownloadButton.text = download
+                            pokeDownloadButton.isEnabled = true
                         }
                     }
                 } else {
-                    view.findViewById<Button>(R.id.download_pok).text = download
-                    view.findViewById<Button>(R.id.download_pok).isEnabled = true
+                    pokeDownloadButton.text = download
+                    pokeDownloadButton.isEnabled = true
                 }
 
                 if (pgtoolsVersion != "未安裝" && pgToolsInstalledVersion != "未安裝") {
-                    val pgtoolsVersionInt = pgtoolsVersion.replace(".", "").toInt()
-                    val pgtoolsInstalledVersionInt =
-                        pgToolsInstalledVersion.replace(".", "").toInt()
+                    val pgToolsVersionInt: List<String> = pgtoolsVersion.split(".")
+                    val pgToolsInstalledVersionInt: List<String> = pgToolsInstalledVersion.split(".")
+                    var needUpdate = false
 
-                    if (pgtoolsVersionInt > pgtoolsInstalledVersionInt) {
-                        view.findViewById<Button>(R.id.download_pgtools).text = update
+                    for (i in pgToolsVersionInt.indices) {
+                        val currentVersion = pgToolsVersionInt[i].toInt()
+                        val installedVersion = pgToolsInstalledVersionInt[i].toInt()
+
+                        if (currentVersion > installedVersion) {
+                            needUpdate = true
+                        }
+                    }
+
+                    if (needUpdate) {
+                        pgToolsDownloadButton.text = update
                     } else {
-                        view.findViewById<Button>(R.id.download_pgtools).text = download
+                        pgToolsDownloadButton.text = download
                     }
                 } else {
-                    view.findViewById<Button>(R.id.download_pgtools).text = download
+                    pgToolsDownloadButton.text = download
                 }
             }
         }
