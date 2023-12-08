@@ -30,7 +30,8 @@ import androidx.core.view.WindowCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentContainerView
 import app.lokey0905.location.databinding.ActivityMainBinding
-import app.lokey0905.location.fragment.Apps
+import app.lokey0905.location.fragment.Apps_mhn
+import app.lokey0905.location.fragment.Apps_poke
 import app.lokey0905.location.fragment.Home
 import app.lokey0905.location.fragment.Preferences
 import app.lokey0905.location.fragment.ShortCuts
@@ -67,7 +68,8 @@ class MainActivity : AppCompatActivity() {
     private val MY_PERMISSIONS_REQUEST_LOCATION = 1
 
     private var home: Home = Home()
-    private var apps: Apps = Apps()
+    private var appsPoke: Apps_poke = Apps_poke()
+    private var appsMhn: Apps_mhn = Apps_mhn()
     private var shortcuts: ShortCuts = ShortCuts()
     //private var setting: Setting = Setting()
     private var preferenceFragmentCompat: Preferences = Preferences()
@@ -222,8 +224,13 @@ class MainActivity : AppCompatActivity() {
                     return@setOnItemSelectedListener true
                 }
 
-                R.id.nav_apps -> {
-                    replaceFragment(apps)
+                R.id.nav_poke -> {
+                    replaceFragment(appsPoke)
+                    return@setOnItemSelectedListener true
+                }
+
+                R.id.nav_mhn -> {
+                    replaceFragment(appsMhn)
                     return@setOnItemSelectedListener true
                 }
 

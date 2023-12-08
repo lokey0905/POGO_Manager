@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">PoGo外掛管理器【老K刷機工場】</string>
+    <string name="pokemon">寶可夢</string>
+    <string name="mh_now">魔物獵人</string>
     <string name="ok">確定</string>
     <string name="cancel">取消</string>
     <string name="home">首頁</string>

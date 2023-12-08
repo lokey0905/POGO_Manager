@@ -37,7 +37,7 @@ import java.net.HttpURLConnection
 import java.net.URL
 import kotlin.math.roundToInt
 
-class Apps : Fragment() {
+class Apps_poke : Fragment() {
     private var mRewardedAd: RewardedAd? = null
 
     private var pgtoolsUrlARM: String = ""
@@ -56,7 +56,7 @@ class Apps : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        val view: View = inflater.inflate(R.layout.fragment_apps, container, false)
+        val view: View = inflater.inflate(R.layout.fragment_apps_poke, container, false)
 
         fun checkButton() {
             //******download*********//
@@ -234,6 +234,8 @@ class Apps : Fragment() {
         super.onResume()
         val view: View = requireView()
 
+        val formatNewerVersion:String = resources.getString(R.string.format_newerVersion)
+
         fun checkAppVersion() {
             view.findViewById<TextView>(R.id.remove_gps).visibility =
                 if (appInstalledVersion(resources.getString(R.string.packageName_gps)) == "未安裝") View.GONE else View.VISIBLE
@@ -254,89 +256,81 @@ class Apps : Fragment() {
 
             view.findViewById<TextView>(R.id.wrapper_new_version).text =
                 String.format(
-                    resources.getString(R.string.format_newerVersion),
+                    formatNewerVersion,
                     resources.getString(R.string.version_wrapper),
                     ""
                 )
             view.findViewById<TextView>(R.id.polygon_new_version).text =
                 String.format(
-                    resources.getString(R.string.format_newerVersion),
+                    formatNewerVersion,
                     resources.getString(R.string.version_polygon),
                     ""
                 )
             view.findViewById<TextView>(R.id.pokelist_new_version).text =
                 String.format(
-                    resources.getString(R.string.format_newerVersion),
+                    formatNewerVersion,
                     resources.getString(R.string.version_pokelist),
                     ""
                 )
             view.findViewById<TextView>(R.id.wecatch_new_version).text =
                 String.format(
-                    resources.getString(R.string.format_newerVersion),
+                    formatNewerVersion,
                     resources.getString(R.string.version_wecatch),
                     ""
                 )
 
+            val formatInstallVersion: String = resources.getString(R.string.format_installVersion)
+
             view.findViewById<TextView>(R.id.polygon_install_version).text =
                 String.format(
-                    resources.getString(
-                        R.string.format_installVersion,
-                        appInstalledVersion(resources.getString(R.string.packageName_polygon))
-                    )
+                    formatInstallVersion,
+                    appInstalledVersion(resources.getString(R.string.packageName_polygon))
                 )
             view.findViewById<TextView>(R.id.pgtools_install_version).text =
                 String.format(
-                    resources.getString(
-                        R.string.format_installVersion,
-                        appInstalledVersion(resources.getString(R.string.packageName_pgtools))
-                    )
+                    formatInstallVersion,
+                    appInstalledVersion(resources.getString(R.string.packageName_pgtools))
                 )
             view.findViewById<TextView>(R.id.pok_install_version).text =
                 String.format(
-                    resources.getString(
-                        R.string.format_installVersion,
-                        appInstalledVersion(resources.getString(R.string.packageName_pok))
-                    )
+                    formatInstallVersion,
+                    appInstalledVersion(resources.getString(R.string.packageName_pok))
                 )
             view.findViewById<TextView>(R.id.pokAres_install_version).text =
                 String.format(
-                    resources.getString(
-                        R.string.format_installVersion,
-                        appInstalledVersion(resources.getString(R.string.packageName_pokAres)) +
-                                if (MANUFACTURER == "samsung" || pokAresNoSupportDevices) ""
-                                else "(不支援)"
-
-                    )
+                    formatInstallVersion,
+                    appInstalledVersion(resources.getString(R.string.packageName_pokAres)) +
+                            if (MANUFACTURER == "samsung" || pokAresNoSupportDevices) ""
+                            else "(不支援)"
                 )
             view.findViewById<TextView>(R.id.gps_install_version).text =
                 String.format(
-                    resources.getString(
-                        R.string.format_installVersion,
-                        boolToInstalled(appInstalledOrNot(resources.getString(R.string.packageName_gps)))
-                    )
+                    formatInstallVersion,
+                    boolToInstalled(appInstalledOrNot(resources.getString(R.string.packageName_gps)))
                 )
             view.findViewById<TextView>(R.id.pokelist_install_version).text =
                 String.format(
-                    resources.getString(
-                        R.string.format_installVersion,
-                        appInstalledVersion(resources.getString(R.string.packageName_PokeList))
-                    )
+                    formatInstallVersion,
+                    appInstalledVersion(resources.getString(R.string.packageName_PokeList))
                 )
             view.findViewById<TextView>(R.id.wecatch_install_version).text =
                 String.format(
-                    resources.getString(
-                        R.string.format_installVersion,
-                        appInstalledVersion(resources.getString(R.string.packageName_WeCatch))
-                    )
+                    formatInstallVersion,
+                    appInstalledVersion(resources.getString(R.string.packageName_WeCatch))
                 )
             view.findViewById<TextView>(R.id.wrapper_install_version).text =
                 String.format(
-                    resources.getString(
-                        R.string.format_installVersion,
-                        appInstalledVersion(resources.getString(R.string.packageName_wrapper))
-                    )
+                    formatInstallVersion,
+                    appInstalledVersion(resources.getString(R.string.packageName_wrapper))
                 )
         }
+
+        val pokInstalledVersion =
+            appInstalledVersion(resources.getString(R.string.packageName_pok))
+        val pgToolsInstalledVersion =
+            appInstalledVersion(resources.getString(R.string.packageName_pgtools))
+        val download = resources.getString(R.string.download)
+        val update = resources.getString(R.string.update)
 
         fun extractPogoVersionFromJson(
             url: String,
@@ -391,27 +385,24 @@ class Apps : Fragment() {
                     if (testPgtools) " ${resources.getString(R.string.versionTest)}" else ""
                 view.findViewById<TextView>(R.id.pok_new_version).text =
                     String.format(
-                        resources.getString(R.string.format_newerVersion),
+                        formatNewerVersion,
                         pogoVersion,
                         versionType
                     )
                 view.findViewById<TextView>(R.id.pokAres_new_version).text =
                     String.format(
-                        resources.getString(R.string.format_newerVersion),
+                        formatNewerVersion,
                         pogoVersion,
                         ""
                     )
                 view.findViewById<TextView>(R.id.pgtools_new_version).text =
                     String.format(
-                        resources.getString(R.string.format_newerVersion),
+                        formatNewerVersion,
                         pgtoolsVersion,
                         versionType
                     )
 
-                val pokInstalledVersion =
-                    appInstalledVersion(resources.getString(R.string.packageName_pok))
-                val pgtoolsInstalledVersion =
-                    appInstalledVersion(resources.getString(R.string.packageName_pgtools))
+
                 if (pogoVersion != "未安裝" && pokInstalledVersion != "未安裝") {
                     val pogoVersionFloat = pogoVersion.substringAfter("0.").toFloat()
                     val pokInstalledVersionFloat =
@@ -447,8 +438,7 @@ class Apps : Fragment() {
                         }
 
                         pogoVersionFloat > pokInstalledVersionFloat -> {
-                            view.findViewById<Button>(R.id.download_pok).text =
-                                resources.getString(R.string.update)
+                            view.findViewById<Button>(R.id.download_pok).text = update
                             view.findViewById<Button>(R.id.download_pok).isEnabled = true
 
                             showAlertDialog(
@@ -458,32 +448,27 @@ class Apps : Fragment() {
                         }
 
                         else -> {
-                            view.findViewById<Button>(R.id.download_pok).text =
-                                resources.getString(R.string.download)
+                            view.findViewById<Button>(R.id.download_pok).text = download
                             view.findViewById<Button>(R.id.download_pok).isEnabled = true
                         }
                     }
                 } else {
-                    view.findViewById<Button>(R.id.download_pok).text =
-                        resources.getString(R.string.download)
+                    view.findViewById<Button>(R.id.download_pok).text = download
                     view.findViewById<Button>(R.id.download_pok).isEnabled = true
                 }
 
-                if (pgtoolsVersion != "未安裝" && pgtoolsInstalledVersion != "未安裝") {
+                if (pgtoolsVersion != "未安裝" && pgToolsInstalledVersion != "未安裝") {
                     val pgtoolsVersionInt = pgtoolsVersion.replace(".", "").toInt()
                     val pgtoolsInstalledVersionInt =
-                        pgtoolsInstalledVersion.replace(".", "").toInt()
+                        pgToolsInstalledVersion.replace(".", "").toInt()
 
                     if (pgtoolsVersionInt > pgtoolsInstalledVersionInt) {
-                        view.findViewById<Button>(R.id.download_pgtools).text =
-                            resources.getString(R.string.update)
+                        view.findViewById<Button>(R.id.download_pgtools).text = update
                     } else {
-                        view.findViewById<Button>(R.id.download_pgtools).text =
-                            resources.getString(R.string.download)
+                        view.findViewById<Button>(R.id.download_pgtools).text = download
                     }
                 } else {
-                    view.findViewById<Button>(R.id.download_pgtools).text =
-                        resources.getString(R.string.download)
+                    view.findViewById<Button>(R.id.download_pgtools).text = download
                 }
             }
         }
