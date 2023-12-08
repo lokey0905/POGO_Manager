@@ -2,7 +2,6 @@
 <resources>
     <string name="facebook">https://shopee.idv.tw/facebook</string>
     <string name="shopee">https://shopee.idv.tw/</string>
-    <string name="shopee_auto">https://shopee.tw/product/167452417/21574723590?d_id=459a0</string>
     <string name="discord">https://discord.gg/rjz2s42</string>
     <string name="youtube">https://www.youtube.com/@key94lo?sub_confirmation=1</string>
     <string name="github">https://github.com/lokey0905/POGO_Manager</string>
@@ -16,6 +15,7 @@
 
     <string name="url_pgtoolsJson">https://assets.pgtools.net/auto-versions.json</string>
     <string name="url_pgtoolsJsonTest">https://assets.pgtools.net/test-auto-versions.json</string>
+    <string name="url_mhnJson">https://assets.mhntools.net/test-versions.json</string>
 
     <string name="url_app">https://www.mediafire.com/file/5mdun6u78jr96rw/app-debug.apk/file</string>
     <string name="url_gps64">https://www.mediafire.com/file/maf260fw7u805tm/gpsjoystick_lokey_new.apk/file</string>
@@ -38,7 +38,7 @@
     <string name="url_island_unofficial">https://d.apkpure.com/b/APK/com.oasisfeng.island?version=latest</string>
     <string name="url_split_official">https://play.google.com/store/apps/details?id=com.github.ericytsang.multiwindow.app.android</string>
     <string name="url_split_unofficial">https://www.mediafire.com/file/ufyvz2dm6inulxj/com.github.ericytsang.multiwindow.app.android.apk/file</string>
-    <string name="url_PackageDisablerPro">https://www.mediafire.com/file/ufyvz2dm6inulxj/com.github.ericytsang.multiwindow.app.android.apk/file</string>
+    <string name="url_PackageDisablerPro">https://apkcombo.com/tw/package-disabler-pro-all-android/com.ospolice.packagedisablerpro/download/apk</string>
     <string name="url_AFWall_official">https://play.google.com/store/apps/details?id=dev.ukanth.ufirewall</string>
     <string name="url_AFWall_unofficial">https://github.com/ukanth/afwall/releases/download/v3.6.0/AFWall_3.6.0_Free.apk</string>
     <string name="url_safetynetChecker_official">https://play.google.com/store/apps/details?id=rikka.safetynetchecker</string>
@@ -53,6 +53,8 @@
     <string name="packageName_pokAres">com.nianticlabs.pokemongo.ares</string>
     <string name="packageName_PokeList">com.antvn.pokelist</string>
     <string name="packageName_WeCatch">com.daydreamer.wecatch</string>
+    <string name="packageName_MHNow">com.nianticlabs.monsterhunter</string>
+    <string name="packageName_mhnTools">net.mhntools.auto</string>
     <string name="packageName_safetynetChecker">rikka.safetynetchecker</string>
     <string name="packageName_appListDetector">icu.nullptr.applistdetector</string>
 </resources>
