@@ -145,30 +145,32 @@ class Apps_mhn : Fragment() {
         val mhnToolsRemoveButton = view.findViewById<Button>(R.id.remove_mhnTools)
         val mhnToolsSupportVersion = view.findViewById<TextView>(R.id.mhnTools_new_version)
         val mhnToolsInstallVersion = view.findViewById<TextView>(R.id.mhnTools_install_version)
+        val mhnPackageName = resources.getString(R.string.packageName_MHNow)
+        val mhnToolsPackageName = resources.getString(R.string.packageName_mhnTools)
 
         fun checkAppVersion() {
             mhnRemoveButton.visibility =
-                if (appInstalledVersion(resources.getString(R.string.packageName_MHNow)) == "未安裝") View.GONE else View.VISIBLE
+                if (appInstalledVersion(mhnPackageName) == "未安裝") View.GONE else View.VISIBLE
             mhnToolsRemoveButton.visibility =
-                if (appInstalledVersion(resources.getString(R.string.packageName_mhnTools)) == "未安裝") View.GONE else View.VISIBLE
+                if (appInstalledVersion(mhnToolsPackageName) == "未安裝") View.GONE else View.VISIBLE
 
             mhnInstallVersion.text = String.format(
                 resources.getString(
                     R.string.format_installVersion,
-                    appInstalledVersion(resources.getString(R.string.packageName_MHNow))
+                    appInstalledVersion(mhnPackageName)
                 )
             )
             mhnToolsInstallVersion.text = String.format(
                 resources.getString(
                     R.string.format_installVersion,
-                    appInstalledVersion(resources.getString(R.string.packageName_mhnTools))
+                    appInstalledVersion(mhnToolsPackageName)
                 )
             )
         }
 
         fun extractPogoVersionFromJson(
             url: String,
-            onPogoVersionExtracted: (String, String) -> Unit
+            onPogoVersionExtracted: (String, String) -> Unit,
         ) {
             GlobalScope.launch(Dispatchers.IO) {
 
@@ -228,18 +230,28 @@ class Apps_mhn : Fragment() {
                     versionType
                 )
 
-                val mhnInstalledVersion =
-                    appInstalledVersion(resources.getString(R.string.packageName_pok))
-                val mhnToolsInstalledVersion =
-                    appInstalledVersion(resources.getString(R.string.packageName_pgtools))
+                val mhnInstalledVersion = appInstalledVersion(mhnPackageName)
+                val mhnToolsInstalledVersion = appInstalledVersion(mhnToolsPackageName)
 
                 if (mhnVersion != "未安裝" && mhnInstalledVersion != "未安裝") {
-                    val mhnVersionFloat = mhnVersion.substringAfter("0.").toFloat()
-                    val mhnInstalledVersionFloat =
-                        mhnInstalledVersion.substringAfter("0.").toFloat()
+                    val mhnVersionInt: List<String> = mhnVersion.split(".")
+                    val mhnInstalledVersionInt: List<String> = mhnInstalledVersion.split(".")
+                    var needUpdate = false
+                    var needDowngrade = false
+
+                    for (i in mhnVersionInt.indices) {
+                        val currentVersion = mhnVersionInt[i].toInt()
+                        val installedVersion = mhnInstalledVersionInt[i].toInt()
+
+                        if (currentVersion > installedVersion) {
+                            needUpdate = true
+                        } else if (currentVersion < installedVersion) {
+                            needDowngrade = true
+                        }
+                    }
 
                     when {
-                        mhnVersionFloat < mhnInstalledVersionFloat -> {
+                        needDowngrade -> {
                             mhnInstallVersion.text =
                                 "${mhnInstallVersion.text} ${resources.getString(R.string.versionTooHigh)}"
                             mhnDownloadButton.isEnabled = false
@@ -263,7 +275,7 @@ class Apps_mhn : Fragment() {
                                 .show()
                         }
 
-                        mhnVersionFloat > mhnInstalledVersionFloat -> {
+                        needUpdate -> {
                             mhnDownloadButton.text = resources.getString(R.string.update)
                             mhnDownloadButton.isEnabled = true
 
@@ -284,11 +296,20 @@ class Apps_mhn : Fragment() {
                 }
 
                 if (mhnToolsVersion != "未安裝" && mhnToolsInstalledVersion != "未安裝") {
-                    val pgtoolsVersionInt = mhnToolsVersion.replace(".", "").toInt()
-                    val pgtoolsInstalledVersionInt =
-                        mhnToolsInstalledVersion.replace(".", "").toInt()
+                    val pgToolsVersionInt: List<String> = mhnToolsVersion.split(".")
+                    val pgToolsInstalledVersionInt: List<String> = mhnToolsInstalledVersion.split(".")
+                    var needUpdate = false
 
-                    if (pgtoolsVersionInt > pgtoolsInstalledVersionInt) {
+                    for (i in pgToolsVersionInt.indices) {
+                        val currentVersion = pgToolsVersionInt[i].toInt()
+                        val installedVersion = pgToolsInstalledVersionInt[i].toInt()
+
+                        if (currentVersion > installedVersion) {
+                            needUpdate = true
+                        }
+                    }
+
+                    if (needUpdate) {
                         mhnToolsDownloadButton.text = resources.getString(R.string.update)
                     } else {
                         mhnToolsDownloadButton.text = resources.getString(R.string.download)

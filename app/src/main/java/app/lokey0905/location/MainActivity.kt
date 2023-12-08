@@ -51,6 +51,7 @@ import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.net.HttpURLConnection
 import java.net.URL
+import kotlin.math.log
 
 
 class DynamicColors: Application() {
@@ -80,10 +81,10 @@ class MainActivity : AppCompatActivity() {
     var serviceBinder: IIsolatedService? = null
 
     @OptIn(DelicateCoroutinesApi::class)
-    private fun checkForUpdate(githubUrl: String, onUpdateAvailable: (Boolean, Float, String) -> Unit) {
+    private fun checkForUpdate(githubUrl: String, onUpdateAvailable: (Boolean, String, String) -> Unit) {
         GlobalScope.launch(Dispatchers.IO) {
             var updateAvailable = false
-            var latestVersion = 0.0f
+            var latestVersion = ""
             var latestVersionInformation = ""
 
             try {
@@ -104,9 +105,20 @@ class MainActivity : AppCompatActivity() {
                 bufferedReader.close()
 
                 val jsonObject = JSONObject(response.toString())
-                latestVersion = jsonObject.getString("name").toFloat()
-                val currentRelease = BuildConfig.VERSION_NAME.toFloat()
-                updateAvailable = currentRelease < latestVersion
+
+                latestVersion = jsonObject.getString("name")
+                val latestVersionInt: List<String> = jsonObject.getString("name").split(".")
+                val currentRelease = BuildConfig.VERSION_NAME.split(".")
+
+                for (i in latestVersionInt.indices) {
+                    val currentVersion = latestVersionInt[i].toInt()
+                    val installedVersion = currentRelease[i].toInt()
+
+                    if (currentVersion > installedVersion) {
+                        updateAvailable = true
+                    }
+                }
+
                 latestVersionInformation = jsonObject.getString("body")
 
             } catch (e: Exception) {
@@ -136,7 +148,7 @@ class MainActivity : AppCompatActivity() {
                     }
                     .show()
             } else {
-                Toast.makeText(this, getString(R.string.dialogIsLatestVersion)+BuildConfig.VERSION_NAME.toFloat(), Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.dialogIsLatestVersion)+BuildConfig.VERSION_NAME, Toast.LENGTH_SHORT).show()
             }
         }
     }
