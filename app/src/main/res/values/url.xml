@@ -18,7 +18,8 @@
     <string name="url_mhnJson">https://assets.mhntools.net/test-versions.json</string>
 
     <string name="url_app">https://www.mediafire.com/file/5mdun6u78jr96rw/app-debug.apk/file</string>
-    <string name="url_gps64">https://www.mediafire.com/file/maf260fw7u805tm/gpsjoystick_lokey_new.apk/file</string>
+    <string name="url_gps32">https://www.mediafire.com/file/maf260fw7u805tm/gpsjoystick_lokey_new.apk/file</string>
+    <string name="url_gps64">https://www.mediafire.com/file/i2jmsi2teyrhn5j/gpsjoystick_lokey_new64.apk/file</string>
     <string name="url_polygon">https://www.mediafire.com/file/rwgf8tpzr94hqew/com.evermorelabs.polygonsharp-0.9.1.apk/file</string>
     <string name="url_pok_store">https://play.google.com/store/apps/details?id=com.nianticlabs.pokemongo</string>
     <string name="url_pokAres">https://www.apkmirror.com/apk/niantic-inc/pokemon-go-samsung-galaxy-apps-version/</string>
@@ -45,7 +46,8 @@
     <string name="url_safetynetChecker_unofficial">https://github.com/RikkaW/YASNAC/releases/latest</string>
     <string name="url_appListDetector">https://github.com/Dr-TSNG/ApplistDetector/releases/latest</string>
 
-    <string name="packageName_gps">com.theyerbnosob.vxpdplqpbzmhzbw</string>
+    <string name="packageName_gps32">com.theyerbnosob.vxpdplqpbzmhzbw</string>
+    <string name="packageName_gps64">com.thejhijuqoqy.bdujvrwdcajvzin</string>
     <string name="packageName_polygon">com.evermorelabs.polygonsharp</string>
     <string name="packageName_pgtools">net.pgtools.auto</string>
     <string name="packageName_wrapper">net.pgtools.gps_wrapper</string>

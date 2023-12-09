@@ -61,7 +61,7 @@ class Apps_poke : Fragment() {
         fun checkButton() {
             //******download*********//
             view.findViewById<Button>(R.id.download_gps).setOnClickListener {
-                downloadAPPWithAd(resources.getString(R.string.url_gps64))
+                downloadAPPWithAd(resources.getString(R.string.url_gps32))
             }
 
             view.findViewById<Button>(R.id.download_wrapper).setOnClickListener {
@@ -127,7 +127,7 @@ class Apps_poke : Fragment() {
 
             //******remove*********//
             view.findViewById<Button>(R.id.remove_gps).setOnClickListener {
-                appUnInstall(resources.getString(R.string.packageName_gps))
+                appUnInstall(resources.getString(R.string.packageName_gps32))
             }
 
             view.findViewById<Button>(R.id.remove_wrapper).setOnClickListener {
@@ -243,7 +243,7 @@ class Apps_poke : Fragment() {
 
         fun checkAppVersion() {
             view.findViewById<TextView>(R.id.remove_gps).visibility =
-                if (appInstalledVersion(resources.getString(R.string.packageName_gps)) == "未安裝") View.GONE else View.VISIBLE
+                if (appInstalledVersion(resources.getString(R.string.packageName_gps32)) == "未安裝") View.GONE else View.VISIBLE
             view.findViewById<TextView>(R.id.remove_polygon).visibility =
                 if (appInstalledVersion(resources.getString(R.string.packageName_polygon)) == "未安裝") View.GONE else View.VISIBLE
             view.findViewById<TextView>(R.id.remove_pgtools).visibility =
@@ -311,7 +311,7 @@ class Apps_poke : Fragment() {
             view.findViewById<TextView>(R.id.gps_install_version).text =
                 String.format(
                     formatInstallVersion,
-                    boolToInstalled(appInstalledOrNot(resources.getString(R.string.packageName_gps)))
+                    boolToInstalled(appInstalledOrNot(resources.getString(R.string.packageName_gps32)))
                 )
             view.findViewById<TextView>(R.id.pokelist_install_version).text =
                 String.format(

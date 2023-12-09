@@ -52,6 +52,8 @@ class Apps_mhn : Fragment() {
         val mhnRemoveButton = view.findViewById<Button>(R.id.remove_mhn)
         val mhnToolsDownloadButton = view.findViewById<Button>(R.id.download_mhnTools)
         val mhnToolsRemoveButton = view.findViewById<Button>(R.id.remove_mhnTools)
+        val gpsDownloadButton = view.findViewById<Button>(R.id.download_gps)
+        val gpsRemoveButton = view.findViewById<Button>(R.id.remove_gps)
 
         fun checkButton() {
             mhnDownloadButton.setOnClickListener {
@@ -62,12 +64,20 @@ class Apps_mhn : Fragment() {
                 downloadAPPWithAd(mhnToolsUrl)
             }
 
+            gpsDownloadButton.setOnClickListener {
+                downloadAPPWithAd(resources.getString(R.string.url_gps64))
+            }
+
             mhnRemoveButton.setOnClickListener {
                 appUnInstall(resources.getString(R.string.packageName_MHNow))
             }
 
             mhnToolsRemoveButton.setOnClickListener {
                 appUnInstall(resources.getString(R.string.packageName_mhnTools))
+            }
+
+            gpsRemoveButton.setOnClickListener {
+                appUnInstall(resources.getString(R.string.packageName_gps64))
             }
         }
 
@@ -145,27 +155,31 @@ class Apps_mhn : Fragment() {
         val mhnToolsRemoveButton = view.findViewById<Button>(R.id.remove_mhnTools)
         val mhnToolsSupportVersion = view.findViewById<TextView>(R.id.mhnTools_new_version)
         val mhnToolsInstallVersion = view.findViewById<TextView>(R.id.mhnTools_install_version)
+        val gpsRemoveButton = view.findViewById<Button>(R.id.remove_gps)
+        val gpsInstallVersion = view.findViewById<TextView>(R.id.gps_install_version)
         val mhnPackageName = resources.getString(R.string.packageName_MHNow)
         val mhnToolsPackageName = resources.getString(R.string.packageName_mhnTools)
+        val gps64PackageName = resources.getString(R.string.packageName_gps64)
+
+        val formatInstallVersion: String = resources.getString(R.string.format_installVersion)
 
         fun checkAppVersion() {
             mhnRemoveButton.visibility =
                 if (appInstalledVersion(mhnPackageName) == "未安裝") View.GONE else View.VISIBLE
             mhnToolsRemoveButton.visibility =
                 if (appInstalledVersion(mhnToolsPackageName) == "未安裝") View.GONE else View.VISIBLE
+            gpsRemoveButton.visibility =
+                if (appInstalledVersion(gps64PackageName) == "未安裝") View.GONE else View.VISIBLE
 
-            mhnInstallVersion.text = String.format(
-                resources.getString(
-                    R.string.format_installVersion,
-                    appInstalledVersion(mhnPackageName)
+            mhnInstallVersion.text =
+                String.format(formatInstallVersion, appInstalledVersion(mhnPackageName))
+            mhnToolsInstallVersion.text =
+                String.format(formatInstallVersion, appInstalledVersion(mhnToolsPackageName))
+            gpsInstallVersion.text =
+                String.format(
+                    formatInstallVersion,
+                    boolToInstalled(appInstalledOrNot(gps64PackageName))
                 )
-            )
-            mhnToolsInstallVersion.text = String.format(
-                resources.getString(
-                    R.string.format_installVersion,
-                    appInstalledVersion(mhnToolsPackageName)
-                )
-            )
         }
 
         fun extractPogoVersionFromJson(
