@@ -5,6 +5,7 @@ import android.content.ContentValues
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -21,6 +22,7 @@ import com.google.android.gms.ads.*
 import com.google.android.gms.ads.rewarded.RewardedAd
 import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -30,7 +32,7 @@ import java.io.InputStreamReader
 import java.net.HttpURLConnection
 import java.net.URL
 
-class Apps_mhn : Fragment() {
+class AppsMHN : Fragment() {
     private var mRewardedAd: RewardedAd? = null
 
     private var mhnToolsUrl: String = ""
@@ -56,16 +58,27 @@ class Apps_mhn : Fragment() {
         val gpsRemoveButton = view.findViewById<Button>(R.id.remove_gps)
 
         fun checkButton() {
+            fun downloadAppCheck(url: String) {
+                if (Build.SUPPORTED_ABIS[0] == "arm64-v8a")
+                    downloadAPPWithAd(url)
+                else
+                    Snackbar.make(
+                        view,
+                        "${resources.getString(R.string.unsupportedDevices)}(${Build.SUPPORTED_ABIS[0]})",
+                        Snackbar.LENGTH_LONG
+                    ).setAction("Action", null).show()
+            }
+
             mhnDownloadButton.setOnClickListener {
-                downloadAPPWithAd(mhnUrl)
+                downloadAppCheck(mhnUrl)
             }
 
             mhnToolsDownloadButton.setOnClickListener {
-                downloadAPPWithAd(mhnToolsUrl)
+                downloadAppCheck(mhnToolsUrl)
             }
 
             gpsDownloadButton.setOnClickListener {
-                downloadAPPWithAd(resources.getString(R.string.url_gps64))
+                downloadAppCheck(resources.getString(R.string.url_gps64))
             }
 
             mhnRemoveButton.setOnClickListener {
@@ -160,6 +173,8 @@ class Apps_mhn : Fragment() {
         val mhnPackageName = resources.getString(R.string.packageName_MHNow)
         val mhnToolsPackageName = resources.getString(R.string.packageName_mhnTools)
         val gps64PackageName = resources.getString(R.string.packageName_gps64)
+        val download = resources.getString(R.string.download)
+        val update = resources.getString(R.string.update)
 
         val formatInstallVersion: String = resources.getString(R.string.format_installVersion)
 
@@ -208,11 +223,12 @@ class Apps_mhn : Fragment() {
                     val appVersionHash: String
                     val jsonObject = JSONObject(response.toString())
                     mhnVersion = jsonObject.getString("gameVersion")
+                    mhnToolsVersion = jsonObject.getString("appVersionName")
                     appVersionHash = jsonObject.getString("appVersionHash")
                     mhnToolsUrl =
                         "https://assets.mhntools.net/test-mhntools-$mhnToolsVersion-$appVersionHash.apk?"
                     mhnUrl = jsonObject.getString("gameARM64")
-                    mhnToolsVersion = jsonObject.getString("appVersionName")
+
                     Log.i(
                         "mhnTools",
                         "mhnVersion:$mhnVersion\nmhnToolsUrl:$mhnToolsUrl\nmhnUrl:$mhnUrl\nmhnToolsVersion:$mhnToolsVersion"
@@ -228,7 +244,7 @@ class Apps_mhn : Fragment() {
         }
 
         fun getToolsVersion() {
-            var url = resources.getString(R.string.url_mhnJson)
+            val url = resources.getString(R.string.url_mhnJson)
 
             //Snackbar.make(view, "正在取得資料", Snackbar.LENGTH_INDEFINITE).show();
             extractPogoVersionFromJson(url) { mhnVersion, mhnToolsVersion ->
@@ -243,6 +259,12 @@ class Apps_mhn : Fragment() {
                     mhnToolsVersion,
                     versionType
                 )
+
+                fun setDownloadButton(isUpdate:Boolean = false) {
+                    mhnDownloadButton.text = if(isUpdate) update else download
+                    if (!mhnDownloadButton.isEnabled)
+                        mhnDownloadButton.isEnabled = true
+                }
 
                 val mhnInstalledVersion = appInstalledVersion(mhnPackageName)
                 val mhnToolsInstalledVersion = appInstalledVersion(mhnToolsPackageName)
@@ -268,7 +290,8 @@ class Apps_mhn : Fragment() {
                         needDowngrade -> {
                             mhnInstallVersion.text =
                                 "${mhnInstallVersion.text} ${resources.getString(R.string.versionTooHigh)}"
-                            mhnDownloadButton.isEnabled = false
+                            if (mhnDownloadButton.isEnabled)
+                                mhnDownloadButton.isEnabled = false
 
                             MaterialAlertDialogBuilder(requireContext())
                                 .setTitle(resources.getString(R.string.dialogVersionTooHighTitle))
@@ -290,8 +313,7 @@ class Apps_mhn : Fragment() {
                         }
 
                         needUpdate -> {
-                            mhnDownloadButton.text = resources.getString(R.string.update)
-                            mhnDownloadButton.isEnabled = true
+                            setDownloadButton(true)
 
                             showAlertDialog(
                                 resources.getString(R.string.dialogUpdateAvailableTitle),
@@ -300,13 +322,11 @@ class Apps_mhn : Fragment() {
                         }
 
                         else -> {
-                            mhnDownloadButton.text = resources.getString(R.string.download)
-                            mhnDownloadButton.isEnabled = true
+                            setDownloadButton()
                         }
                     }
                 } else {
-                    mhnDownloadButton.text = resources.getString(R.string.download)
-                    mhnDownloadButton.isEnabled = true
+                    setDownloadButton()
                 }
 
                 if (mhnToolsVersion != "未安裝" && mhnToolsInstalledVersion != "未安裝") {
@@ -324,12 +344,12 @@ class Apps_mhn : Fragment() {
                     }
 
                     if (needUpdate) {
-                        mhnToolsDownloadButton.text = resources.getString(R.string.update)
+                        mhnToolsDownloadButton.text = update
                     } else {
-                        mhnToolsDownloadButton.text = resources.getString(R.string.download)
+                        mhnToolsDownloadButton.text = download
                     }
                 } else {
-                    mhnToolsDownloadButton.text = resources.getString(R.string.download)
+                    mhnToolsDownloadButton.text = download
                 }
             }
         }
@@ -445,12 +465,12 @@ class Apps_mhn : Fragment() {
         return false
     }
 
-    private fun appInstalledVersion(PackageName: String): String {
+    private fun appInstalledVersion(packageName: String): String {
         val pm = activity?.packageManager
         try {
-            pm?.getPackageInfo(PackageName, PackageManager.GET_ACTIVITIES)
+            pm?.getPackageInfo(packageName, PackageManager.GET_ACTIVITIES)
             return pm?.getPackageInfo(
-                PackageName,
+                packageName,
                 PackageManager.GET_ACTIVITIES
             )?.versionName.toString()
         } catch (_: PackageManager.NameNotFoundException) {
@@ -458,9 +478,9 @@ class Apps_mhn : Fragment() {
         return "未安裝"
     }
 
-    private fun appUnInstall(PackageName: String) {
+    private fun appUnInstall(packageName: String) {
         val intent = Intent(Intent.ACTION_DELETE)
-        intent.data = Uri.parse("package:$PackageName")
+        intent.data = Uri.parse("package:$packageName")
         startActivity(intent)
     }
 

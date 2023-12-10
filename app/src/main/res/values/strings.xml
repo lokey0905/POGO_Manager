@@ -35,8 +35,8 @@
     <string name="checkTitle_DetectLocationStatus">系統取得定位位置:</string>
     <string name="checkTilte_deviceIsRoot">偵測ROOT環境:</string>
     <string name="check_button">檢測定位與設備</string>
-    <string name="check_safetynet">檢測SafetyNet</string>
-    <string name="check_appList">進階檢測測試</string>
+    <string name="check_devicesAPI">檢測設備完整性</string>
+    <string name="check_appList">App列表測試</string>
 
     <string name="shortcutsTitle_docAndTool">文檔與工具</string>
     <string name="shortcutsTitle_download">檔案下載</string>
@@ -69,12 +69,12 @@
     <string name="dialogUpdateAvailableManagerMessage">建議更新至最新版本以取得最好的體驗，是否要更新管理器?</string>
     <string name="dialogUpdateAvailablePokMessage">建議更新至最新版本以取得最好的體驗，請手動點擊【更新】按鈕更新APP</string>
     <string name="dialogIsLatestVersion">已經是最新版本</string>
-    <string name="dialogAboutInfo">相關檔案皆為網路搜尋取得,檔案不歸我擁有,pokemon與本APP無關</string>
+    <string name="dialogAboutInfo">相關檔案皆為網路搜尋取得,檔案不歸我擁有,Pokemon MH NOW與本APP無關</string>
     <string name="dialogAboutMaker">軟體作者:lokey0905 \n圖示作者:梧銳#4486</string>
     <string name="dialogAdNotReadyTitle">發生一些錯誤</string>
     <string name="dialogAdNotReadyMessage">您的操作過快 或是網路不穩 請5秒後在試</string>
     <string name="dialogCheckLocationAccuracyTitle">偵測到精確定位模式</string>
-    <string name="dialogCheckLocationAccuracyMessage">偵測到精確定位，建議關閉設定防止模擬定位跳轉，是否前往關閉?\n若已啟動搖桿可能會觸發這則通知，可以按取消忽略此通知</string>
+    <string name="dialogCheckLocationAccuracyMessage">偵測到精確定位，建議關閉設定防止模擬定位跳轉，是否前往關閉?\n若已啟動搖桿或先前啟動過可能會觸發這則通知，可以按取消忽略此通知</string>
     <string name="dialogDownloadOfficialMessage">請選擇下載方式 在play商店下載或直接下載APK</string>
     <string name="dialogGetKeyTitle">取得暴力功金鑰</string>
     <string name="dialogGetKeyMessage">本項目為實驗性內容 金鑰可能與其他人重複\n點擊確定嘗試獲取暴力功金鑰</string>
@@ -85,6 +85,6 @@
     <string name="androidVersion">系統版本:</string>
     <string name="androidAbi">系統架構:</string>
     <string name="androidRamSize">記憶體大小:</string>
-    <string name="androidPgtoolsSupper">外掛支援狀態:</string>
+    <string name="androidPgtoolsSupper">軟體支援:</string>
 
 </resources>

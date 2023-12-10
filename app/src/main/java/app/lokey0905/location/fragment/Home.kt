@@ -17,6 +17,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.GridLayout
+import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -66,21 +67,21 @@ class Home : Fragment() {
                 view.findViewById<TextView>(R.id.android_ramSize)?.text =
                     "$totalMemory GB(${boolToSupport(totalMemory >= 5)}雙開)"
                 view.findViewById<TextView>(R.id.android_pgtoolsSupper)?.text =
-                    "✅完整支援暴力功自動抓"
+                    "✅完整支援暴力功自動抓\n✅完整支援魔物獵人"
             } else if (Build.SUPPORTED_ABIS[0] == "armeabi-v7a") {
                 view.findViewById<TextView>(R.id.android_abi)?.text =
                     "${Build.SUPPORTED_ABIS[0]} (32位元)"
                 view.findViewById<TextView>(R.id.android_ramSize)?.text =
                     "$totalMemory GB"
                 view.findViewById<TextView>(R.id.android_pgtoolsSupper)?.text =
-                    "❌不支援暴力功自動抓"
+                    "❌不支援暴力功自動抓\n❌不支援魔物獵人"
             } else {
                 view.findViewById<TextView>(R.id.android_abi)?.text =
                     Build.SUPPORTED_ABIS[0]
                 view.findViewById<TextView>(R.id.android_ramSize)?.text =
                     "$totalMemory GB"
                 view.findViewById<TextView>(R.id.android_pgtoolsSupper)?.text =
-                    "❌不支援暴力功自動抓"
+                    "❌不支援暴力功自動抓\n❌不支援魔物獵人"
             }
         }
 
@@ -235,13 +236,19 @@ class Home : Fragment() {
         getDevice()
         setFragmentResultListener()
 
-        view.findViewById<MaterialCardView>(R.id.check)?.setOnClickListener {
-            view.findViewById<Button>(R.id.check_safetynet).visibility = View.VISIBLE
-            view.findViewById<Button>(R.id.check_appList).visibility = View.VISIBLE
+        if(resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE)
+            view.findViewById<LinearLayout>(R.id.check_information).visibility = View.VISIBLE
+        else
+            view.findViewById<LinearLayout>(R.id.check_information).visibility = View.GONE
 
+        view.findViewById<MaterialCardView>(R.id.check).setOnClickListener {
+            if(view.findViewById<LinearLayout>(R.id.check_information).visibility == View.GONE)
+                view.findViewById<LinearLayout>(R.id.check_information).visibility = View.VISIBLE
         }
 
         view.findViewById<Button>(R.id.check_location).setOnClickListener {
+            if(view.findViewById<LinearLayout>(R.id.check_information).visibility == View.GONE)
+                view.findViewById<LinearLayout>(R.id.check_information).visibility = View.VISIBLE
             magiskCheck()
             if (context?.let { it1 ->
                     ContextCompat.checkSelfPermission(
@@ -263,9 +270,9 @@ class Home : Fragment() {
         }
 
         view.findViewById<Button>(R.id.check_safetynet).setOnClickListener {
-            if (appInstalledOrNot(resources.getString(R.string.packageName_safetynetChecker))) {
+            if (appInstalledOrNot(resources.getString(R.string.packageName_checkDevicesAPI))) {
                 val launchIntent =
-                    requireActivity().packageManager.getLaunchIntentForPackage(resources.getString(R.string.packageName_safetynetChecker))
+                    requireActivity().packageManager.getLaunchIntentForPackage(resources.getString(R.string.packageName_checkDevicesAPI))
                 if (launchIntent != null) {
                     startActivity(launchIntent)
                 }
@@ -275,10 +282,10 @@ class Home : Fragment() {
                     .setMessage(resources.getString(R.string.dialogDownloadDetectorMessage))
                     .apply {
                         setPositiveButton(getString(R.string.downloadOnGooglePlay)) { _, _ ->
-                            gotoBrowser(resources.getString(R.string.url_safetynetChecker_official))
+                            gotoBrowser(resources.getString(R.string.url_checkDevicesAPI_official))
                         }
                         setNegativeButton(getString(R.string.downloadAPK)) { _, _ ->
-                            gotoBrowser(resources.getString(R.string.url_safetynetChecker_unofficial))
+                            gotoBrowser(resources.getString(R.string.url_checkDevicesAPI_unofficial))
                         }
                         setNeutralButton(R.string.cancel) { _, _ ->
                             Toast.makeText(

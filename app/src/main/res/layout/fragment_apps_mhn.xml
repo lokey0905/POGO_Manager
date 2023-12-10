@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".fragment.Apps_poke">
+    tools:context=".fragment.AppsPoke">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -34,6 +34,7 @@
                 <ImageView
                     android:layout_width="50dp"
                     android:layout_height="50dp"
+                    android:importantForAccessibility="no"
                     app:srcCompat="@drawable/mhn_icon"
                     tools:layout_editor_absoluteX="50dp"
                     tools:layout_editor_absoluteY="50dp" />
@@ -147,6 +148,7 @@
                 <ImageView
                     android:layout_width="50dp"
                     android:layout_height="50dp"
+                    android:importantForAccessibility="no"
                     app:srcCompat="@drawable/mhntools_icon"
                     tools:layout_editor_absoluteX="50dp"
                     tools:layout_editor_absoluteY="50dp" />
@@ -252,6 +254,7 @@
                 <ImageView
                     android:layout_width="50dp"
                     android:layout_height="50dp"
+                    android:importantForAccessibility="no"
                     app:srcCompat="@drawable/gps_icon"
                     tools:layout_editor_absoluteX="50dp"
                     tools:layout_editor_absoluteY="50dp" />
