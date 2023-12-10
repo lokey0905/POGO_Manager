@@ -30,8 +30,8 @@ import androidx.core.view.WindowCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentContainerView
 import app.lokey0905.location.databinding.ActivityMainBinding
-import app.lokey0905.location.fragment.Apps_mhn
-import app.lokey0905.location.fragment.Apps_poke
+import app.lokey0905.location.fragment.AppsMHN
+import app.lokey0905.location.fragment.AppsPoke
 import app.lokey0905.location.fragment.Home
 import app.lokey0905.location.fragment.Preferences
 import app.lokey0905.location.fragment.ShortCuts
@@ -51,7 +51,6 @@ import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.net.HttpURLConnection
 import java.net.URL
-import kotlin.math.log
 
 
 class DynamicColors: Application() {
@@ -69,8 +68,8 @@ class MainActivity : AppCompatActivity() {
     private val MY_PERMISSIONS_REQUEST_LOCATION = 1
 
     private var home: Home = Home()
-    private var appsPoke: Apps_poke = Apps_poke()
-    private var appsMhn: Apps_mhn = Apps_mhn()
+    private var appsPoke: AppsPoke = AppsPoke()
+    private var appsMhn: AppsMHN = AppsMHN()
     private var shortcuts: ShortCuts = ShortCuts()
     //private var setting: Setting = Setting()
     private var preferenceFragmentCompat: Preferences = Preferences()

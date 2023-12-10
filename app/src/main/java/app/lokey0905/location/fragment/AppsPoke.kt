@@ -37,7 +37,7 @@ import java.net.HttpURLConnection
 import java.net.URL
 import kotlin.math.roundToInt
 
-class Apps_poke : Fragment() {
+class AppsPoke : Fragment() {
     private var mRewardedAd: RewardedAd? = null
 
     private var pgtoolsUrlARM: String = ""
@@ -405,6 +405,11 @@ class Apps_poke : Fragment() {
                         versionType
                     )
 
+                fun setDownloadButton(isUpdate:Boolean = false) {
+                    pokeDownloadButton.text = if(isUpdate) update else download
+                    if (!pokeDownloadButton.isEnabled)
+                        pokeDownloadButton.isEnabled = true
+                }
 
                 if (pogoVersion != "未安裝" && pokInstalledVersion != "未安裝") {
                     val pogoVersionInt: List<String> = pogoVersion.split(".")
@@ -431,7 +436,8 @@ class Apps_poke : Fragment() {
                                         R.string.versionTooHigh
                                     )
                                 }"
-                            pokeDownloadButton.isEnabled = false
+                            if (pokeDownloadButton.isEnabled)
+                                pokeDownloadButton.isEnabled = false
 
                             MaterialAlertDialogBuilder(requireContext())
                                 .setTitle(resources.getString(R.string.dialogVersionTooHighTitle))
@@ -453,8 +459,7 @@ class Apps_poke : Fragment() {
                         }
 
                         needUpdate -> {
-                            pokeDownloadButton.text = update
-                            pokeDownloadButton.isEnabled = true
+                            setDownloadButton(true)
 
                             showAlertDialog(
                                 resources.getString(R.string.dialogUpdateAvailableTitle),
@@ -463,13 +468,11 @@ class Apps_poke : Fragment() {
                         }
 
                         else -> {
-                            pokeDownloadButton.text = download
-                            pokeDownloadButton.isEnabled = true
+                            setDownloadButton()
                         }
                     }
                 } else {
-                    pokeDownloadButton.text = download
-                    pokeDownloadButton.isEnabled = true
+                    setDownloadButton()
                 }
 
                 if (pgtoolsVersion != "未安裝" && pgToolsInstalledVersion != "未安裝") {
@@ -630,12 +633,12 @@ class Apps_poke : Fragment() {
         return false
     }
 
-    private fun appInstalledVersion(PackageName: String): String {
+    private fun appInstalledVersion(packageName: String): String {
         val pm = activity?.packageManager
         try {
-            pm?.getPackageInfo(PackageName, PackageManager.GET_ACTIVITIES)
+            pm?.getPackageInfo(packageName, PackageManager.GET_ACTIVITIES)
             return pm?.getPackageInfo(
-                PackageName,
+                packageName,
                 PackageManager.GET_ACTIVITIES
             )?.versionName.toString()
         } catch (_: PackageManager.NameNotFoundException) {
@@ -643,9 +646,9 @@ class Apps_poke : Fragment() {
         return "未安裝"
     }
 
-    private fun appUnInstall(PackageName: String) {
+    private fun appUnInstall(packageName: String) {
         val intent = Intent(Intent.ACTION_DELETE)
-        intent.data = Uri.parse("package:$PackageName")
+        intent.data = Uri.parse("package:$packageName")
         startActivity(intent)
     }
 
