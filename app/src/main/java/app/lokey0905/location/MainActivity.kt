@@ -394,7 +394,7 @@ class MainActivity : AppCompatActivity() {
 
             R.id.action_share -> {
                 shareText(
-                    "我發現了Pogo外掛管理器 趕快來下載使用!\n${getString(R.string.url_app)}",
+                    "${getString(R.string.share_information)}\n${getString(R.string.url_app)}",
                     resources.getString(R.string.shareManager)
                 )
                 true
@@ -440,7 +440,7 @@ class MainActivity : AppCompatActivity() {
                 //Toast.makeText(this, "Permission Granted", Toast.LENGTH_SHORT).show()
             }
             else {
-                Toast.makeText(this, "請允許定位權限後在重試", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, resources.getString(R.string.requestPermission), Toast.LENGTH_SHORT).show()
             }
         }
     }

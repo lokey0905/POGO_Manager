@@ -52,13 +52,13 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="16dp"
                         android:layout_weight="0"
-                        android:text="原版魔物獵人客戶端" />
+                        android:text="@string/appsMHNPage_MHNTitle" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="0"
-                        android:text="MH Now【魔物獵人】" />
+                        android:text="@string/appsMHNPage_MHNAPPName" />
                 </LinearLayout>
 
                 <ImageButton
@@ -165,13 +165,13 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="16dp"
                         android:layout_weight="0"
-                        android:text="魔物獵人修改工具" />
+                        android:text="@string/appsMHNPage_MHNToolsTitle" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="0"
-                        android:text="MHN tools" />
+                        android:text="@string/appsMHNPage_MHNToolsAPPName" />
 
                 </LinearLayout>
 
@@ -271,13 +271,13 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="16dp"
                         android:layout_weight="0"
-                        android:text="可修改手機定位" />
+                        android:text="@string/appsMHNPage_GpsTitle" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="0"
-                        android:text="GPS JoyStick【搖桿改定位✅老K刷機】" />
+                        android:text="@string/appsMHNPage_GpsAPPName" />
 
                 </LinearLayout>
 
@@ -299,7 +299,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="16dp"
                         android:layout_weight="0"
-                        android:text="支援版本:已修改無廣告版本(64位元)" />
+                        android:text="@string/format_newerVersion_Gps64" />
 
                     <TextView
                         android:id="@+id/gps_install_version"
