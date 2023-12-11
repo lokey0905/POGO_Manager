@@ -53,13 +53,13 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="16dp"
                         android:layout_weight="0"
-                        android:text="原版寶可夢客戶端" />
+                        android:text="@string/appsPokePage_PokeTitle" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="0"
-                        android:text="Pokémon GO【寶可夢】" />
+                        android:text="@string/appsPokePage_PokeAppName" />
                 </LinearLayout>
 
                 <ImageButton
@@ -166,13 +166,13 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="16dp"
                         android:layout_weight="0"
-                        android:text="原版寶可夢客戶端三星版本" />
+                        android:text="@string/appsPokePage_PokeAreaTitle" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="0"
-                        android:text="Pokémon GO【寶可夢三星版本】" />
+                        android:text="@string/appsPokePage_PokeAreaAppName" />
 
                 </LinearLayout>
 
@@ -272,13 +272,13 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="16dp"
                         android:layout_weight="0"
-                        android:text="可修改手機定位" />
+                        android:text="@string/appsPokePage_GpsTitle" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="0"
-                        android:text="GPS JoyStick【搖桿改定位✅老K刷機】" />
+                        android:text="@string/appsPokePage_GpsAppName" />
 
                 </LinearLayout>
 
@@ -300,7 +300,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="16dp"
                         android:layout_weight="0"
-                        android:text="支援版本:已修改無廣告版本" />
+                        android:text="@string/format_newerVersion_Gps64" />
 
                     <TextView
                         android:id="@+id/gps_install_version"
@@ -377,13 +377,13 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="16dp"
                         android:layout_weight="0"
-                        android:text="快速尋找火箭隊" />
+                        android:text="@string/appsPokePage_wrapperTitle" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="0"
-                        android:text="GPS Joystick Wrapper【中文版】" />
+                        android:text="@string/appsPokePage_wrapperAppName" />
 
                 </LinearLayout>
 
@@ -483,13 +483,13 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="16dp"
                         android:layout_weight="0"
-                        android:text="顯示寶可夢IV三圍,偵測色違,打火箭隊等功能" />
+                        android:text="@string/appsPokePage_PolygonTitle" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="0"
-                        android:text="Polygon【暴力功中文版】" />
+                        android:text="@string/appsPokePage_PolygonAppName" />
 
                 </LinearLayout>
 
@@ -588,13 +588,13 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="16dp"
                         android:layout_weight="0"
-                        android:text="模擬手動投球與自動旋轉補給站等功能" />
+                        android:text="@string/appsPokePage_PgtoolsTitle" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="0"
-                        android:text="Pgtools【自動抓】" />
+                        android:text="@string/appsPokePage_PgtoolsAppName" />
 
                 </LinearLayout>
 
@@ -687,6 +687,7 @@
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     app:srcCompat="@drawable/pokelist_icon"
+                    android:importantForAccessibility="no"
                     tools:layout_editor_absoluteX="100dp"
                     tools:layout_editor_absoluteY="100dp" />
 
@@ -702,13 +703,13 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="16dp"
                         android:layout_weight="0"
-                        android:text="尋找火箭隊與附近IV100色違的座標" />
+                        android:text="@string/appsPokePage_PokelistTitle" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="0"
-                        android:text="PokeList【中文版】" />
+                        android:text="@string/appsPokePage_PokelistAppName" />
 
                 </LinearLayout>
 
@@ -792,6 +793,7 @@
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     app:srcCompat="@drawable/wecatch_icon"
+                    android:importantForAccessibility="no"
                     tools:layout_editor_absoluteX="100dp"
                     tools:layout_editor_absoluteY="100dp" />
 
@@ -807,13 +809,13 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="16dp"
                         android:layout_weight="0"
-                        android:text="寶可夢雷達" />
+                        android:text="@string/appsPokePage_wecatchTitle" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="0"
-                        android:text="WeCatch" />
+                        android:text="@string/appsPokePage_wecatchAppName" />
 
                 </LinearLayout>
 
