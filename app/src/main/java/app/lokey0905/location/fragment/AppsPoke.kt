@@ -423,8 +423,10 @@ class AppsPoke : Fragment() {
 
                         if (currentVersion > installedVersion) {
                             needUpdate = true
+                            break
                         } else if (currentVersion < installedVersion) {
                             needDowngrade = true
+                            break
                         }
                     }
 
@@ -486,6 +488,7 @@ class AppsPoke : Fragment() {
 
                         if (currentVersion > installedVersion) {
                             needUpdate = true
+                            break
                         }
                     }
 
