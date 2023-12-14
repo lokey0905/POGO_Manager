@@ -281,8 +281,10 @@ class AppsMHN : Fragment() {
 
                         if (currentVersion > installedVersion) {
                             needUpdate = true
+                            break
                         } else if (currentVersion < installedVersion) {
                             needDowngrade = true
+                            break
                         }
                     }
 
@@ -340,6 +342,7 @@ class AppsMHN : Fragment() {
 
                         if (currentVersion > installedVersion) {
                             needUpdate = true
+                            break
                         }
                     }
 
