@@ -11,17 +11,22 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.Button
+import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
+import androidx.preference.PreferenceManager
 import app.lokey0905.location.R
 import com.google.android.gms.ads.*
 import com.google.android.gms.ads.rewarded.RewardedAd
 import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.materialswitch.MaterialSwitch
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -35,12 +40,14 @@ import java.net.URL
 class AppsMHN : Fragment() {
     private var mRewardedAd: RewardedAd? = null
 
-    private var mhnToolsUrl: String = ""
+    private val gameVersionsMap = mutableMapOf<String, String>()
     private var mhnToolsVersion: String = "未安裝"
+    private var mhnToolsUrl: String = ""
+    private var mhnToolsHash = ""
     private var mhnUrl: String = "未安裝"
     private var mhnVersion: String = "未安裝"
 
-    private var customTabsOff = false
+    private var mhnTestVersion = false
 
     private var errorTimeAD = 0
 
@@ -59,7 +66,10 @@ class AppsMHN : Fragment() {
 
         fun checkButton() {
             fun downloadAppCheck(url: String) {
-                if (Build.SUPPORTED_ABIS[0] == "arm64-v8a")
+                val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
+                val allow_download_on_non_arm64 = sharedPreferences.getBoolean("allow_download_on_non_arm64", false)
+
+                if (Build.SUPPORTED_ABIS[0] == "arm64-v8a" || allow_download_on_non_arm64)
                     downloadAPPWithAd(url)
                 else
                     Snackbar.make(
@@ -170,6 +180,8 @@ class AppsMHN : Fragment() {
         val mhnToolsInstallVersion = view.findViewById<TextView>(R.id.mhnTools_install_version)
         val gpsRemoveButton = view.findViewById<Button>(R.id.remove_gps)
         val gpsInstallVersion = view.findViewById<TextView>(R.id.gps_install_version)
+        val mhnTestVersionSwitch = view.findViewById<MaterialSwitch>(R.id.mhnTestVersion_switch)
+        val spinner = view.findViewById<Spinner>(R.id.mhn_spinner)
         val mhnPackageName = resources.getString(R.string.packageName_MHNow)
         val mhnToolsPackageName = resources.getString(R.string.packageName_mhnTools)
         val gps64PackageName = resources.getString(R.string.packageName_gps64)
@@ -195,11 +207,106 @@ class AppsMHN : Fragment() {
                     formatInstallVersion,
                     boolToInstalled(appInstalledOrNot(gps64PackageName))
                 )
+
+            fun setDownloadButton(isUpdate:Boolean = false) {
+                mhnDownloadButton.text = if(isUpdate) update else download
+                if (!mhnDownloadButton.isEnabled)
+                    mhnDownloadButton.isEnabled = true
+            }
+
+            val mhnInstalledVersion = appInstalledVersion(mhnPackageName)
+            val mhnToolsInstalledVersion = appInstalledVersion(mhnToolsPackageName)
+
+            if (mhnVersion != "未安裝" && mhnInstalledVersion != "未安裝") {
+                val mhnVersionInt: List<String> = mhnVersion.split(".")
+                val mhnInstalledVersionInt: List<String> = mhnInstalledVersion.split(".")
+                var needUpdate = false
+                var needDowngrade = false
+
+                for (i in mhnVersionInt.indices) {
+                    val currentVersion = mhnVersionInt[i].toInt()
+                    val installedVersion = mhnInstalledVersionInt[i].toInt()
+
+                    if (currentVersion > installedVersion) {
+                        needUpdate = true
+                        break
+                    } else if (currentVersion < installedVersion) {
+                        needDowngrade = true
+                        break
+                    }
+                }
+
+                when {
+                    needDowngrade -> {
+                        mhnInstallVersion.text =
+                            "${mhnInstallVersion.text} ${resources.getString(R.string.versionTooHigh)}"
+                        if (mhnDownloadButton.isEnabled)
+                            mhnDownloadButton.isEnabled = false
+
+                        MaterialAlertDialogBuilder(requireContext())
+                            .setTitle(resources.getString(R.string.dialogVersionTooHighTitle))
+                            .setMessage(resources.getString(R.string.dialogVersionTooHighMessage))
+                            .setNeutralButton(R.string.ok) { _, _ -> }
+                            .setNegativeButton("如何降版") { _, _ ->
+                                showAlertDialog(
+                                    resources.getString(R.string.dialogVersionTooHighTitle),
+                                    "1. 請先移除較新版本的魔物獵人 \n2. 重新下載支援版本寶可夢 \n3. 重啟手機嘗試啟動"
+                                )
+                            }
+                            .setPositiveButton("使用測試版") { _, _ ->
+                                showAlertDialog(
+                                    resources.getString(R.string.dialogVersionTooHighTitle),
+                                    "1. 至設定打開測試版自動抓開關 \n2. 直接下載支援版本寶可夢 \n3. 重啟手機嘗試啟動"
+                                )
+                            }
+                            .show()
+                    }
+
+                    needUpdate -> {
+                        setDownloadButton(true)
+
+                        showAlertDialog(
+                            resources.getString(R.string.dialogUpdateAvailableTitle),
+                            resources.getString(R.string.dialogUpdateAvailablePokMessage)
+                        )
+                    }
+
+                    else -> {
+                        setDownloadButton()
+                    }
+                }
+            } else {
+                setDownloadButton()
+            }
+
+            if (mhnToolsVersion != "未安裝" && mhnToolsInstalledVersion != "未安裝") {
+                val pgToolsVersionInt: List<String> = mhnToolsVersion.split(".")
+                val pgToolsInstalledVersionInt: List<String> = mhnToolsInstalledVersion.split(".")
+                var needUpdate = false
+
+                for (i in pgToolsVersionInt.indices) {
+                    val currentVersion = pgToolsVersionInt[i].toInt()
+                    val installedVersion = pgToolsInstalledVersionInt[i].toInt()
+
+                    if (currentVersion > installedVersion) {
+                        needUpdate = true
+                        break
+                    }
+                }
+
+                if (needUpdate) {
+                    mhnToolsDownloadButton.text = update
+                } else {
+                    mhnToolsDownloadButton.text = download
+                }
+            } else {
+                mhnToolsDownloadButton.text = download
+            }
         }
 
         fun extractPogoVersionFromJson(
             url: String,
-            onPogoVersionExtracted: (String, String) -> Unit,
+            onPogoVersionExtracted: (String, String, MutableMap<String, String>) -> Unit,
         ) {
             GlobalScope.launch(Dispatchers.IO) {
 
@@ -220,35 +327,85 @@ class AppsMHN : Fragment() {
 
                     bufferedReader.close()
 
-                    val appVersionHash: String
                     val jsonObject = JSONObject(response.toString())
+
                     mhnVersion = jsonObject.getString("gameVersion")
-                    mhnToolsVersion = jsonObject.getString("appVersionName")
-                    appVersionHash = jsonObject.getString("appVersionHash")
-                    mhnToolsUrl =
-                        "https://assets.mhntools.net/test-mhntools-$mhnToolsVersion-$appVersionHash.apk?"
                     mhnUrl = jsonObject.getString("gameARM64")
+                    mhnToolsVersion = jsonObject.getString("appVersionName")
+                    mhnToolsHash = jsonObject.getString("appVersionHash")
+                    mhnToolsUrl = if (mhnTestVersion)
+                        "https://assets.mhntools.net/test-mhntools-$mhnToolsVersion-$mhnToolsHash.apk?"
+                    else
+                        "https://assets.mhntools.net/mhntools-$mhnToolsVersion-$mhnToolsHash.apk?"
+
+                    gameVersionsMap.clear()
+
+                    val supportGameVersions = jsonObject.getJSONObject("supportGameVersions")
+                    val gameVersions = supportGameVersions.keys()
+
+                    while (gameVersions.hasNext()) {
+                        val gameVersion = gameVersions.next() as String
+                        val gameData = supportGameVersions.getJSONObject(gameVersion)
+                        val version = gameData.getString("gameVersion")
+                        val arm64Url = gameData.getString("gameARM64")
+
+                        gameVersionsMap[version] = arm64Url
+
+                        Log.i(
+                            "mhnTools",
+                            "mhnVersion: $version\nmhnUrl: $arm64Url\n"
+                        )
+                    }
 
                     Log.i(
                         "mhnTools",
-                        "mhnVersion:$mhnVersion\nmhnToolsUrl:$mhnToolsUrl\nmhnUrl:$mhnUrl\nmhnToolsVersion:$mhnToolsVersion"
+                        "mhnToolsVersion:$mhnToolsVersion\nmhnToolsUrl:$mhnToolsUrl\n"
                     )
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }
 
                 launch(Dispatchers.Main) {
-                    onPogoVersionExtracted(mhnVersion, mhnToolsVersion)
+                    onPogoVersionExtracted(mhnVersion, mhnUrl, gameVersionsMap)
                 }
             }
         }
 
         fun getToolsVersion() {
-            val url = resources.getString(R.string.url_mhnJson)
+            var url = resources.getString(R.string.url_mhnJson)
+            var versionType = ""
+
+            if (mhnTestVersion){
+                url = resources.getString(R.string.url_mhnJsonTest)
+                versionType = "(${getText(R.string.testVersion)})"
+            }
 
             //Snackbar.make(view, "正在取得資料", Snackbar.LENGTH_INDEFINITE).show();
-            extractPogoVersionFromJson(url) { mhnVersion, mhnToolsVersion ->
-                val versionType = ""
+            extractPogoVersionFromJson(url) { mhnVersion, _, gameVersionsMap ->
+                val versionsList = ArrayList<String>()
+
+                for ((version, _) in gameVersionsMap) {
+                    versionsList.add(version)
+                    Log.i(
+                        "mhnTools",
+                        "MHN支援版本: $version\n"
+                    )
+                }
+
+                versionsList.reverse()
+
+                val adapter: ArrayAdapter<String> = ArrayAdapter(
+                    view.context,
+                    android.R.layout.simple_spinner_item,
+                    versionsList
+                )
+
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                spinner.adapter = adapter
+
+                spinner.setSelection(0)
+
+
                 mhnSupportVersion.text = String.format(
                     formatNewerVersion,
                     mhnVersion,
@@ -259,113 +416,63 @@ class AppsMHN : Fragment() {
                     mhnToolsVersion,
                     versionType
                 )
-
-                fun setDownloadButton(isUpdate:Boolean = false) {
-                    mhnDownloadButton.text = if(isUpdate) update else download
-                    if (!mhnDownloadButton.isEnabled)
-                        mhnDownloadButton.isEnabled = true
-                }
-
-                val mhnInstalledVersion = appInstalledVersion(mhnPackageName)
-                val mhnToolsInstalledVersion = appInstalledVersion(mhnToolsPackageName)
-
-                if (mhnVersion != "未安裝" && mhnInstalledVersion != "未安裝") {
-                    val mhnVersionInt: List<String> = mhnVersion.split(".")
-                    val mhnInstalledVersionInt: List<String> = mhnInstalledVersion.split(".")
-                    var needUpdate = false
-                    var needDowngrade = false
-
-                    for (i in mhnVersionInt.indices) {
-                        val currentVersion = mhnVersionInt[i].toInt()
-                        val installedVersion = mhnInstalledVersionInt[i].toInt()
-
-                        if (currentVersion > installedVersion) {
-                            needUpdate = true
-                            break
-                        } else if (currentVersion < installedVersion) {
-                            needDowngrade = true
-                            break
-                        }
-                    }
-
-                    when {
-                        needDowngrade -> {
-                            mhnInstallVersion.text =
-                                "${mhnInstallVersion.text} ${resources.getString(R.string.versionTooHigh)}"
-                            if (mhnDownloadButton.isEnabled)
-                                mhnDownloadButton.isEnabled = false
-
-                            MaterialAlertDialogBuilder(requireContext())
-                                .setTitle(resources.getString(R.string.dialogVersionTooHighTitle))
-                                .setMessage(resources.getString(R.string.dialogVersionTooHighMessage))
-                                .setNeutralButton(R.string.ok) { _, _ -> }
-                                .setNegativeButton("如何降版") { _, _ ->
-                                    showAlertDialog(
-                                        resources.getString(R.string.dialogVersionTooHighTitle),
-                                        "1. 請先移除較新版本寶可夢 \n2. 重新下載支援版本寶可夢 \n3. 重啟手機嘗試啟動"
-                                    )
-                                }
-                                .setPositiveButton("使用測試版") { _, _ ->
-                                    showAlertDialog(
-                                        resources.getString(R.string.dialogVersionTooHighTitle),
-                                        "1. 至設定打開測試版自動抓開關 \n2. 直接下載支援版本寶可夢 \n3. 重啟手機嘗試啟動"
-                                    )
-                                }
-                                .show()
-                        }
-
-                        needUpdate -> {
-                            setDownloadButton(true)
-
-                            showAlertDialog(
-                                resources.getString(R.string.dialogUpdateAvailableTitle),
-                                resources.getString(R.string.dialogUpdateAvailablePokMessage)
-                            )
-                        }
-
-                        else -> {
-                            setDownloadButton()
-                        }
-                    }
-                } else {
-                    setDownloadButton()
-                }
-
-                if (mhnToolsVersion != "未安裝" && mhnToolsInstalledVersion != "未安裝") {
-                    val pgToolsVersionInt: List<String> = mhnToolsVersion.split(".")
-                    val pgToolsInstalledVersionInt: List<String> = mhnToolsInstalledVersion.split(".")
-                    var needUpdate = false
-
-                    for (i in pgToolsVersionInt.indices) {
-                        val currentVersion = pgToolsVersionInt[i].toInt()
-                        val installedVersion = pgToolsInstalledVersionInt[i].toInt()
-
-                        if (currentVersion > installedVersion) {
-                            needUpdate = true
-                            break
-                        }
-                    }
-
-                    if (needUpdate) {
-                        mhnToolsDownloadButton.text = update
-                    } else {
-                        mhnToolsDownloadButton.text = download
-                    }
-                } else {
-                    mhnToolsDownloadButton.text = download
-                }
             }
         }
 
-        fun setFragmentResultListener() {
-            setFragmentResultListener("customTabsOff") { _, bundle ->
-                customTabsOff = bundle.getBoolean("bundleKey")
+        fun setOnCheckedChangeListener() {
+            mhnTestVersionSwitch.setOnCheckedChangeListener { _, isChecked ->
+                if (isChecked) {
+                    mhnTestVersion = true
+                    Snackbar.make(
+                        view,
+                        "已切換至測試版",
+                        Snackbar.LENGTH_LONG
+                    ).setAction("Action", null).show()
+                } else {
+                    mhnTestVersion = false
+                    Snackbar.make(
+                        view,
+                        "已切換至正式版",
+                        Snackbar.LENGTH_LONG
+                    ).setAction("Action", null).show()
+                }
+                getToolsVersion()
+                checkAppVersion()
+            }
+
+            spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>,
+                    view: View?,
+                    position: Int,
+                    id: Long,
+                ) {
+                    val version = parent.getItemAtPosition(position).toString()
+                    val arm64Url = gameVersionsMap[version]
+
+                    if (arm64Url != null) {
+                        mhnUrl = arm64Url
+                        mhnVersion = version
+                        mhnSupportVersion.text = String.format(
+                            formatNewerVersion,
+                            version,
+                            if (mhnTestVersion)
+                                "(${getText(R.string.testVersion)})"
+                            else
+                                ""
+                        )
+                    }
+
+                    checkAppVersion()
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {}
             }
         }
 
         checkAppVersion()
         getToolsVersion()
-        setFragmentResultListener()
+        setOnCheckedChangeListener()
     }
 
 
@@ -379,6 +486,9 @@ class AppsMHN : Fragment() {
 
     private fun gotoBrowser(url: String) {
         context?.let {
+            val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
+            val customTabsOff = sharedPreferences.getBoolean("customTabsOff", false)
+
             if (customTabsOff)
                 startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
             else
