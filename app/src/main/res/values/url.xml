@@ -15,13 +15,15 @@
 
     <string name="url_pgtoolsJson">https://assets.pgtools.net/auto-versions.json</string>
     <string name="url_pgtoolsJsonTest">https://assets.pgtools.net/test-auto-versions.json</string>
-    <string name="url_mhnJson">https://assets.mhntools.net/test-versions.json</string>
+    <string name="url_mhnJson">https://assets.mhntools.net/versions.json</string>
+    <string name="url_mhnJsonTest">https://assets.mhntools.net/test-versions.json</string>
+
+    <string name="url_googlePlay">https://play.google.com/store/apps/details?id=</string>
 
     <string name="url_app">https://www.mediafire.com/file/5mdun6u78jr96rw/app-debug.apk/file</string>
     <string name="url_gps32">https://www.mediafire.com/file/maf260fw7u805tm/gpsjoystick_lokey_new.apk/file</string>
     <string name="url_gps64">https://www.mediafire.com/file/i2jmsi2teyrhn5j/gpsjoystick_lokey_new64.apk/file</string>
     <string name="url_polygon">https://www.mediafire.com/file/rwgf8tpzr94hqew/com.evermorelabs.polygonsharp-0.9.1.apk/file</string>
-    <string name="url_pok_store">https://play.google.com/store/apps/details?id=com.nianticlabs.pokemongo</string>
     <string name="url_pokAres">https://www.apkmirror.com/apk/niantic-inc/pokemon-go-samsung-galaxy-apps-version/</string>
     <string name="url_pokAres_store">https://apps.samsung.com/appquery/appDetail.as?appId=com.nianticlabs.pokemongo.ares</string>
     <string name="url_pokeMod">https://pokemod.dev/zh/</string>

@@ -13,19 +13,24 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.LinearLayout
+import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
+import androidx.preference.PreferenceManager
 import app.lokey0905.location.R
 import com.google.android.gms.ads.*
 import com.google.android.gms.ads.rewarded.RewardedAd
 import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.materialswitch.MaterialSwitch
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -37,18 +42,25 @@ import java.net.HttpURLConnection
 import java.net.URL
 import kotlin.math.roundToInt
 
+data class PogoVersionInfo(
+    val pogoVersion: String,
+    val pogoARM64: String,
+    val pogoARM: String
+)
+
 class AppsPoke : Fragment() {
     private var mRewardedAd: RewardedAd? = null
 
-    private var pgtoolsUrlARM: String = ""
-    private var pgtoolsUrlARM64: String = ""
-    private var pgtoolsVersion: String = "未安裝"
+    private val pogoVersionsList = ArrayList<PogoVersionInfo>()
     private var pogoVersion: String = "未安裝"
+    private var pgToolsARMUrl: String = ""
+    private var pgToolsARM64Url: String = ""
+    private var pgToolsVersion: String = "未安裝"
+    private var pgToolsUrl = ""
 
-    private var testPgtools = false
+    private var pgToolsTestVersion = false
     private var pokAresNoSupportDevices = false
     private var pokAresDownloadAPK = false
-    private var customTabsOff = false
 
     private var errorTimeAD = 0
 
@@ -59,6 +71,19 @@ class AppsPoke : Fragment() {
         val view: View = inflater.inflate(R.layout.fragment_apps_poke, container, false)
 
         fun checkButton() {
+            fun downloadAppCheck(url: String) {
+                val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
+                val allow_download_on_non_arm64 = sharedPreferences.getBoolean("allow_download_on_non_arm64", false)
+
+                if (Build.SUPPORTED_ABIS[0] == "arm64-v8a" || allow_download_on_non_arm64)
+                    downloadAPPWithAd(url)
+                else
+                    Snackbar.make(
+                        view,
+                        "${resources.getString(R.string.unsupportedDevices)}(${Build.SUPPORTED_ABIS[0]})",
+                        Snackbar.LENGTH_LONG
+                    ).setAction("Action", null).show()
+            }
             //******download*********//
             view.findViewById<Button>(R.id.download_gps).setOnClickListener {
                 downloadAPPWithAd(resources.getString(R.string.url_gps32))
@@ -69,38 +94,18 @@ class AppsPoke : Fragment() {
             }
 
             view.findViewById<Button>(R.id.download_polygon).setOnClickListener { view ->
-                if (Build.SUPPORTED_ABIS[0] == "arm64-v8a")
-                    downloadAPPWithAd(resources.getString(R.string.url_polygon))
-                else {
-                    Snackbar.make(
-                        view,
-                        "${resources.getString(R.string.unsupportedDevices)}(${Build.SUPPORTED_ABIS[0]})",
-                        Snackbar.LENGTH_LONG
-                    )
-                        .setAction("Action", null).show()
-                }
+                downloadAppCheck(resources.getString(R.string.url_polygon))
             }
 
             view.findViewById<Button>(R.id.download_pgtools).setOnClickListener { view ->
-                if (Build.SUPPORTED_ABIS[0] == "arm64-v8a")
-                    if (testPgtools)
-                        downloadAPPWithAd("https://assets.pgtools.net/test-pgtools-${pgtoolsVersion}.apk")
-                    else
-                        downloadAPPWithAd("https://assets.pgtools.net/pgtools-${pgtoolsVersion}.apk")
-                else
-                    Snackbar.make(
-                        view,
-                        "${resources.getString(R.string.unsupportedDevices)}(${Build.SUPPORTED_ABIS[0]})",
-                        Snackbar.LENGTH_LONG
-                    )
-                        .setAction("Action", null).show()
+                downloadAppCheck(pgToolsUrl)
             }
 
             view.findViewById<Button>(R.id.download_pok).setOnClickListener {
                 if (Build.SUPPORTED_ABIS[0] == "arm64-v8a")
-                    downloadAPPWithAd(pgtoolsUrlARM64)
+                    downloadAPPWithAd(pgToolsARM64Url)
                 else
-                    downloadAPPWithAd(pgtoolsUrlARM)
+                    downloadAPPWithAd(pgToolsARMUrl)
             }
 
             view.findViewById<Button>(R.id.download_pokAres).setOnClickListener { view ->
@@ -238,8 +243,11 @@ class AppsPoke : Fragment() {
 
         val pokePackageName = resources.getString(R.string.packageName_pok)
         val pgToolsPackageName = resources.getString(R.string.packageName_pgtools)
+        val pokeSupportVersion = view.findViewById<TextView>(R.id.pok_new_version)
         val pokeDownloadButton = view.findViewById<Button>(R.id.download_pok)
         val pgToolsDownloadButton = view.findViewById<Button>(R.id.download_pgtools)
+        val pokeTestVersionSwitch = view.findViewById<MaterialSwitch>(R.id.pokeTestVersion_switch)
+        val spinner = view.findViewById<Spinner>(R.id.poke_spinner)
 
         fun checkAppVersion() {
             view.findViewById<TextView>(R.id.remove_gps).visibility =
@@ -328,16 +336,112 @@ class AppsPoke : Fragment() {
                     formatInstallVersion,
                     appInstalledVersion(resources.getString(R.string.packageName_wrapper))
                 )
-        }
 
-        val pokInstalledVersion = appInstalledVersion(pokePackageName)
-        val pgToolsInstalledVersion = appInstalledVersion(pgToolsPackageName)
-        val download = resources.getString(R.string.download)
-        val update = resources.getString(R.string.update)
+            val pokInstalledVersion = appInstalledVersion(pokePackageName)
+            val pgToolsInstalledVersion = appInstalledVersion(pgToolsPackageName)
+            val download = resources.getString(R.string.download)
+            val update = resources.getString(R.string.update)
+
+            fun setDownloadButton(isUpdate:Boolean = false) {
+                pokeDownloadButton.text = if(isUpdate) update else download
+                if (!pokeDownloadButton.isEnabled)
+                    pokeDownloadButton.isEnabled = true
+            }
+
+            if (pogoVersion != "未安裝" && pokInstalledVersion != "未安裝") {
+                val pogoVersionInt: List<String> = pogoVersion.split(".")
+                val pokInstalledVersionInt: List<String> = pokInstalledVersion.split(".")
+                var needUpdate = false
+                var needDowngrade = false
+
+                for (i in pogoVersionInt.indices) {
+                    val currentVersion = pogoVersionInt[i].toInt()
+                    val installedVersion = pokInstalledVersionInt[i].toInt()
+
+                    if (currentVersion > installedVersion) {
+                        needUpdate = true
+                        break
+                    } else if (currentVersion < installedVersion) {
+                        needDowngrade = true
+                        break
+                    }
+                }
+
+                when {
+                    needDowngrade -> {
+                        view.findViewById<TextView>(R.id.pok_install_version).text =
+                            "${view.findViewById<TextView>(R.id.pok_install_version).text} ${
+                                resources.getString(
+                                    R.string.versionTooHigh
+                                )
+                            }"
+                        if (pokeDownloadButton.isEnabled)
+                            pokeDownloadButton.isEnabled = false
+
+                        MaterialAlertDialogBuilder(requireContext())
+                            .setTitle(resources.getString(R.string.dialogVersionTooHighTitle))
+                            .setMessage(resources.getString(R.string.dialogVersionTooHighMessage))
+                            .setNeutralButton(R.string.ok) { _, _ -> }
+                            .setNegativeButton("如何降版") { _, _ ->
+                                showAlertDialog(
+                                    resources.getString(R.string.dialogVersionTooHighTitle),
+                                    "1. 請先移除較新版本寶可夢 \n2. 重新下載支援版本寶可夢 \n3. 重啟手機嘗試啟動"
+                                )
+                            }
+                            .setPositiveButton("使用測試版") { _, _ ->
+                                showAlertDialog(
+                                    resources.getString(R.string.dialogVersionTooHighTitle),
+                                    "1. 至設定打開測試版自動抓開關 \n2. 直接下載支援版本寶可夢 \n3. 重啟手機嘗試啟動"
+                                )
+                            }
+                            .show()
+                    }
+
+                    needUpdate -> {
+                        setDownloadButton(true)
+
+                        showAlertDialog(
+                            resources.getString(R.string.dialogUpdateAvailableTitle),
+                            resources.getString(R.string.dialogUpdateAvailablePokMessage)
+                        )
+                    }
+
+                    else -> {
+                        setDownloadButton()
+                    }
+                }
+            } else {
+                setDownloadButton()
+            }
+
+            if (pgToolsVersion != "未安裝" && pgToolsInstalledVersion != "未安裝") {
+                val pgToolsVersionInt: List<String> = pgToolsVersion.split(".")
+                val pgToolsInstalledVersionInt: List<String> = pgToolsInstalledVersion.split(".")
+                var needUpdate = false
+
+                for (i in pgToolsVersionInt.indices) {
+                    val currentVersion = pgToolsVersionInt[i].toInt()
+                    val installedVersion = pgToolsInstalledVersionInt[i].toInt()
+
+                    if (currentVersion > installedVersion) {
+                        needUpdate = true
+                        break
+                    }
+                }
+
+                if (needUpdate) {
+                    pgToolsDownloadButton.text = update
+                } else {
+                    pgToolsDownloadButton.text = download
+                }
+            } else {
+                pgToolsDownloadButton.text = download
+            }
+        }
 
         fun extractPogoVersionFromJson(
             url: String,
-            onPogoVersionExtracted: (String, String) -> Unit
+            onPogoVersionExtracted: (String, String, ArrayList<PogoVersionInfo>) -> Unit
         ) {
             GlobalScope.launch(Dispatchers.IO) {
 
@@ -359,34 +463,84 @@ class AppsPoke : Fragment() {
                     bufferedReader.close()
 
                     val jsonObject = JSONObject(response.toString())
+
                     pogoVersion = jsonObject.getString("pogoVersion")
-                    pgtoolsUrlARM = jsonObject.getString("pogoARM")
-                    pgtoolsUrlARM64 = jsonObject.getString("pogoARM64")
-                    pgtoolsVersion = jsonObject.getString("appName")
+                    pgToolsARMUrl = jsonObject.getString("pogoARM")
+                    pgToolsARM64Url = jsonObject.getString("pogoARM64")
+                    pgToolsVersion = jsonObject.getString("appName")
+                    pgToolsUrl = if(pgToolsTestVersion)
+                        "https://assets.pgtools.net/test-pgtools-${pgToolsVersion}.apk"
+                    else
+                        "https://assets.pgtools.net/pgtools-${pgToolsVersion}.apk"
+
                     Log.i(
-                        "auto_catch",
-                        "pogoVersion:$pogoVersion\npgtoolsVersion:$pgtoolsVersion\npgtoolsUrlARM:$pgtoolsUrlARM\npgtoolsUrlARM64:$pgtoolsUrlARM64"
+                        "PgTools",
+                        "pogoVersion:$pogoVersion\npgToolsVersion:$pgToolsVersion\npgToolsARMUrl:$pgToolsARMUrl\npgToolsARM64Url:$pgToolsARM64Url"
+                    )
+
+                    pogoVersionsList.clear()
+
+                    val supportPogoVersions = jsonObject.getJSONObject("supportPogoVersions")
+                    val pogoVersions = supportPogoVersions.keys()
+
+                    while (pogoVersions.hasNext()) {
+                        val pogoVersion = pogoVersions.next() as String
+                        val pogoData = supportPogoVersions.getJSONObject(pogoVersion)
+                        val arm64Url = pogoData.getString("pogoARM64")
+                        val armUrl = pogoData.getString("pogoARM")
+
+                        // 创建 PogoVersionInfo 实例并添加到列表中
+                        val versionInfo = PogoVersionInfo(pogoVersion, arm64Url, armUrl)
+                        pogoVersionsList.add(versionInfo)
+                    }
+
+                    Log.i(
+                        "PgTools",
+                        "PgTools支援版本: $pogoVersion\npogoARM64: $pgToolsARM64Url\npogoARM: $pgToolsARMUrl"
                     )
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }
 
                 launch(Dispatchers.Main) {
-                    onPogoVersionExtracted(pogoVersion, pgtoolsVersion)
+                    onPogoVersionExtracted(pogoVersion, pgToolsVersion, pogoVersionsList)
                 }
             }
         }
 
         fun getAutoVersion() {
             var url = resources.getString(R.string.url_pgtoolsJson)
-            if (testPgtools)
+            if (pgToolsTestVersion)
                 url = resources.getString(R.string.url_pgtoolsJsonTest)
+            val versionType =
+                if (pgToolsTestVersion) " (${resources.getString(R.string.testVersion)})" else ""
 
             //Snackbar.make(view, "正在取得資料", Snackbar.LENGTH_INDEFINITE).show();
-            extractPogoVersionFromJson(url) { pogoVersion, pgtoolsVersion ->
-                val versionType =
-                    if (testPgtools) " ${resources.getString(R.string.versionTest)}" else ""
-                view.findViewById<TextView>(R.id.pok_new_version).text =
+            extractPogoVersionFromJson(url) { pogoVersion, pgtoolsVersion, pogoVersionsList ->
+                val versionsList = ArrayList<String>()
+
+                for (versionInfo in pogoVersionsList) {
+                    versionsList.add(versionInfo.pogoVersion)
+                    Log.i(
+                        "PgTools",
+                        "PgTools支援版本: $versionInfo.pogoVersion\npogoARM64: ${versionInfo.pogoARM64}\npogoARM: ${versionInfo.pogoARM}"
+                    )
+                }
+
+                versionsList.reverse()
+
+                val adapter: ArrayAdapter<String> = ArrayAdapter(
+                    view.context,
+                    android.R.layout.simple_spinner_item,
+                    versionsList
+                )
+
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                spinner.adapter = adapter
+
+                spinner.setSelection(0)
+
+                pokeSupportVersion.text =
                     String.format(
                         formatNewerVersion,
                         pogoVersion,
@@ -404,112 +558,68 @@ class AppsPoke : Fragment() {
                         pgtoolsVersion,
                         versionType
                     )
-
-                fun setDownloadButton(isUpdate:Boolean = false) {
-                    pokeDownloadButton.text = if(isUpdate) update else download
-                    if (!pokeDownloadButton.isEnabled)
-                        pokeDownloadButton.isEnabled = true
-                }
-
-                if (pogoVersion != "未安裝" && pokInstalledVersion != "未安裝") {
-                    val pogoVersionInt: List<String> = pogoVersion.split(".")
-                    val pokInstalledVersionInt: List<String> = pokInstalledVersion.split(".")
-                    var needUpdate = false
-                    var needDowngrade = false
-
-                    for (i in pogoVersionInt.indices) {
-                        val currentVersion = pogoVersionInt[i].toInt()
-                        val installedVersion = pokInstalledVersionInt[i].toInt()
-
-                        if (currentVersion > installedVersion) {
-                            needUpdate = true
-                            break
-                        } else if (currentVersion < installedVersion) {
-                            needDowngrade = true
-                            break
-                        }
-                    }
-
-                    when {
-                        needDowngrade -> {
-                            view.findViewById<TextView>(R.id.pok_install_version).text =
-                                "${view.findViewById<TextView>(R.id.pok_install_version).text} ${
-                                    resources.getString(
-                                        R.string.versionTooHigh
-                                    )
-                                }"
-                            if (pokeDownloadButton.isEnabled)
-                                pokeDownloadButton.isEnabled = false
-
-                            MaterialAlertDialogBuilder(requireContext())
-                                .setTitle(resources.getString(R.string.dialogVersionTooHighTitle))
-                                .setMessage(resources.getString(R.string.dialogVersionTooHighMessage))
-                                .setNeutralButton(R.string.ok) { _, _ -> }
-                                .setNegativeButton("如何降版") { _, _ ->
-                                    showAlertDialog(
-                                        resources.getString(R.string.dialogVersionTooHighTitle),
-                                        "1. 請先移除較新版本寶可夢 \n2. 重新下載支援版本寶可夢 \n3. 重啟手機嘗試啟動"
-                                    )
-                                }
-                                .setPositiveButton("使用測試版") { _, _ ->
-                                    showAlertDialog(
-                                        resources.getString(R.string.dialogVersionTooHighTitle),
-                                        "1. 至設定打開測試版自動抓開關 \n2. 直接下載支援版本寶可夢 \n3. 重啟手機嘗試啟動"
-                                    )
-                                }
-                                .show()
-                        }
-
-                        needUpdate -> {
-                            setDownloadButton(true)
-
-                            showAlertDialog(
-                                resources.getString(R.string.dialogUpdateAvailableTitle),
-                                resources.getString(R.string.dialogUpdateAvailablePokMessage)
-                            )
-                        }
-
-                        else -> {
-                            setDownloadButton()
-                        }
-                    }
+            }
+        }
+        fun setOnCheckedChangeListener(){
+            pokeTestVersionSwitch.setOnCheckedChangeListener { _, isChecked ->
+                if (isChecked) {
+                    pgToolsTestVersion = true
+                    Snackbar.make(
+                        view,
+                        "已切換至測試版",
+                        Snackbar.LENGTH_LONG
+                    ).setAction("Action", null).show()
                 } else {
-                    setDownloadButton()
+                    pgToolsTestVersion = false
+                    Snackbar.make(
+                        view,
+                        "已切換至正式版",
+                        Snackbar.LENGTH_LONG
+                    ).setAction("Action", null).show()
                 }
+                getAutoVersion()
+            }
 
-                if (pgtoolsVersion != "未安裝" && pgToolsInstalledVersion != "未安裝") {
-                    val pgToolsVersionInt: List<String> = pgtoolsVersion.split(".")
-                    val pgToolsInstalledVersionInt: List<String> = pgToolsInstalledVersion.split(".")
-                    var needUpdate = false
+            spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>,
+                    view: View?,
+                    position: Int,
+                    id: Long,
+                ) {
+                    val version = parent.getItemAtPosition(position).toString()
+                    var armUrl = ""
+                    var arm64Url = ""
 
-                    for (i in pgToolsVersionInt.indices) {
-                        val currentVersion = pgToolsVersionInt[i].toInt()
-                        val installedVersion = pgToolsInstalledVersionInt[i].toInt()
-
-                        if (currentVersion > installedVersion) {
-                            needUpdate = true
+                    for (versionInfo in pogoVersionsList) {
+                        if (versionInfo.pogoVersion == version) {
+                            pogoVersion = versionInfo.pogoVersion
+                            armUrl = versionInfo.pogoARM
+                            arm64Url = versionInfo.pogoARM64
                             break
                         }
                     }
 
-                    if (needUpdate) {
-                        pgToolsDownloadButton.text = update
-                    } else {
-                        pgToolsDownloadButton.text = download
+                    if (arm64Url != "" && armUrl != "null") {
+                        pgToolsARMUrl = armUrl
+                        pgToolsARM64Url = arm64Url
+                        pokeSupportVersion.text = String.format(
+                            formatNewerVersion,
+                            version,
+                            if (pgToolsTestVersion)
+                                "(${getText(R.string.testVersion)})"
+                            else
+                                ""
+                        )
                     }
-                } else {
-                    pgToolsDownloadButton.text = download
+                    checkAppVersion()
                 }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {}
             }
         }
 
         fun setFragmentResultListener() {
-            setFragmentResultListener("testPgtools") { _, bundle ->
-                testPgtools = bundle.getBoolean("bundleKey")
-                checkAppVersion()
-                getAutoVersion()
-            }
-
             setFragmentResultListener("pokAresNoSupportDevices") { _, bundle ->
                 pokAresNoSupportDevices = bundle.getBoolean("bundleKey")
                 if ((pokAresNoSupportDevices))
@@ -524,14 +634,11 @@ class AppsPoke : Fragment() {
             setFragmentResultListener("pokAresDownloadAPK") { _, bundle ->
                 pokAresDownloadAPK = bundle.getBoolean("bundleKey")
             }
-
-            setFragmentResultListener("customTabsOff") { _, bundle ->
-                customTabsOff = bundle.getBoolean("bundleKey")
-            }
         }
 
         checkAppVersion()
         getAutoVersion()
+        setOnCheckedChangeListener()
         setFragmentResultListener()
         //Toast.makeText(context, "已更新", Toast.LENGTH_SHORT).show()
     }
@@ -547,6 +654,9 @@ class AppsPoke : Fragment() {
 
     private fun gotoBrowser(url: String) {
         context?.let {
+            val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
+            val customTabsOff = sharedPreferences.getBoolean("customTabsOff", false)
+
             if (customTabsOff)
                 startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
             else
