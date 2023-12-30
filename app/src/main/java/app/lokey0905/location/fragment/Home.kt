@@ -50,7 +50,15 @@ class Home : Fragment() {
     ): View {
         val view: View = inflater.inflate(R.layout.fragment_home, container, false)
 
+        val checkLocationButton = view.findViewById<Button>(R.id.check_location)
+        val checkInformationLayout = view.findViewById<LinearLayout>(R.id.check_information)
+        val checkRootText = view.findViewById<TextView>(R.id.check_root)
+
         fun getDevice() {
+            val androidAbi = view.findViewById<TextView>(R.id.android_abi)
+            val androidRamSize = view.findViewById<TextView>(R.id.android_ramSize)
+            val androidPgtoolsSupper = view.findViewById<TextView>(R.id.android_pgtoolsSupper)
+
             val actManager =
                 requireActivity().getSystemService(AppCompatActivity.ACTIVITY_SERVICE) as ActivityManager
             val memInfo = ActivityManager.MemoryInfo()
@@ -61,65 +69,61 @@ class Home : Fragment() {
                 getDeviceName()
             view.findViewById<TextView>(R.id.android_version)?.text =
                 "${Build.VERSION.RELEASE}(${Build.VERSION.SDK_INT})"
+
             if (Build.SUPPORTED_ABIS[0] == "arm64-v8a") {
-                view.findViewById<TextView>(R.id.android_abi)?.text =
-                    "${Build.SUPPORTED_ABIS[0]} (64位元)"
-                view.findViewById<TextView>(R.id.android_ramSize)?.text =
-                    "$totalMemory GB(${boolToSupport(totalMemory >= 5)}雙開)"
-                view.findViewById<TextView>(R.id.android_pgtoolsSupper)?.text =
-                    "✅完整支援暴力功自動抓\n✅完整支援魔物獵人"
+                androidAbi?.text = "${Build.SUPPORTED_ABIS[0]} (64位元)"
+                androidRamSize?.text = "$totalMemory GB(${boolToSupport(totalMemory >= 5)}雙開)"
+                androidPgtoolsSupper?.text = "✅完整支援暴力功自動抓\n✅完整支援魔物獵人"
+
             } else if (Build.SUPPORTED_ABIS[0] == "armeabi-v7a") {
-                view.findViewById<TextView>(R.id.android_abi)?.text =
-                    "${Build.SUPPORTED_ABIS[0]} (32位元)"
-                view.findViewById<TextView>(R.id.android_ramSize)?.text =
-                    "$totalMemory GB"
-                view.findViewById<TextView>(R.id.android_pgtoolsSupper)?.text =
-                    "❌不支援暴力功自動抓\n❌不支援魔物獵人"
+                androidAbi?.text = "${Build.SUPPORTED_ABIS[0]} (32位元)"
+                androidRamSize?.text = "$totalMemory GB"
+                androidPgtoolsSupper?.text = "❌不支援暴力功自動抓\n❌不支援魔物獵人"
+
             } else {
-                view.findViewById<TextView>(R.id.android_abi)?.text =
-                    Build.SUPPORTED_ABIS[0]
-                view.findViewById<TextView>(R.id.android_ramSize)?.text =
-                    "$totalMemory GB"
-                view.findViewById<TextView>(R.id.android_pgtoolsSupper)?.text =
-                    "❌不支援暴力功自動抓\n❌不支援魔物獵人"
+                androidAbi?.text = Build.SUPPORTED_ABIS[0]
+                androidRamSize?.text = "$totalMemory GB"
+                androidPgtoolsSupper?.text = "❌不支援暴力功自動抓\n❌不支援魔物獵人"
             }
         }
 
         fun magiskCheck() {
             if (bIsMagisk) {
                 //Toast.makeText(applicationContext, "Magisk Found", Toast.LENGTH_LONG).show()
-                view.findViewById<Button>(R.id.check_location)
-                    .setBackgroundColor(
-                        ContextCompat.getColor(
-                            this.requireContext(),
-                            com.google.android.material.R.color.design_default_color_error
-                        )
+                checkLocationButton.setBackgroundColor(
+                    ContextCompat.getColor(
+                        this.requireContext(),
+                        com.google.android.material.R.color.design_default_color_error
                     )
-                view.findViewById<TextView>(R.id.check_magisk)
-                    .setTextColor(
-                        ContextCompat.getColor(
-                            this.requireContext(),
-                            com.google.android.material.R.color.design_default_color_error
-                        )
+                )
+                checkRootText.setTextColor(
+                    ContextCompat.getColor(
+                        this.requireContext(),
+                        com.google.android.material.R.color.design_default_color_error
                     )
-                view.findViewById<TextView>(R.id.check_magisk)?.text = "❌已發現(未隔離)"
+                )
+                checkRootText?.text = resources.getString(R.string.rootDetected)
             } else {
-                view.findViewById<TextView>(R.id.check_magisk).text = "✅未發現刷機"
-                view.findViewById<TextView>(R.id.check_magisk)
-                    .setTextColor(ContextCompat.getColor(this.requireContext(), R.color.green))
+                checkRootText.setTextColor(
+                    ContextCompat.getColor(
+                        this.requireContext(),
+                        R.color.green
+                    )
+                )
+                checkRootText.text = resources.getString(R.string.rootNotDetected)
             }
         }
 
         val locationListener: LocationListener = object : LocationListener {
-            fun setButtonErrorColor(){
-                view.findViewById<Button>(R.id.check_location)
+            fun setButtonErrorColor() {
+                checkLocationButton
                     .setBackgroundColor(
                         MaterialColors.getColor(view, androidx.appcompat.R.attr.colorError)
                     )
             }
 
-            fun setButtonNormal(){
-                view.findViewById<Button>(R.id.check_location)
+            fun setButtonNormal() {
+                checkLocationButton
                     .setBackgroundColor(
                         MaterialColors.getColor(view, androidx.appcompat.R.attr.colorPrimary)
                     )
@@ -135,7 +139,7 @@ class Home : Fragment() {
                 if (!wifiFix) {
                     errorFlag = true
                     setButtonErrorColor()
-                    view.findViewById<Button>(R.id.check_location).text =
+                    checkLocationButton.text =
                         "${resources.getString(R.string.check_button)} 無法偵測目前位置11"
                 }
 
@@ -143,21 +147,21 @@ class Home : Fragment() {
                     if (location.isMock) {
                         errorFlag = true
                         setButtonErrorColor()
-                        view.findViewById<Button>(R.id.check_location).text =
+                        checkLocationButton.text =
                             "${resources.getString(R.string.check_button)} 無法偵測目前位置12(${Build.VERSION.SDK_INT})"
                     }
                 } else {
                     if (location.isFromMockProvider) {
                         errorFlag = true
                         setButtonErrorColor()
-                        view.findViewById<Button>(R.id.check_location).text =
+                        checkLocationButton.text =
                             "${resources.getString(R.string.check_button)} 無法偵測目前位置12"
                     }
                 }
 
-                if(!errorFlag){
+                if (!errorFlag) {
                     setButtonNormal()
-                    view.findViewById<Button>(R.id.check_location).text =
+                    checkLocationButton.text =
                         resources.getString(R.string.check_button)
                 }
 
@@ -236,19 +240,20 @@ class Home : Fragment() {
         getDevice()
         setFragmentResultListener()
 
-        if(resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE)
-            view.findViewById<LinearLayout>(R.id.check_information).visibility = View.VISIBLE
+        if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE)
+            checkInformationLayout.visibility = View.VISIBLE
         else
-            view.findViewById<LinearLayout>(R.id.check_information).visibility = View.GONE
+            checkInformationLayout.visibility = View.GONE
 
         view.findViewById<MaterialCardView>(R.id.check).setOnClickListener {
-            if(view.findViewById<LinearLayout>(R.id.check_information).visibility == View.GONE)
-                view.findViewById<LinearLayout>(R.id.check_information).visibility = View.VISIBLE
+            if (checkInformationLayout.visibility == View.GONE)
+                checkInformationLayout.visibility = View.VISIBLE
         }
 
-        view.findViewById<Button>(R.id.check_location).setOnClickListener {
-            if(view.findViewById<LinearLayout>(R.id.check_information).visibility == View.GONE)
-                view.findViewById<LinearLayout>(R.id.check_information).visibility = View.VISIBLE
+        checkLocationButton.setOnClickListener {
+            if (checkInformationLayout.visibility == View.GONE)
+                checkInformationLayout.visibility = View.VISIBLE
+
             magiskCheck()
             if (context?.let { it1 ->
                     ContextCompat.checkSelfPermission(

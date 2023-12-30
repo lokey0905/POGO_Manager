@@ -72,10 +72,12 @@ class AppsPoke : Fragment() {
 
         fun checkButton() {
             fun downloadAppCheck(url: String) {
-                val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
-                val allow_download_on_non_arm64 = sharedPreferences.getBoolean("allow_download_on_non_arm64", false)
+                val sharedPreferences =
+                    PreferenceManager.getDefaultSharedPreferences(requireContext())
+                val allowDownloadOnNonArm64 =
+                    sharedPreferences.getBoolean("allow_download_on_non_arm64", false)
 
-                if (Build.SUPPORTED_ABIS[0] == "arm64-v8a" || allow_download_on_non_arm64)
+                if (Build.SUPPORTED_ABIS[0] == "arm64-v8a" || allowDownloadOnNonArm64)
                     downloadAPPWithAd(url)
                 else
                     Snackbar.make(
@@ -220,12 +222,10 @@ class AppsPoke : Fragment() {
             activity?.getSystemService(AppCompatActivity.ACTIVITY_SERVICE) as ActivityManager
         val memInfo = ActivityManager.MemoryInfo()
         actManager.getMemoryInfo(memInfo)
-        val totalMemory= (memInfo.totalMem.toDouble()/(1024*1024*1024)).roundToInt()
+        val totalMemory = (memInfo.totalMem.toDouble() / (1024 * 1024 * 1024)).roundToInt()
 
-        if (totalMemory >= 5 && MANUFACTURER == "samsung")
-            view.findViewById<LinearLayout>(R.id.linearLayout_pokAres).visibility = View.VISIBLE
-        else
-            view.findViewById<LinearLayout>(R.id.linearLayout_pokAres).visibility = View.GONE
+        view.findViewById<LinearLayout>(R.id.linearLayout_pokAres).visibility =
+            if (totalMemory >= 5 && MANUFACTURER == "samsung") View.VISIBLE else View.GONE
 
         setupAd()
         checkButton()
@@ -239,7 +239,7 @@ class AppsPoke : Fragment() {
         super.onResume()
         val view: View = requireView()
 
-        val formatNewerVersion:String = resources.getString(R.string.format_newerVersion)
+        val formatNewerVersion: String = resources.getString(R.string.format_newerVersion)
 
         val pokePackageName = resources.getString(R.string.packageName_pok)
         val pgToolsPackageName = resources.getString(R.string.packageName_pgtools)
@@ -342,8 +342,8 @@ class AppsPoke : Fragment() {
             val download = resources.getString(R.string.download)
             val update = resources.getString(R.string.update)
 
-            fun setDownloadButton(isUpdate:Boolean = false) {
-                pokeDownloadButton.text = if(isUpdate) update else download
+            fun setDownloadButton(isUpdate: Boolean = false) {
+                pokeDownloadButton.text = if (isUpdate) update else download
                 if (!pokeDownloadButton.isEnabled)
                     pokeDownloadButton.isEnabled = true
             }
@@ -468,7 +468,7 @@ class AppsPoke : Fragment() {
                     pgToolsARMUrl = jsonObject.getString("pogoARM")
                     pgToolsARM64Url = jsonObject.getString("pogoARM64")
                     pgToolsVersion = jsonObject.getString("appName")
-                    pgToolsUrl = if(pgToolsTestVersion)
+                    pgToolsUrl = if (pgToolsTestVersion)
                         "https://assets.pgtools.net/test-pgtools-${pgToolsVersion}.apk"
                     else
                         "https://assets.pgtools.net/pgtools-${pgToolsVersion}.apk"
@@ -560,7 +560,8 @@ class AppsPoke : Fragment() {
                     )
             }
         }
-        fun setOnCheckedChangeListener(){
+
+        fun setOnCheckedChangeListener() {
             pokeTestVersionSwitch.setOnCheckedChangeListener { _, isChecked ->
                 if (isChecked) {
                     pgToolsTestVersion = true

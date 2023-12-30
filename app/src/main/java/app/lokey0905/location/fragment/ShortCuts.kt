@@ -116,7 +116,11 @@ class ShortCuts: Fragment() {
                     .apply {
                         setNeutralButton(R.string.ok) { _, _ ->
                             if (mRewardedAd != null) {
-                                Toast.makeText(context, getString(R.string.thanksForWaiting), Toast.LENGTH_LONG).show()
+                                Toast.makeText(
+                                    context,
+                                    getString(R.string.thanksForWaiting),
+                                    Toast.LENGTH_LONG
+                                ).show()
 
                                 mRewardedAd?.fullScreenContentCallback =
                                     object : FullScreenContentCallback() {
@@ -130,14 +134,21 @@ class ShortCuts: Fragment() {
 
                                         override fun onAdFailedToShowFullScreenContent(adError: AdError) {
                                             Log.d(ContentValues.TAG, "Ad failed to show.")
-                                            Toast.makeText(context, "播放失敗 請稍後在試", Toast.LENGTH_LONG).show()
+                                            Toast.makeText(
+                                                context,
+                                                "播放失敗 請稍後在試",
+                                                Toast.LENGTH_LONG
+                                            ).show()
                                             // Don't forget to set the ad reference to null so you
                                             // don't show the ad a second time.
                                             mRewardedAd = null
                                         }
 
                                         override fun onAdShowedFullScreenContent() {
-                                            Log.d(ContentValues.TAG, "Ad showed fullscreen content.")
+                                            Log.d(
+                                                ContentValues.TAG,
+                                                "Ad showed fullscreen content."
+                                            )
                                             // Called when ad is dismissed.
                                         }
                                     }
@@ -145,7 +156,11 @@ class ShortCuts: Fragment() {
                                     loadRewardedAd()
                                     mRewardedAd = null
 
-                                    Toast.makeText(context, resources.getText(R.string.dialogGetKeyADDone), Toast.LENGTH_SHORT).show()
+                                    Toast.makeText(
+                                        context,
+                                        resources.getText(R.string.dialogGetKeyADDone),
+                                        Toast.LENGTH_SHORT
+                                    ).show()
                                     getPolygonKey()
                                 }
                             } else {
@@ -154,17 +169,25 @@ class ShortCuts: Fragment() {
                                     resources.getString(R.string.dialogAdNotReadyTitle),
                                     resources.getString(R.string.dialogAdNotReadyMessage)
                                 )
-                                errorTimeAD ++
+                                errorTimeAD++
                                 if (errorTimeAD >= 3) {
                                     errorTimeAD = 0
-                                    Toast.makeText(context, resources.getText(R.string.dialogGetKeyADDone), Toast.LENGTH_SHORT).show()
+                                    Toast.makeText(
+                                        context,
+                                        resources.getText(R.string.dialogGetKeyADDone),
+                                        Toast.LENGTH_SHORT
+                                    ).show()
                                     getPolygonKey()
                                 }
                                 //Toast.makeText(context, "網路錯誤 請5秒後在試", Toast.LENGTH_LONG).show()
                             }
                         }
                         setNegativeButton(R.string.cancel) { _, _ ->
-                            Toast.makeText(context, getString(R.string.cancelOperation), Toast.LENGTH_SHORT)
+                            Toast.makeText(
+                                context,
+                                getString(R.string.cancelOperation),
+                                Toast.LENGTH_SHORT
+                            )
                                 .show()
                         }
                     }
@@ -370,7 +393,7 @@ class ShortCuts: Fragment() {
         }
     }
 
-    private fun downloadAPPSetup(url: String){
+    private fun downloadAPPSetup(url: String) {
         if (mRewardedAd != null) {
             Toast.makeText(context, getString(R.string.thanksForWaiting), Toast.LENGTH_LONG).show()
 
@@ -409,7 +432,7 @@ class ShortCuts: Fragment() {
                 resources.getString(R.string.dialogAdNotReadyTitle),
                 resources.getString(R.string.dialogAdNotReadyMessage)
             )
-            errorTimeAD ++
+            errorTimeAD++
             if (errorTimeAD >= 3) {
                 errorTimeAD = 0
                 gotoBrowser(url)
@@ -418,7 +441,7 @@ class ShortCuts: Fragment() {
         }
     }
 
-    private fun downloadAPPWithAd(url: String){
+    private fun downloadAPPWithAd(url: String) {
         MaterialAlertDialogBuilder(requireContext())
             .setTitle(resources.getString(R.string.dialogDownloadTitle))
             .setMessage(resources.getString(R.string.dialogDownloadMessage))

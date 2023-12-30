@@ -71,16 +71,19 @@ class MainActivity : AppCompatActivity() {
     private var appsPoke: AppsPoke = AppsPoke()
     private var appsMhn: AppsMHN = AppsMHN()
     private var shortcuts: ShortCuts = ShortCuts()
-    //private var setting: Setting = Setting()
     private var preferenceFragmentCompat: Preferences = Preferences()
 
 
     var bServiceBound = false
+
     //private var IIsolatedService = null
     var serviceBinder: IIsolatedService? = null
 
     @OptIn(DelicateCoroutinesApi::class)
-    private fun checkForUpdate(githubUrl: String, onUpdateAvailable: (Boolean, String, String) -> Unit) {
+    private fun checkForUpdate(
+        githubUrl: String,
+        onUpdateAvailable: (Boolean, String, String) -> Unit
+    ) {
         GlobalScope.launch(Dispatchers.IO) {
             var updateAvailable = false
             var latestVersion = ""
@@ -125,29 +128,44 @@ class MainActivity : AppCompatActivity() {
             }
 
             launch(Dispatchers.Main) {
-                onUpdateAvailable(updateAvailable,latestVersion,latestVersionInformation)
+                onUpdateAvailable(updateAvailable, latestVersion, latestVersionInformation)
             }
         }
     }
-    private fun checkUpdate(){
+
+    private fun checkUpdate() {
         val githubUrl = getString(R.string.githubApi)
-        checkForUpdate(githubUrl) { updateAvailable,latestVersion,latestVersionInformation ->
+        checkForUpdate(githubUrl) { updateAvailable, latestVersion, latestVersionInformation ->
             if (updateAvailable) {
                 MaterialAlertDialogBuilder(this@MainActivity)
-                    .setTitle(getString(R.string.dialogUpdateAvailableTitle)+latestVersion)
-                    .setMessage("${getString(R.string.dialogUpdateAvailableManagerMessage)}\n\n${getString(R.string.updateContent)}\n$latestVersionInformation")
+                    .setTitle(getString(R.string.dialogUpdateAvailableTitle) + latestVersion)
+                    .setMessage(
+                        "${getString(R.string.dialogUpdateAvailableManagerMessage)}\n\n${
+                            getString(
+                                R.string.updateContent
+                            )
+                        }\n$latestVersionInformation"
+                    )
                     .apply {
                         setPositiveButton(R.string.ok) { _, _ ->
                             downloadAPPSetup("https://github.com/lokey0905/POGO_Manager/releases/download/$latestVersion/app-debug.apk")
                         }
                         setNegativeButton(R.string.cancel) { _, _ ->
-                            Toast.makeText(context, getString(R.string.cancelOperation), Toast.LENGTH_SHORT)
+                            Toast.makeText(
+                                context,
+                                getString(R.string.cancelOperation),
+                                Toast.LENGTH_SHORT
+                            )
                                 .show()
                         }
                     }
                     .show()
             } else {
-                Toast.makeText(this, getString(R.string.dialogIsLatestVersion)+BuildConfig.VERSION_NAME, Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    this,
+                    getString(R.string.dialogIsLatestVersion) + BuildConfig.VERSION_NAME,
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
     }
@@ -163,19 +181,19 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun gotoBrowser(url: String){
+    private fun gotoBrowser(url: String) {
         startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
     }
 
     private fun shareText(text: String, title: String) {
         val intent = Intent(Intent.ACTION_SEND)
-            intent.type = "text/plain"
-            intent.putExtra(Intent.EXTRA_TEXT, text)
-            intent.putExtra(Intent.EXTRA_TITLE, title)
+        intent.type = "text/plain"
+        intent.putExtra(Intent.EXTRA_TEXT, text)
+        intent.putExtra(Intent.EXTRA_TITLE, title)
         startActivity(Intent.createChooser(intent, getString(R.string.share)))
     }
 
-    private fun downloadAPPSetup(url: String){
+    private fun downloadAPPSetup(url: String) {
         MaterialAlertDialogBuilder(this@MainActivity)
             .setTitle(getString(R.string.dialogDownloadTitle))
             .setMessage(getString(R.string.dialogDownloadMessage))
@@ -184,7 +202,8 @@ class MainActivity : AppCompatActivity() {
                     gotoBrowser(url)
                 }
                 setNegativeButton(R.string.cancel) { _, _ ->
-                    Toast.makeText(context, getString(R.string.cancelOperation), Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, getString(R.string.cancelOperation), Toast.LENGTH_SHORT)
+                        .show()
                 }
             }
             .show()
@@ -313,7 +332,7 @@ class MainActivity : AppCompatActivity() {
 
         val intent = Intent(this, IsolatedService::class.java)
         /*Binding to an isolated service */
-        applicationContext.bindService(intent,mIsolatedServiceConnection,BIND_AUTO_CREATE)
+        applicationContext.bindService(intent, mIsolatedServiceConnection, BIND_AUTO_CREATE)
     }
 
     fun magiskCheck() {
@@ -323,12 +342,14 @@ class MainActivity : AppCompatActivity() {
                 Log.d(TAG, "UID:" + Os.getuid())
                 bIsMagisk = serviceBinder!!.isMagiskPresent
                 Log.d(TAG, "bIsMagisk: $bIsMagisk")
-                supportFragmentManager.setFragmentResult("bIsMagisk", bundleOf("bundleKey" to bIsMagisk))
+                supportFragmentManager.setFragmentResult(
+                    "bIsMagisk",
+                    bundleOf("bundleKey" to bIsMagisk)
+                )
             } catch (e: RemoteException) {
                 e.printStackTrace()
             }
-        }
-        else {
+        } else {
             Log.d(TAG, "Isolated Service not bound")
         }
     }
@@ -349,15 +370,21 @@ class MainActivity : AppCompatActivity() {
 
     @SuppressLint("SetTextI18n")
     fun showAboutDialog() {
-        val dialog = MaterialAlertDialogBuilder(this,
-            com.google.android.material.R.style.ThemeOverlay_Material3_MaterialAlertDialog_Centered)
+        val dialog = MaterialAlertDialogBuilder(
+            this,
+            com.google.android.material.R.style.ThemeOverlay_Material3_MaterialAlertDialog_Centered
+        )
             .create()
         val dialogView: View = View.inflate(this, R.layout.dialog_about, null)
         dialog.setView(dialogView)
-        dialogView.findViewById<TextView>(R.id.design_about_title).text = resources.getString(R.string.app_name)
-        dialogView.findViewById<TextView>(R.id.design_about_version).text = "${BuildConfig.VERSION_NAME} (${BuildConfig.VERSION_CODE})"
-        dialogView.findViewById<TextView>(R.id.design_about_info).text = resources.getString(R.string.dialogAboutInfo)
-        dialogView.findViewById<TextView>(R.id.design_about_maker).text = resources.getString(R.string.dialogAboutMaker)
+        dialogView.findViewById<TextView>(R.id.design_about_title).text =
+            resources.getString(R.string.app_name)
+        dialogView.findViewById<TextView>(R.id.design_about_version).text =
+            "${BuildConfig.VERSION_NAME} (${BuildConfig.VERSION_CODE})"
+        dialogView.findViewById<TextView>(R.id.design_about_info).text =
+            resources.getString(R.string.dialogAboutInfo)
+        dialogView.findViewById<TextView>(R.id.design_about_maker).text =
+            resources.getString(R.string.dialogAboutMaker)
         dialog.show()
     }
 
@@ -385,7 +412,11 @@ class MainActivity : AppCompatActivity() {
                             checkUpdate()
                         }
                         setNeutralButton(R.string.cancel) { _, _ ->
-                            Toast.makeText(context, getString(R.string.cancelOperation), Toast.LENGTH_SHORT).show()
+                            Toast.makeText(
+                                context,
+                                getString(R.string.cancelOperation),
+                                Toast.LENGTH_SHORT
+                            ).show()
                         }
                     }
                     .show()
@@ -412,7 +443,11 @@ class MainActivity : AppCompatActivity() {
                             checkUpdate()
                         }
                         setNeutralButton(R.string.cancel) { _, _ ->
-                            Toast.makeText(context, getString(R.string.cancelOperation), Toast.LENGTH_SHORT).show()
+                            Toast.makeText(
+                                context,
+                                getString(R.string.cancelOperation),
+                                Toast.LENGTH_SHORT
+                            ).show()
                         }
                     }
                     .show()
@@ -433,14 +468,21 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == MY_PERMISSIONS_REQUEST_LOCATION) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 //Toast.makeText(this, "Permission Granted", Toast.LENGTH_SHORT).show()
-            }
-            else {
-                Toast.makeText(this, resources.getString(R.string.requestPermission), Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(
+                    this,
+                    resources.getString(R.string.requestPermission),
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
     }

@@ -69,10 +69,13 @@ class Preferences : PreferenceFragmentCompat() {
             Build.MANUFACTURER == "samsung"
 
         val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
-        allow_download_on_non_arm64 = sharedPreferences.getBoolean("allow_download_on_non_arm64", false)
+        allow_download_on_non_arm64 =
+            sharedPreferences.getBoolean("allow_download_on_non_arm64", false)
         location_check_A12 = sharedPreferences.getBoolean("location_check_A12", false)
-        allow_download_on_non_samsung = sharedPreferences.getBoolean("allow_download_on_non_samsung", false)
-        always_download_apk_from_apk = sharedPreferences.getBoolean("always_download_apk_from_apk", false)
+        allow_download_on_non_samsung =
+            sharedPreferences.getBoolean("allow_download_on_non_samsung", false)
+        always_download_apk_from_apk =
+            sharedPreferences.getBoolean("always_download_apk_from_apk", false)
         customTabsOff = sharedPreferences.getBoolean("customTabsOff", false)
 
         setFragmentResult(
@@ -100,7 +103,8 @@ class Preferences : PreferenceFragmentCompat() {
             }
 
             "allow_download_on_non_arm64" -> {
-                allow_download_on_non_arm64 = sharedPreferences.getBoolean("allow_download_on_non_arm64", false)
+                allow_download_on_non_arm64 =
+                    sharedPreferences.getBoolean("allow_download_on_non_arm64", false)
                 return true
             }
 
@@ -140,8 +144,10 @@ class Preferences : PreferenceFragmentCompat() {
                     .setMessage("點擊右上角三個點取消勾選自動更新")
                     .apply {
                         setNeutralButton(resources.getString(R.string.ok)) { _, _ ->
-                            gotoBrowser(resources.getString(R.string.url_googlePlay)+
-                                    resources.getString(R.string.packageName_pok))
+                            gotoBrowser(
+                                resources.getString(R.string.url_googlePlay) +
+                                        resources.getString(R.string.packageName_pok)
+                            )
                             Toast.makeText(
                                 context,
                                 "點擊右上角三個點取消勾選自動更新",
@@ -166,8 +172,10 @@ class Preferences : PreferenceFragmentCompat() {
                     .setMessage("點擊右上角三個點取消勾選自動更新")
                     .apply {
                         setNeutralButton(resources.getString(R.string.ok)) { _, _ ->
-                            gotoBrowser(resources.getString(R.string.url_googlePlay)+
-                                    resources.getString(R.string.packageName_MHNow))
+                            gotoBrowser(
+                                resources.getString(R.string.url_googlePlay) +
+                                        resources.getString(R.string.packageName_MHNow)
+                            )
                             Toast.makeText(
                                 context,
                                 "點擊右上角三個點取消勾選自動更新",
@@ -187,7 +195,8 @@ class Preferences : PreferenceFragmentCompat() {
             }
 
             "allow_download_on_non_samsung" -> {
-                allow_download_on_non_samsung = sharedPreferences.getBoolean("allow_download_on_non_samsung", false)
+                allow_download_on_non_samsung =
+                    sharedPreferences.getBoolean("allow_download_on_non_samsung", false)
                 setFragmentResult(
                     "pokAresNoSupportDevices",
                     bundleOf("bundleKey" to allow_download_on_non_samsung)
@@ -196,7 +205,8 @@ class Preferences : PreferenceFragmentCompat() {
             }
 
             "always_download_apk_from_apk" -> {
-                always_download_apk_from_apk = sharedPreferences.getBoolean("always_download_apk_from_apk", false)
+                always_download_apk_from_apk =
+                    sharedPreferences.getBoolean("always_download_apk_from_apk", false)
                 setFragmentResult(
                     "pokAresDownloadAPK",
                     bundleOf("bundleKey" to always_download_apk_from_apk)
