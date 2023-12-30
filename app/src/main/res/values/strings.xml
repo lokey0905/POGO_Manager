@@ -38,7 +38,7 @@
     <string name="share_information">我發現了Pogo外掛管理器 趕快來下載使用!</string>
 
     <string name="checkTitle_DetectLocationStatus">系統取得定位位置:</string>
-    <string name="checkTilte_deviceIsRoot">偵測ROOT環境:</string>
+    <string name="checkTitle_deviceIsRoot">偵測ROOT環境:</string>
     <string name="check_button">檢測定位與設備</string>
     <string name="check_devicesAPI">檢測設備完整性</string>
     <string name="check_appList">App列表測試</string>
@@ -55,6 +55,9 @@
     <string name="shortcuts_gpx2">下載GPX路徑檔2(英文)</string>
     <string name="shortcuts_gpx3">下載GPX路徑檔3(英文)</string>
     <string name="shortcuts_gpx4">下載GPX路徑檔4(英文)</string>
+
+    <string name="rootDetected">❌已發現su路徑</string>
+    <string name="rootNotDetected">✅未發現su</string>
 
     <string name="downloadOnGooglePlay">從play商店下載</string>
     <string name="downloadAPK">下載APK檔</string>

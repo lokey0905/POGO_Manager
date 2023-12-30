@@ -19,7 +19,6 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.setFragmentResultListener
 import androidx.preference.PreferenceManager
 import app.lokey0905.location.R
 import com.google.android.gms.ads.*
@@ -66,10 +65,12 @@ class AppsMHN : Fragment() {
 
         fun checkButton() {
             fun downloadAppCheck(url: String) {
-                val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
-                val allow_download_on_non_arm64 = sharedPreferences.getBoolean("allow_download_on_non_arm64", false)
+                val sharedPreferences =
+                    PreferenceManager.getDefaultSharedPreferences(requireContext())
+                val allowDownloadOnNonArm64 =
+                    sharedPreferences.getBoolean("allow_download_on_non_arm64", false)
 
-                if (Build.SUPPORTED_ABIS[0] == "arm64-v8a" || allow_download_on_non_arm64)
+                if (Build.SUPPORTED_ABIS[0] == "arm64-v8a" || allowDownloadOnNonArm64)
                     downloadAPPWithAd(url)
                 else
                     Snackbar.make(
@@ -168,7 +169,7 @@ class AppsMHN : Fragment() {
         super.onResume()
         val view: View = requireView()
 
-        val formatNewerVersion:String = resources.getString(R.string.format_newerVersion)
+        val formatNewerVersion: String = resources.getString(R.string.format_newerVersion)
 
         val mhnDownloadButton = view.findViewById<Button>(R.id.download_mhn)
         val mhnRemoveButton = view.findViewById<Button>(R.id.remove_mhn)
@@ -182,6 +183,7 @@ class AppsMHN : Fragment() {
         val gpsInstallVersion = view.findViewById<TextView>(R.id.gps_install_version)
         val mhnTestVersionSwitch = view.findViewById<MaterialSwitch>(R.id.mhnTestVersion_switch)
         val spinner = view.findViewById<Spinner>(R.id.mhn_spinner)
+
         val mhnPackageName = resources.getString(R.string.packageName_MHNow)
         val mhnToolsPackageName = resources.getString(R.string.packageName_mhnTools)
         val gps64PackageName = resources.getString(R.string.packageName_gps64)
@@ -208,8 +210,8 @@ class AppsMHN : Fragment() {
                     boolToInstalled(appInstalledOrNot(gps64PackageName))
                 )
 
-            fun setDownloadButton(isUpdate:Boolean = false) {
-                mhnDownloadButton.text = if(isUpdate) update else download
+            fun setDownloadButton(isUpdate: Boolean = false) {
+                mhnDownloadButton.text = if (isUpdate) update else download
                 if (!mhnDownloadButton.isEnabled)
                     mhnDownloadButton.isEnabled = true
             }
@@ -375,7 +377,7 @@ class AppsMHN : Fragment() {
             var url = resources.getString(R.string.url_mhnJson)
             var versionType = ""
 
-            if (mhnTestVersion){
+            if (mhnTestVersion) {
                 url = resources.getString(R.string.url_mhnJsonTest)
                 versionType = "(${getText(R.string.testVersion)})"
             }

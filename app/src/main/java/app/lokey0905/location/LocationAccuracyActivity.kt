@@ -47,10 +47,16 @@ class LocationAccuracyActivity : AppWidgetProvider() {
             val activityIntent = Intent()
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
                 activityIntent.component =
-                    ComponentName("com.google.android.gms", "com.google.android.gms.location.settings.LocationAccuracyV31Activity")
+                    ComponentName(
+                        "com.google.android.gms",
+                        "com.google.android.gms.location.settings.LocationAccuracyV31Activity"
+                    )
             } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
                 activityIntent.component =
-                    ComponentName("com.google.android.gms", "com.google.android.gms.location.settings.LocationAccuracyActivity")
+                    ComponentName(
+                        "com.google.android.gms",
+                        "com.google.android.gms.location.settings.LocationAccuracyActivity"
+                    )
             } else {
                 activityIntent.action = Settings.ACTION_LOCATION_SOURCE_SETTINGS
             }

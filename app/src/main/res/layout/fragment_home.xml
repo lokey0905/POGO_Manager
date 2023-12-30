@@ -170,10 +170,10 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="20dp"
-                            android:text="@string/checkTilte_deviceIsRoot" />
+                            android:text="@string/checkTitle_deviceIsRoot" />
 
                         <TextView
-                            android:id="@+id/check_magisk"
+                            android:id="@+id/check_root"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="20dp"
