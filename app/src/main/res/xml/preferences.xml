@@ -18,7 +18,7 @@
             android:key="allow_download_on_non_arm64"
             android:title="允許下載非裝置支援軟體"
             android:icon="@drawable/ic_baseline_browser_updated_24"
-            app:summary="允許在非arm64裝置下載軟體,軟體考能無法正常運作"
+            app:summary="允許在非arm64裝置下載軟體,軟體可能無法正常運作"
             android:persistent="true"
             android:defaultValue="false" />
     </PreferenceCategory>

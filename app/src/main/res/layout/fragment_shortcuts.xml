@@ -389,6 +389,40 @@
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
+                android:id="@+id/gameGuardian"
+                android:layout_width="0dp"
+                android:layout_height="160dp"
+                android:layout_margin="16dp"
+                android:layout_columnWeight="1"
+                android:checkable="true"
+                android:clickable="true"
+                android:focusable="true"
+                app:contentPadding="32dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_gravity="center"
+                        android:importantForAccessibility="no"
+                        app:srcCompat="@drawable/baseline_games_24" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:text="@string/shortcuts_gameGuardian" />
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
                 android:id="@+id/pgtoolsFile"
                 android:layout_width="0dp"
                 android:layout_height="160dp"
@@ -485,7 +519,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:gravity="center"
-                        android:text="Package Disabler Pro 停用APP" />
+                        android:text="@string/shortcuts_packageDisablerPro" />
                 </LinearLayout>
 
             </com.google.android.material.card.MaterialCardView>
@@ -519,7 +553,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:gravity="center"
-                        android:text="AFWall防火牆" />
+                        android:text="@string/shortcuts_afwall" />
                 </LinearLayout>
 
             </com.google.android.material.card.MaterialCardView>

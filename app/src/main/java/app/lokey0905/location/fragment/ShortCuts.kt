@@ -63,6 +63,10 @@ class ShortCuts: Fragment() {
                 downloadAPPWithAd(resources.getString(R.string.url_gpx4))
             }
 
+            view.findViewById<MaterialCardView>(R.id.gameGuardian)?.setOnClickListener {
+                downloadAPPWithAd(resources.getString(R.string.url_gameGuardian))
+            }
+
             view.findViewById<MaterialCardView>(R.id.manual)?.setOnClickListener {
                 gotoBrowser(getString(R.string.github_manual))
             }

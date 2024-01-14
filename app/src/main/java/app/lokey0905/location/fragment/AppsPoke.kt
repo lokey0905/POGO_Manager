@@ -95,11 +95,11 @@ class AppsPoke : Fragment() {
                 downloadAPPWithAd(resources.getString(R.string.url_wrapper))
             }
 
-            view.findViewById<Button>(R.id.download_polygon).setOnClickListener { view ->
+            view.findViewById<Button>(R.id.download_polygon).setOnClickListener {
                 downloadAppCheck(resources.getString(R.string.url_polygon))
             }
 
-            view.findViewById<Button>(R.id.download_pgtools).setOnClickListener { view ->
+            view.findViewById<Button>(R.id.download_pgtools).setOnClickListener {
                 downloadAppCheck(pgToolsUrl)
             }
 
