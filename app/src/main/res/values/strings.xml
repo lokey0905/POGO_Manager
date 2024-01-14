@@ -55,6 +55,9 @@
     <string name="shortcuts_gpx2">下載GPX路徑檔2(英文)</string>
     <string name="shortcuts_gpx3">下載GPX路徑檔3(英文)</string>
     <string name="shortcuts_gpx4">下載GPX路徑檔4(英文)</string>
+    <string name="shortcuts_gameGuardian">下載GG修改器</string>
+    <string name="shortcuts_packageDisablerPro">Package Disabler Pro</string>
+    <string name="shortcuts_afwall">AFWall+ 防火牆</string>
 
     <string name="rootDetected">❌已發現su路徑</string>
     <string name="rootNotDetected">✅未發現su</string>

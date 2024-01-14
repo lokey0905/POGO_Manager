@@ -38,7 +38,7 @@
     <string name="url_gpx4">https://drive.google.com/drive/folders/1X0F0uBUTA8HDhY7uBukMLDPzdJi53-FO</string>
     <string name="url_coolDownCalculator">https://cool.android.ovh/</string>
     <string name="url_island_official">https://play.google.com/store/apps/details?id=com.oasisfeng.island</string>
-    <string name="url_island_unofficial">https://d.apkpure.com/b/APK/com.oasisfeng.island?version=latest</string>
+    <string name="url_island_unofficial">https://d.cdnpure.com/b/APK/com.oasisfeng.island?version=latest</string>
     <string name="url_split_official">https://play.google.com/store/apps/details?id=com.github.ericytsang.multiwindow.app.android</string>
     <string name="url_split_unofficial">https://www.mediafire.com/file/ufyvz2dm6inulxj/com.github.ericytsang.multiwindow.app.android.apk/file</string>
     <string name="url_PackageDisablerPro">https://apkcombo.com/tw/package-disabler-pro-all-android/com.ospolice.packagedisablerpro/download/apk</string>
@@ -47,6 +47,7 @@
     <string name="url_checkDevicesAPI_official">https://play.google.com/store/apps/details?id=com.henrikherzig.playintegritychecker</string>
     <string name="url_checkDevicesAPI_unofficial">https://github.com/herzhenr/spic-android/releases/latest</string>
     <string name="url_appListDetector">https://github.com/Dr-TSNG/ApplistDetector/releases/latest</string>
+    <string name="url_gameGuardian">https://gameguardian.net/forum/files/file/2-gameguardian/</string>
 
     <string name="packageName_gps32">com.theyerbnosob.vxpdplqpbzmhzbw</string>
     <string name="packageName_gps64">com.thejhijuqoqy.bdujvrwdcajvzin</string>
