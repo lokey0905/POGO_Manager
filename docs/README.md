@@ -1,8 +1,6 @@
 # POGO寶可夢外掛管理器 POGOManager
 **先前有大量玩家帳號被封禁，建議遊戲時間不要過長與加倍冷卻時間**
 
-[資料來源](https://facebook.台灣/ban)
-
 ## 閱讀模式
 ### [書本閱讀模式頁面(HackMD)](https://hackmd.io/@lokey0905/B1x_pZAT2)
 ### [一般閱讀模式頁面(Github)](https://lokey0905.github.io/POGO_Manager/)
@@ -26,11 +24,9 @@ POGO寶可夢外掛管理器是一個可以管理多個寶可夢外掛的管理�
 
 <img width="300" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/NewVersion.jpg" style="margin-right:10px" /><img width="400" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/NewVersion2.jpg" style="margin-right:10px" />
 
-- 如果寶可夢版本過高，表示可能被play商店自動更新了，關閉方法商店搜尋寶可夢，右上角三個點自動更新取消打勾，若無顯示重啟商店後即可關閉，之後先移除寶可夢，再到下載頁面下載支援版本的寶可夢
+- 如果寶可夢版本過高，表示可能被play商店自動更新了，關閉方法商店搜尋寶可夢，點選右上角︙按鈕取消打勾自動更新，若無顯示重啟商店後即可關閉，之後再移除寶可夢，再到下載頁面下載支援版本的寶可夢
 
 - 如果遇到強制更新，可以先到設定中啟用測試版自動抓開關，然後再到下載頁面下載測試版的寶可夢與自動抓，若還是不支援請等待自動抓團隊更新
-
-<img width="400" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/testPgtools.jpg" style="margin-right:10px" />
 
 # 建議玩法
 ## 手動玩
