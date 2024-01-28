@@ -451,7 +451,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:gravity="center"
-                        android:text="@string/shortcuts_pgtoolsFile" />
+                        android:text="@string/shortcuts_PGToolsFile" />
                 </LinearLayout>
 
             </com.google.android.material.card.MaterialCardView>
@@ -553,7 +553,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:gravity="center"
-                        android:text="@string/shortcuts_afwall" />
+                        android:text="@string/shortcuts_AfWall" />
                 </LinearLayout>
 
             </com.google.android.material.card.MaterialCardView>

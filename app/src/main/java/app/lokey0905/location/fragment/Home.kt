@@ -57,7 +57,7 @@ class Home : Fragment() {
         fun getDevice() {
             val androidAbi = view.findViewById<TextView>(R.id.android_abi)
             val androidRamSize = view.findViewById<TextView>(R.id.android_ramSize)
-            val androidPgtoolsSupper = view.findViewById<TextView>(R.id.android_pgtoolsSupper)
+            val androidPGToolsSupper = view.findViewById<TextView>(R.id.android_pgtoolsSupper)
 
             val actManager =
                 requireActivity().getSystemService(AppCompatActivity.ACTIVITY_SERVICE) as ActivityManager
@@ -73,23 +73,21 @@ class Home : Fragment() {
             if (Build.SUPPORTED_ABIS[0] == "arm64-v8a") {
                 androidAbi?.text = "${Build.SUPPORTED_ABIS[0]} (64位元)"
                 androidRamSize?.text = "$totalMemory GB(${boolToSupport(totalMemory >= 5)}雙開)"
-                androidPgtoolsSupper?.text = "✅完整支援暴力功自動抓\n✅完整支援魔物獵人"
-
-            } else if (Build.SUPPORTED_ABIS[0] == "armeabi-v7a") {
-                androidAbi?.text = "${Build.SUPPORTED_ABIS[0]} (32位元)"
-                androidRamSize?.text = "$totalMemory GB"
-                androidPgtoolsSupper?.text = "❌不支援暴力功自動抓\n❌不支援魔物獵人"
+                androidPGToolsSupper?.text = resources.getString(R.string.androidARM64SupperTrue)
 
             } else {
-                androidAbi?.text = Build.SUPPORTED_ABIS[0]
+                if (Build.SUPPORTED_ABIS[0] == "armeabi-v7a") {
+                    androidAbi?.text = "${Build.SUPPORTED_ABIS[0]} (32位元)"
+                } else {
+                    androidAbi?.text = Build.SUPPORTED_ABIS[0]
+                }
                 androidRamSize?.text = "$totalMemory GB"
-                androidPgtoolsSupper?.text = "❌不支援暴力功自動抓\n❌不支援魔物獵人"
+                androidPGToolsSupper?.text = resources.getString(R.string.androidARM64SupperFalse)
             }
         }
 
         fun magiskCheck() {
             if (bIsMagisk) {
-                //Toast.makeText(applicationContext, "Magisk Found", Toast.LENGTH_LONG).show()
                 checkLocationButton.setBackgroundColor(
                     ContextCompat.getColor(
                         this.requireContext(),
@@ -102,7 +100,7 @@ class Home : Fragment() {
                         com.google.android.material.R.color.design_default_color_error
                     )
                 )
-                checkRootText?.text = resources.getString(R.string.rootDetected)
+                checkRootText?.text = resources.getString(R.string.checkInfo_rootDetected)
             } else {
                 checkRootText.setTextColor(
                     ContextCompat.getColor(
@@ -110,7 +108,7 @@ class Home : Fragment() {
                         R.color.green
                     )
                 )
-                checkRootText.text = resources.getString(R.string.rootNotDetected)
+                checkRootText.text = resources.getString(R.string.checkInfo_rootNotDetected)
             }
         }
 
@@ -140,22 +138,25 @@ class Home : Fragment() {
                     errorFlag = true
                     setButtonErrorColor()
                     checkLocationButton.text =
-                        "${resources.getString(R.string.check_button)} 無法偵測目前位置11"
+                        "${resources.getString(R.string.check_button)} " +
+                                "${resources.getString(R.string.locationError)}11" // 11 = 未開啟網路輔助
                 }
 
-                if ((Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) && newerCheckMockLocationApi) {
+                if ((Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) && newerCheckMockLocationApi) { // Android 12
                     if (location.isMock) {
                         errorFlag = true
                         setButtonErrorColor()
                         checkLocationButton.text =
-                            "${resources.getString(R.string.check_button)} 無法偵測目前位置12(${Build.VERSION.SDK_INT})"
+                            "${resources.getString(R.string.check_button)} " +
+                                    "${resources.getString(R.string.locationError)}12(${Build.VERSION.SDK_INT})" // 12 = 模擬定位
                     }
                 } else {
                     if (location.isFromMockProvider) {
                         errorFlag = true
                         setButtonErrorColor()
                         checkLocationButton.text =
-                            "${resources.getString(R.string.check_button)} 無法偵測目前位置12"
+                            "${resources.getString(R.string.check_button)} " +
+                                    "${resources.getString(R.string.locationError)}12" // 12 = 模擬定位
                     }
                 }
 
@@ -186,14 +187,14 @@ class Home : Fragment() {
             }
 
             @Deprecated("Deprecated in Java")
-            override fun onStatusChanged(provider: String, status: Int, extras: Bundle) {
+            override fun onStatusChanged(provider: String, status: Int, extras: Bundle) { // 定位狀態改變
             }
 
-            override fun onProviderEnabled(provider: String) {
+            override fun onProviderEnabled(provider: String) { // 定位開啟
                 Toast.makeText(context, "已偵測到定位開啟", Toast.LENGTH_SHORT).show()
             }
 
-            override fun onProviderDisabled(provider: String) {
+            override fun onProviderDisabled(provider: String) { // 定位關閉
                 Toast.makeText(context, "請開啟gps或是網路", Toast.LENGTH_SHORT).show()
             }
         }

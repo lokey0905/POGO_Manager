@@ -32,7 +32,7 @@
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:textSize="16sp"
-                android:text="@string/supportVersion_pgTools" />
+                android:text="@string/supportVersion_PGTools" />
 
             <Spinner
                 android:id="@+id/poke_spinner"
@@ -336,7 +336,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="16dp"
                         android:layout_weight="0"
-                        android:text="@string/format_newerVersion_Gps64" />
+                        android:text="@string/format_newerVersion_Gps32" />
 
                     <TextView
                         android:id="@+id/gps_install_version"
@@ -624,13 +624,13 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="16dp"
                         android:layout_weight="0"
-                        android:text="@string/appsPokePage_PgtoolsTitle" />
+                        android:text="@string/appsPokePage_PGToolsTitle" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="0"
-                        android:text="@string/appsPokePage_PgtoolsAppName" />
+                        android:text="@string/appsPokePage_PGToolsAppName" />
 
                 </LinearLayout>
 
@@ -739,13 +739,13 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="16dp"
                         android:layout_weight="0"
-                        android:text="@string/appsPokePage_PokelistTitle" />
+                        android:text="@string/appsPokePage_PokeListTitle" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="0"
-                        android:text="@string/appsPokePage_PokelistAppName" />
+                        android:text="@string/appsPokePage_PokeListAppName" />
 
                 </LinearLayout>
 
@@ -845,13 +845,13 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="16dp"
                         android:layout_weight="0"
-                        android:text="@string/appsPokePage_wecatchTitle" />
+                        android:text="@string/appsPokePage_WeCatchTitle" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="0"
-                        android:text="@string/appsPokePage_wecatchAppName" />
+                        android:text="@string/appsPokePage_WeCatchAppName" />
 
                 </LinearLayout>
 

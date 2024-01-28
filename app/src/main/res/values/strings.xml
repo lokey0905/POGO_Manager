@@ -21,6 +21,7 @@
     <string name="checkUpdate">檢查更新</string>
     <string name="unlockPremium">解鎖付費版本</string>
     <string name="location">定位</string>
+    <string name="locationError">無法偵測目前位置</string>
     <string name="notChecked">未檢查</string>
     <string name="nearbySharing">鄰近分享</string>
     <string name="networkError">網路可能錯誤 請稍後在試</string>
@@ -31,8 +32,8 @@
     <string name="testVersion">測試版</string>
     <string name="getPolygonKey">暴力功key(實驗性)</string>
     <string name="requestPermission">請允許定位權限後在重試</string>
-    <string name="supportVersion_pgTools">PgTools支援版本:</string>
-    <string name="supportVersion_MhnTools">MhnTools支援版本:</string>
+    <string name="supportVersion_PGTools">PGTools支援版本:</string>
+    <string name="supportVersion_MHNTools">MHNTools支援版本:</string>
 
     <string name="widget_description">定位精確度 開關捷徑</string>
 
@@ -43,12 +44,14 @@
     <string name="check_button">檢測定位與設備</string>
     <string name="check_devicesAPI">檢測設備完整性</string>
     <string name="check_appList">App列表測試</string>
+    <string name="checkInfo_rootDetected">❌已發現su路徑</string>
+    <string name="checkInfo_rootNotDetected">✅未發現su</string>
 
     <string name="shortcutsTitle_docAndTool">文檔與工具</string>
     <string name="shortcutsTitle_download">檔案下載</string>
     <string name="shortcuts_MiuiXSpace">MIUI應用雙開</string>
     <string name="shortcuts_coolDownCalculator">冷卻計算機</string>
-    <string name="shortcuts_pgtoolsFile">pgtools設定檔(贊助版本)</string>
+    <string name="shortcuts_PGToolsFile">PGTools設定檔(贊助版本)</string>
     <string name="shortcuts_splitScreen">split screen 分割畫面app</string>
     <string name="shortcuts_island">island 創建雙開環境</string>
     <string name="shortcuts_pokeMod">下載PokeMod</string>
@@ -58,10 +61,7 @@
     <string name="shortcuts_gpx4">下載GPX路徑檔4(英文)</string>
     <string name="shortcuts_gameGuardian">下載GG修改器</string>
     <string name="shortcuts_packageDisablerPro">Package Disabler Pro</string>
-    <string name="shortcuts_afwall">AFWall+ 防火牆</string>
-
-    <string name="rootDetected">❌已發現su路徑</string>
-    <string name="rootNotDetected">✅未發現su</string>
+    <string name="shortcuts_AfWall">AFWall+ 防火牆</string>
 
     <string name="downloadOnGooglePlay">從play商店下載</string>
     <string name="downloadAPK">下載APK檔</string>
@@ -72,7 +72,7 @@
 
     <string name="format_newerVersion">支援版本:%1$s %2$s</string>
     <string name="format_installVersion">安裝版本:%1$s</string>
-    <string name="format_newerVersion_Gps32">支援版本:%1$s %2$s</string>
+    <string name="format_newerVersion_Gps32">支援版本:已修改無廣告版本</string>
     <string name="format_newerVersion_Gps64">支援版本:已修改無廣告版本(64位元)</string>
 
     <string name="dialogDownloadTitle">即將開始下載</string>
@@ -84,7 +84,7 @@
     <string name="dialogUpdateAvailableManagerMessage">建議更新至最新版本以取得最好的體驗，是否要更新管理器?</string>
     <string name="dialogUpdateAvailablePokMessage">建議更新至最新版本以取得最好的體驗，請手動點擊【更新】按鈕更新APP</string>
     <string name="dialogIsLatestVersion">已經是最新版本</string>
-    <string name="dialogAboutInfo">相關檔案皆為網路搜尋取得,檔案不歸我擁有,Pokemon MH NOW與本APP無關</string>
+    <string name="dialogAboutInfo">相關檔案皆為網路搜尋取得,檔案不歸我擁有,Pokemon,MHNOW與本項目無關</string>
     <string name="dialogAboutMaker">軟體作者:lokey0905 \n圖示作者:梧銳#4486</string>
     <string name="dialogAdNotReadyTitle">發生一些錯誤</string>
     <string name="dialogAdNotReadyMessage">您的操作過快 或是網路不穩 請5秒後在試</string>
@@ -100,7 +100,9 @@
     <string name="androidVersion">系統版本:</string>
     <string name="androidAbi">系統架構:</string>
     <string name="androidRamSize">記憶體大小:</string>
-    <string name="androidPgtoolsSupper">軟體支援:</string>
+    <string name="androidARM64Supper">軟體支援:</string>
+    <string name="androidARM64SupperTrue">✅完整支援暴力功自動抓\n✅完整支援魔物獵人</string>
+    <string name="androidARM64SupperFalse">❌不支援暴力功自動抓\n❌不支援魔物獵人</string>
 
     <string name="appsMHNPage_MHNTitle">原版魔物獵人客戶端</string>
     <string name="appsMHNPage_MHNAPPName">MH Now【魔物獵人】</string>
@@ -119,10 +121,10 @@
     <string name="appsPokePage_wrapperAppName">GPS Joystick Wrapper【找火箭隊中文版】</string>
     <string name="appsPokePage_PolygonTitle">顯示寶可夢IV三圍,偵測色違,打火箭隊等功能</string>
     <string name="appsPokePage_PolygonAppName">Polygon【暴力功中文版】</string>
-    <string name="appsPokePage_PgtoolsTitle">模擬手動投球與自動旋轉補給站等功能</string>
-    <string name="appsPokePage_PgtoolsAppName">Pgtools【自動抓】</string>
-    <string name="appsPokePage_PokelistTitle">尋找附近IV100色違與火箭隊的座標</string>
-    <string name="appsPokePage_PokelistAppName">PokeList【中文版】</string>
-    <string name="appsPokePage_wecatchTitle">寶可夢雷達</string>
-    <string name="appsPokePage_wecatchAppName">WeCatch</string>
+    <string name="appsPokePage_PGToolsTitle">模擬手動投球與自動旋轉補給站等功能</string>
+    <string name="appsPokePage_PGToolsAppName">PGTools【自動抓】</string>
+    <string name="appsPokePage_PokeListTitle">尋找附近IV100色違與火箭隊的座標</string>
+    <string name="appsPokePage_PokeListAppName">PokeList【中文版】</string>
+    <string name="appsPokePage_WeCatchTitle">寶可夢雷達</string>
+    <string name="appsPokePage_WeCatchAppName">WeCatch</string>
 </resources>
