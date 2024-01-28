@@ -31,7 +31,7 @@
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:textSize="16sp"
-                android:text="@string/supportVersion_MhnTools" />
+                android:text="@string/supportVersion_MHNTools" />
 
             <Spinner
                 android:id="@+id/mhn_spinner"
