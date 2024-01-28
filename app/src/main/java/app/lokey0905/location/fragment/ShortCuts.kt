@@ -371,7 +371,7 @@ class ShortCuts: Fragment() {
             .setTitle(resources.getString(R.string.getPolygonKey))
             .setMessage(resources.getString(R.string.dialogGetKeyDone))
             .setNeutralButton(R.string.cancel) { _, _ -> }
-            .setPositiveButton(androidx.preference.R.string.copy) { _, _ ->
+            .setPositiveButton(R.string.copy) { _, _ ->
                 clipboardManager.setPrimaryClip(ClipData.newPlainText(null, polygonKey))
                 Toast.makeText(context, getString(R.string.copied), Toast.LENGTH_SHORT)
                     .show()
