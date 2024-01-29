@@ -125,11 +125,11 @@ class AppsPoke : Fragment() {
             }
 
             view.findViewById<Button>(R.id.download_pokelist).setOnClickListener {
-                downloadAPPWithAd(resources.getString(R.string.url_pokelist))
+                downloadAPPWithAd(resources.getString(R.string.url_PokeList))
             }
 
             view.findViewById<Button>(R.id.download_wecatch).setOnClickListener {
-                downloadAPPWithAd(resources.getString(R.string.url_wecatch))
+                downloadAPPWithAd(resources.getString(R.string.url_WeCatch))
             }
 
             //******remove*********//
@@ -146,7 +146,7 @@ class AppsPoke : Fragment() {
             }
 
             view.findViewById<Button>(R.id.remove_pgtools).setOnClickListener {
-                appUnInstall(resources.getString(R.string.packageName_pgtools))
+                appUnInstall(resources.getString(R.string.packageName_PGTools))
             }
 
             view.findViewById<Button>(R.id.remove_pok).setOnClickListener {
@@ -242,7 +242,7 @@ class AppsPoke : Fragment() {
         val formatNewerVersion: String = resources.getString(R.string.format_newerVersion)
 
         val pokePackageName = resources.getString(R.string.packageName_pok)
-        val pgToolsPackageName = resources.getString(R.string.packageName_pgtools)
+        val pgToolsPackageName = resources.getString(R.string.packageName_PGTools)
         val pokeSupportVersion = view.findViewById<TextView>(R.id.pok_new_version)
         val pokeDownloadButton = view.findViewById<Button>(R.id.download_pok)
         val pgToolsDownloadButton = view.findViewById<Button>(R.id.download_pgtools)
@@ -282,13 +282,13 @@ class AppsPoke : Fragment() {
             view.findViewById<TextView>(R.id.pokelist_new_version).text =
                 String.format(
                     formatNewerVersion,
-                    resources.getString(R.string.version_pokelist),
+                    resources.getString(R.string.version_PokeList),
                     ""
                 )
             view.findViewById<TextView>(R.id.wecatch_new_version).text =
                 String.format(
                     formatNewerVersion,
-                    resources.getString(R.string.version_wecatch),
+                    resources.getString(R.string.version_WeCatch),
                     ""
                 )
 
@@ -509,9 +509,9 @@ class AppsPoke : Fragment() {
         }
 
         fun getAutoVersion() {
-            var url = resources.getString(R.string.url_pgtoolsJson)
+            var url = resources.getString(R.string.url_PGToolsJson)
             if (pgToolsTestVersion)
-                url = resources.getString(R.string.url_pgtoolsJsonTest)
+                url = resources.getString(R.string.url_PGToolsJsonTest)
             val versionType =
                 if (pgToolsTestVersion) " (${resources.getString(R.string.testVersion)})" else ""
 
