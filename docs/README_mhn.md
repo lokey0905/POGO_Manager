@@ -1,6 +1,6 @@
 # MHN Tools 說明
 ## 功能英文/中文翻譯
-## 英文 | 中文（台灣）
+英文 | 中文（台灣）
 ---|---
 Attack Multiply | 攻擊倍率：500000 |
 Attack And Go | 攻擊後離開戰鬥 |
@@ -68,7 +68,7 @@ Kill Paintball Monsters | 消滅彩彈怪物
 Stop By Stats Small Monster | 停留在小型怪物數據收集點
 ### premium （高級版，需贊助）
 所有功能都可以無限制地使用
-## 英文 | 中文（台灣）
+英文 | 中文（台灣）
 ---|---
 Attack Multiply | 攻擊倍率：可設置任何值，但須小於 1000，默認值為 50。 |
 Reduce Taken Damage (%) - max 100% | 減少受到的傷害 (%) - 最大 100% |
@@ -87,7 +87,7 @@ Item Management | 物品管理 |
 Auto Claim Quest Rewards | 自動領取任務獎勵 |
 Enable Stats | 顯示數據 |
 Map Interaction Range | 地圖互動範圍：默認值 100，最大值 1000 |
-Palico Interaction Range | 隨從貓互動範圍：默認值 100，最大值 1000 |  
+Palico Interaction Range | 隨從貓互動範圍：默認值 100，最大值 1000 | 
 Enable Hide Tutorial Dialog | 隱藏教學對話框 |
 Enable Hide Entity On Map | 隱藏地圖上實體 |
 Enable Hide Road On Map | 隱藏地圖道路 |
