@@ -65,6 +65,15 @@ class AppsMHN : Fragment() {
 
         fun checkButton() {
             fun downloadAppCheck(url: String) {
+                if (url == "") {
+                    Toast.makeText(
+                        context,
+                        resources.getString(R.string.networkError),
+                        Toast.LENGTH_LONG
+                    ).show()
+                    return
+                }
+
                 val sharedPreferences =
                     PreferenceManager.getDefaultSharedPreferences(requireContext())
                 val allowDownloadOnNonArm64 =
@@ -347,22 +356,24 @@ class AppsMHN : Fragment() {
 
                     while (gameVersions.hasNext()) {
                         val gameVersion = gameVersions.next() as String
-                        val gameData = supportGameVersions.getJSONObject(gameVersion)
-                        val version = gameData.getString("gameVersion")
-                        val arm64Url = gameData.getString("gameARM64")
+                        val gameData = supportGameVersions.optJSONObject(gameVersion)
+                        val version = gameData?.optString("gameVersion","")
+                        val arm64Url = gameData?.optString("gameARM64","")
 
-                        gameVersionsMap[version] = arm64Url
+                        if (version != null && arm64Url != null) {
+                            gameVersionsMap[version] = arm64Url
 
-                        Log.i(
-                            "mhnTools",
-                            "mhnVersion: $version\nmhnUrl: $arm64Url\n"
-                        )
+                            Log.i(
+                                "mhnTools",
+                                "mhnVersion: $version\nmhnUrl: $arm64Url\n"
+                            )
+                        } else {
+                            Log.e(
+                                "mhnTools",
+                                "Invalid data for game version: $gameVersion"
+                            )
+                        }
                     }
-
-                    Log.i(
-                        "mhnTools",
-                        "mhnToolsVersion:$mhnToolsVersion\nmhnToolsUrl:$mhnToolsUrl\n"
-                    )
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }

@@ -489,7 +489,6 @@ class AppsPoke : Fragment() {
                         val arm64Url = pogoData.getString("pogoARM64")
                         val armUrl = pogoData.getString("pogoARM")
 
-                        // 创建 PogoVersionInfo 实例并添加到列表中
                         val versionInfo = PogoVersionInfo(pogoVersion, arm64Url, armUrl)
                         pogoVersionsList.add(versionInfo)
                     }
