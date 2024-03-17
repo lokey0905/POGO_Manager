@@ -9,6 +9,9 @@ import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
@@ -21,6 +24,7 @@ import androidx.browser.customtabs.CustomTabsIntent
 import androidx.fragment.app.Fragment
 import androidx.preference.PreferenceManager
 import app.lokey0905.location.R
+import app.lokey0905.location.databinding.ActivityMainBinding
 import com.google.android.gms.ads.*
 import com.google.android.gms.ads.rewarded.RewardedAd
 import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback
@@ -37,18 +41,20 @@ import java.net.HttpURLConnection
 import java.net.URL
 
 class AppsMHN : Fragment() {
+    private lateinit var binding: ActivityMainBinding
+
     private var mRewardedAd: RewardedAd? = null
 
     private val gameVersionsMap = mutableMapOf<String, String>()
     private var mhnToolsVersion: String = "未安裝"
     private var mhnToolsUrl: String = ""
     private var mhnToolsHash = ""
-    private var mhnUrl: String = "未安裝"
+    private var mhnUrl: String = ""
     private var mhnVersion: String = "未安裝"
 
     private var mhnTestVersion = false
 
-    private var errorTimeAD = 0
+    var url_jokstick = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -56,118 +62,7 @@ class AppsMHN : Fragment() {
     ): View {
         val view: View = inflater.inflate(R.layout.fragment_apps_mhn, container, false)
 
-        val mhnDownloadButton = view.findViewById<Button>(R.id.download_mhn)
-        val mhnRemoveButton = view.findViewById<Button>(R.id.remove_mhn)
-        val mhnToolsDownloadButton = view.findViewById<Button>(R.id.download_mhnTools)
-        val mhnToolsRemoveButton = view.findViewById<Button>(R.id.remove_mhnTools)
-        val gpsDownloadButton = view.findViewById<Button>(R.id.download_gps)
-        val gpsRemoveButton = view.findViewById<Button>(R.id.remove_gps)
-
-        fun checkButton() {
-            fun downloadAppCheck(url: String) {
-                if (url == "") {
-                    Toast.makeText(
-                        context,
-                        resources.getString(R.string.networkError),
-                        Toast.LENGTH_LONG
-                    ).show()
-                    return
-                }
-
-                val sharedPreferences =
-                    PreferenceManager.getDefaultSharedPreferences(requireContext())
-                val allowDownloadOnNonArm64 =
-                    sharedPreferences.getBoolean("allow_download_on_non_arm64", false)
-
-                if (Build.SUPPORTED_ABIS[0] == "arm64-v8a" || allowDownloadOnNonArm64)
-                    downloadAPPWithAd(url)
-                else
-                    Snackbar.make(
-                        view,
-                        "${resources.getString(R.string.unsupportedDevices)}(${Build.SUPPORTED_ABIS[0]})",
-                        Snackbar.LENGTH_LONG
-                    ).setAction("Action", null).show()
-            }
-
-            mhnDownloadButton.setOnClickListener {
-                downloadAppCheck(mhnUrl)
-            }
-
-            mhnToolsDownloadButton.setOnClickListener {
-                downloadAppCheck(mhnToolsUrl)
-            }
-
-            gpsDownloadButton.setOnClickListener {
-                downloadAppCheck(resources.getString(R.string.url_gps64))
-            }
-
-            mhnRemoveButton.setOnClickListener {
-                appUnInstall(resources.getString(R.string.packageName_MHNow))
-            }
-
-            mhnToolsRemoveButton.setOnClickListener {
-                appUnInstall(resources.getString(R.string.packageName_mhnTools))
-            }
-
-            gpsRemoveButton.setOnClickListener {
-                appUnInstall(resources.getString(R.string.packageName_gps64))
-            }
-        }
-
-        fun setupAd() {
-            MobileAds.initialize(requireActivity())
-            val adRequest = AdRequest.Builder().build()
-
-            RewardedAd.load(
-                requireActivity(),
-                resources.getString(R.string.adR),
-                adRequest,
-                object : RewardedAdLoadCallback() {
-                    override fun onAdFailedToLoad(adError: LoadAdError) {
-                        Log.d(ContentValues.TAG, adError.toString())
-                        mRewardedAd = null
-                        //Toast.makeText(applicationContext, "網路錯誤 請稍後在試", Toast.LENGTH_LONG).show();
-                    }
-
-                    override fun onAdLoaded(rewardedAd: RewardedAd) {
-                        Log.d(ContentValues.TAG, "Ad was loaded.")
-                        mRewardedAd = rewardedAd
-                    }
-                })
-
-            mRewardedAd?.fullScreenContentCallback = object : FullScreenContentCallback() {
-                override fun onAdClicked() {
-                    // Called when a click is recorded for an ad.
-                    Log.d(ContentValues.TAG, "Ad was clicked.")
-                }
-
-                override fun onAdDismissedFullScreenContent() {
-                    // Called when ad is dismissed.
-                    // Set the ad reference to null so you don't show the ad a second time.
-                    Log.d(ContentValues.TAG, "Ad dismissed fullscreen content.")
-                    //mRewardedAd = null
-                }
-
-                override fun onAdFailedToShowFullScreenContent(p0: AdError) {
-                    // Called when ad fails to show.
-                    Log.e(ContentValues.TAG, "Ad failed to show fullscreen content.")
-                    //mRewardedAd = null
-                }
-
-                override fun onAdImpression() {
-                    // Called when an impression is recorded for an ad.
-                    Log.d(ContentValues.TAG, "Ad recorded an impression.")
-                }
-
-                override fun onAdShowedFullScreenContent() {
-                    // Called when ad is shown.
-                    Log.d(ContentValues.TAG, "Ad showed fullscreen content.")
-                }
-            }
-        }
-
-        setupAd()
-        checkButton()
+        setupListeners(view)
 
         // Inflate the layout for this fragment
         return view
@@ -178,36 +73,88 @@ class AppsMHN : Fragment() {
         super.onResume()
         val view: View = requireView()
 
-        val formatNewerVersion: String = resources.getString(R.string.format_newerVersion)
+        setupAppVersionInfo(view)
+    }
 
+    private fun setupListeners(view : View) {
         val mhnDownloadButton = view.findViewById<Button>(R.id.download_mhn)
         val mhnRemoveButton = view.findViewById<Button>(R.id.remove_mhn)
-        val mhnSupportVersion = view.findViewById<TextView>(R.id.mhn_new_version)
-        val mhnInstallVersion = view.findViewById<TextView>(R.id.mhn_install_version)
         val mhnToolsDownloadButton = view.findViewById<Button>(R.id.download_mhnTools)
         val mhnToolsRemoveButton = view.findViewById<Button>(R.id.remove_mhnTools)
-        val mhnToolsSupportVersion = view.findViewById<TextView>(R.id.mhnTools_new_version)
-        val mhnToolsInstallVersion = view.findViewById<TextView>(R.id.mhnTools_install_version)
+        val gpsDownloadButton = view.findViewById<Button>(R.id.download_gps)
         val gpsRemoveButton = view.findViewById<Button>(R.id.remove_gps)
-        val gpsInstallVersion = view.findViewById<TextView>(R.id.gps_install_version)
-        val mhnTestVersionSwitch = view.findViewById<MaterialSwitch>(R.id.mhnTestVersion_switch)
+
+        mhnDownloadButton.setOnClickListener {
+            downloadAPPWithCheck(mhnUrl)
+        }
+
+        mhnToolsDownloadButton.setOnClickListener {
+            downloadAPPWithCheck(mhnToolsUrl)
+        }
+
+        gpsDownloadButton.setOnClickListener {
+            downloadAPPWithCheck(url_jokstick)
+        }
+
+        mhnRemoveButton.setOnClickListener {
+            appUnInstall(resources.getString(R.string.packageName_MHNow))
+        }
+
+        mhnToolsRemoveButton.setOnClickListener {
+            appUnInstall(resources.getString(R.string.packageName_mhnTools))
+        }
+
+        gpsRemoveButton.setOnClickListener {
+            appUnInstall(resources.getString(R.string.packageName_gps64))
+        }
+
+        view.findViewById<androidx.swiperefreshlayout.widget.SwipeRefreshLayout>(R.id.swipeRefreshLayout).setOnRefreshListener {
+            Toast.makeText(context, getString(R.string.refreshing), Toast.LENGTH_SHORT).show()
+            setupAppVersionInfo(view)
+            view.findViewById<androidx.swiperefreshlayout.widget.SwipeRefreshLayout>(R.id.swipeRefreshLayout).isRefreshing =
+                false
+        }
+    }
+
+    private fun setupAppVersionInfo(view: View) {
+        val formatInstallVersion = resources.getString(R.string.format_installVersion)
+        val formatNewerVersion = resources.getString(R.string.format_newerVersion)
+
+        val mhnSupportVersion = view.findViewById<TextView>(R.id.mhn_new_version)
+        val mhnToolsSupportVersion = view.findViewById<TextView>(R.id.mhnTools_new_version)
+
         val spinner = view.findViewById<Spinner>(R.id.mhn_spinner)
 
-        val mhnPackageName = resources.getString(R.string.packageName_MHNow)
-        val mhnToolsPackageName = resources.getString(R.string.packageName_mhnTools)
-        val gps64PackageName = resources.getString(R.string.packageName_gps64)
-        val download = resources.getString(R.string.download)
-        val update = resources.getString(R.string.update)
-
-        val formatInstallVersion: String = resources.getString(R.string.format_installVersion)
-
         fun checkAppVersion() {
+            var needUpdateAppsAmount = 0
+
+            val mhnPackageName = resources.getString(R.string.packageName_MHNow)
+            val mhnToolsPackageName = resources.getString(R.string.packageName_mhnTools)
+            val gps64PackageName = resources.getString(R.string.packageName_gps64)
+
+            val mhnInstallVersion = view.findViewById<TextView>(R.id.mhn_install_version)
+            val mhnToolsInstallVersion = view.findViewById<TextView>(R.id.mhnTools_install_version)
+            val gpsInstallVersion = view.findViewById<TextView>(R.id.gps_install_version)
+
+            val mhnRemoveButton = view.findViewById<Button>(R.id.remove_mhn)
+            val mhnToolsRemoveButton = view.findViewById<Button>(R.id.remove_mhnTools)
+            val gpsRemoveButton = view.findViewById<Button>(R.id.remove_gps)
+
+            val mhnDownloadButton = view.findViewById<Button>(R.id.download_mhn)
+            val mhnToolsDownloadButton = view.findViewById<Button>(R.id.download_mhnTools)
+
+            val download = resources.getString(R.string.download)
+            val update = resources.getString(R.string.update)
+
             mhnRemoveButton.visibility =
                 if (appInstalledVersion(mhnPackageName) == "未安裝") View.GONE else View.VISIBLE
             mhnToolsRemoveButton.visibility =
                 if (appInstalledVersion(mhnToolsPackageName) == "未安裝") View.GONE else View.VISIBLE
             gpsRemoveButton.visibility =
                 if (appInstalledVersion(gps64PackageName) == "未安裝") View.GONE else View.VISIBLE
+
+            val url = resources.getString(R.string.url_appInfo)
+            extractAppVersionsFromJson(url) {}
 
             mhnInstallVersion.text =
                 String.format(formatInstallVersion, appInstalledVersion(mhnPackageName))
@@ -275,7 +222,7 @@ class AppsMHN : Fragment() {
 
                     needUpdate -> {
                         setDownloadButton(true)
-
+                        needUpdateAppsAmount++
                         showAlertDialog(
                             resources.getString(R.string.dialogUpdateAvailableTitle),
                             resources.getString(R.string.dialogUpdateAvailablePokMessage)
@@ -307,94 +254,36 @@ class AppsMHN : Fragment() {
 
                 if (needUpdate) {
                     mhnToolsDownloadButton.text = update
+                    needUpdateAppsAmount++
                 } else {
                     mhnToolsDownloadButton.text = download
                 }
             } else {
                 mhnToolsDownloadButton.text = download
             }
-        }
 
-        fun extractPogoVersionFromJson(
-            url: String,
-            onPogoVersionExtracted: (String, String, MutableMap<String, String>) -> Unit,
-        ) {
-            GlobalScope.launch(Dispatchers.IO) {
-
-                try {
-                    val url = URL(url)
-                    val connection: HttpURLConnection = url.openConnection() as HttpURLConnection
-                    connection.requestMethod = "GET"
-
-                    val inputStream = connection.inputStream
-                    val bufferedReader = BufferedReader(InputStreamReader(inputStream))
-                    val response = StringBuilder()
-
-                    var line: String? = bufferedReader.readLine()
-                    while (line != null) {
-                        response.append(line)
-                        line = bufferedReader.readLine()
-                    }
-
-                    bufferedReader.close()
-
-                    val jsonObject = JSONObject(response.toString())
-
-                    mhnVersion = jsonObject.getString("gameVersion")
-                    mhnUrl = jsonObject.getString("gameARM64")
-                    mhnToolsVersion = jsonObject.getString("appVersionName")
-                    mhnToolsHash = jsonObject.getString("appVersionHash")
-                    mhnToolsUrl = if (mhnTestVersion)
-                        "https://assets.mhntools.net/test-mhntools-$mhnToolsVersion-$mhnToolsHash.apk?"
-                    else
-                        "https://assets.mhntools.net/mhntools-$mhnToolsVersion-$mhnToolsHash.apk?"
-
-                    gameVersionsMap.clear()
-
-                    val supportGameVersions = jsonObject.getJSONObject("supportGameVersions")
-                    val gameVersions = supportGameVersions.keys()
-
-                    while (gameVersions.hasNext()) {
-                        val gameVersion = gameVersions.next() as String
-                        val gameData = supportGameVersions.optJSONObject(gameVersion)
-                        val version = gameData?.optString("gameVersion","")
-                        val arm64Url = gameData?.optString("gameARM64","")
-
-                        if (version != null && arm64Url != null) {
-                            gameVersionsMap[version] = arm64Url
-
-                            Log.i(
-                                "mhnTools",
-                                "mhnVersion: $version\nmhnUrl: $arm64Url\n"
-                            )
-                        } else {
-                            Log.e(
-                                "mhnTools",
-                                "Invalid data for game version: $gameVersion"
-                            )
-                        }
-                    }
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                }
-
-                launch(Dispatchers.Main) {
-                    onPogoVersionExtracted(mhnVersion, mhnUrl, gameVersionsMap)
-                }
+            if (needUpdateAppsAmount > 0) {
+                view.findViewById<com.google.android.material.appbar.SubtitleCollapsingToolbarLayout>(
+                    R.id.toolbar_layout
+                ).subtitle = String.format(
+                    resources.getString(R.string.format_installApps),
+                    needUpdateAppsAmount
+                )
+            } else {
+                view.findViewById<com.google.android.material.appbar.SubtitleCollapsingToolbarLayout>(
+                    R.id.toolbar_layout
+                ).subtitle = getString(R.string.allUpdated)
             }
         }
 
-        fun getToolsVersion() {
+        fun getMHNToolsVersion(){
             var url = resources.getString(R.string.url_mhnJson)
-            var versionType = ""
-
-            if (mhnTestVersion) {
+            if (mhnTestVersion)
                 url = resources.getString(R.string.url_mhnJsonTest)
-                versionType = "(${getText(R.string.testVersion)})"
-            }
+            val versionType =
+                if (mhnTestVersion) " (${resources.getString(R.string.testVersion)})" else ""
 
-            //Snackbar.make(view, "正在取得資料", Snackbar.LENGTH_INDEFINITE).show();
-            extractPogoVersionFromJson(url) { mhnVersion, _, gameVersionsMap ->
+            extractMHNToolsFromJson(url) { mhnVersion, mhnToolsVersion, gameVersionsMap ->
                 val versionsList = ArrayList<String>()
 
                 for ((version, _) in gameVersionsMap) {
@@ -418,7 +307,6 @@ class AppsMHN : Fragment() {
 
                 spinner.setSelection(0)
 
-
                 mhnSupportVersion.text = String.format(
                     formatNewerVersion,
                     mhnVersion,
@@ -433,6 +321,8 @@ class AppsMHN : Fragment() {
         }
 
         fun setOnCheckedChangeListener() {
+            val mhnTestVersionSwitch = view.findViewById<MaterialSwitch>(R.id.mhnTestVersion_switch)
+
             mhnTestVersionSwitch.setOnCheckedChangeListener { _, isChecked ->
                 if (isChecked) {
                     mhnTestVersion = true
@@ -449,8 +339,7 @@ class AppsMHN : Fragment() {
                         Snackbar.LENGTH_LONG
                     ).setAction("Action", null).show()
                 }
-                getToolsVersion()
-                checkAppVersion()
+                getMHNToolsVersion()
             }
 
             spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -484,10 +373,115 @@ class AppsMHN : Fragment() {
         }
 
         checkAppVersion()
-        getToolsVersion()
+        getMHNToolsVersion()
         setOnCheckedChangeListener()
     }
 
+    private fun extractAppVersionsFromJson(url: String, onAppVersionsExtracted: () -> Unit) {
+        GlobalScope.launch(Dispatchers.IO) {
+
+            try {
+                val url = URL(url)
+                val connection: HttpURLConnection = url.openConnection() as HttpURLConnection
+                connection.requestMethod = "GET"
+
+                val inputStream = connection.inputStream
+                val bufferedReader = BufferedReader(InputStreamReader(inputStream))
+                val response = StringBuilder()
+
+                var line: String? = bufferedReader.readLine()
+                while (line != null) {
+                    response.append(line)
+                    line = bufferedReader.readLine()
+                }
+
+                bufferedReader.close()
+
+                val jsonObject = JSONObject(response.toString())
+
+                val mhn = jsonObject.getJSONObject("mhn")
+                val jokstick = mhn.getJSONObject("jokstick")
+
+
+                url_jokstick = jokstick.getString("url")
+
+                launch(Dispatchers.Main) {
+                    onAppVersionsExtracted()
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+    }
+
+    private fun extractMHNToolsFromJson(
+        url: String,
+        onPogoVersionExtracted: (String, String, MutableMap<String, String>) -> Unit,
+    ) {
+        GlobalScope.launch(Dispatchers.IO) {
+
+            try {
+                val url = URL(url)
+                val connection: HttpURLConnection = url.openConnection() as HttpURLConnection
+                connection.requestMethod = "GET"
+
+                val inputStream = connection.inputStream
+                val bufferedReader = BufferedReader(InputStreamReader(inputStream))
+                val response = StringBuilder()
+
+                var line: String? = bufferedReader.readLine()
+                while (line != null) {
+                    response.append(line)
+                    line = bufferedReader.readLine()
+                }
+
+                bufferedReader.close()
+
+                val jsonObject = JSONObject(response.toString())
+
+                mhnVersion = jsonObject.getString("gameVersion")
+                mhnUrl = jsonObject.getString("gameARM64")
+                mhnToolsVersion = jsonObject.getString("appVersionName")
+                mhnToolsHash = jsonObject.getString("appVersionHash")
+                mhnToolsUrl = if (mhnTestVersion)
+                    "https://assets.mhntools.net/test-mhntools-$mhnToolsVersion-$mhnToolsHash.apk?"
+                else
+                    "https://assets.mhntools.net/mhntools-$mhnToolsVersion-$mhnToolsHash.apk?"
+
+                gameVersionsMap.clear()
+
+                val supportGameVersions = jsonObject.getJSONObject("supportGameVersions")
+                val gameVersions = supportGameVersions.keys()
+
+                while (gameVersions.hasNext()) {
+                    val gameVersion = gameVersions.next() as String
+                    val gameData = supportGameVersions.optJSONObject(gameVersion)
+                    val version = gameData?.optString("gameVersion","")
+                    val arm64Url = gameData?.optString("gameARM64","")
+
+                    if (version != null && arm64Url != null) {
+                        gameVersionsMap[version] = arm64Url
+
+                        Log.i(
+                            "mhnTools",
+                            "mhnVersion: $version\nmhnUrl: $arm64Url\n"
+                        )
+                    } else {
+                        Log.e(
+                            "mhnTools",
+                            "Invalid data for game version: $gameVersion"
+                        )
+                    }
+                }
+
+                launch(Dispatchers.Main) {
+                    onPogoVersionExtracted(mhnVersion, mhnToolsVersion, gameVersionsMap)
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+    }
 
     private fun showAlertDialog(title: String, message: String) {
         MaterialAlertDialogBuilder(requireContext())
@@ -510,65 +504,42 @@ class AppsMHN : Fragment() {
         }
     }
 
-    private fun downloadAPPSetup(url: String) {
-        if (mRewardedAd != null) {
-            errorTimeAD = 0
-            Toast.makeText(context, getString(R.string.thanksForWaiting), Toast.LENGTH_LONG).show()
-            mRewardedAd?.fullScreenContentCallback =
-                object : FullScreenContentCallback() {
-                    override fun onAdDismissedFullScreenContent() {
-                        Log.d(ContentValues.TAG, "Ad was dismissed.")
-                        // Don't forget to set the ad reference to null so you
-                        // don't show the ad a second time.
-                        mRewardedAd = null
-                        loadAd()
-                    }
-
-                    override fun onAdFailedToShowFullScreenContent(adError: AdError) {
-                        Log.d(ContentValues.TAG, "Ad failed to show.")
-                        Toast.makeText(context, "播放失敗 請稍後在試", Toast.LENGTH_LONG).show()
-                        // Don't forget to set the ad reference to null so you
-                        // don't show the ad a second time.
-                        mRewardedAd = null
-                    }
-
-                    override fun onAdShowedFullScreenContent() {
-                        Log.d(ContentValues.TAG, "Ad showed fullscreen content.")
-                        // Called when ad is dismissed.
-                    }
-                }
-            mRewardedAd?.show(requireActivity()) {
-                loadAd()
-                mRewardedAd = null
-
-                gotoBrowser(url)
-            }
-        } else {
-            Log.d(ContentValues.TAG, "The rewarded ad wasn't ready yet.")
+    private fun downloadAPPWithCheck(url: String) {
+        if(url == ""){
             showAlertDialog(
                 resources.getString(R.string.dialogAdNotReadyTitle),
                 resources.getString(R.string.dialogAdNotReadyMessage)
             )
-            errorTimeAD++
-            if (errorTimeAD > 3) {
-                errorTimeAD = 0
-                gotoBrowser(url)
-            }
-            //Toast.makeText(context, "網路錯誤 請5秒後在試", Toast.LENGTH_LONG).show()
+            return
         }
-    }
 
-    private fun downloadAPPWithAd(url: String) {
+        val sharedPreferences =
+            PreferenceManager.getDefaultSharedPreferences(requireContext())
+        val allowDownloadOnNonArm64 =
+            sharedPreferences.getBoolean("allow_download_on_non_arm64", false)
+
+        if (Build.SUPPORTED_ABIS[0] != "arm64-v8a" && !allowDownloadOnNonArm64){
+            Snackbar.make(
+                requireView(),
+                "${resources.getString(R.string.unsupportedDevices)}(${Build.SUPPORTED_ABIS[0]})",
+                Snackbar.LENGTH_LONG
+            ).setAction("Action", null).show()
+            return
+        }
+
         MaterialAlertDialogBuilder(requireContext())
             .setTitle(resources.getString(R.string.dialogDownloadTitle))
             .setMessage(resources.getString(R.string.dialogDownloadMessage))
             .apply {
-                setNeutralButton(R.string.ok) { _, _ ->
-                    downloadAPPSetup(url)
-                }
-                setNegativeButton(R.string.cancel) { _, _ ->
+                setNeutralButton(R.string.cancel) { _, _ ->
                     Toast.makeText(context, getString(R.string.cancelOperation), Toast.LENGTH_SHORT)
                         .show()
+                }
+                setPositiveButton(R.string.ok) { _, _ ->
+                    gotoBrowser(url)
+                }
+                setNegativeButton(R.string.downloadProblem) { _, _ ->
+                    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
                 }
             }
             .show()
@@ -608,35 +579,5 @@ class AppsMHN : Fragment() {
         val intent = Intent(Intent.ACTION_DELETE)
         intent.data = Uri.parse("package:$packageName")
         startActivity(intent)
-    }
-
-    private fun loadAd() {
-        if (mRewardedAd == null) {
-            val adRequest = AdRequest.Builder().build()
-
-            context?.let {
-                RewardedAd.load(
-                    it,
-                    resources.getString(R.string.adR),
-                    adRequest,
-                    object : RewardedAdLoadCallback() {
-                        override fun onAdFailedToLoad(adError: LoadAdError) {
-                            Log.d(ContentValues.TAG, adError.message)
-                            mRewardedAd = null
-                            Toast.makeText(
-                                context,
-                                resources.getString(R.string.dialogAdNotReadyMessage),
-                                Toast.LENGTH_LONG
-                            ).show()
-                        }
-
-                        override fun onAdLoaded(rewardedAd: RewardedAd) {
-                            Log.d(ContentValues.TAG, "Ad was loaded.")
-                            mRewardedAd = rewardedAd
-                        }
-                    }
-                )
-            }
-        }
     }
 }

@@ -170,27 +170,8 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun download(isBackUp: Boolean = false) {
-        if (isBackUp) {
-            downloadAPPSetup(resources.getString(R.string.url_app))
-        } else {
-            val githubUrl = getString(R.string.githubApi)
-            checkForUpdate(githubUrl) { _, latestVersion, _ ->
-                downloadAPPSetup("https://github.com/lokey0905/POGO_Manager/releases/download/$latestVersion/app-debug.apk")
-            }
-        }
-    }
-
     private fun gotoBrowser(url: String) {
         startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
-    }
-
-    private fun shareText(text: String, title: String) {
-        val intent = Intent(Intent.ACTION_SEND)
-        intent.type = "text/plain"
-        intent.putExtra(Intent.EXTRA_TEXT, text)
-        intent.putExtra(Intent.EXTRA_TITLE, title)
-        startActivity(Intent.createChooser(intent, getString(R.string.share)))
     }
 
     private fun downloadAPPSetup(url: String) {
@@ -241,7 +222,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setSupportActionBar(binding.toolbar)
+        //setSupportActionBar(binding.toolbar)
 
         val fragmentContainerView =
             findViewById<FragmentContainerView>(R.id.fragment_container_view)
@@ -316,14 +297,13 @@ class MainActivity : AppCompatActivity() {
                 .show()
         }
 
-        //*************ad**********//
-        MobileAds.initialize(this)
+        /*MobileAds.initialize(this)
         val adView = AdView(this)
         adView.setAdSize(AdSize.BANNER)
         adView.adUnitId = resources.getString(R.string.adB)
         val mAdView = findViewById<AdView>(R.id.adView)
         val adRequest = AdRequest.Builder().build()
-        mAdView.loadAd(adRequest)
+        mAdView.loadAd(adRequest)*/
     }
 
     override fun onStart() {
@@ -365,106 +345,6 @@ class MainActivity : AppCompatActivity() {
         override fun onServiceDisconnected(componentName: ComponentName) {
             bServiceBound = false
             Log.d(TAG, "Service Unbound")
-        }
-    }
-
-    @SuppressLint("SetTextI18n")
-    fun showAboutDialog() {
-        val dialog = MaterialAlertDialogBuilder(
-            this,
-            com.google.android.material.R.style.ThemeOverlay_Material3_MaterialAlertDialog_Centered
-        )
-            .create()
-        val dialogView: View = View.inflate(this, R.layout.dialog_about, null)
-        dialog.setView(dialogView)
-        dialogView.findViewById<TextView>(R.id.design_about_title).text =
-            resources.getString(R.string.app_name)
-        dialogView.findViewById<TextView>(R.id.design_about_version).text =
-            "${BuildConfig.VERSION_NAME} (${BuildConfig.VERSION_CODE})"
-        dialogView.findViewById<TextView>(R.id.design_about_info).text =
-            resources.getString(R.string.dialogAboutInfo)
-        dialogView.findViewById<TextView>(R.id.design_about_maker).text =
-            resources.getString(R.string.dialogAboutMaker)
-        dialog.show()
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.menu_main, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-
-        return when (item.itemId) {
-            R.id.action_download -> {
-                MaterialAlertDialogBuilder(this@MainActivity)
-                    .setTitle(getString(R.string.download))
-                    .setMessage("是否要重新下載管理器?")
-                    .apply {
-                        setPositiveButton("重新下載") { _, _ ->
-                            download()
-                        }
-                        setNegativeButton(getString(R.string.checkUpdate)) { _, _ ->
-                            checkUpdate()
-                        }
-                        setNeutralButton(R.string.cancel) { _, _ ->
-                            Toast.makeText(
-                                context,
-                                getString(R.string.cancelOperation),
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        }
-                    }
-                    .show()
-                true
-            }
-
-            R.id.action_share -> {
-                shareText(
-                    "${getString(R.string.share_information)}\n${getString(R.string.url_app)}",
-                    resources.getString(R.string.shareManager)
-                )
-                true
-            }
-
-            R.id.action_download2 -> {
-                MaterialAlertDialogBuilder(this@MainActivity)
-                    .setTitle(getString(R.string.download))
-                    .setMessage("是否要重新下載管理器?(備用連結)")
-                    .apply {
-                        setPositiveButton("重新下載") { _, _ ->
-                            download(true)
-                        }
-                        setNegativeButton(getString(R.string.checkUpdate)) { _, _ ->
-                            checkUpdate()
-                        }
-                        setNeutralButton(R.string.cancel) { _, _ ->
-                            Toast.makeText(
-                                context,
-                                getString(R.string.cancelOperation),
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        }
-                    }
-                    .show()
-                true
-            }
-
-            R.id.action_contact -> {
-                gotoBrowser(getString(R.string.facebook))
-                true
-            }
-
-            R.id.action_about -> {
-                showAboutDialog()
-                true
-            }
-
-            else -> super.onOptionsItemSelected(item)
         }
     }
 

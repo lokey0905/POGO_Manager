@@ -48,23 +48,23 @@ class ShortCuts: Fragment() {
 
         fun button() {
             view.findViewById<MaterialCardView>(R.id.download_gpx1)?.setOnClickListener {
-                downloadAPPWithAd(resources.getString(R.string.url_gpx1))
+                downloadAPPWithCheck(resources.getString(R.string.url_gpx1))
             }
 
             view.findViewById<MaterialCardView>(R.id.download_gpx2)?.setOnClickListener {
-                downloadAPPWithAd(resources.getString(R.string.url_gpx2))
+                downloadAPPWithCheck(resources.getString(R.string.url_gpx2))
             }
 
             view.findViewById<MaterialCardView>(R.id.download_gpx3)?.setOnClickListener {
-                downloadAPPWithAd(resources.getString(R.string.url_gpx3))
+                downloadAPPWithCheck(resources.getString(R.string.url_gpx3))
             }
 
             view.findViewById<MaterialCardView>(R.id.download_gpx4)?.setOnClickListener {
-                downloadAPPWithAd(resources.getString(R.string.url_gpx4))
+                downloadAPPWithCheck(resources.getString(R.string.url_gpx4))
             }
 
             view.findViewById<MaterialCardView>(R.id.gameGuardian)?.setOnClickListener {
-                downloadAPPWithAd(resources.getString(R.string.url_gameGuardian))
+                downloadAPPWithCheck(resources.getString(R.string.url_gameGuardian))
             }
 
             view.findViewById<MaterialCardView>(R.id.manual)?.setOnClickListener {
@@ -72,7 +72,7 @@ class ShortCuts: Fragment() {
             }
 
             view.findViewById<MaterialCardView>(R.id.pgtoolsFile)?.setOnClickListener {
-                downloadAPPWithAd(getString(R.string.url_PGToolsFile))
+                downloadAPPWithCheck(getString(R.string.url_PGToolsFile))
             }
 
             view.findViewById<MaterialCardView>(R.id.coolDownCalculator)?.setOnClickListener {
@@ -199,8 +199,7 @@ class ShortCuts: Fragment() {
             }
 
             view.findViewById<MaterialCardView>(R.id.PackageDisablerPro)?.setOnClickListener {
-                downloadAPPWithAd(resources.getString(R.string.url_PackageDisablerPro))
-
+                downloadAPPWithCheck(resources.getString(R.string.url_PackageDisablerPro))
             }
 
             view.findViewById<MaterialCardView>(R.id.AFWall)?.setOnClickListener {
@@ -209,10 +208,10 @@ class ShortCuts: Fragment() {
                     .setMessage(resources.getString(R.string.dialogDownloadOfficialMessage))
                     .setNeutralButton(R.string.cancel) { _, _ -> }
                     .setNegativeButton(getString(R.string.downloadAPK)) { _, _ ->
-                        downloadAPPWithAd(resources.getString(R.string.url_AFWall_unofficial))
+                        downloadAPPWithCheck(resources.getString(R.string.url_AFWall_unofficial))
                     }
                     .setPositiveButton(getString(R.string.downloadOnGooglePlay)) { _, _ ->
-                        downloadAPPWithAd(resources.getString(R.string.url_AFWall_official))
+                        downloadAPPWithCheck(resources.getString(R.string.url_AFWall_official))
                     }
                     .show()
             }
@@ -243,10 +242,10 @@ class ShortCuts: Fragment() {
                     .setMessage(resources.getString(R.string.dialogDownloadOfficialMessage))
                     .setNeutralButton(R.string.cancel) { _, _ -> }
                     .setNegativeButton(getString(R.string.downloadAPK)) { _, _ ->
-                        downloadAPPWithAd(resources.getString(R.string.url_split_unofficial))
+                        downloadAPPWithCheck(resources.getString(R.string.url_split_unofficial))
                     }
                     .setPositiveButton(getString(R.string.downloadOnGooglePlay)) { _, _ ->
-                        downloadAPPWithAd(resources.getString(R.string.url_split_official))
+                        downloadAPPWithCheck(resources.getString(R.string.url_split_official))
                     }
                     .show()
             }
@@ -257,16 +256,16 @@ class ShortCuts: Fragment() {
                     .setMessage(resources.getString(R.string.dialogDownloadOfficialMessage))
                     .setNeutralButton(R.string.cancel) { _, _ -> }
                     .setNegativeButton(getString(R.string.downloadAPK)) { _, _ ->
-                        downloadAPPWithAd(resources.getString(R.string.url_island_unofficial))
+                        downloadAPPWithCheck(resources.getString(R.string.url_island_unofficial))
                     }
                     .setPositiveButton(getString(R.string.downloadOnGooglePlay)) { _, _ ->
-                        downloadAPPWithAd(resources.getString(R.string.url_island_official))
+                        downloadAPPWithCheck(resources.getString(R.string.url_island_official))
                     }
                     .show()
             }
 
             view.findViewById<MaterialCardView>(R.id.downloadPokeMod)?.setOnClickListener {
-                downloadAPPWithAd(getString(R.string.url_pokeMod))
+                downloadAPPWithCheck(getString(R.string.url_pokeMod))
             }
         }
 
@@ -397,65 +396,27 @@ class ShortCuts: Fragment() {
         }
     }
 
-    private fun downloadAPPSetup(url: String) {
-        if (mRewardedAd != null) {
-            Toast.makeText(context, getString(R.string.thanksForWaiting), Toast.LENGTH_LONG).show()
-
-            mRewardedAd?.fullScreenContentCallback =
-                object : FullScreenContentCallback() {
-                    override fun onAdDismissedFullScreenContent() {
-                        Log.d(ContentValues.TAG, "Ad was dismissed.")
-                        // Don't forget to set the ad reference to null so you
-                        // don't show the ad a second time.
-                        mRewardedAd = null
-                        loadRewardedAd()
-                    }
-
-                    override fun onAdFailedToShowFullScreenContent(adError: AdError) {
-                        Log.d(ContentValues.TAG, "Ad failed to show.")
-                        Toast.makeText(context, "播放失敗 請稍後在試", Toast.LENGTH_LONG).show()
-                        // Don't forget to set the ad reference to null so you
-                        // don't show the ad a second time.
-                        mRewardedAd = null
-                    }
-
-                    override fun onAdShowedFullScreenContent() {
-                        Log.d(ContentValues.TAG, "Ad showed fullscreen content.")
-                        // Called when ad is dismissed.
-                    }
-                }
-            mRewardedAd?.show(requireActivity()) {
-                loadRewardedAd()
-                mRewardedAd = null
-
-                gotoBrowser(url)
-            }
-        } else {
-            Log.d(ContentValues.TAG, "The rewarded ad wasn't ready yet.")
+    private fun downloadAPPWithCheck(url: String) {
+        if(url == ""){
             showAlertDialog(
                 resources.getString(R.string.dialogAdNotReadyTitle),
                 resources.getString(R.string.dialogAdNotReadyMessage)
             )
-            errorTimeAD++
-            if (errorTimeAD >= 3) {
-                errorTimeAD = 0
-                gotoBrowser(url)
-            }
-            //Toast.makeText(context, "網路錯誤 請5秒後在試", Toast.LENGTH_LONG).show()
+            return
         }
-    }
-
-    private fun downloadAPPWithAd(url: String) {
         MaterialAlertDialogBuilder(requireContext())
             .setTitle(resources.getString(R.string.dialogDownloadTitle))
             .setMessage(resources.getString(R.string.dialogDownloadMessage))
             .apply {
-                setNeutralButton(R.string.ok) { _, _ ->
-                    downloadAPPSetup(url)
-                }
-                setNegativeButton(R.string.cancel) { _, _ ->
+                setNeutralButton(R.string.cancel) { _, _ ->
                     Toast.makeText(context, getString(R.string.cancelOperation), Toast.LENGTH_SHORT)
                         .show()
+                }
+                setPositiveButton(R.string.ok) { _, _ ->
+                    gotoBrowser(url)
+                }
+                setNegativeButton(R.string.downloadProblem) { _, _ ->
+                    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
                 }
             }
             .show()
