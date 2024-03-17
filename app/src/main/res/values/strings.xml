@@ -1,7 +1,10 @@
 <resources>
     <string name="app_name">PoGo外掛管理器【老K刷機工場】</string>
+    <string name="app_name_short">PoGo外掛管理器</string>
     <string name="pokemon">寶可夢</string>
+    <string name="pokemonAppList">寶可夢App列表</string>
     <string name="mh_now">魔物獵人</string>
+    <string name="mh_nowAppList">魔物獵人App列表</string>
     <string name="ok">確定</string>
     <string name="copy">複製</string>
     <string name="cancel">取消</string>
@@ -13,8 +16,11 @@
     <string name="contact">聯絡我</string>
     <string name="manual">使用手冊</string>
     <string name="remove">移除</string>
+    <string name="refreshing">獲取資料中…</string>
     <string name="setting">設定</string>
     <string name="download">下載</string>
+    <string name="downloadAgain">重新下載</string>
+    <string name="downloadProblem">卡下載中?</string>
     <string name="update">更新</string>
     <string name="updateContent">更新內容:</string>
     <string name="unsupportedDevices">不支援的設備</string>
@@ -34,6 +40,7 @@
     <string name="requestPermission">請允許定位權限後在重試</string>
     <string name="supportVersion_PGTools">PGTools支援版本:</string>
     <string name="supportVersion_MHNTools">MHNTools支援版本:</string>
+    <string name="allUpdated">全部APP皆已最新版本</string>
 
     <string name="widget_description">定位精確度 開關捷徑</string>
 
@@ -70,6 +77,7 @@
     <string name="locationAccuracyActivity1">定位精確度</string>
     <string name="locationAccuracyActivity2">開關捷徑</string>
 
+    <string name="format_installApps">發現 %1$s 個APP可更新</string>
     <string name="format_newerVersion">支援版本:%1$s %2$s</string>
     <string name="format_installVersion">安裝版本:%1$s</string>
     <string name="format_newerVersion_Gps32">支援版本:已修改無廣告版本</string>

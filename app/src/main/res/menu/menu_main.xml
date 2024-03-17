@@ -13,11 +13,6 @@
         android:title="@string/shareManager"
         app:showAsAction="ifRoom" />
 
-    <item android:id="@+id/action_download2"
-        android:orderInCategory="100"
-        android:title="@string/download"
-        app:showAsAction="never" />
-
     <item
         android:id="@+id/action_contact"
         android:orderInCategory="100"

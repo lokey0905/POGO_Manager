@@ -13,6 +13,9 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
@@ -25,6 +28,8 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
+import app.lokey0905.location.BuildConfig
+import app.lokey0905.location.MainActivity
 import app.lokey0905.location.R
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.color.MaterialColors
@@ -53,6 +58,12 @@ class Home : Fragment() {
         val checkLocationButton = view.findViewById<Button>(R.id.check_location)
         val checkInformationLayout = view.findViewById<LinearLayout>(R.id.check_information)
         val checkRootText = view.findViewById<TextView>(R.id.check_root)
+
+        val toolbar = view.findViewById<com.google.android.material.appbar.MaterialToolbar>(R.id.toolbar)
+        if (toolbar != null) {
+            (requireActivity() as AppCompatActivity).setSupportActionBar(toolbar)
+            setHasOptionsMenu(true)
+        }
 
         fun getDevice() {
             val androidAbi = view.findViewById<TextView>(R.id.android_abi)
@@ -335,6 +346,61 @@ class Home : Fragment() {
         return view
     }
 
+    @Deprecated("Deprecated in Java")
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_main, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    @Deprecated("Deprecated in Java")
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+
+        return when (item.itemId) {
+            R.id.action_download -> {
+                MaterialAlertDialogBuilder(requireContext())
+                    .setTitle(getString(R.string.download))
+                    .setMessage("是否要重新下載管理器?")
+                    .apply {
+                        setPositiveButton("重新下載") { _, _ ->
+                            gotoBrowser(resources.getString(R.string.url_app))
+                        }
+                        setNeutralButton(R.string.cancel) { _, _ ->
+                            Toast.makeText(
+                                context,
+                                getString(R.string.cancelOperation),
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    }
+                    .show()
+                true
+            }
+
+            R.id.action_share -> {
+                shareText(
+                    "${getString(R.string.share_information)}\n${getString(R.string.url_app)}",
+                    resources.getString(R.string.shareManager)
+                )
+                true
+            }
+
+            R.id.action_contact -> {
+                gotoBrowser(getString(R.string.facebook))
+                true
+            }
+
+            R.id.action_about -> {
+                showAboutDialog()
+                true
+            }
+
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
     override fun onStart() {
         super.onStart()
 
@@ -345,6 +411,34 @@ class Home : Fragment() {
         } else {
             gridLayout?.columnCount = 1
         }
+    }
+
+    fun shareText(text: String, title: String) {
+        val intent = Intent(Intent.ACTION_SEND)
+        intent.type = "text/plain"
+        intent.putExtra(Intent.EXTRA_TEXT, text)
+        intent.putExtra(Intent.EXTRA_TITLE, title)
+        startActivity(Intent.createChooser(intent, getString(R.string.share)))
+    }
+
+    @SuppressLint("SetTextI18n")
+    fun showAboutDialog() {
+        val dialog = MaterialAlertDialogBuilder(
+            requireActivity(),
+            com.google.android.material.R.style.ThemeOverlay_Material3_MaterialAlertDialog_Centered
+        )
+            .create()
+        val dialogView: View = View.inflate(requireActivity(), R.layout.dialog_about, null)
+        dialog.setView(dialogView)
+        dialogView.findViewById<TextView>(R.id.design_about_title).text =
+            resources.getString(R.string.app_name)
+        dialogView.findViewById<TextView>(R.id.design_about_version).text =
+            "${BuildConfig.VERSION_NAME} (${BuildConfig.VERSION_CODE})"
+        dialogView.findViewById<TextView>(R.id.design_about_info).text =
+            resources.getString(R.string.dialogAboutInfo)
+        dialogView.findViewById<TextView>(R.id.design_about_maker).text =
+            resources.getString(R.string.dialogAboutMaker)
+        dialog.show()
     }
 
     private fun boolToSupport(boolean: Boolean): String {
