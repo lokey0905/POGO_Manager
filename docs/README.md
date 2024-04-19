@@ -31,7 +31,7 @@ POGO外掛管理器可以讓你更方便的管理你的寶可夢外掛
 
 - 點擊下載按鈕後，若有顯示廣告，請按右上角或是左上角的X關閉
 
-<img width="600" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/apkmirror_AD.jpg" style="margin-right:10px" />
+<img width="200" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/apkmirror_AD.jpg" style="margin-right:10px" />
 
 - 下載完成後安裝即可
 
@@ -46,6 +46,7 @@ POGO外掛管理器可以讓你更方便的管理你的寶可夢外掛
 - 如果遇到強制更新，可以先到設定中啟用測試版自動抓開關，然後再到下載頁面下載測試版的寶可夢與自動抓，若還是不支援請等待PgTools團隊更新
 
 ### 其他檔案下載
+- 點擊下載並安裝
 
 
 # 建議玩法
@@ -57,31 +58,52 @@ POGO外掛管理器可以讓你更方便的管理你的寶可夢外掛
 1. 打開搖桿設定位置並啟動搖桿
 2. 打開寶可夢遊玩
 3. 可搭配報寶貝與WeCatch傳送座標捕捉寶可夢
-4. 可搭配使用Polygon 暴力功顯示三圍與偵測色違功能(有風險)
+4. 開始遊玩
+
 
 ## 單純改定位看iv
-- 此玩法最為安全
+- **Polygon 暴力功屬於注入式軟體，使用可能會有風險**
+- 使用暴力功的顯示三圍iv與偵測色違功能
 - 須注意[等待冷卻時間](https://hackmd.io/wNhk4AJmTACn5wqmt9O-Fw?both#%E5%86%B7%E5%8D%BB%E8%A8%88%E7%AE%97)
 
 啟動順序如下:
 1. 打開搖桿設定位置並啟動搖桿
+2. 打開Polygon 暴力功點擊啟動按鈕
 3. 可搭配報寶貝與WeCatch傳送座標捕捉寶可夢
-1. 搖桿設定單一位置+Polygon 暴力功+PokeList/WeCatch
-    - 可以搭配PokeList/WeCatch篩選寶可夢，與Polygon 暴力功的顯示三圍與偵測色違功能
+4. 開始遊玩
+
 
 ## 單純掛機
 - 須注意[等待冷卻時間](https://hackmd.io/wNhk4AJmTACn5wqmt9O-Fw?both#%E5%86%B7%E5%8D%BB%E8%A8%88%E7%AE%97)
 - 須注意[掛機時間](https://hackmd.io/wNhk4AJmTACn5wqmt9O-Fw?both#%E8%BB%9F%E9%AB%94%E9%8E%96)以免被軟鎖
 
 啟動順序如下:
-1. 使用搖桿改定位設定路線
-2. 啟動PgTools
+1. 使用搖桿改定位設定路線或是固定走路方向
+2. 打開PgTools並自訂參數(若不會設定預設即可)
+3. 點擊最下方的開始掛機按鈕
+4. 開始掛機
 
-## 掛機刷星辰
-1. 搖桿+wrapper+Polygon 暴力功半自動刷火箭隊(免費但須手動點擊)
-2. 搖桿+wrapper+Pgtools 自動抓刷火箭隊(須付費版本)
-    - 須注意掛機時間，時間太長可能會達到帳號當日上限，甚至軟體鎖(可參考最下方說明)
+## 掛機刷星辰(暴力功免費版)
+- 此為暴力功免費版本，半自動刷星辰，需手動傳送與點擊火箭隊
+- **Polygon 暴力功與PGTools屬於注入式軟體，使用可能會有風險**
+- 須注意[掛機時間](https://hackmd.io/wNhk4AJmTACn5wqmt9O-Fw?both#%E8%BB%9F%E9%AB%94%E9%8E%96)以免被軟鎖
 
+啟動順序如下:
+1. 打開搖桿設定位置並啟動搖桿
+2. 打開GPS Joystick Wrapper，點擊左上角的▶按鈕啟動
+3. 打開Polygon 暴力功點擊啟動按鈕
+4. 開始遊玩
+
+## 掛機刷星辰(PGTools付費版本)
+- 此為PGTools付費版本，需月費，可全自動掛機
+- **Polygon 暴力功與PGTools屬於注入式軟體，使用可能會有風險**
+- 須注意[掛機時間](https://hackmd.io/wNhk4AJmTACn5wqmt9O-Fw?both#%E8%BB%9F%E9%AB%94%E9%8E%96)以免被軟鎖
+
+啟動順序如下:
+1. 打開PGTools並選擇PAG功能
+2. 點擊PGTools最下方的開始掛機按鈕
+3. 開始掛機
+    
 ## 自動狙擊
 1. 搖桿+poklist+Polygon 暴力功
     - 使用pokelist自動狙擊功能，搭配Polygon 暴力功可偵測色違,IV相關資訊
