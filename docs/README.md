@@ -46,36 +46,36 @@ POGO外掛管理器可以讓你更方便的管理你的寶可夢外掛
 - 如果遇到強制更新，可以先到設定中啟用測試版自動抓開關，然後再到下載頁面下載測試版的寶可夢與自動抓，若還是不支援請等待PgTools團隊更新
 
 ### 其他檔案下載
-- 點擊下載並安裝
+- 點擊檔案下載並安裝
+<img width="600" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/download_APK_mediafire.jpg" style="margin-right:10px" />
 
 
 # 建議玩法
 ## 單純改定位
 - 此玩法最為安全
-- 須注意[等待冷卻時間](https://hackmd.io/wNhk4AJmTACn5wqmt9O-Fw?both#%E5%86%B7%E5%8D%BB%E8%A8%88%E7%AE%97)
+- 須注意[等待冷卻時間](#%E5%86%B7%E5%8D%BB%E8%A8%88%E7%AE%97)
 
 啟動順序如下:
 1. 打開搖桿設定位置並啟動搖桿
-2. 打開寶可夢遊玩
-3. 可搭配報寶貝與WeCatch傳送座標捕捉寶可夢
-4. 開始遊玩
+2. 可搭配報寶貝與[WeCatch](#WeCatch-%E5%AF%B6%E5%8F%AF%E5%A4%A2%E5%9C%B0%E5%9C%96-)傳送座標尋找寶可夢
+3. 開始遊玩
 
 
 ## 單純改定位看iv
 - **Polygon 暴力功屬於注入式軟體，使用可能會有風險**
 - 使用暴力功的顯示三圍iv與偵測色違功能
-- 須注意[等待冷卻時間](https://hackmd.io/wNhk4AJmTACn5wqmt9O-Fw?both#%E5%86%B7%E5%8D%BB%E8%A8%88%E7%AE%97)
+- 須注意[等待冷卻時間](#%E5%86%B7%E5%8D%BB%E8%A8%88%E7%AE%97)
 
 啟動順序如下:
 1. 打開搖桿設定位置並啟動搖桿
-2. 打開Polygon 暴力功點擊啟動按鈕
-3. 可搭配報寶貝與WeCatch傳送座標捕捉寶可夢
+2. 打開[Polygon 暴力功](#Polygon-%E6%9A%B4%E5%8A%9B%E5%8A%9F-)點擊啟動按鈕
+3. 可搭配報寶貝與[WeCatch](#WeCatch-%E5%AF%B6%E5%8F%AF%E5%A4%A2%E5%9C%B0%E5%9C%96-)傳送座標捕捉寶可夢
 4. 開始遊玩
 
 
 ## 單純掛機
-- 須注意[等待冷卻時間](https://hackmd.io/wNhk4AJmTACn5wqmt9O-Fw?both#%E5%86%B7%E5%8D%BB%E8%A8%88%E7%AE%97)
-- 須注意[掛機時間](https://hackmd.io/wNhk4AJmTACn5wqmt9O-Fw?both#%E8%BB%9F%E9%AB%94%E9%8E%96)以免被軟鎖
+- 須注意[等待冷卻時間](#%E5%86%B7%E5%8D%BB%E8%A8%88%E7%AE%97)
+- 須注意[掛機時間](#%E8%BB%9F%E9%AB%94%E9%8E%96)以免被軟鎖
 
 啟動順序如下:
 1. 使用搖桿改定位設定路線或是固定走路方向
@@ -90,8 +90,8 @@ POGO外掛管理器可以讓你更方便的管理你的寶可夢外掛
 
 啟動順序如下:
 1. 打開搖桿設定位置並啟動搖桿
-2. 打開GPS Joystick Wrapper，點擊左上角的▶按鈕啟動
-3. 打開Polygon 暴力功點擊啟動按鈕
+2. 打開[GPS Joystick Wrapper](#GPS-Joystick-Wrapper-)，點擊左上角的▶按鈕啟動
+3. 打開[Polygon 暴力功](#Polygon-%E6%9A%B4%E5%8A%9B%E5%8A%9F-)點擊啟動按鈕
 4. 開始遊玩
 
 ## 掛機刷星辰(PGTools付費版本)
