@@ -1,6 +1,6 @@
 <resources>
-    <string name="app_name">PoGo外掛管理器【老K刷機工場】</string>
-    <string name="app_name_short">PoGo外掛管理器</string>
+    <string name="app_name">PoGo管理器【老K刷機工場】</string>
+    <string name="app_name_short">PoGo管理器</string>
     <string name="pokemon">寶可夢</string>
     <string name="pokemonAppList">寶可夢App列表</string>
     <string name="mh_now">魔物獵人</string>
@@ -20,10 +20,9 @@
     <string name="setting">設定</string>
     <string name="download">下載</string>
     <string name="downloadAgain">重新下載</string>
-    <string name="downloadProblem">卡下載中?</string>
+    <string name="downloadProblem">無法正常下載</string>
     <string name="update">更新</string>
     <string name="updateContent">更新內容:</string>
-    <string name="unsupportedDevices">不支援的設備</string>
     <string name="checkUpdate">檢查更新</string>
     <string name="unlockPremium">解鎖付費版本</string>
     <string name="location">定位</string>
@@ -46,13 +45,16 @@
 
     <string name="share_information">我發現了Pogo外掛管理器 趕快來下載使用!</string>
 
+    <string name="unsupportedDevices">不支援的設備</string>
+    <string name="unsupportedDevicesPokeAres">已禁止在非三星裝置下載三星版本寶可夢\n若仍要下載，請至設定中開啟「允許下載三星版本寶可夢」選項</string>
+
     <string name="checkTitle_DetectLocationStatus">系統取得定位位置:</string>
     <string name="checkTitle_deviceIsRoot">偵測ROOT環境:</string>
     <string name="check_button">檢測定位與設備</string>
     <string name="check_devicesAPI">檢測設備完整性</string>
     <string name="check_appList">App列表測試</string>
-    <string name="checkInfo_rootDetected">❌已發現su路徑</string>
-    <string name="checkInfo_rootNotDetected">✅未發現su</string>
+    <string name="checkInfo_rootDetected">⚠️已發現root路徑</string>
+    <string name="checkInfo_rootNotDetected">✅未發現root</string>
 
     <string name="shortcutsTitle_docAndTool">文檔與工具</string>
     <string name="shortcutsTitle_download">檔案下載</string>
@@ -103,6 +105,8 @@
     <string name="dialogGetKeyMessage">本項目為實驗性內容 金鑰可能與其他人重複\n點擊確定嘗試獲取暴力功金鑰</string>
     <string name="dialogGetKeyADDone">已取得 請返回APP內複製暴力功金鑰欄\n本項目為實驗性內容 金鑰可能與其他人重複</string>
     <string name="dialogGetKeyDone">已取得 請複製並貼上至暴力功金鑰欄內\n本項目為實驗性內容 金鑰可能與其他人重複</string>
+    <string name="dialogInstallSamsungStoreTitle">尚未安裝三星應用商店</string>
+    <string name="dialogInstallSamsungStoreMessage">檢測到設備尚未安裝三星應用商店，若無安裝可能導致部分功能無法正常運作，是否前往下載安裝?</string>
 
     <string name="androidDevices">裝置名稱:</string>
     <string name="androidVersion">系統版本:</string>
@@ -127,7 +131,7 @@
     <string name="appsPokePage_GpsAppName">GPS JoyStick【搖桿改定位✅老K刷機】</string>
     <string name="appsPokePage_wrapperTitle">快速尋找火箭隊</string>
     <string name="appsPokePage_wrapperAppName">GPS Joystick Wrapper【找火箭隊中文版】</string>
-    <string name="appsPokePage_PolygonTitle">顯示寶可夢IV三圍,偵測色違,打火箭隊等功能</string>
+    <string name="appsPokePage_PolygonTitle">顯示IV三圍,偵測色違,打火箭隊等功能</string>
     <string name="appsPokePage_PolygonAppName">Polygon【暴力功中文版】</string>
     <string name="appsPokePage_PGToolsTitle">模擬手動投球與自動旋轉補給站等功能</string>
     <string name="appsPokePage_PGToolsAppName">PGTools【自動抓】</string>

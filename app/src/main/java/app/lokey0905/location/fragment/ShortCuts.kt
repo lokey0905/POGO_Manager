@@ -15,6 +15,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.GridLayout
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.browser.customtabs.CustomTabsIntent
@@ -104,7 +105,7 @@ class ShortCuts: Fragment() {
                 activityIntent.component =
                     ComponentName(
                         "com.google.android.gms",
-                        "com.google.android.gms.nearby.sharing.QuickSettingsActivity"
+                        "com.google.android.gms.nearby.sharing.settings.SettingsActivity"
                     )
                 startActivity(activityIntent)
             }
@@ -397,14 +398,30 @@ class ShortCuts: Fragment() {
     }
 
     private fun downloadAPPWithCheck(url: String) {
-        if(url == ""){
+        if (url == "") {
             showAlertDialog(
                 resources.getString(R.string.dialogAdNotReadyTitle),
                 resources.getString(R.string.dialogAdNotReadyMessage)
             )
             return
         }
+
+        val factory = LayoutInflater.from(requireContext())
+        val imageView: View = factory.inflate(R.layout.dialog_imageview, null)
+        var setview = false
+
+        if (url.contains("mediafire")) {
+            imageView.findViewById<ImageView>(R.id.dialog_imageview)
+                .setImageResource(R.drawable.download_mediafire)
+            setview = true
+        } else if (url.contains("apkmirror") || url.contains("bit.ly")) {
+            imageView.findViewById<ImageView>(R.id.dialog_imageview)
+                .setImageResource(R.drawable.download_apk_e)
+            setview = true
+        }
+
         MaterialAlertDialogBuilder(requireContext())
+            .setView(if (setview) imageView else null)
             .setTitle(resources.getString(R.string.dialogDownloadTitle))
             .setMessage(resources.getString(R.string.dialogDownloadMessage))
             .apply {
