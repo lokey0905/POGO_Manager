@@ -1,22 +1,22 @@
 package app.lokey0905.location.fragment
 
 import android.annotation.SuppressLint
-import android.content.ContentValues
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.provider.Settings
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
+import android.widget.ImageButton
+import android.widget.ImageView
+import android.widget.PopupMenu
 import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
@@ -25,9 +25,7 @@ import androidx.fragment.app.Fragment
 import androidx.preference.PreferenceManager
 import app.lokey0905.location.R
 import app.lokey0905.location.databinding.ActivityMainBinding
-import com.google.android.gms.ads.*
 import com.google.android.gms.ads.rewarded.RewardedAd
-import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.materialswitch.MaterialSwitch
 import com.google.android.material.snackbar.Snackbar
@@ -54,7 +52,7 @@ class AppsMHN : Fragment() {
 
     private var mhnTestVersion = false
 
-    var url_jokstick = ""
+    private var url_jokstick = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -108,6 +106,18 @@ class AppsMHN : Fragment() {
             appUnInstall(resources.getString(R.string.packageName_gps64))
         }
 
+        view.findViewById<ImageButton>(R.id.mhn_more).setOnClickListener {
+            popupMenu(view, R.id.mhn_more, resources.getString(R.string.packageName_MHNow))
+        }
+
+        view.findViewById<ImageButton>(R.id.gps_more).setOnClickListener {
+            popupMenu(view, R.id.gps_more, resources.getString(R.string.packageName_gps64))
+        }
+
+        view.findViewById<ImageButton>(R.id.mhnTools_more).setOnClickListener {
+            popupMenu(view, R.id.mhnTools_more, resources.getString(R.string.packageName_mhnTools))
+        }
+
         view.findViewById<androidx.swiperefreshlayout.widget.SwipeRefreshLayout>(R.id.swipeRefreshLayout).setOnRefreshListener {
             Toast.makeText(context, getString(R.string.refreshing), Toast.LENGTH_SHORT).show()
             setupAppVersionInfo(view)
@@ -116,6 +126,7 @@ class AppsMHN : Fragment() {
         }
     }
 
+    @SuppressLint("SetTextI18n")
     private fun setupAppVersionInfo(view: View) {
         val formatInstallVersion = resources.getString(R.string.format_installVersion)
         val formatNewerVersion = resources.getString(R.string.format_newerVersion)
@@ -491,6 +502,55 @@ class AppsMHN : Fragment() {
             .show()
     }
 
+    private fun popupMenu(view: View, id: Int, packageName: String) {
+        if(appInstalledVersion(packageName) == "未安裝") {
+            appUnInstall(packageName)
+            return
+        }
+        PopupMenu(requireContext(), view.findViewById<ImageButton>(id)).apply {
+            menuInflater.inflate(R.menu.popup_menu, menu)
+            setOnMenuItemClickListener { item ->
+                when (item.itemId) {
+                    R.id.open -> {
+                        val intent =
+                            requireContext().packageManager.getLaunchIntentForPackage(packageName)
+
+                        if (intent != null) {
+
+                            val resolveInfo = requireContext().packageManager.resolveActivity(
+                                intent,
+                                PackageManager.MATCH_DEFAULT_ONLY
+                            )
+                            if (resolveInfo != null) {
+
+                                startActivity(intent)
+                            } else {
+                                Toast.makeText(
+                                    context,
+                                    getString(androidx.compose.ui.R.string.default_error_message),
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
+                        }
+                        true
+                    }
+
+                    R.id.setting -> {
+                        val intent = Intent().apply {
+                            action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
+                            data = Uri.fromParts("package", packageName, null)
+                        }
+                        startActivity(intent)
+                        true
+                    }
+
+                    else -> false
+                }
+            }
+            show()
+        }
+    }
+
     private fun gotoBrowser(url: String) {
         context?.let {
             val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
@@ -505,7 +565,7 @@ class AppsMHN : Fragment() {
     }
 
     private fun downloadAPPWithCheck(url: String) {
-        if(url == ""){
+        if (url == "") {
             showAlertDialog(
                 resources.getString(R.string.dialogAdNotReadyTitle),
                 resources.getString(R.string.dialogAdNotReadyMessage)
@@ -518,7 +578,7 @@ class AppsMHN : Fragment() {
         val allowDownloadOnNonArm64 =
             sharedPreferences.getBoolean("allow_download_on_non_arm64", false)
 
-        if (Build.SUPPORTED_ABIS[0] != "arm64-v8a" && !allowDownloadOnNonArm64){
+        if (Build.SUPPORTED_ABIS[0] != "arm64-v8a" && !allowDownloadOnNonArm64) {
             Snackbar.make(
                 requireView(),
                 "${resources.getString(R.string.unsupportedDevices)}(${Build.SUPPORTED_ABIS[0]})",
@@ -527,7 +587,22 @@ class AppsMHN : Fragment() {
             return
         }
 
+        val factory = LayoutInflater.from(requireContext())
+        val imageView: View = factory.inflate(R.layout.dialog_imageview, null)
+        var setview = false
+
+        if (url.contains("mediafire")) {
+            imageView.findViewById<ImageView>(R.id.dialog_imageview)
+                .setImageResource(R.drawable.download_mediafire)
+            setview = true
+        } else if (url.contains("apkmirror") || url.contains("bit.ly")) {
+            imageView.findViewById<ImageView>(R.id.dialog_imageview)
+                .setImageResource(R.drawable.download_apk_e)
+            setview = true
+        }
+
         MaterialAlertDialogBuilder(requireContext())
+            .setView(if (setview) imageView else null)
             .setTitle(resources.getString(R.string.dialogDownloadTitle))
             .setMessage(resources.getString(R.string.dialogDownloadMessage))
             .apply {

@@ -25,8 +25,8 @@
     <!--string name="url_gps32">https://www.mediafire.com/file/maf260fw7u805tm/gpsjoystick_lokey_new.apk/file</string-->
     <!--string name="url_gps64">https://www.mediafire.com/file/i2jmsi2teyrhn5j/gpsjoystick_lokey_new64.apk/file</string-->
     <!--string name="url_polygon">https://www.mediafire.com/file/g9kazm0lhuzqdk0/com.evermorelabs.polygonsharp-0.9.4_%25E4%25B8%25AD%25E6%2596%2587%25E5%258C%2596by_lokey0905.apk/file</string-->
-    <string name="url_pokAres">https://www.apkmirror.com/apk/niantic-inc/pokemon-go-samsung-galaxy-apps-version/</string>
-    <string name="url_pokAres_store">https://apps.samsung.com/appquery/appDetail.as?appId=com.nianticlabs.pokemongo.ares</string>
+    <string name="url_pokAres">https://www.apkmirror.com/apk/niantic-inc/pokemon-go-samsung-galaxy-apps-version/pokemon-go-samsung-galaxy-apps-version-%1$s-release/pokemon-go-samsung-galaxy-store-%1$s-android-apk-download/</string>
+    <!--string name="url_pokAres_store">https://apps.samsung.com/appquery/appDetail.as?appId=com.nianticlabs.pokemongo.ares</string-->
     <string name="url_pokeMod">https://pokemod.dev/zh/</string>
     <string name="url_PGToolsFile">https://www.mediafire.com/file/fecfev2pr5c8x6d/GilbertMike_100523_1.txt/file</string>
     <!--string name="url_pokelist">https://moonani.com/PokeList/PokeList.apk</string-->
@@ -63,4 +63,5 @@
     <string name="packageName_mhnTools">net.mhntools.auto</string>
     <string name="packageName_checkDevicesAPI">com.henrikherzig.playintegritychecker</string>
     <string name="packageName_appListDetector">icu.nullptr.applistdetector</string>
+    <string name="packageName_galaxyStore">com.sec.android.app.samsungapps</string>
 </resources>

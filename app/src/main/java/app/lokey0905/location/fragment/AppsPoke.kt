@@ -1,14 +1,13 @@
 package app.lokey0905.location.fragment
 
 import android.annotation.SuppressLint
-import android.app.ActivityManager
 import android.content.ContentValues
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
-import android.os.Build.MANUFACTURER
 import android.os.Bundle
+import android.provider.Settings
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -16,17 +15,19 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
-import android.widget.LinearLayout
+import android.widget.ImageButton
+import android.widget.ImageView
+import android.widget.PopupMenu
 import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
 import androidx.preference.PreferenceManager
 import app.lokey0905.location.R
-import com.google.android.gms.ads.*
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.rewarded.RewardedAd
 import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -40,7 +41,7 @@ import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.net.HttpURLConnection
 import java.net.URL
-import kotlin.math.roundToInt
+
 
 data class PogoVersionInfo(
     val pogoVersion: String,
@@ -63,6 +64,7 @@ class AppsPoke : Fragment() {
     var url_polygon = ""
     var url_PokeList = ""
     var url_WeCatch = ""
+    var url_samsungStore = ""
 
     var version_wrapper = "未安裝"
     var version_polygon = "未安裝"
@@ -71,7 +73,6 @@ class AppsPoke : Fragment() {
 
     private var pgToolsTestVersion = false
     private var pokAresNoSupportDevices = false
-    private var pokAresDownloadAPK = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -79,24 +80,9 @@ class AppsPoke : Fragment() {
     ): View {
         val view: View = inflater.inflate(R.layout.fragment_apps_poke, container, false)
 
-
-
-        val actManager =
-            activity?.getSystemService(AppCompatActivity.ACTIVITY_SERVICE) as ActivityManager
-        val memInfo = ActivityManager.MemoryInfo()
-        actManager.getMemoryInfo(memInfo)
-        val totalMemory = (memInfo.totalMem.toDouble() / (1024 * 1024 * 1024)).roundToInt()
-
         val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
         pokAresNoSupportDevices = sharedPreferences.getBoolean("allow_download_on_non_samsung", false)
-        pokAresDownloadAPK = sharedPreferences.getBoolean("always_download_apk_from_apk", false)
 
-        if ((pokAresNoSupportDevices))
-            view.findViewById<LinearLayout>(R.id.linearLayout_pokAres).visibility =
-                View.VISIBLE
-        else if (MANUFACTURER != "samsung" && totalMemory < 5)
-            view.findViewById<LinearLayout>(R.id.linearLayout_pokAres).visibility =
-                View.GONE
 
         setupListeners(view)
 
@@ -112,17 +98,6 @@ class AppsPoke : Fragment() {
         fun setFragmentResultListener() {
             setFragmentResultListener("pokAresNoSupportDevices") { _, bundle ->
                 pokAresNoSupportDevices = bundle.getBoolean("bundleKey")
-                if ((pokAresNoSupportDevices))
-                    view.findViewById<LinearLayout>(R.id.linearLayout_pokAres).visibility =
-                        View.VISIBLE
-                else if (MANUFACTURER != "samsung")
-                    view.findViewById<LinearLayout>(R.id.linearLayout_pokAres).visibility =
-                        View.GONE
-
-            }
-
-            setFragmentResultListener("pokAresDownloadAPK") { _, bundle ->
-                pokAresDownloadAPK = bundle.getBoolean("bundleKey")
             }
         }
 
@@ -153,16 +128,39 @@ class AppsPoke : Fragment() {
         }
 
         view.findViewById<Button>(R.id.download_pokAres).setOnClickListener {
-            if (pokAresDownloadAPK || pokAresNoSupportDevices)
-                downloadAPPWithCheck(resources.getString(R.string.url_pokAres))
-            else if (Build.MANUFACTURER == "samsung")
-                downloadAPPWithCheck(resources.getString(R.string.url_pokAres_store))
-            else
-                Snackbar.make(
-                    view,
+            if (Build.MANUFACTURER == "samsung" || pokAresNoSupportDevices) {
+                if (appInstalledVersion(resources.getString(R.string.packageName_galaxyStore)) == "未安裝") {
+                    MaterialAlertDialogBuilder(requireContext())
+                        .setTitle(resources.getString(R.string.dialogInstallSamsungStoreTitle))
+                        .setMessage(resources.getString(R.string.dialogInstallSamsungStoreMessage))
+                        .apply {
+                            setNeutralButton(R.string.cancel) { _, _ ->
+                                Toast.makeText(
+                                    context,
+                                    getString(R.string.cancelOperation),
+                                    Toast.LENGTH_SHORT
+                                )
+                                    .show()
+                            }
+                            setPositiveButton(R.string.ok) { _, _ ->
+                                downloadAPPWithCheck(url_samsungStore)
+                            }
+                        }
+                        .show()
+                } else {
+                    downloadAPPWithCheck(
+                        String.format(
+                            resources.getString(R.string.url_pokAres),
+                            pogoVersion.replace(".", "-")
+                        )
+                    )
+
+                }
+            } else
+                showAlertDialog(
                     resources.getString(R.string.unsupportedDevices),
-                    Snackbar.LENGTH_LONG
-                ).setAction("Action", null).show()
+                    resources.getString(R.string.unsupportedDevicesPokeAres)
+                )
         }
 
         view.findViewById<Button>(R.id.download_pokelist).setOnClickListener {
@@ -203,6 +201,38 @@ class AppsPoke : Fragment() {
 
         view.findViewById<Button>(R.id.remove_wecatch).setOnClickListener {
             appUnInstall(resources.getString(R.string.packageName_WeCatch))
+        }
+
+        view.findViewById<ImageButton>(R.id.pok_more).setOnClickListener {
+            popupMenu(view,R.id.pok_more, resources.getString(R.string.packageName_pok))
+        }
+
+        view.findViewById<ImageButton>(R.id.pokAres_more).setOnClickListener {
+            popupMenu(view, R.id.pokAres_more, resources.getString(R.string.packageName_pokAres))
+        }
+
+        view.findViewById<ImageButton>(R.id.gps_more).setOnClickListener {
+            popupMenu(view, R.id.gps_more, resources.getString(R.string.packageName_gps32))
+        }
+
+        view.findViewById<ImageButton>(R.id.wrapper_more).setOnClickListener {
+            popupMenu(view, R.id.wrapper_more, resources.getString(R.string.packageName_wrapper))
+        }
+
+        view.findViewById<ImageButton>(R.id.polygon_more).setOnClickListener {
+            popupMenu(view, R.id.polygon_more, resources.getString(R.string.packageName_polygon))
+        }
+
+        view.findViewById<ImageButton>(R.id.pgtools_more).setOnClickListener {
+            popupMenu(view, R.id.pgtools_more, resources.getString(R.string.packageName_PGTools))
+        }
+
+        view.findViewById<ImageButton>(R.id.pokelist_more).setOnClickListener {
+            popupMenu(view, R.id.pokelist_more, resources.getString(R.string.packageName_PokeList))
+        }
+
+        view.findViewById<ImageButton>(R.id.wecatch_more).setOnClickListener {
+            popupMenu(view, R.id.wecatch_more, resources.getString(R.string.packageName_WeCatch))
         }
 
         view.findViewById<androidx.swiperefreshlayout.widget.SwipeRefreshLayout>(R.id.swipeRefreshLayout).setOnRefreshListener {
@@ -365,7 +395,7 @@ class AppsPoke : Fragment() {
                 String.format(
                     formatInstallVersion,
                     appInstalledVersion(resources.getString(R.string.packageName_pokAres)) +
-                            if (MANUFACTURER == "samsung" || pokAresNoSupportDevices) ""
+                            if (Build.MANUFACTURER == "samsung" || pokAresNoSupportDevices) ""
                             else "(不支援)"
                 )
             view.findViewById<TextView>(R.id.gps_install_version).text =
@@ -641,12 +671,14 @@ class AppsPoke : Fragment() {
                 val polygon = pogo.getJSONObject("polygon")
                 val pokeList = pogo.getJSONObject("pokeList")
                 val wecatch = pogo.getJSONObject("wecatch")
+                val samsungStore = pogo.getJSONObject("samsungStore")
 
                 url_jokstick = jokstick.getString("url")
                 url_wrapper = warpper.getString("url")
                 url_polygon = polygon.getString("url")
                 url_PokeList = pokeList.getString("url")
                 url_WeCatch = wecatch.getString("url")
+                url_samsungStore = samsungStore.getString("url")
 
                 version_wrapper = warpper.getString("version")
                 version_polygon = polygon.getString("version")
@@ -739,6 +771,55 @@ class AppsPoke : Fragment() {
             .show()
     }
 
+    private fun popupMenu(view: View, id: Int, packageName: String) {
+        if(appInstalledVersion(packageName) == "未安裝") {
+            appUnInstall(packageName)
+            return
+        }
+        PopupMenu(requireContext(), view.findViewById<ImageButton>(id)).apply {
+            menuInflater.inflate(R.menu.popup_menu, menu)
+            setOnMenuItemClickListener { item ->
+                when (item.itemId) {
+                    R.id.open -> {
+                        val intent =
+                            requireContext().packageManager.getLaunchIntentForPackage(packageName)
+
+                        if (intent != null) {
+
+                            val resolveInfo = requireContext().packageManager.resolveActivity(
+                                intent,
+                                PackageManager.MATCH_DEFAULT_ONLY
+                            )
+                            if (resolveInfo != null) {
+
+                                startActivity(intent)
+                            } else {
+                                Toast.makeText(
+                                    context,
+                                    getString(androidx.compose.ui.R.string.default_error_message),
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
+                        }
+                        true
+                    }
+
+                    R.id.setting -> {
+                        val intent = Intent().apply {
+                            action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
+                            data = Uri.fromParts("package", packageName, null)
+                        }
+                        startActivity(intent)
+                        true
+                    }
+
+                    else -> false
+                }
+            }
+            show()
+        }
+    }
+
     private fun gotoBrowser(url: String) {
         context?.let {
             val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
@@ -753,14 +834,30 @@ class AppsPoke : Fragment() {
     }
 
     private fun downloadAPPWithCheck(url: String) {
-        if(url == ""){
+        if (url == "") {
             showAlertDialog(
                 resources.getString(R.string.dialogAdNotReadyTitle),
                 resources.getString(R.string.dialogAdNotReadyMessage)
             )
             return
         }
+
+        val factory = LayoutInflater.from(requireContext())
+        val imageView: View = factory.inflate(R.layout.dialog_imageview, null)
+        var setview = false
+
+        if (url.contains("mediafire")) {
+            imageView.findViewById<ImageView>(R.id.dialog_imageview)
+                .setImageResource(R.drawable.download_mediafire)
+            setview = true
+        } else if (url.contains("apkmirror") || url.contains("bit.ly")) {
+            imageView.findViewById<ImageView>(R.id.dialog_imageview)
+                .setImageResource(R.drawable.download_apk_e)
+            setview = true
+        }
+
         MaterialAlertDialogBuilder(requireContext())
+            .setView(if (setview) imageView else null)
             .setTitle(resources.getString(R.string.dialogDownloadTitle))
             .setMessage(resources.getString(R.string.dialogDownloadMessage))
             .apply {

@@ -138,10 +138,11 @@
                                     android:layout_height="wrap_content"
                                     android:layout_weight="0"
                                     android:text="@string/appsPokePage_PokeAppName" />
+
                             </LinearLayout>
 
                             <ImageButton
-                                android:visibility="invisible"
+                                android:id="@+id/pok_more"
                                 style="?attr/materialIconButtonStyle"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
@@ -233,9 +234,10 @@
                                 tools:layout_editor_absoluteY="50dp" />
 
                             <LinearLayout
-                                android:layout_width="match_parent"
+                                android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_marginStart="16dp"
+                                android:layout_weight="10"
                                 android:gravity="center|start"
                                 android:orientation="vertical">
 
@@ -253,6 +255,14 @@
                                     android:text="@string/appsPokePage_PokeAreaAppName" />
 
                             </LinearLayout>
+
+                            <ImageButton
+                                android:id="@+id/pokAres_more"
+                                style="?attr/materialIconButtonStyle"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:src="@drawable/ic_baseline_more_vert_24" />
 
                         </LinearLayout>
 
@@ -339,9 +349,10 @@
                                 tools:layout_editor_absoluteY="50dp" />
 
                             <LinearLayout
-                                android:layout_width="match_parent"
+                                android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_marginStart="16dp"
+                                android:layout_weight="10"
                                 android:gravity="center|start"
                                 android:orientation="vertical">
 
@@ -359,6 +370,14 @@
                                     android:text="@string/appsPokePage_GpsAppName" />
 
                             </LinearLayout>
+
+                            <ImageButton
+                                android:id="@+id/gps_more"
+                                style="?attr/materialIconButtonStyle"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:src="@drawable/ic_baseline_more_vert_24" />
 
                         </LinearLayout>
 
@@ -444,9 +463,10 @@
                                 tools:layout_editor_absoluteY="50dp" />
 
                             <LinearLayout
-                                android:layout_width="match_parent"
+                                android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_marginStart="16dp"
+                                android:layout_weight="10"
                                 android:gravity="center|start"
                                 android:orientation="vertical">
 
@@ -464,6 +484,14 @@
                                     android:text="@string/appsPokePage_wrapperAppName" />
 
                             </LinearLayout>
+
+                            <ImageButton
+                                android:id="@+id/wrapper_more"
+                                style="?attr/materialIconButtonStyle"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:src="@drawable/ic_baseline_more_vert_24" />
 
                         </LinearLayout>
 
@@ -550,9 +578,10 @@
                                 tools:layout_editor_absoluteY="100dp" />
 
                             <LinearLayout
-                                android:layout_width="match_parent"
+                                android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_marginStart="16dp"
+                                android:layout_weight="10"
                                 android:gravity="center|start"
                                 android:orientation="vertical">
 
@@ -570,6 +599,14 @@
                                     android:text="@string/appsPokePage_PolygonAppName" />
 
                             </LinearLayout>
+
+                            <ImageButton
+                                android:id="@+id/polygon_more"
+                                style="?attr/materialIconButtonStyle"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:src="@drawable/ic_baseline_more_vert_24" />
 
                         </LinearLayout>
 
@@ -655,9 +692,10 @@
                                 tools:layout_editor_absoluteY="50dp" />
 
                             <LinearLayout
-                                android:layout_width="match_parent"
+                                android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_marginStart="16dp"
+                                android:layout_weight="10"
                                 android:gravity="center|start"
                                 android:orientation="vertical">
 
@@ -675,6 +713,14 @@
                                     android:text="@string/appsPokePage_PGToolsAppName" />
 
                             </LinearLayout>
+
+                            <ImageButton
+                                android:id="@+id/pgtools_more"
+                                style="?attr/materialIconButtonStyle"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:src="@drawable/ic_baseline_more_vert_24" />
 
                         </LinearLayout>
 
@@ -770,9 +816,10 @@
                                 tools:layout_editor_absoluteY="100dp" />
 
                             <LinearLayout
-                                android:layout_width="match_parent"
+                                android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_marginStart="16dp"
+                                android:layout_weight="10"
                                 android:gravity="center|start"
                                 android:orientation="vertical">
 
@@ -790,6 +837,14 @@
                                     android:text="@string/appsPokePage_PokeListAppName" />
 
                             </LinearLayout>
+
+                            <ImageButton
+                                android:id="@+id/pokelist_more"
+                                style="?attr/materialIconButtonStyle"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:src="@drawable/ic_baseline_more_vert_24" />
 
                         </LinearLayout>
 
@@ -876,9 +931,10 @@
                                 tools:layout_editor_absoluteY="100dp" />
 
                             <LinearLayout
-                                android:layout_width="match_parent"
+                                android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_marginStart="16dp"
+                                android:layout_weight="10"
                                 android:gravity="center|start"
                                 android:orientation="vertical">
 
@@ -896,6 +952,14 @@
                                     android:text="@string/appsPokePage_WeCatchAppName" />
 
                             </LinearLayout>
+
+                            <ImageButton
+                                android:id="@+id/wecatch_more"
+                                style="?attr/materialIconButtonStyle"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:src="@drawable/ic_baseline_more_vert_24" />
 
                         </LinearLayout>
 

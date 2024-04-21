@@ -57,17 +57,9 @@
 
         <SwitchPreferenceCompat
             android:key="allow_download_on_non_samsung"
-            android:title="允許在非三星裝置下載寶可夢"
+            android:title="允許下載三星版本寶可夢"
             android:icon="@drawable/ic_baseline_download_24"
-            app:summary="允許用戶在非三星(Ssmsung)裝置上下載三星版本寶可夢"
-            android:persistent="true"
-            android:defaultValue="false" />
-
-        <SwitchPreferenceCompat
-            android:key="always_download_apk_from_apk"
-            android:title="一律從下載寶可夢三星版APK"
-            android:icon="@drawable/ic_baseline_browser_updated_24"
-            app:summary="一律使用ApkMirror下載寶可夢三星版本APK,而非透過三星應用商店"
+            app:summary="允許用戶在非三星(Samsung)裝置上下載三星版本寶可夢"
             android:persistent="true"
             android:defaultValue="false" />
     </PreferenceCategory>

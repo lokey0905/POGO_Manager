@@ -139,7 +139,7 @@
                             </LinearLayout>
 
                             <ImageButton
-                                android:visibility="invisible"
+                                android:id="@+id/mhn_more"
                                 style="?attr/materialIconButtonStyle"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
@@ -230,9 +230,10 @@
                                 tools:layout_editor_absoluteY="50dp" />
 
                             <LinearLayout
-                                android:layout_width="match_parent"
+                                android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_marginStart="16dp"
+                                android:layout_weight="10"
                                 android:gravity="center|start"
                                 android:orientation="vertical">
 
@@ -250,6 +251,14 @@
                                     android:text="@string/appsMHNPage_GpsAPPName" />
 
                             </LinearLayout>
+
+                            <ImageButton
+                                android:id="@+id/gps_more"
+                                style="?attr/materialIconButtonStyle"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:src="@drawable/ic_baseline_more_vert_24" />
 
                         </LinearLayout>
 
@@ -336,9 +345,10 @@
                                 tools:layout_editor_absoluteY="50dp" />
 
                             <LinearLayout
-                                android:layout_width="match_parent"
+                                android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_marginStart="16dp"
+                                android:layout_weight="10"
                                 android:gravity="center|start"
                                 android:orientation="vertical">
 
@@ -356,6 +366,14 @@
                                     android:text="@string/appsMHNPage_MHNToolsAPPName" />
 
                             </LinearLayout>
+
+                            <ImageButton
+                                android:id="@+id/mhnTools_more"
+                                style="?attr/materialIconButtonStyle"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:src="@drawable/ic_baseline_more_vert_24" />
 
                         </LinearLayout>
 
