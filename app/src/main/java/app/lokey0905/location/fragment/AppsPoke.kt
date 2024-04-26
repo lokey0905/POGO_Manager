@@ -81,7 +81,8 @@ class AppsPoke : Fragment() {
         val view: View = inflater.inflate(R.layout.fragment_apps_poke, container, false)
 
         val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
-        pokAresNoSupportDevices = sharedPreferences.getBoolean("allow_download_on_non_samsung", false)
+        pokAresNoSupportDevices =
+            sharedPreferences.getBoolean("allow_download_on_non_samsung", false)
 
 
         setupListeners(view)
@@ -105,7 +106,7 @@ class AppsPoke : Fragment() {
         setFragmentResultListener()
     }
 
-    private fun setupListeners(view : View) {
+    private fun setupListeners(view: View) {
         view.findViewById<Button>(R.id.download_gps).setOnClickListener {
             downloadAPPWithCheck(url_jokstick)
         }
@@ -204,7 +205,7 @@ class AppsPoke : Fragment() {
         }
 
         view.findViewById<ImageButton>(R.id.pok_more).setOnClickListener {
-            popupMenu(view,R.id.pok_more, resources.getString(R.string.packageName_pok))
+            popupMenu(view, R.id.pok_more, resources.getString(R.string.packageName_pok))
         }
 
         view.findViewById<ImageButton>(R.id.pokAres_more).setOnClickListener {
@@ -235,12 +236,13 @@ class AppsPoke : Fragment() {
             popupMenu(view, R.id.wecatch_more, resources.getString(R.string.packageName_WeCatch))
         }
 
-        view.findViewById<androidx.swiperefreshlayout.widget.SwipeRefreshLayout>(R.id.swipeRefreshLayout).setOnRefreshListener {
-            Toast.makeText(context, getString(R.string.refreshing), Toast.LENGTH_SHORT).show()
-            setupAppVersionInfo(view)
-            view.findViewById<androidx.swiperefreshlayout.widget.SwipeRefreshLayout>(R.id.swipeRefreshLayout).isRefreshing =
-                false
-        }
+        view.findViewById<androidx.swiperefreshlayout.widget.SwipeRefreshLayout>(R.id.swipeRefreshLayout)
+            .setOnRefreshListener {
+                Toast.makeText(context, getString(R.string.refreshing), Toast.LENGTH_SHORT).show()
+                setupAppVersionInfo(view)
+                view.findViewById<androidx.swiperefreshlayout.widget.SwipeRefreshLayout>(R.id.swipeRefreshLayout).isRefreshing =
+                    false
+            }
     }
 
     private fun setupAppVersionInfo(view: View) {
@@ -699,7 +701,10 @@ class AppsPoke : Fragment() {
         }
     }
 
-    private fun extractPgToolsFromJson(url: String, onAppVersionsExtracted: (String, String, ArrayList<PogoVersionInfo>) -> Unit) {
+    private fun extractPgToolsFromJson(
+        url: String,
+        onAppVersionsExtracted: (String, String, ArrayList<PogoVersionInfo>) -> Unit
+    ) {
         GlobalScope.launch(Dispatchers.IO) {
             try {
                 val url = URL(url)
@@ -772,7 +777,7 @@ class AppsPoke : Fragment() {
     }
 
     private fun popupMenu(view: View, id: Int, packageName: String) {
-        if(appInstalledVersion(packageName) == "未安裝") {
+        if (appInstalledVersion(packageName) == "未安裝") {
             appUnInstall(packageName)
             return
         }

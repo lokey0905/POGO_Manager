@@ -71,6 +71,8 @@
     <string name="shortcuts_gameGuardian">下載GG修改器</string>
     <string name="shortcuts_packageDisablerPro">Package Disabler Pro</string>
     <string name="shortcuts_AfWall">AFWall+ 防火牆</string>
+    <string name="shortcuts_pokeInfo">報寶貝 雷達</string>
+    <string name="shortcuts_pokeInfoMessage">報寶貝若顯示黑影 請重新整理網頁30次後即會恢復正常</string>
 
     <string name="downloadOnGooglePlay">從play商店下載</string>
     <string name="downloadAPK">下載APK檔</string>
@@ -139,4 +141,7 @@
     <string name="appsPokePage_PokeListAppName">PokeList【中文版】</string>
     <string name="appsPokePage_WeCatchTitle">寶可夢雷達</string>
     <string name="appsPokePage_WeCatchAppName">WeCatch</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
+    <string name="app_widget_description">This is an app widget description</string>
 </resources>

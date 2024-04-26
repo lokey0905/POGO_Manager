@@ -74,7 +74,7 @@ class AppsMHN : Fragment() {
         setupAppVersionInfo(view)
     }
 
-    private fun setupListeners(view : View) {
+    private fun setupListeners(view: View) {
         val mhnDownloadButton = view.findViewById<Button>(R.id.download_mhn)
         val mhnRemoveButton = view.findViewById<Button>(R.id.remove_mhn)
         val mhnToolsDownloadButton = view.findViewById<Button>(R.id.download_mhnTools)
@@ -118,12 +118,13 @@ class AppsMHN : Fragment() {
             popupMenu(view, R.id.mhnTools_more, resources.getString(R.string.packageName_mhnTools))
         }
 
-        view.findViewById<androidx.swiperefreshlayout.widget.SwipeRefreshLayout>(R.id.swipeRefreshLayout).setOnRefreshListener {
-            Toast.makeText(context, getString(R.string.refreshing), Toast.LENGTH_SHORT).show()
-            setupAppVersionInfo(view)
-            view.findViewById<androidx.swiperefreshlayout.widget.SwipeRefreshLayout>(R.id.swipeRefreshLayout).isRefreshing =
-                false
-        }
+        view.findViewById<androidx.swiperefreshlayout.widget.SwipeRefreshLayout>(R.id.swipeRefreshLayout)
+            .setOnRefreshListener {
+                Toast.makeText(context, getString(R.string.refreshing), Toast.LENGTH_SHORT).show()
+                setupAppVersionInfo(view)
+                view.findViewById<androidx.swiperefreshlayout.widget.SwipeRefreshLayout>(R.id.swipeRefreshLayout).isRefreshing =
+                    false
+            }
     }
 
     @SuppressLint("SetTextI18n")
@@ -287,7 +288,7 @@ class AppsMHN : Fragment() {
             }
         }
 
-        fun getMHNToolsVersion(){
+        fun getMHNToolsVersion() {
             var url = resources.getString(R.string.url_mhnJson)
             if (mhnTestVersion)
                 url = resources.getString(R.string.url_mhnJsonTest)
@@ -467,8 +468,8 @@ class AppsMHN : Fragment() {
                 while (gameVersions.hasNext()) {
                     val gameVersion = gameVersions.next() as String
                     val gameData = supportGameVersions.optJSONObject(gameVersion)
-                    val version = gameData?.optString("gameVersion","")
-                    val arm64Url = gameData?.optString("gameARM64","")
+                    val version = gameData?.optString("gameVersion", "")
+                    val arm64Url = gameData?.optString("gameARM64", "")
 
                     if (version != null && arm64Url != null) {
                         gameVersionsMap[version] = arm64Url
@@ -503,7 +504,7 @@ class AppsMHN : Fragment() {
     }
 
     private fun popupMenu(view: View, id: Int, packageName: String) {
-        if(appInstalledVersion(packageName) == "未安裝") {
+        if (appInstalledVersion(packageName) == "未安裝") {
             appUnInstall(packageName)
             return
         }
