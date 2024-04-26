@@ -5,6 +5,7 @@ import android.content.ClipboardManager
 import android.content.ComponentName
 import android.content.ContentValues
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.content.res.Configuration
 import android.net.Uri
 import android.os.Build
@@ -20,7 +21,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.setFragmentResultListener
+import androidx.preference.PreferenceManager
 import app.lokey0905.location.R
 import app.lokey0905.location.api.DiscordApi
 import com.google.android.gms.ads.AdError
@@ -39,8 +40,6 @@ class ShortCuts: Fragment() {
     private var mRewardedAd: RewardedAd? = null
     var errorTimeAD = 0
 
-    private var customTabsOff: Boolean = false
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
@@ -48,26 +47,6 @@ class ShortCuts: Fragment() {
         val view: View = inflater.inflate(R.layout.fragment_shortcuts, container, false)
 
         fun button() {
-            view.findViewById<MaterialCardView>(R.id.download_gpx1)?.setOnClickListener {
-                downloadAPPWithCheck(resources.getString(R.string.url_gpx1))
-            }
-
-            view.findViewById<MaterialCardView>(R.id.download_gpx2)?.setOnClickListener {
-                downloadAPPWithCheck(resources.getString(R.string.url_gpx2))
-            }
-
-            view.findViewById<MaterialCardView>(R.id.download_gpx3)?.setOnClickListener {
-                downloadAPPWithCheck(resources.getString(R.string.url_gpx3))
-            }
-
-            view.findViewById<MaterialCardView>(R.id.download_gpx4)?.setOnClickListener {
-                downloadAPPWithCheck(resources.getString(R.string.url_gpx4))
-            }
-
-            view.findViewById<MaterialCardView>(R.id.gameGuardian)?.setOnClickListener {
-                downloadAPPWithCheck(resources.getString(R.string.url_gameGuardian))
-            }
-
             view.findViewById<MaterialCardView>(R.id.manual)?.setOnClickListener {
                 gotoBrowser(getString(R.string.github_manual))
             }
@@ -100,13 +79,25 @@ class ShortCuts: Fragment() {
                 startActivity(activityIntent)
             }
 
+            view.findViewById<MaterialCardView>(R.id.pokeInfo)?.setOnClickListener {
+                Toast.makeText(context, getString(R.string.shortcuts_pokeInfoMessage), Toast.LENGTH_LONG).show()
+                gotoBrowser(getString(R.string.url_pokeInfo))
+            }
+
             view.findViewById<MaterialCardView>(R.id.action_nearbySharing)?.setOnClickListener {
                 val activityIntent = Intent()
-                activityIntent.component =
-                    ComponentName(
+                if (appInstalledOrNot("com.samsung.android.app.sharelive")) {
+                    activityIntent.component = ComponentName(
+                        "com.samsung.android.app.sharelive",
+                        "com.samsung.android.app.sharelive.presentation.main.MainActivity"
+                    )
+                } else {
+                    activityIntent.component = ComponentName(
                         "com.google.android.gms",
                         "com.google.android.gms.nearby.sharing.settings.SettingsActivity"
                     )
+                }
+
                 startActivity(activityIntent)
             }
 
@@ -199,6 +190,48 @@ class ShortCuts: Fragment() {
                     .show()
             }
 
+            view.findViewById<MaterialCardView>(R.id.MiuiXSpace)?.setOnClickListener {
+                if (appInstalledOrNot("com.miui.securitycore")) {
+                    val activityIntent = Intent()
+                    activityIntent.component =
+                        ComponentName(
+                            "com.miui.securitycore",
+                            "com.miui.xspace.ui.activity.XSpaceSettingActivity"
+                        )
+                    startActivity(activityIntent)
+                } else {
+                    Snackbar.make(
+                        view,
+                        "${resources.getString(R.string.unsupportedDevices)}(非MIUI系統)",
+                        Snackbar.LENGTH_LONG
+                    )
+                        .setAction("Action", null).show()
+                }
+
+            }
+        }
+
+        fun setDownloadButton(){
+            view.findViewById<MaterialCardView>(R.id.download_gpx1)?.setOnClickListener {
+                downloadAPPWithCheck(resources.getString(R.string.url_gpx1))
+            }
+
+            view.findViewById<MaterialCardView>(R.id.download_gpx2)?.setOnClickListener {
+                downloadAPPWithCheck(resources.getString(R.string.url_gpx2))
+            }
+
+            view.findViewById<MaterialCardView>(R.id.download_gpx3)?.setOnClickListener {
+                downloadAPPWithCheck(resources.getString(R.string.url_gpx3))
+            }
+
+            view.findViewById<MaterialCardView>(R.id.download_gpx4)?.setOnClickListener {
+                downloadAPPWithCheck(resources.getString(R.string.url_gpx4))
+            }
+
+            view.findViewById<MaterialCardView>(R.id.pgtoolsFile)?.setOnClickListener {
+                downloadAPPWithCheck(getString(R.string.url_PGToolsFile))
+            }
+
             view.findViewById<MaterialCardView>(R.id.PackageDisablerPro)?.setOnClickListener {
                 downloadAPPWithCheck(resources.getString(R.string.url_PackageDisablerPro))
             }
@@ -217,24 +250,8 @@ class ShortCuts: Fragment() {
                     .show()
             }
 
-            view.findViewById<MaterialCardView>(R.id.MiuiXSpace)?.setOnClickListener {
-                if (Build.MANUFACTURER == "Xiaomi") {
-                    val activityIntent = Intent()
-                    activityIntent.component =
-                        ComponentName(
-                            "com.miui.securitycore",
-                            "com.miui.xspace.ui.activity.XSpaceSettingActivity"
-                        )
-                    startActivity(activityIntent)
-                } else {
-                    Snackbar.make(
-                        view,
-                        "${resources.getString(R.string.unsupportedDevices)}(${Build.MANUFACTURER})",
-                        Snackbar.LENGTH_LONG
-                    )
-                        .setAction("Action", null).show()
-                }
-
+            view.findViewById<MaterialCardView>(R.id.gameGuardian)?.setOnClickListener {
+                downloadAPPWithCheck(resources.getString(R.string.url_gameGuardian))
             }
 
             view.findViewById<MaterialCardView>(R.id.downloadSplitScreen)?.setOnClickListener {
@@ -324,16 +341,9 @@ class ShortCuts: Fragment() {
 
         setupAd()
         button()
+        setDownloadButton()
         // Inflate the layout for this fragment
         return view
-    }
-
-    override fun onResume() {
-        super.onResume()
-
-        setFragmentResultListener("customTabsOff") { _, bundle ->
-            customTabsOff = bundle.getBoolean("bundleKey")
-        }
     }
 
     override fun onStart() {
@@ -379,6 +389,16 @@ class ShortCuts: Fragment() {
             .show()
     }
 
+    private fun appInstalledOrNot(packageName: String): Boolean {
+        val pm = activity?.packageManager
+        try {
+            pm?.getPackageInfo(packageName, PackageManager.GET_ACTIVITIES)
+            return true
+        } catch (_: PackageManager.NameNotFoundException) {
+        }
+        return false
+    }
+
     private fun showAlertDialog(title: String, message: String) {
         MaterialAlertDialogBuilder(requireContext())
             .setTitle(title)
@@ -389,6 +409,9 @@ class ShortCuts: Fragment() {
 
     private fun gotoBrowser(url: String) {
         context?.let {
+            val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
+            val customTabsOff = sharedPreferences.getBoolean("customTabsOff", false)
+
             if (customTabsOff)
                 startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
             else

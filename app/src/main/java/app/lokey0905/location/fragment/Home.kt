@@ -59,7 +59,8 @@ class Home : Fragment() {
         val checkInformationLayout = view.findViewById<LinearLayout>(R.id.check_information)
         val checkRootText = view.findViewById<TextView>(R.id.check_root)
 
-        val toolbar = view.findViewById<com.google.android.material.appbar.MaterialToolbar>(R.id.toolbar)
+        val toolbar =
+            view.findViewById<com.google.android.material.appbar.MaterialToolbar>(R.id.toolbar)
         if (toolbar != null) {
             (requireActivity() as AppCompatActivity).setSupportActionBar(toolbar)
             setHasOptionsMenu(true)
@@ -354,10 +355,6 @@ class Home : Fragment() {
 
     @Deprecated("Deprecated in Java")
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-
         return when (item.itemId) {
             R.id.action_download -> {
                 MaterialAlertDialogBuilder(requireContext())
@@ -413,7 +410,7 @@ class Home : Fragment() {
         }
     }
 
-    fun shareText(text: String, title: String) {
+    private fun shareText(text: String, title: String) {
         val intent = Intent(Intent.ACTION_SEND)
         intent.type = "text/plain"
         intent.putExtra(Intent.EXTRA_TEXT, text)
