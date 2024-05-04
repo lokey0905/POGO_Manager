@@ -438,13 +438,12 @@ class ShortCuts: Fragment() {
     }
 
     private fun createShortcutWithURL(id: String, label: String, icon: Int, url: String) {
-        val iicon = IconCompat.createWithResource(requireContext(), icon).toIcon()
         val shortcutManager = context?.getSystemService(ShortcutManager::class.java)
         if (shortcutManager != null) {
             if (shortcutManager.isRequestPinShortcutSupported) {
                 val shortcut = ShortcutInfo.Builder(context, id)
                     .setShortLabel(label)
-                    .setIcon(iicon)
+                    .setIcon(Icon.createWithResource(context, icon))
                     .setIntent(
                         Intent(
                             Intent.ACTION_VIEW,
