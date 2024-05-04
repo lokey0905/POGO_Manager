@@ -108,6 +108,7 @@ class ShortCuts: Fragment() {
             }
 
             view.findViewById<MaterialCardView>(R.id.pokeInfo)?.setOnLongClickListener{
+                Toast.makeText(context, getString(R.string.shortcuts_pokeInfoMessage), Toast.LENGTH_LONG).show()
                 createShortcutWithURL(
                     "pokeInfo",
                     getString(R.string.shortcuts_pokeInfo),
