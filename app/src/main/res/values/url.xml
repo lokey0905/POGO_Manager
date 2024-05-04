@@ -14,6 +14,7 @@
     <string name="version_WeCatch">4.4.5</string>
 
     <string name="url_appInfo">https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/appInfo.json</string>
+    <string name="url_pokeListWeb">https://moonani.com/PokeList/</string>
     <string name="url_PGToolsJson">https://assets.pgtools.net/auto-versions.json</string>
     <string name="url_PGToolsJsonTest">https://assets.pgtools.net/test-auto-versions.json</string>
     <string name="url_mhnJson">https://assets.mhntools.net/versions.json</string>

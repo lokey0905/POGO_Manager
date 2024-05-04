@@ -59,20 +59,23 @@ class AppsPoke : Fragment() {
     private var pgToolsVersion: String = "未安裝"
     private var pgToolsUrl = ""
 
-    var url_jokstick = ""
-    var url_wrapper = ""
-    var url_polygon = ""
-    var url_PokeList = ""
-    var url_WeCatch = ""
-    var url_samsungStore = ""
+    private var url_jokstick = ""
+    private var url_wrapper = ""
+    private var url_polygon = ""
+    private var url_PokeList = ""
+    private var url_WeCatch = ""
+    private var url_samsungStore = ""
 
-    var version_wrapper = "未安裝"
-    var version_polygon = "未安裝"
-    var version_PokeList = "未安裝"
-    var version_WeCatch = "未安裝"
+    private var version_wrapper = "未安裝"
+    private var version_polygon = "未安裝"
+    private var version_PokeList = "未安裝"
+    private var version_WeCatch = "未安裝"
 
     private var pgToolsTestVersion = false
     private var pokAresNoSupportDevices = false
+
+    private var pgToolsCheckDone = false
+    private var appListCheckDone = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -91,10 +94,12 @@ class AppsPoke : Fragment() {
         return view
     }
 
-    @SuppressLint("CutPasteId", "SetTextI18n")
     override fun onResume() {
         super.onResume()
         val view: View = requireView()
+
+        view.findViewById<androidx.swiperefreshlayout.widget.SwipeRefreshLayout>(R.id.swipeRefreshLayout).isRefreshing =
+            false
 
         fun setFragmentResultListener() {
             setFragmentResultListener("pokAresNoSupportDevices") { _, bundle ->
@@ -107,6 +112,22 @@ class AppsPoke : Fragment() {
     }
 
     private fun setupListeners(view: View) {
+        fun downloadAppCheckARM64(url: String) {
+            val sharedPreferences =
+                PreferenceManager.getDefaultSharedPreferences(requireContext())
+            val allowDownloadOnNonArm64 =
+                sharedPreferences.getBoolean("allow_download_on_non_arm64", false)
+
+            if (Build.SUPPORTED_ABIS[0] == "arm64-v8a" || allowDownloadOnNonArm64)
+                downloadAPPWithCheck(url)
+            else
+                Snackbar.make(
+                    view,
+                    "${resources.getString(R.string.unsupportedDevices)}(${Build.SUPPORTED_ABIS[0]})",
+                    Snackbar.LENGTH_LONG
+                ).setAction("Action", null).show()
+        }
+
         view.findViewById<Button>(R.id.download_gps).setOnClickListener {
             downloadAPPWithCheck(url_jokstick)
         }
@@ -116,11 +137,11 @@ class AppsPoke : Fragment() {
         }
 
         view.findViewById<Button>(R.id.download_polygon).setOnClickListener {
-            downloadAPPWithCheck(url_polygon)
+            downloadAppCheckARM64(url_polygon)
         }
 
         view.findViewById<Button>(R.id.download_pgtools).setOnClickListener {
-            downloadAPPWithCheck(pgToolsUrl)
+            downloadAppCheckARM64(pgToolsUrl)
         }
 
         view.findViewById<Button>(R.id.download_pok).setOnClickListener {
@@ -129,6 +150,14 @@ class AppsPoke : Fragment() {
         }
 
         view.findViewById<Button>(R.id.download_pokAres).setOnClickListener {
+            if (Build.SUPPORTED_ABIS[0] != "arm64-v8a") {
+                Snackbar.make(
+                    view,
+                    "${resources.getString(R.string.unsupportedDevices)}(${Build.SUPPORTED_ABIS[0]})",
+                    Snackbar.LENGTH_LONG
+                ).setAction("Action", null).show()
+                return@setOnClickListener
+            }
             if (Build.MANUFACTURER == "samsung" || pokAresNoSupportDevices) {
                 if (appInstalledVersion(resources.getString(R.string.packageName_galaxyStore)) == "未安裝") {
                     MaterialAlertDialogBuilder(requireContext())
@@ -240,8 +269,6 @@ class AppsPoke : Fragment() {
             .setOnRefreshListener {
                 Toast.makeText(context, getString(R.string.refreshing), Toast.LENGTH_SHORT).show()
                 setupAppVersionInfo(view)
-                view.findViewById<androidx.swiperefreshlayout.widget.SwipeRefreshLayout>(R.id.swipeRefreshLayout).isRefreshing =
-                    false
             }
     }
 
@@ -250,26 +277,25 @@ class AppsPoke : Fragment() {
         val formatNewerVersion: String = resources.getString(R.string.format_newerVersion)
 
         val pokePackageName = resources.getString(R.string.packageName_pok)
+        val pokeAresPackageName = resources.getString(R.string.packageName_pokAres)
         val pgToolsPackageName = resources.getString(R.string.packageName_PGTools)
         val pokeSupportVersion = view.findViewById<TextView>(R.id.pok_new_version)
+        val pokeAresSupportVersion = view.findViewById<TextView>(R.id.pokAres_new_version)
 
         val pokeDownloadButton = view.findViewById<Button>(R.id.download_pok)
+        val pokeAresDownloadButton = view.findViewById<Button>(R.id.download_pokAres)
         val pgToolsDownloadButton = view.findViewById<Button>(R.id.download_pgtools)
         val polygonDownloadButton = view.findViewById<Button>(R.id.download_polygon)
         val wrapperDownloadButton = view.findViewById<Button>(R.id.download_wrapper)
         val pokeListDownloadButton = view.findViewById<Button>(R.id.download_pokAres)
         val weCatchDownloadButton = view.findViewById<Button>(R.id.download_wecatch)
 
-        val packageName_wrapper = resources.getString(R.string.packageName_wrapper)
-        val packageName_polygon = resources.getString(R.string.packageName_polygon)
-        val packageName_PokeList = resources.getString(R.string.packageName_PokeList)
-        val packageName_WeCatch = resources.getString(R.string.packageName_WeCatch)
-
         val pokeTestVersionSwitch = view.findViewById<MaterialSwitch>(R.id.pokeTestVersion_switch)
         val spinner = view.findViewById<Spinner>(R.id.poke_spinner)
 
         @SuppressLint("SetTextI18n")
         fun checkAppVersion() {
+            appListCheckDone = false
             var needUpdateAppsAmount = 0
             val download = resources.getString(R.string.download)
             val update = resources.getString(R.string.update)
@@ -376,6 +402,11 @@ class AppsPoke : Fragment() {
                         R.id.toolbar_layout
                     ).subtitle = getString(R.string.allUpdated)
                 }
+
+                appListCheckDone = true
+                if (pgToolsCheckDone)
+                    view.findViewById<androidx.swiperefreshlayout.widget.SwipeRefreshLayout>(R.id.swipeRefreshLayout).isRefreshing =
+                        false
             }
 
             view.findViewById<TextView>(R.id.polygon_install_version).text =
@@ -422,6 +453,7 @@ class AppsPoke : Fragment() {
                 )
 
             val pokInstalledVersion = appInstalledVersion(pokePackageName)
+            val pokeAresInstalledVersion = appInstalledVersion(pokeAresPackageName)
 
             fun setDownloadButton(isUpdate: Boolean = false) {
                 pokeDownloadButton.text = if (isUpdate) update else download
@@ -491,6 +523,23 @@ class AppsPoke : Fragment() {
                 setDownloadButton()
             }
 
+            if(pogoVersion != "未安裝" && pokeAresInstalledVersion != "未安裝"){
+                val pogoVersionInt: List<String> = pogoVersion.split(".")
+                val pokInstalledVersionInt: List<String> = pokeAresInstalledVersion.split(".")
+
+                for (i in pogoVersionInt.indices) {
+                    val currentVersion = pogoVersionInt[i].toInt()
+                    val installedVersion = pokInstalledVersionInt[i].toInt()
+
+                    if (currentVersion > installedVersion) {
+                        pokeAresDownloadButton.text = update
+                        break
+                    }
+                }
+            } else {
+                pokeAresDownloadButton.text = download
+            }
+
             if (pgToolsVersion != "未安裝" && pgToolsInstalledVersion != "未安裝") { //check pgtools version
                 val pgToolsVersionInt: List<String> = pgToolsVersion.split(".")
                 val pgToolsInstalledVersionInt: List<String> = pgToolsInstalledVersion.split(".")
@@ -531,6 +580,7 @@ class AppsPoke : Fragment() {
         }
 
         fun getPGToolsVersion() {
+            pgToolsCheckDone = false
             var url = resources.getString(R.string.url_PGToolsJson)
             if (pgToolsTestVersion)
                 url = resources.getString(R.string.url_PGToolsJsonTest)
@@ -544,7 +594,9 @@ class AppsPoke : Fragment() {
                     versionsList.add(versionInfo.pogoVersion)
                     Log.i(
                         "PgTools",
-                        "PgTools支援版本: $versionInfo.pogoVersion\npogoARM64: ${versionInfo.pogoARM64}\npogoARM: ${versionInfo.pogoARM}"
+                        "PgTools支援版本: $versionInfo.pogoVersion\n" +
+                                "pogoARM64: ${versionInfo.pogoARM64}\n" +
+                                "pogoARM: ${versionInfo.pogoARM}"
                     )
                 }
 
@@ -579,6 +631,11 @@ class AppsPoke : Fragment() {
                         pgtoolsVersion,
                         versionType
                     )
+
+                pgToolsCheckDone = true
+                if (appListCheckDone)
+                    view.findViewById<androidx.swiperefreshlayout.widget.SwipeRefreshLayout>(R.id.swipeRefreshLayout).isRefreshing =
+                        false
             }
         }
 
@@ -625,6 +682,7 @@ class AppsPoke : Fragment() {
                     if (arm64Url != "" && armUrl != "null") {
                         pgToolsARMUrl = armUrl
                         pgToolsARM64Url = arm64Url
+
                         pokeSupportVersion.text = String.format(
                             formatNewerVersion,
                             version,
@@ -633,6 +691,12 @@ class AppsPoke : Fragment() {
                             else
                                 ""
                         )
+                        pokeAresSupportVersion.text =
+                            String.format(
+                                formatNewerVersion,
+                                pogoVersion,
+                                ""
+                            )
                     }
                     checkAppVersion()
                 }
@@ -689,7 +753,10 @@ class AppsPoke : Fragment() {
 
                 Log.i(
                     "PgTools",
-                    "warpper:$version_wrapper\npolygon:$version_polygon\npokeList:$version_PokeList\nwecatch:$version_WeCatch"
+                    "warpper:$version_wrapper\n" +
+                            "polygon:$version_polygon\n" +
+                            "pokeList:$version_PokeList\n" +
+                            "wecatch:$version_WeCatch"
                 )
 
                 launch(Dispatchers.Main) {
@@ -736,7 +803,10 @@ class AppsPoke : Fragment() {
 
                 Log.i(
                     "PgTools",
-                    "pogoVersion:$pogoVersion\npgToolsVersion:$pgToolsVersion\npgToolsARMUrl:$pgToolsARMUrl\npgToolsARM64Url:$pgToolsARM64Url"
+                    "pogoVersion:$pogoVersion\n" +
+                            "pgToolsVersion:$pgToolsVersion\n" +
+                            "pgToolsARMUrl:$pgToolsARMUrl\n" +
+                            "pgToolsARM64Url:$pgToolsARM64Url"
                 )
 
                 pogoVersionsList.clear()
@@ -756,7 +826,9 @@ class AppsPoke : Fragment() {
 
                 Log.i(
                     "PgTools",
-                    "PgTools支援版本: $pogoVersion\npogoARM64: $pgToolsARM64Url\npogoARM: $pgToolsARMUrl"
+                    "PgTools支援版本: $pogoVersion\n" +
+                            "pogoARM64: $pgToolsARM64Url\n" +
+                            "pogoARM: $pgToolsARMUrl"
                 )
 
                 launch(Dispatchers.Main) {
@@ -914,35 +986,5 @@ class AppsPoke : Fragment() {
         val intent = Intent(Intent.ACTION_DELETE)
         intent.data = Uri.parse("package:$packageName")
         startActivity(intent)
-    }
-
-    private fun loadAd() {
-        if (mRewardedAd == null) {
-            val adRequest = AdRequest.Builder().build()
-
-            context?.let {
-                RewardedAd.load(
-                    it,
-                    resources.getString(R.string.adR),
-                    adRequest,
-                    object : RewardedAdLoadCallback() {
-                        override fun onAdFailedToLoad(adError: LoadAdError) {
-                            Log.d(ContentValues.TAG, adError.message)
-                            mRewardedAd = null
-                            Toast.makeText(
-                                context,
-                                resources.getString(R.string.dialogAdNotReadyMessage),
-                                Toast.LENGTH_LONG
-                            ).show()
-                        }
-
-                        override fun onAdLoaded(rewardedAd: RewardedAd) {
-                            Log.d(ContentValues.TAG, "Ad was loaded.")
-                            mRewardedAd = rewardedAd
-                        }
-                    }
-                )
-            }
-        }
     }
 }

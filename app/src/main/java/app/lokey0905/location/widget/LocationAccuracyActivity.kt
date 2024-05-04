@@ -1,4 +1,4 @@
-package app.lokey0905.location
+package app.lokey0905.location.widget
 
 import android.app.PendingIntent
 import android.appwidget.AppWidgetManager
@@ -7,8 +7,8 @@ import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.os.Build
-import android.provider.Settings
 import android.widget.RemoteViews
+import app.lokey0905.location.R
 
 class LocationAccuracyActivity : AppWidgetProvider() {
     override fun onUpdate(
@@ -56,15 +56,12 @@ class LocationAccuracyActivity : AppWidgetProvider() {
                         "com.google.android.gms",
                         "com.google.android.gms.location.settings.LocationAccuracyV31Activity"
                     )
-            } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            } else
                 activityIntent.component =
                     ComponentName(
                         "com.google.android.gms",
                         "com.google.android.gms.location.settings.LocationAccuracyActivity"
                     )
-            } else {
-                activityIntent.action = Settings.ACTION_LOCATION_SOURCE_SETTINGS
-            }
             activityIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK) // Add this line
             context.startActivity(activityIntent)
         }

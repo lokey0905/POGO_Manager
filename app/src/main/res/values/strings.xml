@@ -56,7 +56,7 @@
     <string name="checkInfo_rootDetected">⚠️已發現root路徑</string>
     <string name="checkInfo_rootNotDetected">✅未發現root</string>
 
-    <string name="shortcutsTitle_docAndTool">文檔與工具</string>
+    <string name="shortcutsTitle_docAndTool">文檔與工具 (長按可新增捷徑)</string>
     <string name="shortcutsTitle_download">檔案下載</string>
     <string name="shortcuts_MiuiXSpace">MIUI應用雙開</string>
     <string name="shortcuts_coolDownCalculator">冷卻計算機</string>
@@ -73,6 +73,7 @@
     <string name="shortcuts_AfWall">AFWall+ 防火牆</string>
     <string name="shortcuts_pokeInfo">報寶貝 雷達</string>
     <string name="shortcuts_pokeInfoMessage">報寶貝若顯示黑影 請重新整理網頁30次後即會恢復正常</string>
+    <string name="shortcuts_pokeListWeb">PokeList雷達</string>
 
     <string name="downloadOnGooglePlay">從play商店下載</string>
     <string name="downloadAPK">下載APK檔</string>

@@ -10,6 +10,6 @@
         android:layout_gravity="center"
         android:adjustViewBounds="true"
         android:scaleType="centerInside"
-        android:padding="16dp" />
+        android:padding="8dp" />
 
 </LinearLayout>
