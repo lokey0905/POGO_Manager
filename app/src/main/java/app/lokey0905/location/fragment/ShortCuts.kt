@@ -6,11 +6,13 @@ import android.content.ComponentName
 import android.content.ContentValues
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.content.pm.ShortcutInfo
+import android.content.pm.ShortcutManager
 import android.content.res.Configuration
+import android.graphics.drawable.Icon
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.provider.Settings
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -20,6 +22,7 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.browser.customtabs.CustomTabsIntent
+import androidx.core.graphics.drawable.IconCompat
 import androidx.fragment.app.Fragment
 import androidx.preference.PreferenceManager
 import app.lokey0905.location.R
@@ -38,7 +41,7 @@ import com.google.android.material.snackbar.Snackbar
 
 class ShortCuts: Fragment() {
     private var mRewardedAd: RewardedAd? = null
-    var errorTimeAD = 0
+    private var errorTimeAD = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -51,37 +54,81 @@ class ShortCuts: Fragment() {
                 gotoBrowser(getString(R.string.github_manual))
             }
 
-            view.findViewById<MaterialCardView>(R.id.pgtoolsFile)?.setOnClickListener {
-                downloadAPPWithCheck(getString(R.string.url_PGToolsFile))
+            view.findViewById<MaterialCardView>(R.id.manual)?.setOnLongClickListener {
+                createShortcutWithURL(
+                    "manual",
+                    getString(R.string.manual),
+                    R.drawable.baseline_menu_book_24,
+                    getString(R.string.github_manual),
+                )
+                true
             }
 
             view.findViewById<MaterialCardView>(R.id.coolDownCalculator)?.setOnClickListener {
                 gotoBrowser(getString(R.string.url_coolDownCalculator))
             }
 
+            view.findViewById<MaterialCardView>(R.id.coolDownCalculator)?.setOnLongClickListener {
+                createShortcutWithURL(
+                    "coolDownCalculator",
+                    getString(R.string.shortcuts_coolDownCalculator),
+                    R.drawable.baseline_calculate_24,
+                    getString(R.string.url_coolDownCalculator)
+                )
+                true
+            }
+
             view.findViewById<MaterialCardView>(R.id.LocationAccuracyActivity)?.setOnClickListener {
-                var activityIntent = Intent()
+                val activityIntent = Intent()
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
                     activityIntent.component =
                         ComponentName(
                             "com.google.android.gms",
                             "com.google.android.gms.location.settings.LocationAccuracyV31Activity"
                         )
-                } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                } else
                     activityIntent.component =
                         ComponentName(
                             "com.google.android.gms",
                             "com.google.android.gms.location.settings.LocationAccuracyActivity"
                         )
-                } else {
-                    activityIntent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
-                }
                 startActivity(activityIntent)
+            }
+
+            view.findViewById<MaterialCardView>(R.id.LocationAccuracyActivity)?.setOnLongClickListener {
+                showAlertDialog(
+                    "請至手機主畫面新增快捷方式","請至手機主畫面新增快捷方式"
+                )
+                true
             }
 
             view.findViewById<MaterialCardView>(R.id.pokeInfo)?.setOnClickListener {
                 Toast.makeText(context, getString(R.string.shortcuts_pokeInfoMessage), Toast.LENGTH_LONG).show()
                 gotoBrowser(getString(R.string.url_pokeInfo))
+            }
+
+            view.findViewById<MaterialCardView>(R.id.pokeInfo)?.setOnLongClickListener{
+                createShortcutWithURL(
+                    "pokeInfo",
+                    getString(R.string.shortcuts_pokeInfo),
+                    R.drawable.ic_baseline_catching_pokemon_24,
+                    getString(R.string.url_pokeInfo)
+                )
+                true
+            }
+
+            view.findViewById<MaterialCardView>(R.id.pokeList_web)?.setOnClickListener {
+                gotoBrowser(getString(R.string.url_pokeListWeb))
+            }
+
+            view.findViewById<MaterialCardView>(R.id.pokeList_web)?.setOnLongClickListener{
+                createShortcutWithURL(
+                    "pokeList_web",
+                    getString(R.string.shortcuts_pokeListWeb),
+                    R.drawable.baseline_radar_24,
+                    getString(R.string.url_pokeListWeb)
+                )
+                true
             }
 
             view.findViewById<MaterialCardView>(R.id.action_nearbySharing)?.setOnClickListener {
@@ -387,6 +434,30 @@ class ShortCuts: Fragment() {
                     .show()
             }
             .show()
+    }
+
+    private fun createShortcutWithURL(id: String, label: String, icon: Int, url: String) {
+        val iicon = IconCompat.createWithResource(requireContext(), icon).toIcon()
+        val shortcutManager = context?.getSystemService(ShortcutManager::class.java)
+        if (shortcutManager != null) {
+            if (shortcutManager.isRequestPinShortcutSupported) {
+                val shortcut = ShortcutInfo.Builder(context, id)
+                    .setShortLabel(label)
+                    .setIcon(iicon)
+                    .setIntent(
+                        Intent(
+                            Intent.ACTION_VIEW,
+                            Uri.parse(url)
+                        )
+                    )
+                    .build()
+                shortcutManager.requestPinShortcut(shortcut, null)
+            } else Toast.makeText(
+                context,
+                "不支援釘選快捷方式!",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
     }
 
     private fun appInstalledOrNot(packageName: String): Boolean {
