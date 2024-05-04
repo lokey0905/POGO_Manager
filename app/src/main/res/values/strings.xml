@@ -123,6 +123,8 @@
     <string name="appsMHNPage_MHNAPPName">MH Now【魔物獵人】</string>
     <string name="appsMHNPage_MHNToolsTitle">魔物獵人修改工具</string>
     <string name="appsMHNPage_MHNToolsAPPName">MHN Tools</string>
+    <string name="appsMHNPage_hylianerTitle">魔物獵人修改工具</string>
+    <string name="appsMHNPage_hylianerAPPName">hylianer</string>
     <string name="appsMHNPage_GpsTitle">可修改手機定位</string>
     <string name="appsMHNPage_GpsAPPName">GPS JoyStick【搖桿改定位✅老K刷機】</string>
 

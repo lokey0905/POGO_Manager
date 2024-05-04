@@ -66,4 +66,5 @@
     <string name="packageName_checkDevicesAPI">com.henrikherzig.playintegritychecker</string>
     <string name="packageName_appListDetector">icu.nullptr.applistdetector</string>
     <string name="packageName_galaxyStore">com.sec.android.app.samsungapps</string>
+    <string name="packageName_hylianer">com.hpkssgdxzuwyxtnoo</string>
 </resources>

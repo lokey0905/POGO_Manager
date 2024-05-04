@@ -54,6 +54,9 @@ class AppsMHN : Fragment() {
 
     private var url_jokstick = ""
 
+    private var mhnToolsCheckDone = false
+    private var appListCheckDone = false
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
@@ -81,6 +84,8 @@ class AppsMHN : Fragment() {
         val mhnToolsRemoveButton = view.findViewById<Button>(R.id.remove_mhnTools)
         val gpsDownloadButton = view.findViewById<Button>(R.id.download_gps)
         val gpsRemoveButton = view.findViewById<Button>(R.id.remove_gps)
+        val hylianerDownloadButton = view.findViewById<Button>(R.id.download_hylianer)
+        val hylianerRemoveButton = view.findViewById<Button>(R.id.remove_hylianer)
 
         mhnDownloadButton.setOnClickListener {
             downloadAPPWithCheck(mhnUrl)
@@ -92,6 +97,10 @@ class AppsMHN : Fragment() {
 
         gpsDownloadButton.setOnClickListener {
             downloadAPPWithCheck(url_jokstick)
+        }
+
+        hylianerDownloadButton.setOnClickListener {
+            downloadAPPWithCheck("https://hylianer.net/")
         }
 
         mhnRemoveButton.setOnClickListener {
@@ -106,6 +115,10 @@ class AppsMHN : Fragment() {
             appUnInstall(resources.getString(R.string.packageName_gps64))
         }
 
+        hylianerRemoveButton.setOnClickListener {
+            appUnInstall(resources.getString(R.string.packageName_hylianer))
+        }
+
         view.findViewById<ImageButton>(R.id.mhn_more).setOnClickListener {
             popupMenu(view, R.id.mhn_more, resources.getString(R.string.packageName_MHNow))
         }
@@ -118,12 +131,14 @@ class AppsMHN : Fragment() {
             popupMenu(view, R.id.mhnTools_more, resources.getString(R.string.packageName_mhnTools))
         }
 
+        view.findViewById<ImageButton>(R.id.hylianer_more).setOnClickListener {
+            popupMenu(view, R.id.hylianer_more, resources.getString(R.string.packageName_hylianer))
+        }
+
         view.findViewById<androidx.swiperefreshlayout.widget.SwipeRefreshLayout>(R.id.swipeRefreshLayout)
             .setOnRefreshListener {
                 Toast.makeText(context, getString(R.string.refreshing), Toast.LENGTH_SHORT).show()
                 setupAppVersionInfo(view)
-                view.findViewById<androidx.swiperefreshlayout.widget.SwipeRefreshLayout>(R.id.swipeRefreshLayout).isRefreshing =
-                    false
             }
     }
 
@@ -134,23 +149,28 @@ class AppsMHN : Fragment() {
 
         val mhnSupportVersion = view.findViewById<TextView>(R.id.mhn_new_version)
         val mhnToolsSupportVersion = view.findViewById<TextView>(R.id.mhnTools_new_version)
+        val hylianerSupportVersion = view.findViewById<TextView>(R.id.hylianer_new_version)
 
         val spinner = view.findViewById<Spinner>(R.id.mhn_spinner)
 
         fun checkAppVersion() {
+            appListCheckDone = false
             var needUpdateAppsAmount = 0
 
             val mhnPackageName = resources.getString(R.string.packageName_MHNow)
             val mhnToolsPackageName = resources.getString(R.string.packageName_mhnTools)
             val gps64PackageName = resources.getString(R.string.packageName_gps64)
+            val hylianerPackageName = resources.getString(R.string.packageName_hylianer)
 
             val mhnInstallVersion = view.findViewById<TextView>(R.id.mhn_install_version)
             val mhnToolsInstallVersion = view.findViewById<TextView>(R.id.mhnTools_install_version)
             val gpsInstallVersion = view.findViewById<TextView>(R.id.gps_install_version)
+            val hylianerInstallVersion = view.findViewById<TextView>(R.id.hylianer_install_version)
 
             val mhnRemoveButton = view.findViewById<Button>(R.id.remove_mhn)
             val mhnToolsRemoveButton = view.findViewById<Button>(R.id.remove_mhnTools)
             val gpsRemoveButton = view.findViewById<Button>(R.id.remove_gps)
+            val hylianerRemoveButton = view.findViewById<Button>(R.id.remove_hylianer)
 
             val mhnDownloadButton = view.findViewById<Button>(R.id.download_mhn)
             val mhnToolsDownloadButton = view.findViewById<Button>(R.id.download_mhnTools)
@@ -164,9 +184,16 @@ class AppsMHN : Fragment() {
                 if (appInstalledVersion(mhnToolsPackageName) == "未安裝") View.GONE else View.VISIBLE
             gpsRemoveButton.visibility =
                 if (appInstalledVersion(gps64PackageName) == "未安裝") View.GONE else View.VISIBLE
+            hylianerRemoveButton.visibility =
+                if (appInstalledVersion(hylianerPackageName) == "未安裝") View.GONE else View.VISIBLE
 
             val url = resources.getString(R.string.url_appInfo)
-            extractAppVersionsFromJson(url) {}
+            extractAppVersionsFromJson(url) {
+                appListCheckDone = true
+                if (mhnToolsCheckDone)
+                    view.findViewById<androidx.swiperefreshlayout.widget.SwipeRefreshLayout>(R.id.swipeRefreshLayout).isRefreshing =
+                        false
+            }
 
             mhnInstallVersion.text =
                 String.format(formatInstallVersion, appInstalledVersion(mhnPackageName))
@@ -176,6 +203,11 @@ class AppsMHN : Fragment() {
                 String.format(
                     formatInstallVersion,
                     boolToInstalled(appInstalledOrNot(gps64PackageName))
+                )
+            hylianerInstallVersion.text =
+                String.format(
+                    formatInstallVersion,
+                    boolToInstalled(appInstalledOrNot(hylianerPackageName))
                 )
 
             fun setDownloadButton(isUpdate: Boolean = false) {
@@ -289,6 +321,7 @@ class AppsMHN : Fragment() {
         }
 
         fun getMHNToolsVersion() {
+            mhnToolsCheckDone = false
             var url = resources.getString(R.string.url_mhnJson)
             if (mhnTestVersion)
                 url = resources.getString(R.string.url_mhnJsonTest)
@@ -329,6 +362,16 @@ class AppsMHN : Fragment() {
                     mhnToolsVersion,
                     versionType
                 )
+                hylianerSupportVersion.text = String.format(
+                    formatNewerVersion,
+                    "未知",
+                    ""
+                )
+
+                mhnToolsCheckDone = true
+                if (appListCheckDone)
+                    view.findViewById<androidx.swiperefreshlayout.widget.SwipeRefreshLayout>(R.id.swipeRefreshLayout).isRefreshing =
+                        false
             }
         }
 
