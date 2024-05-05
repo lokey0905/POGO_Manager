@@ -1,7 +1,6 @@
 package app.lokey0905.location.fragment
 
 import android.annotation.SuppressLint
-import android.content.ContentValues
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -26,10 +25,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
 import androidx.preference.PreferenceManager
 import app.lokey0905.location.R
-import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.LoadAdError
-import com.google.android.gms.ads.rewarded.RewardedAd
-import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.materialswitch.MaterialSwitch
 import com.google.android.material.snackbar.Snackbar
@@ -50,8 +45,6 @@ data class PogoVersionInfo(
 )
 
 class AppsPoke : Fragment() {
-    private var mRewardedAd: RewardedAd? = null
-
     private val pogoVersionsList = ArrayList<PogoVersionInfo>()
     private var pogoVersion: String = "未安裝"
     private var pgToolsARMUrl: String = ""
@@ -279,6 +272,7 @@ class AppsPoke : Fragment() {
         val pokePackageName = resources.getString(R.string.packageName_pok)
         val pokeAresPackageName = resources.getString(R.string.packageName_pokAres)
         val pgToolsPackageName = resources.getString(R.string.packageName_PGTools)
+        
         val pokeSupportVersion = view.findViewById<TextView>(R.id.pok_new_version)
         val pokeAresSupportVersion = view.findViewById<TextView>(R.id.pokAres_new_version)
 
@@ -300,8 +294,9 @@ class AppsPoke : Fragment() {
             val download = resources.getString(R.string.download)
             val update = resources.getString(R.string.update)
 
-            val pokeInstalledVersion = appInstalledVersion(pokePackageName)
             val pgToolsInstalledVersion = appInstalledVersion(pgToolsPackageName)
+            val pokInstalledVersion = appInstalledVersion(pokePackageName)
+            val pokeAresInstalledVersion = appInstalledVersion(pokeAresPackageName)
 
             view.findViewById<TextView>(R.id.remove_gps).visibility =
                 if (appInstalledVersion(resources.getString(R.string.packageName_gps32)) == "未安裝") View.GONE else View.VISIBLE
@@ -451,9 +446,6 @@ class AppsPoke : Fragment() {
                     formatInstallVersion,
                     appInstalledVersion(resources.getString(R.string.packageName_wrapper))
                 )
-
-            val pokInstalledVersion = appInstalledVersion(pokePackageName)
-            val pokeAresInstalledVersion = appInstalledVersion(pokeAresPackageName)
 
             fun setDownloadButton(isUpdate: Boolean = false) {
                 pokeDownloadButton.text = if (isUpdate) update else download

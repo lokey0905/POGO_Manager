@@ -1,7 +1,6 @@
 package app.lokey0905.location
 
 import android.Manifest
-import android.annotation.SuppressLint
 import android.app.Application
 import android.content.ComponentName
 import android.content.ContentValues.TAG
@@ -17,10 +16,6 @@ import android.os.RemoteException
 import android.provider.Settings
 import android.system.Os
 import android.util.Log
-import android.view.Menu
-import android.view.MenuItem
-import android.view.View
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -35,10 +30,6 @@ import app.lokey0905.location.fragment.AppsPoke
 import app.lokey0905.location.fragment.Home
 import app.lokey0905.location.fragment.Preferences
 import app.lokey0905.location.fragment.ShortCuts
-import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.AdSize
-import com.google.android.gms.ads.AdView
-import com.google.android.gms.ads.MobileAds
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.color.DynamicColors
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -275,15 +266,12 @@ class MainActivity : AppCompatActivity() {
                                     "com.google.android.gms",
                                     "com.google.android.gms.location.settings.LocationAccuracyV31Activity"
                                 )
-                        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                        } else
                             activityIntent.component =
                                 ComponentName(
                                     "com.google.android.gms",
                                     "com.google.android.gms.location.settings.LocationAccuracyActivity"
                                 )
-                        } else {
-                            activityIntent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
-                        }
                         startActivity(activityIntent)
                     }
                     setNeutralButton(resources.getString(R.string.cancel)) { _, _ ->
@@ -297,13 +285,6 @@ class MainActivity : AppCompatActivity() {
                 .show()
         }
 
-        /*MobileAds.initialize(this)
-        val adView = AdView(this)
-        adView.setAdSize(AdSize.BANNER)
-        adView.adUnitId = resources.getString(R.string.adB)
-        val mAdView = findViewById<AdView>(R.id.adView)
-        val adRequest = AdRequest.Builder().build()
-        mAdView.loadAd(adRequest)*/
     }
 
     override fun onStart() {

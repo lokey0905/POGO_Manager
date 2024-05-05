@@ -82,7 +82,7 @@
     <string name="locationAccuracyActivity1">定位精確度</string>
     <string name="locationAccuracyActivity2">開關捷徑</string>
 
-    <string name="format_installApps">發現 %1$s 個APP可更新</string>
+    <string name="format_installApps">發現 %1$d 個APP可更新</string>
     <string name="format_newerVersion">支援版本:%1$s %2$s</string>
     <string name="format_installVersion">安裝版本:%1$s</string>
     <string name="format_newerVersion_Gps32">支援版本:已修改無廣告版本</string>
@@ -146,5 +146,4 @@
     <string name="appsPokePage_WeCatchAppName">WeCatch</string>
     <string name="appwidget_text">EXAMPLE</string>
     <string name="add_widget">Add widget</string>
-    <string name="app_widget_description">This is an app widget description</string>
 </resources>
