@@ -8,7 +8,12 @@ import android.content.Context.LOCATION_SERVICE
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.res.Configuration
-import android.location.*
+import android.location.Address
+import android.location.Criteria
+import android.location.Geocoder
+import android.location.Location
+import android.location.LocationListener
+import android.location.LocationManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -29,13 +34,12 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
 import app.lokey0905.location.BuildConfig
-import app.lokey0905.location.MainActivity
 import app.lokey0905.location.R
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import java.text.DecimalFormat
-import java.util.*
+import java.util.Locale
 import kotlin.math.roundToInt
 
 class Home : Fragment() {
@@ -44,10 +48,6 @@ class Home : Fragment() {
 
     var newerCheckMockLocationApi = false
     var bIsMagisk = false
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     @SuppressLint("SetTextI18n")
     override fun onCreateView(

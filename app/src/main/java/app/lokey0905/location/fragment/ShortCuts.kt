@@ -22,7 +22,6 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.browser.customtabs.CustomTabsIntent
-import androidx.core.graphics.drawable.IconCompat
 import androidx.fragment.app.Fragment
 import androidx.preference.PreferenceManager
 import app.lokey0905.location.R
