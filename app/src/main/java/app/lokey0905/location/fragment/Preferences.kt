@@ -6,7 +6,6 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.provider.Settings
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
@@ -19,11 +18,13 @@ import androidx.preference.PreferenceManager
 import app.lokey0905.location.BuildConfig
 import app.lokey0905.location.R
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.snackbar.Snackbar
 
 
 class Preferences : PreferenceFragmentCompat() {
     private var allow_download_on_non_arm64: Boolean = false
     private var location_check_A12: Boolean = false
+    private var location_accuracy_check: Boolean = false
     private var allow_download_on_non_samsung: Boolean = false
     private var always_download_apk_from_apk: Boolean = false
     private var customTabsOff: Boolean = false
@@ -72,6 +73,7 @@ class Preferences : PreferenceFragmentCompat() {
         allow_download_on_non_arm64 =
             sharedPreferences.getBoolean("allow_download_on_non_arm64", false)
         location_check_A12 = sharedPreferences.getBoolean("location_check_A12", false)
+        location_accuracy_check = sharedPreferences.getBoolean("location_accuracy_check", false)
         allow_download_on_non_samsung =
             sharedPreferences.getBoolean("allow_download_on_non_samsung", false)
         always_download_apk_from_apk =
@@ -109,22 +111,19 @@ class Preferences : PreferenceFragmentCompat() {
             }
 
             "location_accuracy" -> {
-                var activityIntent = Intent()
+                val activityIntent = Intent()
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
                     activityIntent.component =
                         ComponentName(
                             "com.google.android.gms",
                             "com.google.android.gms.location.settings.LocationAccuracyV31Activity"
                         )
-                } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                } else
                     activityIntent.component =
                         ComponentName(
                             "com.google.android.gms",
                             "com.google.android.gms.location.settings.LocationAccuracyActivity"
                         )
-                } else {
-                    activityIntent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
-                }
                 startActivity(activityIntent)
                 return true
             }
@@ -138,7 +137,22 @@ class Preferences : PreferenceFragmentCompat() {
                 return true
             }
 
-            "disable_auto_update_pgtools" -> {
+            "location_accuracy_check" -> {
+                location_accuracy_check =
+                    sharedPreferences.getBoolean("location_accuracy_check", false)
+                setFragmentResult(
+                    "location_accuracy_check",
+                    bundleOf("bundleKey" to location_accuracy_check)
+                )
+                Snackbar.make(
+                    requireView(),
+                    "請重新開啟APP以套用設定",
+                    Snackbar.LENGTH_SHORT
+                ).show()
+                return true
+            }
+
+            "disable_auto_update_pok" -> {
                 MaterialAlertDialogBuilder(requireContext())
                     .setTitle("取消自動更新")
                     .setMessage("點擊右上角三個點取消勾選自動更新")
@@ -166,7 +180,7 @@ class Preferences : PreferenceFragmentCompat() {
                 return true
             }
 
-            "disable_auto_update_mhntools" -> {
+            "disable_auto_update_mhn" -> {
                 MaterialAlertDialogBuilder(requireContext())
                     .setTitle("取消自動更新")
                     .setMessage("點擊右上角三個點取消勾選自動更新")

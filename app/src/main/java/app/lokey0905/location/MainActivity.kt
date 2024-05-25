@@ -13,7 +13,6 @@ import android.os.Build
 import android.os.Bundle
 import android.os.IBinder
 import android.os.RemoteException
-import android.provider.Settings
 import android.system.Os
 import android.util.Log
 import android.widget.Toast
@@ -24,6 +23,7 @@ import androidx.core.os.bundleOf
 import androidx.core.view.WindowCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentContainerView
+import androidx.preference.PreferenceManager
 import app.lokey0905.location.databinding.ActivityMainBinding
 import app.lokey0905.location.fragment.AppsMHN
 import app.lokey0905.location.fragment.AppsPoke
@@ -253,13 +253,16 @@ class MainActivity : AppCompatActivity() {
             findViewById<BottomNavigationView>(R.id.navigation).selectedItemId = R.id.nav_home
 
         val locationManager = getSystemService(LOCATION_SERVICE) as LocationManager
-        if (locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
+        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
+        val checkLocationAccuracy = sharedPreferences.getBoolean("location_accuracy_check", false)
+
+        if (locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER) && !checkLocationAccuracy) {
             MaterialAlertDialogBuilder(this@MainActivity)
                 .setTitle(getString(R.string.dialogCheckLocationAccuracyTitle))
                 .setMessage(getString(R.string.dialogCheckLocationAccuracyMessage))
                 .apply {
                     setPositiveButton(resources.getString(R.string.ok)) { _, _ ->
-                        var activityIntent = Intent()
+                        val activityIntent = Intent()
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
                             activityIntent.component =
                                 ComponentName(

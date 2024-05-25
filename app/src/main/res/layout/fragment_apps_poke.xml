@@ -106,7 +106,7 @@
 
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="51dp"
+                            android:layout_height="wrap_content"
                             android:gravity="center"
                             android:orientation="horizontal">
 
@@ -120,7 +120,7 @@
 
                             <LinearLayout
                                 android:layout_width="0dp"
-                                android:layout_height="match_parent"
+                                android:layout_height="wrap_content"
                                 android:layout_marginStart="16dp"
                                 android:layout_weight="10"
                                 android:gravity="center|start"
@@ -154,11 +154,13 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:orientation="horizontal">
+                            android:orientation="horizontal"
+                            android:layout_marginTop="4dp"
+                            android:layout_marginBottom="4dp">
 
                             <LinearLayout
                                 android:layout_width="wrap_content"
-                                android:layout_height="51dp"
+                                android:layout_height="wrap_content"
                                 android:gravity="center|start"
                                 android:orientation="vertical">
 
@@ -221,7 +223,7 @@
 
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="51dp"
+                            android:layout_height="wrap_content"
                             android:gravity="center"
                             android:orientation="horizontal">
 
@@ -235,7 +237,7 @@
 
                             <LinearLayout
                                 android:layout_width="0dp"
-                                android:layout_height="match_parent"
+                                android:layout_height="wrap_content"
                                 android:layout_marginStart="16dp"
                                 android:layout_weight="10"
                                 android:gravity="center|start"
@@ -269,11 +271,13 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:orientation="horizontal">
+                            android:orientation="horizontal"
+                            android:layout_marginTop="4dp"
+                            android:layout_marginBottom="4dp">
 
                             <LinearLayout
                                 android:layout_width="wrap_content"
-                                android:layout_height="51dp"
+                                android:layout_height="wrap_content"
                                 android:gravity="center|start"
                                 android:orientation="vertical">
 
@@ -336,7 +340,7 @@
 
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="51dp"
+                            android:layout_height="wrap_content"
                             android:gravity="center"
                             android:orientation="horizontal">
 
@@ -350,7 +354,7 @@
 
                             <LinearLayout
                                 android:layout_width="0dp"
-                                android:layout_height="match_parent"
+                                android:layout_height="wrap_content"
                                 android:layout_marginStart="16dp"
                                 android:layout_weight="10"
                                 android:gravity="center|start"
@@ -384,11 +388,13 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:orientation="horizontal">
+                            android:orientation="horizontal"
+                            android:layout_marginTop="4dp"
+                            android:layout_marginBottom="4dp">
 
                             <LinearLayout
                                 android:layout_width="wrap_content"
-                                android:layout_height="51dp"
+                                android:layout_height="wrap_content"
                                 android:gravity="center|start"
                                 android:orientation="vertical">
 
@@ -450,7 +456,7 @@
 
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="51dp"
+                            android:layout_height="wrap_content"
                             android:gravity="center"
                             android:orientation="horizontal">
 
@@ -464,7 +470,7 @@
 
                             <LinearLayout
                                 android:layout_width="0dp"
-                                android:layout_height="match_parent"
+                                android:layout_height="wrap_content"
                                 android:layout_marginStart="16dp"
                                 android:layout_weight="10"
                                 android:gravity="center|start"
@@ -498,11 +504,13 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:orientation="horizontal">
+                            android:orientation="horizontal"
+                            android:layout_marginTop="4dp"
+                            android:layout_marginBottom="4dp">
 
                             <LinearLayout
                                 android:layout_width="wrap_content"
-                                android:layout_height="51dp"
+                                android:layout_height="wrap_content"
                                 android:gravity="center|start"
                                 android:orientation="vertical">
 
@@ -565,7 +573,7 @@
 
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="51dp"
+                            android:layout_height="wrap_content"
                             android:gravity="center"
                             android:orientation="horizontal">
 
@@ -579,7 +587,7 @@
 
                             <LinearLayout
                                 android:layout_width="0dp"
-                                android:layout_height="match_parent"
+                                android:layout_height="wrap_content"
                                 android:layout_marginStart="16dp"
                                 android:layout_weight="10"
                                 android:gravity="center|start"
@@ -613,11 +621,13 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:orientation="horizontal">
+                            android:orientation="horizontal"
+                            android:layout_marginTop="4dp"
+                            android:layout_marginBottom="4dp">
 
                             <LinearLayout
                                 android:layout_width="wrap_content"
-                                android:layout_height="51dp"
+                                android:layout_height="wrap_content"
                                 android:gravity="center|start"
                                 android:orientation="vertical">
 
@@ -679,7 +689,7 @@
 
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="51dp"
+                            android:layout_height="wrap_content"
                             android:gravity="center"
                             android:orientation="horizontal">
 
@@ -693,7 +703,7 @@
 
                             <LinearLayout
                                 android:layout_width="0dp"
-                                android:layout_height="match_parent"
+                                android:layout_height="wrap_content"
                                 android:layout_marginStart="16dp"
                                 android:layout_weight="10"
                                 android:gravity="center|start"
@@ -727,11 +737,13 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:orientation="horizontal">
+                            android:orientation="horizontal"
+                            android:layout_marginTop="4dp"
+                            android:layout_marginBottom="4dp">
 
                             <LinearLayout
                                 android:layout_width="0dp"
-                                android:layout_height="51dp"
+                                android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:layout_marginEnd="16dp"
                                 android:gravity="center|start"
@@ -752,14 +764,6 @@
                                     android:text="@string/format_installVersion" />
 
                             </LinearLayout>
-
-                            <Button
-                                android:id="@+id/pgtools_unlockPremium"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:visibility="invisible"
-                                android:text="@string/unlockPremium" />
 
                         </LinearLayout>
 
@@ -803,7 +807,7 @@
 
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="51dp"
+                            android:layout_height="wrap_content"
                             android:gravity="center"
                             android:orientation="horizontal">
 
@@ -817,7 +821,7 @@
 
                             <LinearLayout
                                 android:layout_width="0dp"
-                                android:layout_height="match_parent"
+                                android:layout_height="wrap_content"
                                 android:layout_marginStart="16dp"
                                 android:layout_weight="10"
                                 android:gravity="center|start"
@@ -851,11 +855,13 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:orientation="horizontal">
+                            android:orientation="horizontal"
+                            android:layout_marginTop="4dp"
+                            android:layout_marginBottom="4dp">
 
                             <LinearLayout
                                 android:layout_width="wrap_content"
-                                android:layout_height="51dp"
+                                android:layout_height="wrap_content"
                                 android:gravity="center|start"
                                 android:orientation="vertical">
 
@@ -918,7 +924,7 @@
 
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="51dp"
+                            android:layout_height="wrap_content"
                             android:gravity="center"
                             android:orientation="horizontal">
 
@@ -932,7 +938,7 @@
 
                             <LinearLayout
                                 android:layout_width="0dp"
-                                android:layout_height="match_parent"
+                                android:layout_height="wrap_content"
                                 android:layout_marginStart="16dp"
                                 android:layout_weight="10"
                                 android:gravity="center|start"
@@ -966,11 +972,13 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:orientation="horizontal">
+                            android:orientation="horizontal"
+                            android:layout_marginTop="4dp"
+                            android:layout_marginBottom="4dp">
 
                             <LinearLayout
                                 android:layout_width="wrap_content"
-                                android:layout_height="51dp"
+                                android:layout_height="wrap_content"
                                 android:gravity="center|start"
                                 android:orientation="vertical">
 
