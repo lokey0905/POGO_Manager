@@ -38,8 +38,16 @@
         <SwitchPreferenceCompat
             android:key="location_check_A12"
             android:title="新方式檢測虛擬定位"
-            android:icon="@drawable/ic_baseline_catching_pokemon_24"
+            android:icon="@drawable/baseline_not_listed_location_24"
             app:summary="使用Android 12的新版API檢測裝置是否使用虛擬定位"
+            android:persistent="true"
+            android:defaultValue="false" />
+
+        <SwitchPreferenceCompat
+            android:key="location_accuracy_check"
+            android:title="不再偵測定位精確度"
+            android:icon="@drawable/baseline_notifications_off_24"
+            app:summary="開啟APP時, 不再偵測定位精確度與顯示通知"
             android:persistent="true"
             android:defaultValue="false" />
     </PreferenceCategory>
@@ -50,7 +58,7 @@
         app:allowDividerBelow="false">
 
         <Preference
-            android:key="disable_auto_update_pgtools"
+            android:key="disable_auto_update_pok"
             android:title="關閉自動更新"
             android:icon="@drawable/ic_baseline_sync_disabled_24"
             app:summary="關閉商店自動更新,點擊此處前往關閉" />
@@ -70,7 +78,7 @@
         app:allowDividerBelow="false">
 
         <Preference
-            android:key="disable_auto_update_mhntools"
+            android:key="disable_auto_update_mhn"
             android:title="關閉自動更新"
             android:icon="@drawable/ic_baseline_sync_disabled_24"
             app:summary="關閉商店自動更新,點擊此處前往關閉" />

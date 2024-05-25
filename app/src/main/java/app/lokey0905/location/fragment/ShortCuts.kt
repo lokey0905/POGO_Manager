@@ -1,5 +1,7 @@
 package app.lokey0905.location.fragment
 
+import android.app.PendingIntent
+import android.appwidget.AppWidgetManager
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.ComponentName
@@ -26,6 +28,7 @@ import androidx.fragment.app.Fragment
 import androidx.preference.PreferenceManager
 import app.lokey0905.location.R
 import app.lokey0905.location.api.DiscordApi
+import app.lokey0905.location.widget.LocationAccuracyActivity
 import com.google.android.gms.ads.AdError
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.FullScreenContentCallback
@@ -94,20 +97,27 @@ class ShortCuts: Fragment() {
                 startActivity(activityIntent)
             }
 
-            view.findViewById<MaterialCardView>(R.id.LocationAccuracyActivity)?.setOnLongClickListener {
-                showAlertDialog(
-                    "請至手機主畫面新增快捷方式","請至手機主畫面新增快捷方式"
-                )
-                true
-            }
+            view.findViewById<MaterialCardView>(R.id.LocationAccuracyActivity)
+                ?.setOnLongClickListener {
+                    createWidget()
+                    true
+                }
 
             view.findViewById<MaterialCardView>(R.id.pokeInfo)?.setOnClickListener {
-                Toast.makeText(context, getString(R.string.shortcuts_pokeInfoMessage), Toast.LENGTH_LONG).show()
+                Toast.makeText(
+                    context,
+                    getString(R.string.shortcuts_pokeInfoMessage),
+                    Toast.LENGTH_LONG
+                ).show()
                 gotoBrowser(getString(R.string.url_pokeInfo))
             }
 
-            view.findViewById<MaterialCardView>(R.id.pokeInfo)?.setOnLongClickListener{
-                Toast.makeText(context, getString(R.string.shortcuts_pokeInfoMessage), Toast.LENGTH_LONG).show()
+            view.findViewById<MaterialCardView>(R.id.pokeInfo)?.setOnLongClickListener {
+                Toast.makeText(
+                    context,
+                    getString(R.string.shortcuts_pokeInfoMessage),
+                    Toast.LENGTH_LONG
+                ).show()
                 createShortcutWithURL(
                     "pokeInfo",
                     getString(R.string.shortcuts_pokeInfo),
@@ -121,7 +131,7 @@ class ShortCuts: Fragment() {
                 gotoBrowser(getString(R.string.url_pokeListWeb))
             }
 
-            view.findViewById<MaterialCardView>(R.id.pokeList_web)?.setOnLongClickListener{
+            view.findViewById<MaterialCardView>(R.id.pokeList_web)?.setOnLongClickListener {
                 createShortcutWithURL(
                     "pokeList_web",
                     getString(R.string.shortcuts_pokeListWeb),
@@ -258,7 +268,7 @@ class ShortCuts: Fragment() {
             }
         }
 
-        fun setDownloadButton(){
+        fun setDownloadButton() {
             view.findViewById<MaterialCardView>(R.id.download_gpx1)?.setOnClickListener {
                 downloadAPPWithCheck(resources.getString(R.string.url_gpx1))
             }
@@ -436,6 +446,31 @@ class ShortCuts: Fragment() {
             .show()
     }
 
+    private fun createWidget() {
+        val appWidgetManager = requireContext().getSystemService(AppWidgetManager::class.java)
+
+        val myProvider = ComponentName(requireContext(), LocationAccuracyActivity::class.java)
+        if (appWidgetManager.isRequestPinAppWidgetSupported) {
+            val pinnedWidgetCallbackIntent = Intent()
+
+            val successCallback = PendingIntent.getBroadcast(
+                context,
+                0,
+                pinnedWidgetCallbackIntent,
+                PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+            )
+            appWidgetManager.requestPinAppWidget(myProvider, null, successCallback)
+
+            if (Build.MANUFACTURER == "Xiaomi") {
+                Toast.makeText(context, "捷徑已建立", Toast.LENGTH_SHORT).show()
+            }
+        } else Toast.makeText(
+            context,
+            "不支援釘選快捷方式!",
+            Toast.LENGTH_SHORT
+        ).show()
+    }
+
     private fun createShortcutWithURL(id: String, label: String, icon: Int, url: String) {
         val shortcutManager = context?.getSystemService(ShortcutManager::class.java)
         if (shortcutManager != null) {
@@ -451,6 +486,10 @@ class ShortCuts: Fragment() {
                     )
                     .build()
                 shortcutManager.requestPinShortcut(shortcut, null)
+
+                if (Build.MANUFACTURER == "Xiaomi") {
+                    Toast.makeText(context, "捷徑已建立", Toast.LENGTH_SHORT).show()
+                }
             } else Toast.makeText(
                 context,
                 "不支援釘選快捷方式!",

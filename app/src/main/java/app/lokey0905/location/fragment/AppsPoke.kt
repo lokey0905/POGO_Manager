@@ -1,6 +1,7 @@
 package app.lokey0905.location.fragment
 
 import android.annotation.SuppressLint
+import android.app.ActivityManager
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -16,10 +17,12 @@ import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.PopupMenu
 import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
@@ -36,6 +39,7 @@ import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.net.HttpURLConnection
 import java.net.URL
+import kotlin.math.roundToInt
 
 
 data class PogoVersionInfo(
@@ -80,10 +84,16 @@ class AppsPoke : Fragment() {
         pokAresNoSupportDevices =
             sharedPreferences.getBoolean("allow_download_on_non_samsung", false)
 
+        val actManager =
+            requireActivity().getSystemService(AppCompatActivity.ACTIVITY_SERVICE) as ActivityManager
+        val memInfo = ActivityManager.MemoryInfo()
+        actManager.getMemoryInfo(memInfo)
+        val totalMemory = (memInfo.totalMem.toDouble() / (1024 * 1024 * 1024)).roundToInt()
+
+        view.findViewById<LinearLayout>(R.id.linearLayout_pokAres).visibility = if (totalMemory < 4) View.GONE else View.VISIBLE
 
         setupListeners(view)
 
-        // Inflate the layout for this fragment
         return view
     }
 
