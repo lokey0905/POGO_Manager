@@ -90,7 +90,7 @@ class AppsPoke : Fragment() {
         actManager.getMemoryInfo(memInfo)
         val totalMemory = (memInfo.totalMem.toDouble() / (1024 * 1024 * 1024)).roundToInt()
 
-        view.findViewById<LinearLayout>(R.id.linearLayout_pokAres).visibility = if (totalMemory < 4) View.GONE else View.VISIBLE
+        view.findViewById<LinearLayout>(R.id.linearLayout_pokAres).visibility = viewShowOrHide(totalMemory <= 4)
 
         setupListeners(view)
 
@@ -309,28 +309,28 @@ class AppsPoke : Fragment() {
             val pokeAresInstalledVersion = appInstalledVersion(pokeAresPackageName)
 
             view.findViewById<TextView>(R.id.remove_gps).visibility =
-                if (appInstalledVersion(resources.getString(R.string.packageName_gps32)) == "未安裝") View.GONE else View.VISIBLE
+                viewShowOrHide(appInstalledOrNot(resources.getString(R.string.packageName_gps32)))
 
             view.findViewById<TextView>(R.id.remove_polygon).visibility =
-                if (appInstalledVersion(resources.getString(R.string.packageName_polygon)) == "未安裝") View.GONE else View.VISIBLE
+                viewShowOrHide(appInstalledOrNot(resources.getString(R.string.packageName_polygon)))
 
             view.findViewById<TextView>(R.id.remove_pgtools).visibility =
-                if (appInstalledVersion(pgToolsPackageName) == "未安裝") View.GONE else View.VISIBLE
+                viewShowOrHide(appInstalledOrNot(resources.getString(R.string.packageName_PGTools)))
 
             view.findViewById<TextView>(R.id.remove_pok).visibility =
-                if (appInstalledVersion(pokePackageName) == "未安裝") View.GONE else View.VISIBLE
+                viewShowOrHide(appInstalledOrNot(pokePackageName))
 
             view.findViewById<TextView>(R.id.remove_pokAres).visibility =
-                if (appInstalledVersion(resources.getString(R.string.packageName_pokAres)) == "未安裝") View.GONE else View.VISIBLE
+                viewShowOrHide(appInstalledOrNot(pokeAresPackageName))
 
             view.findViewById<TextView>(R.id.remove_pokelist).visibility =
-                if (appInstalledVersion(resources.getString(R.string.packageName_PokeList)) == "未安裝") View.GONE else View.VISIBLE
+                viewShowOrHide(appInstalledOrNot(resources.getString(R.string.packageName_PokeList)))
 
             view.findViewById<TextView>(R.id.remove_wecatch).visibility =
-                if (appInstalledVersion(resources.getString(R.string.packageName_WeCatch)) == "未安裝") View.GONE else View.VISIBLE
+                viewShowOrHide(appInstalledOrNot(resources.getString(R.string.packageName_WeCatch)))
 
             view.findViewById<TextView>(R.id.remove_wrapper).visibility =
-                if (appInstalledVersion(resources.getString(R.string.packageName_wrapper)) == "未安裝") View.GONE else View.VISIBLE
+                viewShowOrHide(appInstalledOrNot(resources.getString(R.string.packageName_wrapper)))
 
             val url = resources.getString(R.string.url_appInfo)
             extractAppVersionsFromJson(url) {
@@ -848,6 +848,10 @@ class AppsPoke : Fragment() {
             .setMessage(message)
             .setNeutralButton(R.string.ok) { _, _ -> }
             .show()
+    }
+
+    private fun viewShowOrHide(show: Boolean): Int {
+        return if (show) View.VISIBLE else View.GONE // if true then show else hide
     }
 
     private fun popupMenu(view: View, id: Int, packageName: String) {
