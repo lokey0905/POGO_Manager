@@ -45,6 +45,10 @@
 
     <string name="share_information">我發現了Pogo外掛管理器 趕快來下載使用!</string>
 
+    <string name="rom_releaseKey">系統簽名正常</string>
+    <string name="rom_testKey">系統使用測試金鑰簽名</string>
+    <string name="rom_unknown">系統簽名異常</string>
+
     <string name="unsupportedDevices">不支援的設備</string>
     <string name="unsupportedDevicesPokeAres">已禁止在非三星裝置下載三星版本寶可夢\n若仍要下載，請至設定中開啟「允許下載三星版本寶可夢」選項</string>
 
