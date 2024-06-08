@@ -80,7 +80,7 @@ class Home : Fragment() {
             view.findViewById<TextView>(R.id.android_devices)?.text =
                 getDeviceName()
             view.findViewById<TextView>(R.id.android_version)?.text =
-                "${Build.VERSION.RELEASE}(${Build.VERSION.SDK_INT})"
+                "${Build.VERSION.RELEASE}(${Build.VERSION.SDK_INT}) ${isTestKeyRom()}"
 
             if (Build.SUPPORTED_ABIS[0] == "arm64-v8a") {
                 androidAbi?.text = "${Build.SUPPORTED_ABIS[0]} (64位元)"
@@ -409,6 +409,22 @@ class Home : Fragment() {
             gridLayout?.columnCount = 1
         }
     }
+
+    private fun isTestKeyRom(): String {
+        try {
+            for (signature in requireActivity().packageManager.getPackageInfo("android", 64).signatures) {
+                val hashCode: Int = signature.hashCode()
+                if (hashCode == -1263674583 || hashCode == -672009692) {
+                    return getString(R.string.rom_testKey)
+                }
+            }
+            return getString(R.string.rom_releaseKey)
+        } catch (e: PackageManager.NameNotFoundException) {
+            e.printStackTrace()
+            return getString(R.string.rom_unknown)
+        }
+    }
+
 
     private fun shareText(text: String, title: String) {
         val intent = Intent(Intent.ACTION_SEND)
