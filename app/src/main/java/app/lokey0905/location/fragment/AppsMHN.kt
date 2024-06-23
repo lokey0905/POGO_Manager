@@ -86,6 +86,7 @@ class AppsMHN : Fragment() {
         val gpsRemoveButton = view.findViewById<Button>(R.id.remove_gps)
         val hylianerDownloadButton = view.findViewById<Button>(R.id.download_hylianer)
         val hylianerRemoveButton = view.findViewById<Button>(R.id.remove_hylianer)
+        val mhnTestVersionSwitch = view.findViewById<MaterialSwitch>(R.id.mhnTestVersion_switch)
 
         mhnDownloadButton.setOnClickListener {
             downloadAPPWithCheck(mhnUrl)
@@ -218,6 +219,7 @@ class AppsMHN : Fragment() {
 
             val mhnInstalledVersion = appInstalledVersion(mhnPackageName)
             val mhnToolsInstalledVersion = appInstalledVersion(mhnToolsPackageName)
+            val mhnTestVersionSwitch = view.findViewById<MaterialSwitch>(R.id.mhnTestVersion_switch)
 
             if (mhnVersion != "未安裝" && mhnInstalledVersion != "未安裝") {
                 val mhnVersionInt: List<String> = mhnVersion.split(".")
@@ -256,10 +258,7 @@ class AppsMHN : Fragment() {
                                 )
                             }
                             .setPositiveButton("使用測試版") { _, _ ->
-                                showAlertDialog(
-                                    resources.getString(R.string.dialogVersionTooHighTitle),
-                                    "1. 至設定打開測試版自動抓開關 \n2. 直接下載支援版本寶可夢 \n3. 重啟手機嘗試啟動"
-                                )
+                                mhnTestVersionSwitch.isChecked = true
                             }
                             .show()
                     }
@@ -330,6 +329,7 @@ class AppsMHN : Fragment() {
 
             extractMHNToolsFromJson(url) { mhnVersion, mhnToolsVersion, gameVersionsMap ->
                 val versionsList = ArrayList<String>()
+                var mhnVersionList = resources.getString(R.string.appsMHNPage_supportVersion_MHNTools)
 
                 for ((version, _) in gameVersionsMap) {
                     versionsList.add(version)
@@ -337,7 +337,17 @@ class AppsMHN : Fragment() {
                         "mhnTools",
                         "MHN支援版本: $version\n"
                     )
+                    mhnVersionList += " $version,"
                 }
+
+                mhnVersionList = if(mhnTestVersion) {
+                    mhnVersionList.substring(0, mhnVersionList.length - 1) + " (${getText(R.string.testVersion)})"
+
+                } else {
+                    mhnVersionList.substring(0, mhnVersionList.length - 1)
+                }
+
+                view.findViewById<TextView>(R.id.supportVersion_MHNTools).text = mhnVersionList
 
                 versionsList.reverse()
 
