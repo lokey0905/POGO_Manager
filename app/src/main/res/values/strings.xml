@@ -37,8 +37,6 @@
     <string name="testVersion">測試版</string>
     <string name="getPolygonKey">暴力功key(實驗性)</string>
     <string name="requestPermission">請允許定位權限後在重試</string>
-    <string name="supportVersion_PGTools">PGTools支援版本:</string>
-    <string name="supportVersion_MHNTools">MHNTools支援版本:</string>
     <string name="allUpdated">全部APP皆已最新版本</string>
 
     <string name="widget_description">定位精確度 開關捷徑</string>
@@ -123,6 +121,7 @@
     <string name="androidARM64SupperTrue">✅完整支援暴力功自動抓\n✅完整支援魔物獵人</string>
     <string name="androidARM64SupperFalse">❌不支援暴力功自動抓\n❌不支援魔物獵人</string>
 
+    <string name="appsMHNPage_supportVersion_MHNTools">MHNTools支援版本: </string>
     <string name="appsMHNPage_MHNTitle">原版魔物獵人客戶端</string>
     <string name="appsMHNPage_MHNAPPName">MH Now【魔物獵人】</string>
     <string name="appsMHNPage_MHNToolsTitle">魔物獵人修改工具</string>
@@ -132,6 +131,9 @@
     <string name="appsMHNPage_GpsTitle">可修改手機定位</string>
     <string name="appsMHNPage_GpsAPPName">GPS JoyStick【搖桿改定位✅老K刷機】</string>
 
+    <string name="appsPokePage_supportVersion_polygon">Polygon支援版本: </string>
+    <string name="appsPokePage_supportVersion_PGTools">PGTools支援版本: </string>
+    <string name="appsPokePage_PGToolsTestVersion">PGTools測試版</string>
     <string name="appsPokePage_PokeTitle">原版寶可夢客戶端</string>
     <string name="appsPokePage_PokeAppName">Pokémon GO【寶可夢】</string>
     <string name="appsPokePage_PokeAreaTitle">原版寶可夢客戶端三星版本</string>
@@ -148,6 +150,4 @@
     <string name="appsPokePage_PokeListAppName">PokeList【中文版】</string>
     <string name="appsPokePage_WeCatchTitle">寶可夢雷達</string>
     <string name="appsPokePage_WeCatchAppName">WeCatch</string>
-    <string name="appwidget_text">EXAMPLE</string>
-    <string name="add_widget">Add widget</string>
 </resources>

@@ -28,6 +28,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
 import androidx.preference.PreferenceManager
 import app.lokey0905.location.R
+import app.lokey0905.location.api.polygon
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.materialswitch.MaterialSwitch
 import com.google.android.material.snackbar.Snackbar
@@ -49,7 +50,8 @@ data class PogoVersionInfo(
 )
 
 class AppsPoke : Fragment() {
-    private val pogoVersionsList = ArrayList<PogoVersionInfo>()
+    val pogoVersionsList = ArrayList<PogoVersionInfo>()
+    var polygonVersionsList = ArrayList<String>()
     private var pogoVersion: String = "未安裝"
     private var pgToolsARMUrl: String = ""
     private var pgToolsARM64Url: String = ""
@@ -75,6 +77,8 @@ class AppsPoke : Fragment() {
     private var appListCheckDone = false
 
     private var totalMemory = 0
+
+    var polygonTestKey = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -294,6 +298,7 @@ class AppsPoke : Fragment() {
         
         val pokeSupportVersion = view.findViewById<TextView>(R.id.pok_new_version)
         val pokeAresSupportVersion = view.findViewById<TextView>(R.id.pokAres_new_version)
+        val pgToolSupportVersion = view.findViewById<TextView>(R.id.pgtools_new_version)
 
         val pokeDownloadButton = view.findViewById<Button>(R.id.download_pok)
         val pokeAresDownloadButton = view.findViewById<Button>(R.id.download_pokAres)
@@ -305,6 +310,29 @@ class AppsPoke : Fragment() {
 
         val pokeTestVersionSwitch = view.findViewById<MaterialSwitch>(R.id.pokeTestVersion_switch)
         val spinner = view.findViewById<Spinner>(R.id.poke_spinner)
+
+
+        fun getPolygonVersion() {
+            polygonVersionsList.clear()
+
+            val polygon = polygon()
+
+            polygon.Polygon(requireContext())
+            Log.i("Polygon", "polygonTestKey: $polygonTestKey")
+            polygon.checkPogoVersion(polygonTestKey, pogoVersionsList, 26) { it ->
+                polygonVersionsList = it
+
+                var pogoVersionList =
+                    resources.getString(R.string.appsPokePage_supportVersion_polygon)
+
+                for (pogo in polygonVersionsList)
+                    pogoVersionList += " ${pogo},"
+
+                pogoVersionList = pogoVersionList.substring(0, pogoVersionList.length - 1)
+
+                view.findViewById<TextView>(R.id.supportVersion_polygon)?.text = pogoVersionList
+            }
+        }
 
         @SuppressLint("SetTextI18n")
         fun checkAppVersion() {
@@ -421,6 +449,8 @@ class AppsPoke : Fragment() {
                 if (pgToolsCheckDone)
                     view.findViewById<androidx.swiperefreshlayout.widget.SwipeRefreshLayout>(R.id.swipeRefreshLayout).isRefreshing =
                         false
+
+                getPolygonVersion()
             }
 
             view.findViewById<TextView>(R.id.polygon_install_version).text =
@@ -513,10 +543,7 @@ class AppsPoke : Fragment() {
                                 )
                             }
                             .setPositiveButton("使用測試版") { _, _ ->
-                                showAlertDialog(
-                                    resources.getString(R.string.dialogVersionTooHighTitle),
-                                    "1. 至設定打開測試版自動抓開關 \n2. 直接下載支援版本寶可夢 \n3. 重啟手機嘗試啟動"
-                                )
+                                pokeTestVersionSwitch.isChecked = true
                             }
                             .show()
                     }
@@ -603,16 +630,27 @@ class AppsPoke : Fragment() {
 
             extractPgToolsFromJson(url) { pogoVersion, pgtoolsVersion, pogoVersionsList ->
                 val versionsList = ArrayList<String>()
+                var pogoVersionList = resources.getString(R.string.appsPokePage_supportVersion_PGTools)
 
                 for (versionInfo in pogoVersionsList) {
                     versionsList.add(versionInfo.pogoVersion)
                     Log.i(
                         "PgTools",
-                        "PgTools支援版本: $versionInfo.pogoVersion\n" +
+                        "PgTools支援版本: ${versionInfo.pogoVersion}\n" +
                                 "pogoARM64: ${versionInfo.pogoARM64}\n" +
                                 "pogoARM: ${versionInfo.pogoARM}"
                     )
+                    pogoVersionList += " ${versionInfo.pogoVersion},"
                 }
+
+                pogoVersionList = if(pgToolsTestVersion){
+                    pogoVersionList.substring(0, pogoVersionList.length - 1) + " (${getText(R.string.testVersion)})"
+
+                } else {
+                    pogoVersionList.substring(0, pogoVersionList.length - 1)
+                }
+
+                view.findViewById<TextView>(R.id.supportVersion_PGTools).text = pogoVersionList
 
                 versionsList.reverse()
 
@@ -639,7 +677,7 @@ class AppsPoke : Fragment() {
                         pogoVersion,
                         ""
                     )
-                view.findViewById<TextView>(R.id.pgtools_new_version).text =
+                pgToolSupportVersion.text =
                     String.format(
                         formatNewerVersion,
                         pgtoolsVersion,
@@ -650,6 +688,8 @@ class AppsPoke : Fragment() {
                 if (appListCheckDone)
                     view.findViewById<androidx.swiperefreshlayout.widget.SwipeRefreshLayout>(R.id.swipeRefreshLayout).isRefreshing =
                         false
+
+                getPolygonVersion()
             }
         }
 
@@ -715,11 +755,13 @@ class AppsPoke : Fragment() {
                     checkAppVersion()
                 }
 
-                override fun onNothingSelected(parent: AdapterView<*>?) {}
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+                    // Another interface callback
+                }
             }
         }
 
-        checkAppVersion()
+        //checkAppVersion()
         getPGToolsVersion()
         setOnCheckedChangeListener()
     }
@@ -762,13 +804,14 @@ class AppsPoke : Fragment() {
 
                 version_wrapper = warpper.getString("version")
                 version_polygon = polygon.getString("version")
+                polygonTestKey = polygon.getString("testKey")
                 version_PokeList = pokeList.getString("version")
                 version_WeCatch = wecatch.getString("version")
 
                 Log.i(
                     "PgTools",
                     "warpper:$version_wrapper\n" +
-                            "polygon:$version_polygon\n" +
+                            "polygon:$version_polygon $polygonTestKey\n" +
                             "pokeList:$version_PokeList\n" +
                             "wecatch:$version_WeCatch"
                 )
