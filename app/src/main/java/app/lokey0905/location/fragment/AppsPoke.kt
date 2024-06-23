@@ -74,6 +74,8 @@ class AppsPoke : Fragment() {
     private var pgToolsCheckDone = false
     private var appListCheckDone = false
 
+    private var totalMemory = 0
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
@@ -88,9 +90,10 @@ class AppsPoke : Fragment() {
             requireActivity().getSystemService(AppCompatActivity.ACTIVITY_SERVICE) as ActivityManager
         val memInfo = ActivityManager.MemoryInfo()
         actManager.getMemoryInfo(memInfo)
-        val totalMemory = (memInfo.totalMem.toDouble() / (1024 * 1024 * 1024)).roundToInt()
+        totalMemory = (memInfo.totalMem.toDouble() / (1024 * 1024 * 1024)).roundToInt()
 
-        view.findViewById<LinearLayout>(R.id.linearLayout_pokAres).visibility = viewShowOrHide(totalMemory <= 4)
+        view.findViewById<LinearLayout>(R.id.linearLayout_pokAres).visibility =
+            viewShowOrHide(totalMemory > 4 || pokAresNoSupportDevices)
 
         setupListeners(view)
 
@@ -107,6 +110,12 @@ class AppsPoke : Fragment() {
         fun setFragmentResultListener() {
             setFragmentResultListener("pokAresNoSupportDevices") { _, bundle ->
                 pokAresNoSupportDevices = bundle.getBoolean("bundleKey")
+
+                if (totalMemory > 4 || pokAresNoSupportDevices) {
+                    view.findViewById<LinearLayout>(R.id.linearLayout_pokAres).visibility = viewShowOrHide(true)
+                } else {
+                    view.findViewById<LinearLayout>(R.id.linearLayout_pokAres).visibility = viewShowOrHide(false)
+                }
             }
         }
 
@@ -291,7 +300,7 @@ class AppsPoke : Fragment() {
         val pgToolsDownloadButton = view.findViewById<Button>(R.id.download_pgtools)
         val polygonDownloadButton = view.findViewById<Button>(R.id.download_polygon)
         val wrapperDownloadButton = view.findViewById<Button>(R.id.download_wrapper)
-        val pokeListDownloadButton = view.findViewById<Button>(R.id.download_pokAres)
+        val pokeListDownloadButton = view.findViewById<Button>(R.id.download_pokelist)
         val weCatchDownloadButton = view.findViewById<Button>(R.id.download_wecatch)
 
         val pokeTestVersionSwitch = view.findViewById<MaterialSwitch>(R.id.pokeTestVersion_switch)
@@ -535,7 +544,10 @@ class AppsPoke : Fragment() {
 
                     if (currentVersion > installedVersion) {
                         pokeAresDownloadButton.text = update
+                        needUpdateAppsAmount++
                         break
+                    } else {
+                        pokeAresDownloadButton.text = download
                     }
                 }
             } else {
@@ -621,7 +633,7 @@ class AppsPoke : Fragment() {
                         pogoVersion,
                         versionType
                     )
-                view.findViewById<TextView>(R.id.pokAres_new_version).text =
+                pokeAresSupportVersion.text =
                     String.format(
                         formatNewerVersion,
                         pogoVersion,

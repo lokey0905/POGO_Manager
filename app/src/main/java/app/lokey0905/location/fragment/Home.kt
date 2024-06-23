@@ -412,7 +412,7 @@ class Home : Fragment() {
 
     private fun isTestKeyRom(): String {
         try {
-            for (signature in requireActivity().packageManager.getPackageInfo("android", 64).signatures) {
+            for (signature in requireActivity().packageManager.getPackageInfo("android", 64).signatures!!) {
                 val hashCode: Int = signature.hashCode()
                 if (hashCode == -1263674583 || hashCode == -672009692) {
                     return getString(R.string.rom_testKey)
