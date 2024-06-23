@@ -4,14 +4,14 @@ plugins {
 }
 
 android {
-    compileSdk 34
+    compileSdk 35
 
     defaultConfig {
         applicationId "app.lokey0905.location"
         minSdk 28
-        targetSdk 34
+        targetSdkVersion compileSdk
         versionCode 3
-        versionName "2.11"
+        versionName "2.12"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         externalNativeBuild {
@@ -39,13 +39,12 @@ android {
         viewBinding true
         aidl true
     }
-
     packagingOptions {
-        exclude 'META-INF/INDEX.LIST'
-        exclude 'META-INF/io.netty.versions.properties'
-        exclude 'META-INF/META-INF/DEPENDENCIES'
-        exclude 'META-INF/DEPENDENCIES'
+        resources {
+            excludes += ['META-INF/INDEX.LIST', 'META-INF/io.netty.versions.properties', 'META-INF/META-INF/DEPENDENCIES', 'META-INF/DEPENDENCIES']
+        }
     }
+
     externalNativeBuild {
         cmake {
             path file('CMakeLists.txt')
