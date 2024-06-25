@@ -77,8 +77,10 @@ class AppsPoke : Fragment() {
     private var appListCheckDone = false
 
     private var totalMemory = 0
+    private var errorCounter = 0
 
-    var polygonTestKey = ""
+    private var polygonTestKey = ""
+    private var polygonTestToken = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -284,6 +286,8 @@ class AppsPoke : Fragment() {
         view.findViewById<androidx.swiperefreshlayout.widget.SwipeRefreshLayout>(R.id.swipeRefreshLayout)
             .setOnRefreshListener {
                 Toast.makeText(context, getString(R.string.refreshing), Toast.LENGTH_SHORT).show()
+                pgToolsCheckDone = false
+                appListCheckDone = false
                 setupAppVersionInfo(view)
             }
     }
@@ -311,26 +315,96 @@ class AppsPoke : Fragment() {
         val pokeTestVersionSwitch = view.findViewById<MaterialSwitch>(R.id.pokeTestVersion_switch)
         val spinner = view.findViewById<Spinner>(R.id.poke_spinner)
 
-
         fun getPolygonVersion() {
-            polygonVersionsList.clear()
+            if (polygonTestKey == "") {
+                Log.i("Polygon", "polygonTestKey is empty")
+                return
+            }
 
             val polygon = polygon()
+            val versionNumber = 26
 
             polygon.Polygon(requireContext())
-            Log.i("Polygon", "polygonTestKey: $polygonTestKey")
-            polygon.checkPogoVersion(polygonTestKey, pogoVersionsList, 26) { it ->
-                polygonVersionsList = it
 
-                var pogoVersionList =
-                    resources.getString(R.string.appsPokePage_supportVersion_polygon)
+            if (polygonTestToken == "") {
+                Log.i("Polygon", "Get polygonTestToken")
 
-                for (pogo in polygonVersionsList)
-                    pogoVersionList += " ${pogo},"
+                polygon.checkPogoVersion(polygonTestKey, versionNumber) { token ->
+                    if (token == "ERROR") {
+                        if (errorCounter > 3) {
+                            Log.i("Polygon", "Try Login too many times")
+                            return@checkPogoVersion
+                        }
 
-                pogoVersionList = pogoVersionList.substring(0, pogoVersionList.length - 1)
+                        Log.i("Polygon", "Try Login again $errorCounter")
+                        errorCounter++
+                        getPolygonVersion()
+                    } else {
+                        polygonTestToken = token
+                        getPolygonVersion()
+                    }
+                }
+                return
 
-                view.findViewById<TextView>(R.id.supportVersion_polygon)?.text = pogoVersionList
+            } else {
+                polygonVersionsList.clear()
+
+                Log.i(
+                    "Polygon",
+                    "polygonTestKey: $polygonTestKey\n" +
+                            "polygonTestToken: $polygonTestToken"
+                )
+
+                for (pogo in pogoVersionsList) {
+                    polygon.sendSecondJsonRequest(
+                        polygonTestKey,
+                        polygonTestToken,
+                        pogo.pogoVersion,
+                        versionNumber
+                    ) {
+                        if (polygonVersionsList.contains(it))
+                            return@sendSecondJsonRequest
+
+                        if (it == "ERROR") {
+                            polygonTestToken = ""
+
+                            if (errorCounter > 3) {
+                                Log.i("Polygon", "Try Login too many times")
+                                return@sendSecondJsonRequest
+                            }
+                            Log.i("Polygon", "取得支援版本失敗 $errorCounter")
+                            errorCounter++
+                            getPolygonVersion()
+                            return@sendSecondJsonRequest
+                        }
+
+                        polygonVersionsList.add(it)
+                        polygonVersionsList.sort()
+
+                        var pogoVersionList =
+                            resources.getString(R.string.appsPokePage_supportVersion_polygon)
+
+                        for (polygonSupportedVersion in polygonVersionsList)
+                            pogoVersionList += " ${polygonSupportedVersion},"
+
+                        Log.i("Polygon", "polygonVersionsList: $polygonVersionsList")
+
+                        pogoVersionList = pogoVersionList.substring(0, pogoVersionList.length - 1)
+
+                        view.findViewById<TextView>(R.id.supportVersion_polygon)?.text =
+                            pogoVersionList
+
+                        errorCounter = 0
+                    }
+                }
+            }
+        }
+
+        fun appAllCheckDone() {
+            if (pgToolsCheckDone && appListCheckDone){
+                getPolygonVersion()
+                view.findViewById<androidx.swiperefreshlayout.widget.SwipeRefreshLayout>(R.id.swipeRefreshLayout).isRefreshing =
+                    false
             }
         }
 
@@ -446,11 +520,7 @@ class AppsPoke : Fragment() {
                 }
 
                 appListCheckDone = true
-                if (pgToolsCheckDone)
-                    view.findViewById<androidx.swiperefreshlayout.widget.SwipeRefreshLayout>(R.id.swipeRefreshLayout).isRefreshing =
-                        false
-
-                getPolygonVersion()
+                appAllCheckDone()
             }
 
             view.findViewById<TextView>(R.id.polygon_install_version).text =
@@ -685,11 +755,7 @@ class AppsPoke : Fragment() {
                     )
 
                 pgToolsCheckDone = true
-                if (appListCheckDone)
-                    view.findViewById<androidx.swiperefreshlayout.widget.SwipeRefreshLayout>(R.id.swipeRefreshLayout).isRefreshing =
-                        false
-
-                getPolygonVersion()
+                appAllCheckDone()
             }
         }
 
