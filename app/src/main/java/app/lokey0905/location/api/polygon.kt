@@ -5,7 +5,6 @@ import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import android.widget.Toast
-import app.lokey0905.location.fragment.PogoVersionInfo
 import okhttp3.Call
 import okhttp3.Callback
 import okhttp3.MediaType.Companion.toMediaType
@@ -19,7 +18,7 @@ import java.io.IOException
 
 
 class polygon {
-    val JSON = "application/json; charset=utf-8".toMediaType()
+    private val JSON = "application/json; charset=utf-8".toMediaType()
     private var context: Context? = null
     private var client: OkHttpClient? = null
 
@@ -28,7 +27,11 @@ class polygon {
         this.client = OkHttpClient()
     }
 
-    fun checkPogoVersion(key: String, pogoVersion: ArrayList<PogoVersionInfo>, versionNumber: Int, callback: (ArrayList<String>) -> Unit) {
+    fun checkPogoVersion(
+        key: String,
+        versionNumber: Int,
+        callback: (String) -> Unit
+    ) {
         val url = "https://api.login.polygonsharp.io/Porygon/Login"
 
         val jsonObject = JSONObject()
@@ -50,52 +53,66 @@ class polygon {
 
         client?.newCall(request)?.enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
-                Log.i("checkPogoVersion", "Request failed")
+                Log.i("checkPogoVersion", "請求失敗")
+                Handler(Looper.getMainLooper()).post {
+                    Toast.makeText(context, "請求失敗", Toast.LENGTH_SHORT).show()
+                }
             }
 
             override fun onResponse(call: Call, response: Response) {
                 if (!response.isSuccessful) {
                     Log.i("checkPogoVersion", "Unexpected code $response")
                     Handler(Looper.getMainLooper()).post {
-                        Toast.makeText(
-                            context,
-                            "Unexpected code $response",
-                            Toast.LENGTH_SHORT
-                        ).show()
+                        Toast.makeText(context, "請求失敗 $response", Toast.LENGTH_SHORT).show()
                     }
+                    return
                 }
 
 
                 val responseData = response.body!!.string()
                 try {
                     val jsonResponse = JSONObject(responseData)
-                    val status = jsonResponse.getString("status")
-
-                    if ("SUCCESS" == status) {
-                        val token = jsonResponse.getString("token")
-                        val pogoVersionList = ArrayList<String>()
-                        Log.i("checkPogoVersion", "Login successful, token: $token")
-
-                        for (pogo in pogoVersion) {
-                            sendSecondJsonRequest(key, token, pogo.pogoVersion, versionNumber) { it ->
-                                pogoVersionList += it
-                                Log.i("checkPogoVersion", pogoVersionList.toString())
-                                callback(pogoVersionList)
-                            }
+                    when (val status = jsonResponse.getString("status")) {
+                        "SUCCESS" -> {
+                            val token = jsonResponse.getString("token")
+                            Log.i("checkPogoVersion", "Login successful, token: $token")
+                            callback(token)
                         }
 
-                    } else {
-                        Log.i("checkPogoVersion", "Unexpected response: $status")
+                        "ERROR_KEY_NOT_VALID" -> {
+                            Log.i("checkPogoVersion", "Key not valid")
+                            callback("ERROR")
+                        }
+
+                        else -> {
+                            Log.i("checkPogoVersion", "Unexpected response: $status")
+                            Handler(Looper.getMainLooper()).post {
+                                Toast.makeText(
+                                    context,
+                                    "登入檢查失敗 狀態: $status",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
+                        }
                     }
                 } catch (e: java.lang.Exception) {
                     e.printStackTrace()
                     Log.i("checkPogoVersion", "Response parsing failed")
+                    Handler(Looper.getMainLooper()).post {
+                        Toast.makeText(context, "回應解析失敗", Toast.LENGTH_SHORT).show()
+                    }
                 }
             }
         })
     }
 
-    fun sendSecondJsonRequest(key: String, token: String, pogoVersion: String, versionNumber: Int, callback: (String) -> Unit) {
+    fun sendSecondJsonRequest(
+        key: String,
+        token: String,
+        pogoVersion: String,
+        versionNumber: Int,
+        callback: (String) -> Unit
+    ) {
         val url = "https://api.login.polygonsharp.io/Porygon/Start"
         val jsonObject = JSONObject()
         try {
@@ -115,7 +132,7 @@ class polygon {
             return
         }
 
-        val body: RequestBody = RequestBody.create(JSON, jsonObject.toString())
+        val body: RequestBody = jsonObject.toString().toRequestBody(JSON)
 
         val request: Request = Request.Builder()
             .url(url)
@@ -127,32 +144,60 @@ class polygon {
             override fun onFailure(call: Call, e: IOException) {
                 e.printStackTrace()
                 Log.i("sendSecondJsonRequest", "Request failed")
+                Handler(Looper.getMainLooper()).post {
+                    Toast.makeText(context, "請求失敗", Toast.LENGTH_SHORT).show()
+                }
             }
 
             override fun onResponse(call: Call, response: Response) {
                 if (!response.isSuccessful) {
                     Log.i("sendSecondJsonRequest", "Unexpected code $response")
+                    Handler(Looper.getMainLooper()).post {
+                        Toast.makeText(context, "請求失敗 $response", Toast.LENGTH_SHORT).show()
+                    }
                     return
                 }
 
                 val responseData = response.body!!.string()
                 try {
                     val jsonResponse = JSONObject(responseData)
-                    val status = jsonResponse.getString("status")
+                    when (val status = jsonResponse.getString("status")) {
+                        "SUCCESS" -> {
+                            Log.i("sendSecondJsonRequest", "Pogo version $pogoVersion supported")
+                            callback(pogoVersion)
+                        }
 
-                    if ("SUCCESS" == status) {
-                        Log.i("checkPogoVersion", "Pogo version supported")
-                        callback(pogoVersion)
-                    } else {
-                        Log.i("checkPogoVersion", "Pogo version not supported")
+                        "ERROR_POGO_VERSION_NOT_SUPPORTED" -> {
+                            Log.i(
+                                "sendSecondJsonRequest",
+                                "Pogo version $pogoVersion not supported"
+                            )
+                        }
+
+                        "ERROR_KEY_NOT_VALID" -> {
+                            Log.i("sendSecondJsonRequest", "Key not valid")
+                            callback("ERROR")
+                        }
+
+                        else -> {
+                            Log.i("sendSecondJsonRequest", "Unexpected response: $status")
+                            Handler(Looper.getMainLooper()).post {
+                                Toast.makeText(
+                                    context,
+                                    "登入檢查失敗 狀態: $status",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
+                        }
                     }
                 } catch (e: Exception) {
                     e.printStackTrace()
                     Log.i("sendSecondJsonRequest", "Response parsing failed")
+                    /*Handler(Looper.getMainLooper()).post {
+                        Toast.makeText(context, "回應解析失敗", Toast.LENGTH_SHORT).show()
+                    }*/
                 }
             }
         })
     }
-
-
 }
