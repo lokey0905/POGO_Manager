@@ -60,12 +60,14 @@ class AppsPoke : Fragment() {
 
     private var url_jokstick = ""
     private var url_wrapper = ""
+    private var url_aerilate = ""
     private var url_polygon = ""
     private var url_PokeList = ""
     private var url_WeCatch = ""
     private var url_samsungStore = ""
 
     private var version_wrapper = "未安裝"
+    private var version_aerilate = "未安裝"
     private var version_polygon = "未安裝"
     private var version_PokeList = "未安裝"
     private var version_WeCatch = "未安裝"
@@ -154,6 +156,10 @@ class AppsPoke : Fragment() {
             downloadAPPWithCheck(url_wrapper)
         }
 
+        view.findViewById<Button>(R.id.download_Aerilate).setOnClickListener {
+            downloadAppCheckARM64(url_aerilate)
+        }
+
         view.findViewById<Button>(R.id.download_polygon).setOnClickListener {
             downloadAppCheckARM64(url_polygon)
         }
@@ -227,6 +233,10 @@ class AppsPoke : Fragment() {
             appUnInstall(resources.getString(R.string.packageName_wrapper))
         }
 
+        view.findViewById<Button>(R.id.remove_Aerilate).setOnClickListener {
+            appUnInstall(resources.getString(R.string.packageName_Aerilate))
+        }
+
         view.findViewById<Button>(R.id.remove_polygon).setOnClickListener {
             appUnInstall(resources.getString(R.string.packageName_polygon))
         }
@@ -283,6 +293,10 @@ class AppsPoke : Fragment() {
             popupMenu(view, R.id.wecatch_more, resources.getString(R.string.packageName_WeCatch))
         }
 
+        view.findViewById<ImageButton>(R.id.Aerilate_more).setOnClickListener {
+            popupMenu(view, R.id.Aerilate_more, resources.getString(R.string.packageName_Aerilate))
+        }
+
         view.findViewById<androidx.swiperefreshlayout.widget.SwipeRefreshLayout>(R.id.swipeRefreshLayout)
             .setOnRefreshListener {
                 Toast.makeText(context, getString(R.string.refreshing), Toast.LENGTH_SHORT).show()
@@ -311,6 +325,7 @@ class AppsPoke : Fragment() {
         val wrapperDownloadButton = view.findViewById<Button>(R.id.download_wrapper)
         val pokeListDownloadButton = view.findViewById<Button>(R.id.download_pokelist)
         val weCatchDownloadButton = view.findViewById<Button>(R.id.download_wecatch)
+        val aerilateDownloadButton = view.findViewById<Button>(R.id.download_Aerilate)
 
         val pokeTestVersionSwitch = view.findViewById<MaterialSwitch>(R.id.pokeTestVersion_switch)
         val spinner = view.findViewById<Spinner>(R.id.poke_spinner)
@@ -443,12 +458,21 @@ class AppsPoke : Fragment() {
             view.findViewById<TextView>(R.id.remove_wrapper).visibility =
                 viewShowOrHide(appInstalledOrNot(resources.getString(R.string.packageName_wrapper)))
 
+            view.findViewById<TextView>(R.id.remove_Aerilate).visibility =
+                viewShowOrHide(appInstalledOrNot(resources.getString(R.string.packageName_Aerilate)))
+
             val url = resources.getString(R.string.url_appInfo)
             extractAppVersionsFromJson(url) {
                 view.findViewById<TextView>(R.id.wrapper_new_version).text =
                     String.format(
                         formatNewerVersion,
                         version_wrapper,
+                        ""
+                    )
+                view.findViewById<TextView>(R.id.Aerilate_new_version).text =
+                    String.format(
+                        formatNewerVersion,
+                        version_aerilate,
                         ""
                     )
                 view.findViewById<TextView>(R.id.polygon_new_version).text =
@@ -504,6 +528,15 @@ class AppsPoke : Fragment() {
                     needUpdateAppsAmount++
                 } else {
                     weCatchDownloadButton.text = download
+                }
+
+                if (appInstalledVersion(getString(R.string.packageName_Aerilate)) != "未安裝" &&
+                    appInstalledVersion(getString(R.string.packageName_Aerilate)) != version_aerilate
+                ) {
+                    aerilateDownloadButton.text = update
+                    needUpdateAppsAmount++
+                } else {
+                    aerilateDownloadButton.text = download
                 }
 
                 if (needUpdateAppsAmount > 0) {
@@ -564,6 +597,11 @@ class AppsPoke : Fragment() {
                 String.format(
                     formatInstallVersion,
                     appInstalledVersion(resources.getString(R.string.packageName_wrapper))
+                )
+            view.findViewById<TextView>(R.id.Aerilate_install_version).text =
+                String.format(
+                    formatInstallVersion,
+                    appInstalledVersion(resources.getString(R.string.packageName_Aerilate))
                 )
 
             fun setDownloadButton(isUpdate: Boolean = false) {
@@ -856,6 +894,7 @@ class AppsPoke : Fragment() {
                 val pogo = jsonObject.getJSONObject("pogo")
                 val jokstick = pogo.getJSONObject("jokstick")
                 val warpper = pogo.getJSONObject("warpper")
+                val aerilate = pogo.getJSONObject("aerilate")
                 val polygon = pogo.getJSONObject("polygon")
                 val pokeList = pogo.getJSONObject("pokeList")
                 val wecatch = pogo.getJSONObject("wecatch")
@@ -863,12 +902,14 @@ class AppsPoke : Fragment() {
 
                 url_jokstick = jokstick.getString("url")
                 url_wrapper = warpper.getString("url")
+                url_aerilate = aerilate.getString("url")
                 url_polygon = polygon.getString("url")
                 url_PokeList = pokeList.getString("url")
                 url_WeCatch = wecatch.getString("url")
                 url_samsungStore = samsungStore.getString("url")
 
                 version_wrapper = warpper.getString("version")
+                version_aerilate = aerilate.getString("version")
                 version_polygon = polygon.getString("version")
                 polygonTestKey = polygon.getString("testKey")
                 version_PokeList = pokeList.getString("version")
@@ -877,6 +918,7 @@ class AppsPoke : Fragment() {
                 Log.i(
                     "PgTools",
                     "warpper:$version_wrapper\n" +
+                            "aerilate:$version_aerilate\n" +
                             "polygon:$version_polygon $polygonTestKey\n" +
                             "pokeList:$version_PokeList\n" +
                             "wecatch:$version_WeCatch"

@@ -150,4 +150,6 @@
     <string name="appsPokePage_PokeListAppName">PokeList【中文版】</string>
     <string name="appsPokePage_WeCatchTitle">寶可夢雷達</string>
     <string name="appsPokePage_WeCatchAppName">WeCatch</string>
+    <string name="appsPokePage_AerilateTitle">改良版暴力功</string>
+    <string name="appsPokePage_AerilateAppName">Aerilate</string>
 </resources>
