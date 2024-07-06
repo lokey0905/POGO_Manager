@@ -665,7 +665,10 @@ class AppsMHN : Fragment() {
                         .show()
                 }
                 setPositiveButton(R.string.ok) { _, _ ->
-                    gotoBrowser(url)
+                    if (url.endsWith(".apk"))
+                        startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
+                    else
+                        gotoBrowser(url)
                 }
                 setNegativeButton(R.string.downloadProblem) { _, _ ->
                     startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
