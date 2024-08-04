@@ -18,7 +18,7 @@
     <string name="url_googlePlay">https://play.google.com/store/apps/details?id=</string>
 
     <string name="url_app">https://www.mediafire.com/file/5mdun6u78jr96rw/app-debug.apk/file</string>
-    <string name="url_pokAres">https://www.apkmirror.com/apk/niantic-inc/pokemon-go-samsung-galaxy-apps-version/pokemon-go-samsung-galaxy-apps-version-%1$s-release/pokemon-go-samsung-galaxy-store-%1$s-android-apk-download/</string>
+    <string name="url_pokAres">https://www.apkmirror.com/apk/niantic-inc/pokemon-go-samsung-galaxy-apps-version/pokemon-go-samsung-galaxy-apps-version-%1$s-release/</string>
     <string name="url_pokeMod">https://pokemod.dev/zh/</string>
     <string name="url_pokeInfo">https://twpkinfo.com/igym.aspx</string>
     <string name="url_PGToolsFile">https://www.mediafire.com/file/fecfev2pr5c8x6d/GilbertMike_100523_1.txt/file</string>
