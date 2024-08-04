@@ -37,7 +37,14 @@
     <string name="testVersion">測試版</string>
     <string name="getPolygonKey">暴力功key(實驗性)</string>
     <string name="requestPermission">請允許定位權限後在重試</string>
-    <string name="allUpdated">全部APP皆已最新版本</string>
+    <string name="somethingWrong">發生一些錯誤</string>
+
+    <string name="appsAllUpdated">全部APP皆已最新版本</string>
+    <string name="apps_ARMV8a">64位元</string>
+    <string name="apps_ARMV7a">32位元</string>
+
+    <string name="installed">已安裝</string>
+    <string name="notInstalled">未安裝</string>
 
     <string name="widget_description">定位精確度 開關捷徑</string>
 
@@ -47,6 +54,7 @@
     <string name="rom_testKey">系統使用測試金鑰簽名</string>
     <string name="rom_unknown">系統簽名異常</string>
 
+    <string name="unsupported">不支援</string>
     <string name="unsupportedDevices">不支援的設備</string>
     <string name="unsupportedDevicesPokeAres">已禁止在非三星裝置下載三星版本寶可夢\n若仍要下載，請至設定中開啟「允許下載三星版本寶可夢」選項</string>
 
@@ -85,8 +93,10 @@
     <string name="locationAccuracyActivity2">開關捷徑</string>
 
     <string name="format_installApps">發現 %1$d 個APP可更新</string>
-    <string name="format_newerVersion">支援版本:%1$s %2$s</string>
+    <string name="format_newerVersion">支援版本:%1$s</string>
+    <string name="format_newerVersion_other">支援版本:%1$s %2$s</string>
     <string name="format_installVersion">安裝版本:%1$s</string>
+    <string name="format_installVersion_other">安裝版本:%1$s %2$s</string>
     <string name="format_newerVersion_Gps32">支援版本:已修改無廣告版本</string>
     <string name="format_newerVersion_Gps64">支援版本:已修改無廣告版本(64位元)</string>
 
@@ -137,14 +147,14 @@
     <string name="appsPokePage_PokeTitle">原版寶可夢客戶端</string>
     <string name="appsPokePage_PokeAppName">Pokémon GO【寶可夢】</string>
     <string name="appsPokePage_PokeAreaTitle">原版寶可夢客戶端三星版本</string>
-    <string name="appsPokePage_PokeAreaAppName">Pokémon GO【寶可夢三星版本】</string>
+    <string name="appsPokePage_PokeAreaAppName">Pokémon GO【寶可夢三星雙開版本】</string>
     <string name="appsPokePage_GpsTitle">可修改手機定位</string>
     <string name="appsPokePage_GpsAppName">GPS JoyStick【搖桿改定位✅老K刷機】</string>
     <string name="appsPokePage_wrapperTitle">快速尋找火箭隊</string>
     <string name="appsPokePage_wrapperAppName">GPS Joystick Wrapper【找火箭隊中文版】</string>
     <string name="appsPokePage_PolygonTitle">顯示IV三圍,偵測色違,打火箭隊等功能</string>
     <string name="appsPokePage_PolygonAppName">Polygon【暴力功中文版】</string>
-    <string name="appsPokePage_PGToolsTitle">模擬手動投球與自動旋轉補給站等功能</string>
+    <string name="appsPokePage_PGToolsTitle">自動捕捉與旋轉補給站等功能</string>
     <string name="appsPokePage_PGToolsAppName">PGTools【自動抓】</string>
     <string name="appsPokePage_PokeListTitle">尋找附近IV100色違與火箭隊的座標</string>
     <string name="appsPokePage_PokeListAppName">PokeList【中文版】</string>

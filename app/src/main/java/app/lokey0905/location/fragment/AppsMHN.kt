@@ -22,10 +22,9 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.preference.PreferenceManager
 import app.lokey0905.location.R
-import app.lokey0905.location.databinding.ActivityMainBinding
-import com.google.android.gms.ads.rewarded.RewardedAd
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.materialswitch.MaterialSwitch
 import com.google.android.material.snackbar.Snackbar
@@ -39,10 +38,6 @@ import java.net.HttpURLConnection
 import java.net.URL
 
 class AppsMHN : Fragment() {
-    private lateinit var binding: ActivityMainBinding
-
-    private var mRewardedAd: RewardedAd? = null
-
     private val gameVersionsMap = mutableMapOf<String, String>()
     private var mhnToolsVersion: String = "未安裝"
     private var mhnToolsUrl: String = ""
@@ -86,7 +81,7 @@ class AppsMHN : Fragment() {
         val gpsRemoveButton = view.findViewById<Button>(R.id.remove_gps)
         val hylianerDownloadButton = view.findViewById<Button>(R.id.download_hylianer)
         val hylianerRemoveButton = view.findViewById<Button>(R.id.remove_hylianer)
-        val mhnTestVersionSwitch = view.findViewById<MaterialSwitch>(R.id.mhnTestVersion_switch)
+        view.findViewById<MaterialSwitch>(R.id.mhnTestVersion_switch)
 
         mhnDownloadButton.setOnClickListener {
             downloadAPPWithCheck(mhnUrl)
@@ -146,6 +141,7 @@ class AppsMHN : Fragment() {
     @SuppressLint("SetTextI18n")
     private fun setupAppVersionInfo(view: View) {
         val formatInstallVersion = resources.getString(R.string.format_installVersion)
+        val formatNewerVersionOther = resources.getString(R.string.format_newerVersion_other)
         val formatNewerVersion = resources.getString(R.string.format_newerVersion)
 
         val mhnSupportVersion = view.findViewById<TextView>(R.id.mhn_new_version)
@@ -315,7 +311,7 @@ class AppsMHN : Fragment() {
             } else {
                 view.findViewById<com.google.android.material.appbar.SubtitleCollapsingToolbarLayout>(
                     R.id.toolbar_layout
-                ).subtitle = getString(R.string.allUpdated)
+                ).subtitle = getString(R.string.appsAllUpdated)
             }
         }
 
@@ -329,7 +325,8 @@ class AppsMHN : Fragment() {
 
             extractMHNToolsFromJson(url) { mhnVersion, mhnToolsVersion, gameVersionsMap ->
                 val versionsList = ArrayList<String>()
-                var mhnVersionList = resources.getString(R.string.appsMHNPage_supportVersion_MHNTools)
+                var mhnVersionList =
+                    resources.getString(R.string.appsMHNPage_supportVersion_MHNTools)
 
                 for ((version, _) in gameVersionsMap) {
                     versionsList.add(version)
@@ -340,8 +337,11 @@ class AppsMHN : Fragment() {
                     mhnVersionList += " $version,"
                 }
 
-                mhnVersionList = if(mhnTestVersion) {
-                    mhnVersionList.substring(0, mhnVersionList.length - 1) + " (${getText(R.string.testVersion)})"
+                mhnVersionList = if (mhnTestVersion) {
+                    mhnVersionList.substring(
+                        0,
+                        mhnVersionList.length - 1
+                    ) + " (${getText(R.string.testVersion)})"
 
                 } else {
                     mhnVersionList.substring(0, mhnVersionList.length - 1)
@@ -363,19 +363,18 @@ class AppsMHN : Fragment() {
                 spinner.setSelection(0)
 
                 mhnSupportVersion.text = String.format(
-                    formatNewerVersion,
+                    formatNewerVersionOther,
                     mhnVersion,
                     versionType
                 )
                 mhnToolsSupportVersion.text = String.format(
-                    formatNewerVersion,
+                    formatNewerVersionOther,
                     mhnToolsVersion,
                     versionType
                 )
                 hylianerSupportVersion.text = String.format(
                     formatNewerVersion,
                     "未知",
-                    ""
                 )
 
                 mhnToolsCheckDone = true
@@ -421,7 +420,7 @@ class AppsMHN : Fragment() {
                         mhnUrl = arm64Url
                         mhnVersion = version
                         mhnSupportVersion.text = String.format(
-                            formatNewerVersion,
+                            formatNewerVersionOther,
                             version,
                             if (mhnTestVersion)
                                 "(${getText(R.string.testVersion)})"
@@ -443,11 +442,11 @@ class AppsMHN : Fragment() {
     }
 
     private fun extractAppVersionsFromJson(url: String, onAppVersionsExtracted: () -> Unit) {
-        GlobalScope.launch(Dispatchers.IO) {
+        lifecycleScope.launch(Dispatchers.IO) {
 
             try {
-                val url = URL(url)
-                val connection: HttpURLConnection = url.openConnection() as HttpURLConnection
+                val urlObject = URL(url)
+                val connection: HttpURLConnection = urlObject.openConnection() as HttpURLConnection
                 connection.requestMethod = "GET"
 
                 val inputStream = connection.inputStream
@@ -483,11 +482,11 @@ class AppsMHN : Fragment() {
         url: String,
         onPogoVersionExtracted: (String, String, MutableMap<String, String>) -> Unit,
     ) {
-        GlobalScope.launch(Dispatchers.IO) {
+        lifecycleScope.launch(Dispatchers.IO) {
 
             try {
-                val url = URL(url)
-                val connection: HttpURLConnection = url.openConnection() as HttpURLConnection
+                val urlObject = URL(url)
+                val connection: HttpURLConnection = urlObject.openConnection() as HttpURLConnection
                 connection.requestMethod = "GET"
 
                 val inputStream = connection.inputStream
@@ -575,13 +574,14 @@ class AppsMHN : Fragment() {
                                 intent,
                                 PackageManager.MATCH_DEFAULT_ONLY
                             )
+
                             if (resolveInfo != null) {
 
                                 startActivity(intent)
                             } else {
                                 Toast.makeText(
                                     context,
-                                    getString(androidx.compose.ui.R.string.default_error_message),
+                                    getString(R.string.somethingWrong),
                                     Toast.LENGTH_SHORT
                                 ).show()
                             }
@@ -679,9 +679,9 @@ class AppsMHN : Fragment() {
 
     private fun boolToInstalled(boolean: Boolean): String {
         return if (boolean)
-            "已安裝"
+            resources.getString(R.string.installed)
         else
-            "未安裝"
+            resources.getString(R.string.notInstalled)
     }
 
     private fun appInstalledOrNot(packageName: String): Boolean {
@@ -695,16 +695,18 @@ class AppsMHN : Fragment() {
     }
 
     private fun appInstalledVersion(packageName: String): String {
-        val pm = activity?.packageManager
-        try {
-            pm?.getPackageInfo(packageName, PackageManager.GET_ACTIVITIES)
-            return pm?.getPackageInfo(
-                packageName,
-                PackageManager.GET_ACTIVITIES
-            )?.versionName.toString()
-        } catch (_: PackageManager.NameNotFoundException) {
+        if (appInstalledOrNot(packageName)) {
+            val pm = activity?.packageManager
+            try {
+                pm?.getPackageInfo(packageName, PackageManager.GET_ACTIVITIES)
+                return pm?.getPackageInfo(
+                    packageName,
+                    PackageManager.GET_ACTIVITIES
+                )?.versionName.toString()
+            } catch (_: PackageManager.NameNotFoundException) {
+            }
         }
-        return "未安裝"
+        return resources.getString(R.string.notInstalled)
     }
 
     private fun appUnInstall(packageName: String) {
