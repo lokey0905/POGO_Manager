@@ -52,6 +52,7 @@ data class PogoVersionInfo(
 class AppsPoke : Fragment() {
     val pogoVersionsList = ArrayList<PogoVersionInfo>()
     private var polygonVersionsList = ArrayList<String>()
+    private var aerilateVersionsList = ArrayList<String>()
     private var pogoVersion: String = "未安裝"
     private var pgToolsARMUrl: String = ""
     private var pgToolsARM64Url: String = ""
@@ -433,10 +434,40 @@ class AppsPoke : Fragment() {
             }
         }
 
+        fun getAerilateVersion() {
+            for (versionInfo in pogoVersionsList) {
+                val url = String.format(resources.getString(R.string.url_AerilateAPI), versionInfo.pogoVersion)
+                checkAerilate(url) { unsupportedVersion ->
+                    if (!unsupportedVersion) {
+                        Log.i("Aerilate", "Aerilate支援版本: ${versionInfo.pogoVersion}")
+                        if (aerilateVersionsList.contains(versionInfo.pogoVersion))
+                            return@checkAerilate
+
+                        aerilateVersionsList.add(versionInfo.pogoVersion)
+                        aerilateVersionsList.sort()
+
+                        var pogoVersionList =
+                            resources.getString(R.string.appsPokePage_supportVersion_Aerilate)
+                        for (aerilateSupportedVersion in aerilateVersionsList) {
+                            pogoVersionList += " ${aerilateSupportedVersion},"
+                        }
+
+                        pogoVersionList = pogoVersionList.substring(0, pogoVersionList.length - 1)
+
+                        view.findViewById<TextView>(R.id.supportVersion_Aerilate)?.text =
+                            pogoVersionList
+                    } else {
+                        Log.i("Aerilate", "Aerilate不支援版本: ${versionInfo.pogoVersion}")
+                    }
+                }
+            }
+        }
+
         fun appAllCheckDone() {
             if (pgToolsCheckDone && appListCheckDone) {
                 pgToolsCheckDone = false
                 appListCheckDone = false
+                getAerilateVersion()
                 getPolygonVersion()
                 view.findViewById<androidx.swiperefreshlayout.widget.SwipeRefreshLayout>(R.id.swipeRefreshLayout).isRefreshing =
                     false
@@ -1037,6 +1068,33 @@ class AppsPoke : Fragment() {
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
+            }
+        }
+    }
+
+    private fun checkAerilate(url: String, onCheckCompleted: (Boolean) -> Unit) {
+        lifecycleScope.launch(Dispatchers.IO) {
+            try {
+                val urlObject = URL(url)
+                val connection: HttpURLConnection = urlObject.openConnection() as HttpURLConnection
+                connection.requestMethod = "GET"
+
+                val inputStream = connection.inputStream
+                val response = inputStream.bufferedReader().use { it.readText() }
+
+                inputStream.close()
+
+                val containsNullP = response.contains("null\"P")
+
+                launch(Dispatchers.Main) {
+                    onCheckCompleted(containsNullP)
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+
+                launch(Dispatchers.Main) {
+                    onCheckCompleted(false)
+                }
             }
         }
     }

@@ -84,6 +84,12 @@
                                 android:layout_height="wrap_content"
                                 android:text="@string/appsPokePage_supportVersion_polygon" />
 
+                            <TextView
+                                android:id="@+id/supportVersion_Aerilate"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@string/appsPokePage_supportVersion_Aerilate" />
+
                             <Space
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
