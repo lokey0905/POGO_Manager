@@ -143,6 +143,7 @@
 
     <string name="appsPokePage_supportVersion_polygon">Polygon支援版本: </string>
     <string name="appsPokePage_supportVersion_PGTools">PGTools支援版本: </string>
+    <string name="appsPokePage_supportVersion_Aerilate">Aerilate支援版本: </string>
     <string name="appsPokePage_PGToolsTestVersion">PGTools測試版</string>
     <string name="appsPokePage_PokeTitle">原版寶可夢客戶端</string>
     <string name="appsPokePage_PokeAppName">Pokémon GO【寶可夢】</string>
@@ -160,6 +161,6 @@
     <string name="appsPokePage_PokeListAppName">PokeList【中文版】</string>
     <string name="appsPokePage_WeCatchTitle">寶可夢雷達</string>
     <string name="appsPokePage_WeCatchAppName">WeCatch</string>
-    <string name="appsPokePage_AerilateTitle">改良版暴力功</string>
-    <string name="appsPokePage_AerilateAppName">Aerilate</string>
+    <string name="appsPokePage_AerilateTitle">改良新版暴力功</string>
+    <string name="appsPokePage_AerilateAppName">Aerilate【艾略特中文版】</string>
 </resources>
