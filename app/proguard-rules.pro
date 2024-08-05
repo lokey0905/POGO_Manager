@@ -44,9 +44,6 @@
 # 保留Annotation不混淆
 -keepattributes *Annotation*,InnerClasses
 
-# 避免混淆泛型
--keepattributes Signature
-
 # 抛出異常時保留檔名與行數
 -keepattributes SourceFile,LineNumberTable
 
