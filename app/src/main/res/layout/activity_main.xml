@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.google.android.material.appbar.AppBarLayout
+        <!--com.google.android.material.appbar.AppBarLayout
             android:fitsSystemWindows="true"
             android:id="@+id/appBarLayout"
             android:layout_width="match_parent"
@@ -22,11 +22,11 @@
             <com.google.android.gms.ads.AdView
                 android:id="@+id/adView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
                 app:adSize="BANNER"
-                app:adUnitId="@string/adID_Banner">
+                app:adUnitId="@string/adB">
 
             </com.google.android.gms.ads.AdView>
 
@@ -36,32 +36,30 @@
                 android:layout_height="?attr/actionBarSize"
                 app:title="lokey刷機工場" />
 
-        </com.google.android.material.appbar.AppBarLayout>
+        </com.google.android.material.appbar.AppBarLayout-->
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/fragment_container_view"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:defaultNavHost="true"
+            android:fitsSystemWindows="false"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             app:layout_constraintBottom_toTopOf="@+id/navigation"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+            <!--app:layout_constraintTop_toBottomOf="@+id/appBarLayout"-->
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/navigation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
             app:itemHorizontalTranslationEnabled="false"
             app:labelVisibilityMode="labeled"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:menu="@menu/nav" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

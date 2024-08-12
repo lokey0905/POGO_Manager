@@ -1,7 +1,5 @@
 # POGO寶可夢外掛管理器 POGOManager
-**先前有大量玩家帳號被封禁，建議遊戲時間不要過長與加倍冷卻時間**
-
-[資料來源](https://facebook.台灣/ban)
+**2023年9月時大量刷機玩家被鎖定，建議遊戲數據不要太異常與加倍冷卻時間**
 
 ## 閱讀模式
 ### [書本閱讀模式頁面(HackMD)](https://hackmd.io/@lokey0905/B1x_pZAT2)
@@ -11,68 +9,113 @@
 [TOC]
 
 ## 介紹
-POGO寶可夢外掛管理器是一個可以管理多個寶可夢外掛的管理器，可以讓你更方便的管理你的寶可夢外掛
+POGO外掛管理器可以讓你更方便的管理你的寶可夢外掛
 
 **相關資料來源皆為網路取得，pokemon與本軟體無關**
 
-## 安裝
-本APP只能在Android系統上運行，並且需要Android 7.0以上的系統才能運行
-### 下載連結
-- [點擊下載](https://www.mediafire.com/file/5mdun6u78jr96rw/app-debug.apk/file)
-- [Github下載](https://github.com/lokey0905/POGO_Manager/releases)
+## 下載與更新教學
+### 寶可夢更新教學
+- 如果"安裝版本"低於"支援版本"，會跳出提示更新視窗
 
-## 更新寶可夢與自動抓
-- 如果安裝版本低於支援版本，表示需要更新自動抓與寶可夢，請點擊更新按鈕，並且等待更新完成
+<img width="400" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/NewVersion.jpg" style="margin-right:10px" />
 
-<img width="300" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/NewVersion.jpg" style="margin-right:10px" /><img width="400" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/NewVersion2.jpg" style="margin-right:10px" />
+- 請點擊寶可夢的更新按鈕
 
-- 如果寶可夢版本過高，表示可能被play商店自動更新了，關閉方法商店搜尋寶可夢，右上角三個點自動更新取消打勾，若無顯示重啟商店後即可關閉，之後先移除寶可夢，再到下載頁面下載支援版本的寶可夢
+<img width="500" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/NewVersion2.jpg" style="margin-right:10px" />
 
-- 如果遇到強制更新，可以先到設定中啟用測試版自動抓開關，然後再到下載頁面下載測試版的寶可夢與自動抓，若還是不支援請等待自動抓團隊更新
+- 進入網頁後，往下滑一點，會有一個【DOWNLOAD APK】或是【下載 APK】的按鈕
 
-<img width="400" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/testPgtools.jpg" style="margin-right:10px" />
+<img width="500" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/download_APK_E.jpg" style="margin-right:10px" />
+
+<img width="500" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/download_APK_C.jpg" style="margin-right:10px" />
+
+- 點擊下載按鈕後，若有顯示廣告，請按右上角或是左上角的X關閉
+
+<img width="200" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/apkmirror_AD.jpg" style="margin-right:10px" />
+
+- 下載完成後安裝即可
+
+<img width="600" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/install_pokemon.jpg" style="margin-right:10px" />
+
+### 寶可夢版本過高
+- 如果寶可夢版本過高，表示可能被play商店自動更新了
+
+- 關閉方法商店搜尋寶可夢，點選右上角︙按鈕取消打勾自動更新，若無顯示重啟商店後即可關閉，之後再移除寶可夢，再到下載頁面下載支援版本的寶可夢
+
+### 寶可夢版本強制更新
+- 如果遇到強制更新，可以先到設定中啟用測試版自動抓開關，然後再到下載頁面下載測試版的寶可夢與自動抓，若還是不支援請等待PgTools團隊更新
+
+### 其他檔案下載
+- 點擊檔案下載並安裝
+<img width="600" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/download_APK_mediafire.jpg" style="margin-right:10px" />
+
 
 # 建議玩法
-## 手動玩
-1. 搖桿設定單一位置+Polygon 暴力功+PokeList/WeCatch
-    - 可以搭配PokeList/WeCatch篩選寶可夢，與Polygon 暴力功的顯示三圍與偵測色違功能
+## 單純改定位
+- 此玩法最為安全
+- 須注意[等待冷卻時間](#%E5%86%B7%E5%8D%BB%E8%A8%88%E7%AE%97)
+
+啟動順序如下:
+1. 打開搖桿設定位置並啟動搖桿
+2. 可搭配報寶貝與[WeCatch](#WeCatch-%E5%AF%B6%E5%8F%AF%E5%A4%A2%E5%9C%B0%E5%9C%96-)傳送座標尋找寶可夢
+3. 開始遊玩
+
+
+## 單純改定位看iv
+- **Polygon 暴力功屬於注入式軟體，使用可能會有風險**
+- 使用暴力功的顯示三圍iv與偵測色違功能
+- 須注意[等待冷卻時間](#%E5%86%B7%E5%8D%BB%E8%A8%88%E7%AE%97)
+
+啟動順序如下:
+1. 打開搖桿設定位置並啟動搖桿
+2. 打開[Polygon 暴力功](#Polygon-%E6%9A%B4%E5%8A%9B%E5%8A%9F-)點擊啟動按鈕
+3. 可搭配報寶貝與[WeCatch](#WeCatch-%E5%AF%B6%E5%8F%AF%E5%A4%A2%E5%9C%B0%E5%9C%96-)傳送座標捕捉寶可夢
+4. 開始遊玩
+
 
 ## 單純掛機
-1. 搖桿設定路線+Pgtools
-    - 須注意掛機時間，時間太長可能會達到帳號當日上限，甚至軟體鎖(可參考最下方說明)
+- 須注意[等待冷卻時間](#%E5%86%B7%E5%8D%BB%E8%A8%88%E7%AE%97)
+- 須注意[掛機時間](#%E8%BB%9F%E9%AB%94%E9%8E%96)以免被軟鎖
 
-## 掛機刷星辰
-1. 搖桿+wrapper+Polygon 暴力功半自動刷火箭隊(免費但須手動點擊)
-2. 搖桿+wrapper+Pgtools 自動抓刷火箭隊(須付費版本)
-    - 須注意掛機時間，時間太長可能會達到帳號當日上限，甚至軟體鎖(可參考最下方說明)
+啟動順序如下:
+1. 使用搖桿改定位設定路線或是固定走路方向
+2. 打開PgTools並自訂參數(若不會設定預設即可)
+3. 點擊最下方的開始掛機按鈕
+4. 開始掛機
 
+## 掛機刷星辰(暴力功免費版)
+- 此為暴力功免費版本，半自動刷星辰，需手動傳送與點擊火箭隊
+- **Polygon 暴力功與PGTools屬於注入式軟體，使用可能會有風險**
+- 須注意[掛機時間](https://hackmd.io/wNhk4AJmTACn5wqmt9O-Fw?both#%E8%BB%9F%E9%AB%94%E9%8E%96)以免被軟鎖
+
+啟動順序如下:
+1. 打開搖桿設定位置並啟動搖桿
+2. 打開[GPS Joystick Wrapper](#GPS-Joystick-Wrapper-)，點擊左上角的▶按鈕啟動
+3. 打開[Polygon 暴力功](#Polygon-%E6%9A%B4%E5%8A%9B%E5%8A%9F-)點擊啟動按鈕
+4. 開始遊玩
+
+## 掛機刷星辰(PGTools付費版本)
+- 此為PGTools付費版本，需月費，可全自動掛機
+- **Polygon 暴力功與PGTools屬於注入式軟體，使用可能會有風險**
+- 須注意[掛機時間](https://hackmd.io/wNhk4AJmTACn5wqmt9O-Fw?both#%E8%BB%9F%E9%AB%94%E9%8E%96)以免被軟鎖
+
+啟動順序如下:
+1. 打開PGTools並選擇PAG功能
+2. 點擊PGTools最下方的開始掛機按鈕
+3. 開始掛機
+    
 ## 自動狙擊
 1. 搖桿+poklist+Polygon 暴力功
     - 使用pokelist自動狙擊功能，搭配Polygon 暴力功可偵測色違,IV相關資訊
 
 ## 寶可夢雙開(以上)
-- 雙開版本的寶可夢無法使用暴力功跟Pgtools的功能，只能使用虛擬定位，建議記憶體6G以上，說明如下
-1. 三星商店版本:需到三星商店下載，也可在管理器內啟用非三星裝置上下載，直接下載APK安裝
-2. 安卓環境雙開:例如MIUI的應用雙開與island的環境，若需降版本APP需要同步移除其他環境的應用程式
-
-- 搭配三星版本與環境雙開，理論來說可以達到最多6個寶可夢客戶端，但Android的分割畫面只能同時開啟兩個畫面，除非有特殊需求，否則不建議安裝超過2個客戶端
+- 雙開版本的寶可夢無法使用暴力功跟Pgtools的功能，只能使用虛擬定位，建議記憶體6G以上
+- 先開啟第一個寶可夢後，在手機的多工畫面中長按寶可夢APP圖示，點選分割畫面，再點選雙開版本寶可夢，即完成雙視窗連動
+- Android的分割畫面只能同時開啟兩個畫面，除非有特殊需求，否則不建議安裝超過2個客戶端
 
 # 外掛列表
 ## GPS Joystick 搖桿改定位 <img width="50" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/icon/gps_icon.png"/>
 可以讓你在遊戲中使用搖桿來移動你的位置，並且可以設定路徑移動與移動速度
-
-### 預先設定
-
-修正GPS跳轉到真正的位置
-
-<img width="400" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/JoystickSetting.jpg" style="margin-right:10px" />
-
-設定中關閉【啟用間接模擬】選項
-
-<img width="400" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/JoystickSetting2.jpg" style="margin-right:10px" />
-
-### 權限與設定
-允許顯示於上方懸浮權限與模擬定位應用程式為搖桿
 
 ### 匯入GPX路徑檔案
 先到管理器內下載路徑zip檔案，下載後解壓縮，左上角選項選擇匯入GPX檔案並轉換成路徑檔即可
@@ -89,10 +132,10 @@ POGO寶可夢外掛管理器是一個可以管理多個寶可夢外掛的管理�
 
 <img width="200" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/JoystickStart2-1.jpg" style="margin-right:10px" /> <img width="200" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/JoystickStart2-2.jpg" style="margin-right:10px" />
 
-**三星Android 10以上在快捷欄中請不要按這<img width="50" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/JoystickMapIcon.jpg"/>按鈕，可能會導致搖桿崩潰，須重啟搖桿才能正常使用**
+**三星系統Android 10以上在快捷欄中請不要按這<img width="30" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/JoystickMapIcon.jpg"/>按鈕，可能會導致搖桿崩潰，須重啟搖桿才能正常使用**
 
 ### 冷卻時間
-搖桿內地圖可察看冷卻剩餘時間，三星用戶請勿直接點擊懸浮的地圖按鈕<img width="50" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/JoystickMapIcon.jpg"/>，會導致搖桿崩潰，請直接開啟搖桿APP內的地圖
+搖桿內地圖可察看冷卻剩餘時間，三星用戶請勿直接點擊懸浮的地圖按鈕<img width="30" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/JoystickMapIcon.jpg"/>，會導致搖桿崩潰，請直接開啟搖桿APP內的地圖
 
 其他冷卻說明，可參考下方冷卻計算
 
@@ -100,31 +143,46 @@ POGO寶可夢外掛管理器是一個可以管理多個寶可夢外掛的管理�
 可以快速尋找火箭隊的軟體
 
 ### 使用
-點擊左上角的▶按鈕即可開始尋找火箭隊，點擊⏩按鈕尋找下一個目標，以此類推，需搭配GPS Joystick搖桿使用
+- 需搭配GPS Joystick搖桿使用，請先啟動"搖桿改定位"後使用
+- 點擊左上角的【▶】按鈕即可開始傳送尋找火箭隊
+- 點擊【⏩】按鈕尋找下一個目標，【⏪】退回上一個位置
+- 點擊【🔁】按鈕可重新整理資料
+- 若無傳送表示可能無資料，請擴大搜尋範圍尋找
 
 ## Polygon 暴力功 <img width="50" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/icon/polygon_icon.png"/>
 可以用來顯示寶可夢IV三圍、偵測色違；自動E球、半自動轉補給站、火箭隊直接勝利等功能
 
-**本軟體不適用:32位元裝置,雙開版本(Miui應用雙開,island),三星版本寶可夢**
+- **本軟體不適用:32位元裝置,雙開版本(Miui應用雙開,island),三星版本寶可夢**
 
 ### 權限與設定
 允許顯示於上方懸浮權限與ROOT超級使用者權限(**請先關閉其他懸浮APP 否則無法允許權限**)
 
 ### 使用
-輸入KEYS金鑰後，點擊START或是啟動即可開始使用，大部分功能皆以預先設定完成 
+輸入KEYS金鑰後，點擊"START"或是"啟動"即可開始使用，大部分功能皆以預先設定完成 
 
 功能如下(可在一般設定中查看):
 
+- 偵測寶可夢IV與偵測色違
+- 丟球必中E球
+- 火箭隊自動勝利
+- 道館團體戰自動攻擊
+- 點擊自動旋轉補給站
+
 <img width="400" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/PolygonSetting.jpg" style="margin-right:10px" />
 
-**進階設定不建議自行設定，可能會導致不可預知的後果**
+- **進階設定不建議自行設定，可能會導致不可預期的後果**
 
 ### 使用點擊傳送功能
-請在暴力功的一般設定中，啟用點擊傳送功能，並選擇模擬定位應用程式為Polygon 暴力功
+- **使用暴力功的點擊傳送功能較麻煩且無查詢冷卻時間，不推薦使用**
+1. 在暴力功的一般設定中，啟用點擊傳送與joystick功能
+2. 填入起始座標位置
+3. 在開發人員選項中選擇模擬定位應用程式為"Polygon 暴力功"
 
-若要將定位切換回搖桿，請在暴力功的一般設定中，關閉點擊傳送功能，並選擇模擬定位應用程式為GPS Joystick 搖桿
+### 將定位服務切換回搖桿改定位
+1. 在一般設定中，關閉點擊傳送與joystick功能
+2. 在開發人員選項中選擇模擬定位應用程式為"搖桿改定位"
 
-**模擬定位服務，搖桿與暴力功只能二選一，不能同時使用**
+**模擬定位服務：搖桿與暴力功只能二選一，不能同時使用，建議使用搖桿改定位即可**
 
 ## Pgtools 自動抓 <img width="50" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/icon/pgtools_icon.png"/>
 可以自動掛機抓寶可夢，並且可以自動轉補給站等功能
