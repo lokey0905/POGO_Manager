@@ -4,14 +4,14 @@ plugins {
 }
 
 android {
-    compileSdk 34
+    compileSdk 35
 
     defaultConfig {
         applicationId "app.lokey0905.location"
-        minSdk 23
-        targetSdk 34
+        minSdk 28
+        targetSdkVersion compileSdk
         versionCode 3
-        versionName "1.8"
+        versionName "2.14"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         externalNativeBuild {
@@ -24,7 +24,11 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -39,13 +43,12 @@ android {
         viewBinding true
         aidl true
     }
-
     packagingOptions {
-        exclude 'META-INF/INDEX.LIST'
-        exclude 'META-INF/io.netty.versions.properties'
-        exclude 'META-INF/META-INF/DEPENDENCIES'
-        exclude 'META-INF/DEPENDENCIES'
+        resources {
+            excludes += ['META-INF/INDEX.LIST', 'META-INF/io.netty.versions.properties', 'META-INF/META-INF/DEPENDENCIES', 'META-INF/DEPENDENCIES']
+        }
     }
+
     externalNativeBuild {
         cmake {
             path file('CMakeLists.txt')
@@ -57,30 +60,18 @@ android {
 }
 
 dependencies {
-    implementation 'androidx.preference:preference:1.2.1'
-    constraints {
-        implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.0") {
-            because("kotlin-stdlib-jdk7 is now a part of kotlin-stdlib")
-        }
-        implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.0") {
-            because("kotlin-stdlib-jdk8 is now a part of kotlin-stdlib")
-        }
-    }
-
+    implementation 'androidx.preference:preference-ktx:1.2.1'
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'androidx.core:core-ktx:1.10.1'
-    implementation 'androidx.browser:browser:1.5.0'
-    implementation 'androidx.appcompat:appcompat:1.6.1'
-    implementation 'com.google.android.material:material:1.9.0'
+    implementation 'androidx.core:core-ktx:1.13.1'
+    implementation 'androidx.browser:browser:1.8.0'
+    implementation 'androidx.appcompat:appcompat:1.7.0'
+    implementation 'com.google.android.material:material:1.12.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    implementation 'androidx.navigation:navigation-fragment-ktx:2.6.0'
-    implementation 'androidx.navigation:navigation-ui-ktx:2.6.0'
-    implementation 'com.google.android.gms:play-services-ads:22.3.0'
-    testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
-    implementation 'org.jsoup:jsoup:1.15.3'
-    implementation 'androidx.compose.material3:material3:1.1.1'
-    implementation("com.squareup.okhttp3:okhttp:4.11.0")
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.7.7'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.7.7'
+    implementation 'com.google.android.gms:play-services-ads:23.2.0'
+    implementation 'androidx.compose.material3:material3:1.2.1'
+    implementation 'com.squareup.okhttp3:okhttp:4.11.0'
+    implementation "com.hendraanggrian.material:collapsingtoolbarlayout-subtitle:1.5.0"
 }
-

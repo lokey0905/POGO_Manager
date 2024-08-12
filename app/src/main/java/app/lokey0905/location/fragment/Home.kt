@@ -7,14 +7,25 @@ import android.app.ActivityManager
 import android.content.Context.LOCATION_SERVICE
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.location.*
+import android.content.res.Configuration
+import android.location.Address
+import android.location.Criteria
+import android.location.Geocoder
+import android.location.Location
+import android.location.LocationListener
+import android.location.LocationManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.GridLayout
+import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -22,12 +33,13 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
+import app.lokey0905.location.BuildConfig
 import app.lokey0905.location.R
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import java.text.DecimalFormat
-import java.util.*
+import java.util.Locale
 import kotlin.math.roundToInt
 
 class Home : Fragment() {
@@ -37,17 +49,28 @@ class Home : Fragment() {
     var newerCheckMockLocationApi = false
     var bIsMagisk = false
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     @SuppressLint("SetTextI18n")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?,
     ): View {
         val view: View = inflater.inflate(R.layout.fragment_home, container, false)
 
+        val checkLocationButton = view.findViewById<Button>(R.id.check_location)
+        val checkInformationLayout = view.findViewById<LinearLayout>(R.id.check_information)
+        val checkRootText = view.findViewById<TextView>(R.id.check_root)
+
+        val toolbar =
+            view.findViewById<com.google.android.material.appbar.MaterialToolbar>(R.id.toolbar)
+        if (toolbar != null) {
+            (requireActivity() as AppCompatActivity).setSupportActionBar(toolbar)
+            setHasOptionsMenu(true)
+        }
+
         fun getDevice() {
+            val androidAbi = view.findViewById<TextView>(R.id.android_abi)
+            val androidRamSize = view.findViewById<TextView>(R.id.android_ramSize)
+            val androidPGToolsSupper = view.findViewById<TextView>(R.id.android_pgtoolsSupper)
+
             val actManager =
                 requireActivity().getSystemService(AppCompatActivity.ACTIVITY_SERVICE) as ActivityManager
             val memInfo = ActivityManager.MemoryInfo()
@@ -57,66 +80,60 @@ class Home : Fragment() {
             view.findViewById<TextView>(R.id.android_devices)?.text =
                 getDeviceName()
             view.findViewById<TextView>(R.id.android_version)?.text =
-                "${Build.VERSION.RELEASE}(${Build.VERSION.SDK_INT})"
+                "${Build.VERSION.RELEASE}(${Build.VERSION.SDK_INT}) ${isTestKeyRom()}"
+
             if (Build.SUPPORTED_ABIS[0] == "arm64-v8a") {
-                view.findViewById<TextView>(R.id.android_abi)?.text =
-                    "${Build.SUPPORTED_ABIS[0]} (64位元)"
-                view.findViewById<TextView>(R.id.android_ramSize)?.text =
-                    "$totalMemory GB(${boolToSupport(totalMemory >= 5)}雙開)"
-                view.findViewById<TextView>(R.id.android_pgtoolsSupper)?.text =
-                    "✅完整支援暴力功自動抓"
-            } else if (Build.SUPPORTED_ABIS[0] == "armeabi-v7a") {
-                view.findViewById<TextView>(R.id.android_abi)?.text =
-                    "${Build.SUPPORTED_ABIS[0]} (32位元)"
-                view.findViewById<TextView>(R.id.android_ramSize)?.text =
-                    "$totalMemory GB"
-                view.findViewById<TextView>(R.id.android_pgtoolsSupper)?.text =
-                    "❌不支援暴力功自動抓"
+                androidAbi?.text = "${Build.SUPPORTED_ABIS[0]} (64位元)"
+                androidRamSize?.text = "$totalMemory GB(${boolToSupport(totalMemory >= 5)}雙開)"
+                androidPGToolsSupper?.text = resources.getString(R.string.androidARM64SupperTrue)
+
             } else {
-                view.findViewById<TextView>(R.id.android_abi)?.text =
-                    Build.SUPPORTED_ABIS[0]
-                view.findViewById<TextView>(R.id.android_ramSize)?.text =
-                    "$totalMemory GB"
-                view.findViewById<TextView>(R.id.android_pgtoolsSupper)?.text =
-                    "❌不支援暴力功自動抓"
+                if (Build.SUPPORTED_ABIS[0] == "armeabi-v7a") {
+                    androidAbi?.text = "${Build.SUPPORTED_ABIS[0]} (32位元)"
+                } else {
+                    androidAbi?.text = Build.SUPPORTED_ABIS[0]
+                }
+                androidRamSize?.text = "$totalMemory GB"
+                androidPGToolsSupper?.text = resources.getString(R.string.androidARM64SupperFalse)
             }
         }
 
         fun magiskCheck() {
             if (bIsMagisk) {
-                //Toast.makeText(applicationContext, "Magisk Found", Toast.LENGTH_LONG).show()
-                view.findViewById<Button>(R.id.check_location)
-                    .setBackgroundColor(
-                        ContextCompat.getColor(
-                            this.requireContext(),
-                            com.google.android.material.R.color.design_default_color_error
-                        )
+                checkLocationButton.setBackgroundColor(
+                    ContextCompat.getColor(
+                        this.requireContext(),
+                        com.google.android.material.R.color.design_default_color_error
                     )
-                view.findViewById<TextView>(R.id.check_magisk)
-                    .setTextColor(
-                        ContextCompat.getColor(
-                            this.requireContext(),
-                            com.google.android.material.R.color.design_default_color_error
-                        )
+                )
+                checkRootText.setTextColor(
+                    ContextCompat.getColor(
+                        this.requireContext(),
+                        com.google.android.material.R.color.design_default_color_error
                     )
-                view.findViewById<TextView>(R.id.check_magisk)?.text = "❌已發現(未隔離)"
+                )
+                checkRootText?.text = resources.getString(R.string.checkInfo_rootDetected)
             } else {
-                view.findViewById<TextView>(R.id.check_magisk).text = "✅未發現刷機"
-                view.findViewById<TextView>(R.id.check_magisk)
-                    .setTextColor(ContextCompat.getColor(this.requireContext(), R.color.green))
+                checkRootText.setTextColor(
+                    ContextCompat.getColor(
+                        this.requireContext(),
+                        R.color.green
+                    )
+                )
+                checkRootText.text = resources.getString(R.string.checkInfo_rootNotDetected)
             }
         }
 
         val locationListener: LocationListener = object : LocationListener {
-            fun setButtonErrorColor(){
-                view.findViewById<Button>(R.id.check_location)
+            fun setButtonErrorColor() {
+                checkLocationButton
                     .setBackgroundColor(
                         MaterialColors.getColor(view, androidx.appcompat.R.attr.colorError)
                     )
             }
 
-            fun setButtonNormal(){
-                view.findViewById<Button>(R.id.check_location)
+            fun setButtonNormal() {
+                checkLocationButton
                     .setBackgroundColor(
                         MaterialColors.getColor(view, androidx.appcompat.R.attr.colorPrimary)
                     )
@@ -132,29 +149,32 @@ class Home : Fragment() {
                 if (!wifiFix) {
                     errorFlag = true
                     setButtonErrorColor()
-                    view.findViewById<Button>(R.id.check_location).text =
-                        "${resources.getString(R.string.check_button)} 無法偵測目前位置11"
+                    checkLocationButton.text =
+                        "${resources.getString(R.string.check_button)} " +
+                                "${resources.getString(R.string.locationError)}11" // 11 = 未開啟網路輔助
                 }
 
-                if ((Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) && newerCheckMockLocationApi) {
+                if ((Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) && newerCheckMockLocationApi) { // Android 12
                     if (location.isMock) {
                         errorFlag = true
                         setButtonErrorColor()
-                        view.findViewById<Button>(R.id.check_location).text =
-                            "${resources.getString(R.string.check_button)} 無法偵測目前位置12(${Build.VERSION.SDK_INT})"
+                        checkLocationButton.text =
+                            "${resources.getString(R.string.check_button)} " +
+                                    "${resources.getString(R.string.locationError)}12(${Build.VERSION.SDK_INT})" // 12 = 模擬定位
                     }
                 } else {
                     if (location.isFromMockProvider) {
                         errorFlag = true
                         setButtonErrorColor()
-                        view.findViewById<Button>(R.id.check_location).text =
-                            "${resources.getString(R.string.check_button)} 無法偵測目前位置12"
+                        checkLocationButton.text =
+                            "${resources.getString(R.string.check_button)} " +
+                                    "${resources.getString(R.string.locationError)}12" // 12 = 模擬定位
                     }
                 }
 
-                if(!errorFlag){
+                if (!errorFlag) {
                     setButtonNormal()
-                    view.findViewById<Button>(R.id.check_location).text =
+                    checkLocationButton.text =
                         resources.getString(R.string.check_button)
                 }
 
@@ -179,14 +199,14 @@ class Home : Fragment() {
             }
 
             @Deprecated("Deprecated in Java")
-            override fun onStatusChanged(provider: String, status: Int, extras: Bundle) {
+            override fun onStatusChanged(provider: String, status: Int, extras: Bundle) { // 定位狀態改變
             }
 
-            override fun onProviderEnabled(provider: String) {
+            override fun onProviderEnabled(provider: String) { // 定位開啟
                 Toast.makeText(context, "已偵測到定位開啟", Toast.LENGTH_SHORT).show()
             }
 
-            override fun onProviderDisabled(provider: String) {
+            override fun onProviderDisabled(provider: String) { // 定位關閉
                 Toast.makeText(context, "請開啟gps或是網路", Toast.LENGTH_SHORT).show()
             }
         }
@@ -233,13 +253,20 @@ class Home : Fragment() {
         getDevice()
         setFragmentResultListener()
 
-        view.findViewById<MaterialCardView>(R.id.check)?.setOnClickListener {
-            view.findViewById<Button>(R.id.check_safetynet).visibility = View.VISIBLE
-            view.findViewById<Button>(R.id.check_appList).visibility = View.VISIBLE
+        if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE)
+            checkInformationLayout.visibility = View.VISIBLE
+        else
+            checkInformationLayout.visibility = View.GONE
 
+        view.findViewById<MaterialCardView>(R.id.check).setOnClickListener {
+            if (checkInformationLayout.visibility == View.GONE)
+                checkInformationLayout.visibility = View.VISIBLE
         }
 
-        view.findViewById<Button>(R.id.check_location).setOnClickListener {
+        checkLocationButton.setOnClickListener {
+            if (checkInformationLayout.visibility == View.GONE)
+                checkInformationLayout.visibility = View.VISIBLE
+
             magiskCheck()
             if (context?.let { it1 ->
                     ContextCompat.checkSelfPermission(
@@ -261,9 +288,9 @@ class Home : Fragment() {
         }
 
         view.findViewById<Button>(R.id.check_safetynet).setOnClickListener {
-            if (appInstalledOrNot(resources.getString(R.string.packageName_safetynetChecker))) {
+            if (appInstalledOrNot(resources.getString(R.string.packageName_checkDevicesAPI))) {
                 val launchIntent =
-                    requireActivity().packageManager.getLaunchIntentForPackage(resources.getString(R.string.packageName_safetynetChecker))
+                    requireActivity().packageManager.getLaunchIntentForPackage(resources.getString(R.string.packageName_checkDevicesAPI))
                 if (launchIntent != null) {
                     startActivity(launchIntent)
                 }
@@ -273,10 +300,10 @@ class Home : Fragment() {
                     .setMessage(resources.getString(R.string.dialogDownloadDetectorMessage))
                     .apply {
                         setPositiveButton(getString(R.string.downloadOnGooglePlay)) { _, _ ->
-                            gotoBrowser(resources.getString(R.string.url_safetynetChecker_official))
+                            gotoBrowser(resources.getString(R.string.url_checkDevicesAPI_official))
                         }
                         setNegativeButton(getString(R.string.downloadAPK)) { _, _ ->
-                            gotoBrowser(resources.getString(R.string.url_safetynetChecker_unofficial))
+                            gotoBrowser(resources.getString(R.string.url_checkDevicesAPI_unofficial))
                         }
                         setNeutralButton(R.string.cancel) { _, _ ->
                             Toast.makeText(
@@ -318,6 +345,113 @@ class Home : Fragment() {
         }
 
         return view
+    }
+
+    @Deprecated("Deprecated in Java")
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_main, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    @Deprecated("Deprecated in Java")
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.action_download -> {
+                MaterialAlertDialogBuilder(requireContext())
+                    .setTitle(getString(R.string.download))
+                    .setMessage("是否要重新下載管理器?")
+                    .apply {
+                        setPositiveButton("重新下載") { _, _ ->
+                            gotoBrowser(resources.getString(R.string.url_app))
+                        }
+                        setNeutralButton(R.string.cancel) { _, _ ->
+                            Toast.makeText(
+                                context,
+                                getString(R.string.cancelOperation),
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    }
+                    .show()
+                true
+            }
+
+            R.id.action_share -> {
+                shareText(
+                    "${getString(R.string.share_information)}\n${getString(R.string.url_app)}",
+                    resources.getString(R.string.shareManager)
+                )
+                true
+            }
+
+            R.id.action_contact -> {
+                gotoBrowser(getString(R.string.facebook))
+                true
+            }
+
+            R.id.action_about -> {
+                showAboutDialog()
+                true
+            }
+
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        val gridLayout = view?.findViewById<GridLayout>(R.id.gridLayout)
+
+        if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            gridLayout?.columnCount = 2
+        } else {
+            gridLayout?.columnCount = 1
+        }
+    }
+
+    private fun isTestKeyRom(): String {
+        try {
+            for (signature in requireActivity().packageManager.getPackageInfo("android", 64).signatures!!) {
+                val hashCode: Int = signature.hashCode()
+                if (hashCode == -1263674583 || hashCode == -672009692) {
+                    return getString(R.string.rom_testKey)
+                }
+            }
+            return getString(R.string.rom_releaseKey)
+        } catch (e: PackageManager.NameNotFoundException) {
+            e.printStackTrace()
+            return getString(R.string.rom_unknown)
+        }
+    }
+
+
+    private fun shareText(text: String, title: String) {
+        val intent = Intent(Intent.ACTION_SEND)
+        intent.type = "text/plain"
+        intent.putExtra(Intent.EXTRA_TEXT, text)
+        intent.putExtra(Intent.EXTRA_TITLE, title)
+        startActivity(Intent.createChooser(intent, getString(R.string.share)))
+    }
+
+    @SuppressLint("SetTextI18n")
+    fun showAboutDialog() {
+        val dialog = MaterialAlertDialogBuilder(
+            requireActivity(),
+            com.google.android.material.R.style.ThemeOverlay_Material3_MaterialAlertDialog_Centered
+        )
+            .create()
+        val dialogView: View = View.inflate(requireActivity(), R.layout.dialog_about, null)
+        dialog.setView(dialogView)
+        dialogView.findViewById<TextView>(R.id.design_about_title).text =
+            resources.getString(R.string.app_name)
+        dialogView.findViewById<TextView>(R.id.design_about_version).text =
+            "${BuildConfig.VERSION_NAME} (${BuildConfig.VERSION_CODE})"
+        dialogView.findViewById<TextView>(R.id.design_about_info).text =
+            resources.getString(R.string.dialogAboutInfo)
+        dialogView.findViewById<TextView>(R.id.design_about_maker).text =
+            resources.getString(R.string.dialogAboutMaker)
+        dialog.show()
     }
 
     private fun boolToSupport(boolean: Boolean): String {

@@ -1,6 +1,12 @@
 <resources>
-    <string name="app_name">PoGo外掛管理器【老K刷機工場】</string>
+    <string name="app_name">PoGo管理器【老K刷機工場】</string>
+    <string name="app_name_short">PoGo管理器</string>
+    <string name="pokemon">寶可夢</string>
+    <string name="pokemonAppList">寶可夢App列表</string>
+    <string name="mh_now">魔物獵人</string>
+    <string name="mh_nowAppList">魔物獵人App列表</string>
     <string name="ok">確定</string>
+    <string name="copy">複製</string>
     <string name="cancel">取消</string>
     <string name="home">首頁</string>
     <string name="about">關於</string>
@@ -10,14 +16,17 @@
     <string name="contact">聯絡我</string>
     <string name="manual">使用手冊</string>
     <string name="remove">移除</string>
+    <string name="refreshing">獲取資料中…</string>
     <string name="setting">設定</string>
     <string name="download">下載</string>
+    <string name="downloadAgain">重新下載</string>
+    <string name="downloadProblem">無法正常下載</string>
     <string name="update">更新</string>
     <string name="updateContent">更新內容:</string>
-    <string name="unsupportedDevices">不支援的設備</string>
     <string name="checkUpdate">檢查更新</string>
     <string name="unlockPremium">解鎖付費版本</string>
     <string name="location">定位</string>
+    <string name="locationError">無法偵測目前位置</string>
     <string name="notChecked">未檢查</string>
     <string name="nearbySharing">鄰近分享</string>
     <string name="networkError">網路可能錯誤 請稍後在試</string>
@@ -25,35 +34,71 @@
     <string name="cancelOperation">取消操作</string>
     <string name="thanksForWaiting">感謝您的耐心等候：）</string>
     <string name="versionTooHigh">(版本過高)</string>
-    <string name="versionTest">(測試版)</string>
+    <string name="testVersion">測試版</string>
     <string name="getPolygonKey">暴力功key(實驗性)</string>
+    <string name="requestPermission">請允許定位權限後在重試</string>
+    <string name="somethingWrong">發生一些錯誤</string>
+
+    <string name="appsAllUpdated">全部APP皆已最新版本</string>
+    <string name="apps_ARMV8a">64位元</string>
+    <string name="apps_ARMV7a">32位元</string>
+
+    <string name="installed">已安裝</string>
+    <string name="notInstalled">未安裝</string>
 
     <string name="widget_description">定位精確度 開關捷徑</string>
 
+    <string name="share_information">我發現了Pogo外掛管理器 趕快來下載使用!</string>
+
+    <string name="rom_releaseKey">系統簽名正常</string>
+    <string name="rom_testKey">系統使用測試金鑰簽名</string>
+    <string name="rom_unknown">系統簽名異常</string>
+
+    <string name="unsupported">不支援</string>
+    <string name="unsupportedDevices">不支援的設備</string>
+    <string name="unsupportedDevicesPokeAres">已禁止在非三星裝置下載三星版本寶可夢\n若仍要下載，請至設定中開啟「允許下載三星版本寶可夢」選項</string>
+
+    <string name="checkTitle_DetectLocationStatus">系統取得定位位置:</string>
+    <string name="checkTitle_deviceIsRoot">偵測ROOT環境:</string>
     <string name="check_button">檢測定位與設備</string>
-    <string name="check_safetynet">檢測SafetyNet</string>
-    <string name="check_appList">進階檢測測試</string>
+    <string name="check_devicesAPI">檢測設備完整性</string>
+    <string name="check_appList">App列表測試</string>
+    <string name="checkInfo_rootDetected">⚠️已發現root路徑</string>
+    <string name="checkInfo_rootNotDetected">✅未發現root</string>
 
-    <string name="DetectionPositionTitle">系統取得定位位置:</string>
-    <string name="checkROOTTitle">偵測ROOT環境:</string>
-    <string name="MiuiXSpace">MIUI應用雙開</string>
-    <string name="coolDownCalculator">冷卻計算機</string>
-    <string name="pgtoolsFile">pgtools設定檔案(僅限贊助版本)</string>
+    <string name="shortcutsTitle_docAndTool">文檔與工具 (長按可新增捷徑)</string>
+    <string name="shortcutsTitle_download">檔案下載</string>
+    <string name="shortcuts_MiuiXSpace">MIUI應用雙開</string>
+    <string name="shortcuts_coolDownCalculator">冷卻計算機</string>
+    <string name="shortcuts_PGToolsFile">PGTools設定檔(贊助版本)</string>
+    <string name="shortcuts_splitScreen">split screen 分割畫面app</string>
+    <string name="shortcuts_island">island 創建雙開環境</string>
+    <string name="shortcuts_pokeMod">下載PokeMod</string>
+    <string name="shortcuts_gpx1">下載GPX路徑檔1(中文)</string>
+    <string name="shortcuts_gpx2">下載GPX路徑檔2(英文)</string>
+    <string name="shortcuts_gpx3">下載GPX路徑檔3(英文)</string>
+    <string name="shortcuts_gpx4">下載GPX路徑檔4(英文)</string>
+    <string name="shortcuts_gameGuardian">下載GG修改器</string>
+    <string name="shortcuts_packageDisablerPro">Package Disabler Pro</string>
+    <string name="shortcuts_AfWall">AFWall+ 防火牆</string>
+    <string name="shortcuts_pokeInfo">報寶貝 雷達</string>
+    <string name="shortcuts_pokeInfoMessage">報寶貝若顯示黑影 請重新整理網頁30次後即會恢復正常</string>
+    <string name="shortcuts_pokeListWeb">PokeList雷達</string>
 
-    <string name="shortcuts_docAndTool">文檔與工具</string>
-    <string name="shortcuts_download">檔案下載</string>
-
-    <string name="download_gpx">下載GPX路徑檔</string>
     <string name="downloadOnGooglePlay">從play商店下載</string>
     <string name="downloadAPK">下載APK檔</string>
-    <string name="downloadIsland">下載island</string>
-    <string name="downloadSplitScreen">下載分割畫面app</string>
+    <string name="downloadSetting">下載設定</string>
 
     <string name="locationAccuracyActivity1">定位精確度</string>
     <string name="locationAccuracyActivity2">開關捷徑</string>
 
-    <string name="format_newerVersion">支援版本:%1$s %2$s</string>
+    <string name="format_installApps">發現 %1$d 個APP可更新</string>
+    <string name="format_newerVersion">支援版本:%1$s</string>
+    <string name="format_newerVersion_other">支援版本:%1$s %2$s</string>
     <string name="format_installVersion">安裝版本:%1$s</string>
+    <string name="format_installVersion_other">安裝版本:%1$s %2$s</string>
+    <string name="format_newerVersion_Gps32">支援版本:已修改無廣告版本</string>
+    <string name="format_newerVersion_Gps64">支援版本:已修改無廣告版本(64位元)</string>
 
     <string name="dialogDownloadTitle">即將開始下載</string>
     <string name="dialogDownloadMessage">請點擊網頁的【Download】或【Download APK】或是【下載】按鈕以下載APK</string>
@@ -64,22 +109,58 @@
     <string name="dialogUpdateAvailableManagerMessage">建議更新至最新版本以取得最好的體驗，是否要更新管理器?</string>
     <string name="dialogUpdateAvailablePokMessage">建議更新至最新版本以取得最好的體驗，請手動點擊【更新】按鈕更新APP</string>
     <string name="dialogIsLatestVersion">已經是最新版本</string>
-    <string name="dialogAboutInfo">相關檔案皆為網路搜尋取得,檔案不歸我擁有,pokemon與本APP無關</string>
+    <string name="dialogAboutInfo">相關檔案皆為網路搜尋取得,檔案不歸我擁有,Pokemon,MHNOW與本項目無關</string>
     <string name="dialogAboutMaker">軟體作者:lokey0905 \n圖示作者:梧銳#4486</string>
     <string name="dialogAdNotReadyTitle">發生一些錯誤</string>
     <string name="dialogAdNotReadyMessage">您的操作過快 或是網路不穩 請5秒後在試</string>
     <string name="dialogCheckLocationAccuracyTitle">偵測到精確定位模式</string>
-    <string name="dialogCheckLocationAccuracyMessage">偵測到精確定位，建議關閉設定防止模擬定位跳轉，是否前往關閉?\n若已啟動搖桿可能會觸發這則通知，可以按取消忽略此通知</string>
+    <string name="dialogCheckLocationAccuracyMessage">偵測到精確定位，建議前往關閉設定防止模擬定位跳轉，是否前往關閉?\n若已啟動搖桿或曾啟動過可能會觸發這則通知，可以按取消忽略此通知</string>
     <string name="dialogDownloadOfficialMessage">請選擇下載方式 在play商店下載或直接下載APK</string>
     <string name="dialogGetKeyTitle">取得暴力功金鑰</string>
     <string name="dialogGetKeyMessage">本項目為實驗性內容 金鑰可能與其他人重複\n點擊確定嘗試獲取暴力功金鑰</string>
     <string name="dialogGetKeyADDone">已取得 請返回APP內複製暴力功金鑰欄\n本項目為實驗性內容 金鑰可能與其他人重複</string>
     <string name="dialogGetKeyDone">已取得 請複製並貼上至暴力功金鑰欄內\n本項目為實驗性內容 金鑰可能與其他人重複</string>
+    <string name="dialogInstallSamsungStoreTitle">尚未安裝三星應用商店</string>
+    <string name="dialogInstallSamsungStoreMessage">檢測到設備尚未安裝三星應用商店，若無安裝可能導致部分功能無法正常運作，是否前往下載安裝?</string>
 
     <string name="androidDevices">裝置名稱:</string>
     <string name="androidVersion">系統版本:</string>
     <string name="androidAbi">系統架構:</string>
     <string name="androidRamSize">記憶體大小:</string>
-    <string name="androidPgtoolsSupper">外掛支援狀態:</string>
+    <string name="androidARM64Supper">軟體支援:</string>
+    <string name="androidARM64SupperTrue">✅完整支援暴力功自動抓\n✅完整支援魔物獵人</string>
+    <string name="androidARM64SupperFalse">❌不支援暴力功自動抓\n❌不支援魔物獵人</string>
 
+    <string name="appsMHNPage_supportVersion_MHNTools">MHNTools支援版本: </string>
+    <string name="appsMHNPage_MHNTitle">原版魔物獵人客戶端</string>
+    <string name="appsMHNPage_MHNAPPName">MH Now【魔物獵人】</string>
+    <string name="appsMHNPage_MHNToolsTitle">魔物獵人修改工具</string>
+    <string name="appsMHNPage_MHNToolsAPPName">MHN Tools</string>
+    <string name="appsMHNPage_hylianerTitle">魔物獵人修改工具</string>
+    <string name="appsMHNPage_hylianerAPPName">hylianer</string>
+    <string name="appsMHNPage_GpsTitle">可修改手機定位</string>
+    <string name="appsMHNPage_GpsAPPName">GPS JoyStick【搖桿改定位✅老K刷機】</string>
+
+    <string name="appsPokePage_supportVersion_polygon">Polygon支援版本: </string>
+    <string name="appsPokePage_supportVersion_PGTools">PGTools支援版本: </string>
+    <string name="appsPokePage_supportVersion_Aerilate">Aerilate支援版本: </string>
+    <string name="appsPokePage_PGToolsTestVersion">PGTools測試版</string>
+    <string name="appsPokePage_PokeTitle">原版寶可夢客戶端</string>
+    <string name="appsPokePage_PokeAppName">Pokémon GO【寶可夢】</string>
+    <string name="appsPokePage_PokeAreaTitle">原版寶可夢客戶端三星版本</string>
+    <string name="appsPokePage_PokeAreaAppName">Pokémon GO【寶可夢三星雙開版本】</string>
+    <string name="appsPokePage_GpsTitle">可修改手機定位</string>
+    <string name="appsPokePage_GpsAppName">GPS JoyStick【搖桿改定位✅老K刷機】</string>
+    <string name="appsPokePage_wrapperTitle">快速尋找火箭隊</string>
+    <string name="appsPokePage_wrapperAppName">GPS Joystick Wrapper【找火箭隊中文版】</string>
+    <string name="appsPokePage_PolygonTitle">顯示IV三圍,偵測色違,打火箭隊等功能</string>
+    <string name="appsPokePage_PolygonAppName">Polygon【暴力功中文版】</string>
+    <string name="appsPokePage_PGToolsTitle">自動捕捉與旋轉補給站等功能</string>
+    <string name="appsPokePage_PGToolsAppName">PGTools【自動抓】</string>
+    <string name="appsPokePage_PokeListTitle">尋找附近IV100色違與火箭隊的座標</string>
+    <string name="appsPokePage_PokeListAppName">PokeList【中文版】</string>
+    <string name="appsPokePage_WeCatchTitle">寶可夢雷達</string>
+    <string name="appsPokePage_WeCatchAppName">WeCatch</string>
+    <string name="appsPokePage_AerilateTitle">改良新版暴力功</string>
+    <string name="appsPokePage_AerilateAppName">Aerilate【艾略特中文版】</string>
 </resources>

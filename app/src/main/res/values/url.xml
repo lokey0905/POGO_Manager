@@ -2,56 +2,58 @@
 <resources>
     <string name="facebook">https://shopee.idv.tw/facebook</string>
     <string name="shopee">https://shopee.idv.tw/</string>
-    <string name="shopee_auto">https://shopee.tw/product/167452417/21574723590?d_id=459a0</string>
     <string name="discord">https://discord.gg/rjz2s42</string>
     <string name="youtube">https://www.youtube.com/@key94lo?sub_confirmation=1</string>
     <string name="github">https://github.com/lokey0905/POGO_Manager</string>
     <string name="githubApi">https://api.github.com/repos/lokey0905/POGO_Manager/releases/latest</string>
     <string name="github_manual">https://hackmd.io/@lokey0905/B1x_pZAT2</string>
 
-    <string name="version_polygon">0.9.1</string>
-    <string name="version_wrapper">1.7.9</string>
-    <string name="version_pokelist">1.3.15</string>
-    <string name="version_wecatch">4.4.5</string>
-    <string name="version_pokemod">6.9.3</string>
+    <string name="url_appInfo">https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/appInfo.json</string>
+    <string name="url_pokeListWeb">https://moonani.com/PokeList/</string>
+    <string name="url_PGToolsJson">https://assets.pgtools.net/auto-versions.json</string>
+    <string name="url_PGToolsJsonTest">https://assets.pgtools.net/test-auto-versions.json</string>
+    <string name="url_mhnJson">https://assets.mhntools.net/versions.json</string>
+    <string name="url_mhnJsonTest">https://assets.mhntools.net/test-versions.json</string>
+    <string name="url_AerilateAPI">https://api.aerilate.io/Aerilate/HelloV2?pg=%1$s&amp;ll=en_US&amp;lt=1721344303621</string>
 
-    <string name="url_pgtoolsJson">https://assets.pgtools.net/auto-versions.json</string>
-    <string name="url_pgtoolsJsonTest">https://assets.pgtools.net/test-auto-versions.json</string>
+    <string name="url_googlePlay">https://play.google.com/store/apps/details?id=</string>
 
     <string name="url_app">https://www.mediafire.com/file/5mdun6u78jr96rw/app-debug.apk/file</string>
-    <string name="url_gps64">https://www.mediafire.com/file/maf260fw7u805tm/gpsjoystick_lokey_new.apk/file</string>
-    <string name="url_polygon">https://www.mediafire.com/file/rwgf8tpzr94hqew/com.evermorelabs.polygonsharp-0.9.1.apk/file</string>
-    <string name="url_pok_store">https://play.google.com/store/apps/details?id=com.nianticlabs.pokemongo</string>
-    <string name="url_pokAres">https://www.apkmirror.com/apk/niantic-inc/pokemon-go-samsung-galaxy-apps-version/</string>
-    <string name="url_pokAres_store">https://apps.samsung.com/appquery/appDetail.as?appId=com.nianticlabs.pokemongo.ares</string>
+    <string name="url_pokAres">https://www.apkmirror.com/apk/niantic-inc/pokemon-go-samsung-galaxy-apps-version/pokemon-go-samsung-galaxy-apps-version-%1$s-release/</string>
     <string name="url_pokeMod">https://pokemod.dev/zh/</string>
-    <string name="url_pgtoolsFile">https://www.mediafire.com/file/fecfev2pr5c8x6d/GilbertMike_100523_1.txt/file</string>
-    <!--string name="url_pokelist">https://moonani.com/PokeList/PokeList.apk</string-->
-    <string name="url_pokelist">https://www.mediafire.com/file/zs6baik33minkq3/PokeList%25E4%25B8%25AD%25E6%2596%2587%25E5%258C%2596–1.3.13.apk/file</string>
-    <string name="url_wecatch">https://github.com/daydreamer1222/WeCatch-Android/releases/download/v4.4.5/wecatch.apk</string>
-    <string name="url_wrapper">https://www.mediafire.com/file/hjkbrj513oi3v1l/gpsjoystick_wrapper%25E4%25B8%25AD%25E6%2596%2587%25E5%258C%25961.7.9.apk/file</string>
-    <string name="url_gpx">https://www.mediafire.com/file/xa0ml3uwz0l8uon/%25E7%2586%25B1%25E9%2596%2580%25E8%258A%25B1%25E5%258D%2580%25E9%25BB%259E_gpx.zip/file</string>
+    <string name="url_pokeInfo">https://twpkinfo.com/igym.aspx</string>
+    <string name="url_PGToolsFile">https://www.mediafire.com/file/fecfev2pr5c8x6d/GilbertMike_100523_1.txt/file</string>
+    <string name="url_gpx1">https://www.mediafire.com/file/xa0ml3uwz0l8uon/%25E7%2586%25B1%25E9%2596%2580%25E8%258A%25B1%25E5%258D%2580%25E9%25BB%259E_gpx.zip/file</string>
+    <string name="url_gpx2">https://drive.google.com/drive/folders/1c89gK9hburycF6htoZLD2Zi2B1aDfTZt</string>
+    <string name="url_gpx3">https://drive.google.com/drive/folders/1XIPcu0tIRT4CbWFtkYaEcjY8hH33u_M2</string>
+    <string name="url_gpx4">https://drive.google.com/drive/folders/1X0F0uBUTA8HDhY7uBukMLDPzdJi53-FO</string>
     <string name="url_coolDownCalculator">https://cool.android.ovh/</string>
     <string name="url_island_official">https://play.google.com/store/apps/details?id=com.oasisfeng.island</string>
-    <string name="url_island_unofficial">https://d.apkpure.com/b/APK/com.oasisfeng.island?version=latest</string>
+    <string name="url_island_unofficial">https://d.cdnpure.com/b/APK/com.oasisfeng.island?version=latest</string>
     <string name="url_split_official">https://play.google.com/store/apps/details?id=com.github.ericytsang.multiwindow.app.android</string>
     <string name="url_split_unofficial">https://www.mediafire.com/file/ufyvz2dm6inulxj/com.github.ericytsang.multiwindow.app.android.apk/file</string>
-    <string name="url_PackageDisablerPro">https://www.mediafire.com/file/ufyvz2dm6inulxj/com.github.ericytsang.multiwindow.app.android.apk/file</string>
+    <string name="url_PackageDisablerPro">https://apkcombo.com/tw/package-disabler-pro-all-android/com.ospolice.packagedisablerpro/download/apk</string>
     <string name="url_AFWall_official">https://play.google.com/store/apps/details?id=dev.ukanth.ufirewall</string>
     <string name="url_AFWall_unofficial">https://github.com/ukanth/afwall/releases/download/v3.6.0/AFWall_3.6.0_Free.apk</string>
-    <string name="url_safetynetChecker_official">https://play.google.com/store/apps/details?id=rikka.safetynetchecker</string>
-    <string name="url_safetynetChecker_unofficial">https://github.com/RikkaW/YASNAC/releases/latest</string>
+    <string name="url_checkDevicesAPI_official">https://play.google.com/store/apps/details?id=com.henrikherzig.playintegritychecker</string>
+    <string name="url_checkDevicesAPI_unofficial">https://github.com/herzhenr/spic-android/releases/latest</string>
     <string name="url_appListDetector">https://github.com/Dr-TSNG/ApplistDetector/releases/latest</string>
+    <string name="url_gameGuardian">https://gameguardian.net/forum/files/file/2-gameguardian/</string>
 
-    <string name="packageName_gps">com.theyerbnosob.vxpdplqpbzmhzbw</string>
+    <string name="packageName_gps32">com.theyerbnosob.vxpdplqpbzmhzbw</string>
+    <string name="packageName_gps64">com.thejhijuqoqy.bdujvrwdcajvzin</string>
     <string name="packageName_polygon">com.evermorelabs.polygonsharp</string>
-    <string name="packageName_pgtools">net.pgtools.auto</string>
+    <string name="packageName_PGTools">net.pgtools.auto</string>
     <string name="packageName_wrapper">net.pgtools.gps_wrapper</string>
     <string name="packageName_pok">com.nianticlabs.pokemongo</string>
     <string name="packageName_pokAres">com.nianticlabs.pokemongo.ares</string>
     <string name="packageName_PokeList">com.antvn.pokelist</string>
     <string name="packageName_WeCatch">com.daydreamer.wecatch</string>
-    <string name="packageName_pokeMod">com.pokemod.app.public</string>
-    <string name="packageName_safetynetChecker">rikka.safetynetchecker</string>
+    <string name="packageName_MHNow">com.nianticlabs.monsterhunter</string>
+    <string name="packageName_mhnTools">net.mhntools.auto</string>
+    <string name="packageName_checkDevicesAPI">com.henrikherzig.playintegritychecker</string>
     <string name="packageName_appListDetector">icu.nullptr.applistdetector</string>
+    <string name="packageName_galaxyStore">com.sec.android.app.samsungapps</string>
+    <string name="packageName_hylianer">com.hpkssgdxzuwyxtnoo</string>
+    <string name="packageName_Aerilate">com.evermorelabs.aerilate</string>
 </resources>
