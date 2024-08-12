@@ -17,21 +17,16 @@ APK檔案下載
 <img width="250" src="https://github.com/lokey0905/POGO_Manager/blob/master/docs/root/Screenshot_1.jpg?raw=true" />
 
 ### 寶可夢頁面
-<img width="250" src="https://github.com/lokey0905/POGO_Manager/blob/master/docs/root/Screenshot_2_1.jpg?raw=true" style="margin-right:10px" />
-<img width="250" src="https://github.com/lokey0905/POGO_Manager/blob/master/docs/root/Screenshot_2_2.jpg?raw=true" style="margin-right:10px" />
-<img width="250" src="https://github.com/lokey0905/POGO_Manager/blob/master/docs/root/Screenshot_2_3.jpg?raw=true" style="margin-right:10px" />
+<img width="250" src="https://github.com/lokey0905/POGO_Manager/blob/master/docs/root/Screenshot_2_1.jpg?raw=true" style="margin-right:10px" /> <img width="250" src="https://github.com/lokey0905/POGO_Manager/blob/master/docs/root/Screenshot_2_2.jpg?raw=true" style="margin-right:10px" /> <img width="250" src="https://github.com/lokey0905/POGO_Manager/blob/master/docs/root/Screenshot_2_3.jpg?raw=true" style="margin-right:10px" />
 
 ### 魔物獵人頁面
-<img width="250" src="https://github.com/lokey0905/POGO_Manager/blob/master/docs/root/Screenshot_3_1.jpg?raw=true" style="margin-right:10px" />
-<img width="250" src="https://github.com/lokey0905/POGO_Manager/blob/master/docs/root/Screenshot_3_2.jpg?raw=true" style="margin-right:10px" />
+<img width="250" src="https://github.com/lokey0905/POGO_Manager/blob/master/docs/root/Screenshot_3_1.jpg?raw=true" style="margin-right:10px" /> <img width="250" src="https://github.com/lokey0905/POGO_Manager/blob/master/docs/root/Screenshot_3_2.jpg?raw=true" style="margin-right:10px" />
 
 ### 捷徑頁面
-<img width="250" src="https://github.com/lokey0905/POGO_Manager/blob/master/docs/root/Screenshot_4_1.jpg?raw=true" style="margin-right:10px" />
-<img width="250" src="https://github.com/lokey0905/POGO_Manager/blob/master/docs/root/Screenshot_4_2.jpg?raw=true" style="margin-right:10px" />
+<img width="250" src="https://github.com/lokey0905/POGO_Manager/blob/master/docs/root/Screenshot_4_1.jpg?raw=true" style="margin-right:10px" /> <img width="250" src="https://github.com/lokey0905/POGO_Manager/blob/master/docs/root/Screenshot_4_2.jpg?raw=true" style="margin-right:10px" />
 
 ### 設定頁面
-<img width="250" src="https://github.com/lokey0905/POGO_Manager/blob/master/docs/root/Screenshot_5_1.jpg?raw=true" style="margin-right:10px" />
-<img width="250" src="https://github.com/lokey0905/POGO_Manager/blob/master/docs/root/Screenshot_5_2.jpg?raw=true" style="margin-right:10px" />
+<img width="250" src="https://github.com/lokey0905/POGO_Manager/blob/master/docs/root/Screenshot_5_1.jpg?raw=true" style="margin-right:10px" /> <img width="250" src="https://github.com/lokey0905/POGO_Manager/blob/master/docs/root/Screenshot_5_2.jpg?raw=true" style="margin-right:10px" />
 
 
 ## libraries
