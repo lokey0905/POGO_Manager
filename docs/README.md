@@ -1,5 +1,4 @@
-# POGO寶可夢外掛管理器 POGOManager
-**2023年9月時大量刷機玩家被鎖定，建議遊戲數據不要太異常與加倍冷卻時間**
+# POGO寶可夢管理器 POGOManager
 
 ## 閱讀模式
 ### [書本閱讀模式頁面(HackMD)](https://hackmd.io/@lokey0905/B1x_pZAT2)
@@ -8,96 +7,141 @@
 ## 目錄(閱讀模式)
 [TOC]
 
-## 介紹
-POGO外掛管理器可以讓你更方便的管理你的寶可夢外掛
-
-**相關資料來源皆為網路取得，pokemon與本軟體無關**
-
 ## 下載與更新教學
+
+- 如果「安裝版本」低於「支援版本」，表示可能需要進行更新
+<img width="500" src="https://hackmd.io/_uploads/BkwJOVxsR.jpg" style="margin-right:10px" />
+
 ### 寶可夢更新教學
-- 如果"安裝版本"低於"支援版本"，會跳出提示更新視窗
+- [點我觀看影片安裝教學](https://www.facebook.com/watch/?mibextid=4rjikB)
 
-<img width="400" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/NewVersion.jpg" style="margin-right:10px" />
+> - 點擊寶可夢的更新按鈕
+>> <img width="500" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/NewVersion2.jpg" style="margin-right:10px" />
 
-- 請點擊寶可夢的更新按鈕
+> - 進入網頁後，往下滑一些，會有一個【DOWNLOAD APK BUNDLE】或是【下載 APK BUNDLE】的按鈕
+>> <img width="500" src="https://hackmd.io/_uploads/HJJK-HgsR.jpg" style="margin-right:10px" />
+>> <img width="500" src="https://hackmd.io/_uploads/BkktWSlsC.jpg" style="margin-right:10px" />
 
-<img width="500" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/NewVersion2.jpg" style="margin-right:10px" />
+> - 點擊下載按鈕後，若有顯示廣告，請按右上角或是左上角的X關閉
+>> <img width="300" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/apkmirror_AD.jpg" style="margin-right:10px" />
 
-- 進入網頁後，往下滑一點，會有一個【DOWNLOAD APK】或是【下載 APK】的按鈕
+> - 下載後開啟檔案，如果是第一次安裝，請選擇APKMirror Installer，並且勾選【預設選擇】或是【一律使用】
+>> <img width="300" src="https://hackmd.io/_uploads/SJ0-BrgiA.jpg" style="margin-right:10px" />
+> 點擊右下角的【Watch ad and install app】按鈕安裝
+>> <img width="300" src="https://hackmd.io/_uploads/rkyPq4xsC.jpg" style="margin-right:10px" />
 
-<img width="500" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/download_APK_E.jpg" style="margin-right:10px" />
+> - 等待廣告，完成後，請按右上角或是左上角的X關閉
+>> <img width="300" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/apkmirror_AD.jpg" style="margin-right:10px" />
 
-<img width="500" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/download_APK_C.jpg" style="margin-right:10px" />
+> - 點選安裝或是更新
+>> <img width="600" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/install_pokemon.jpg" style="margin-right:10px" />
 
-- 點擊下載按鈕後，若有顯示廣告，請按右上角或是左上角的X關閉
+- 若有重新安裝或是更新完成後，請記得將手機重新啟動
 
-<img width="200" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/apkmirror_AD.jpg" style="margin-right:10px" />
+### 寶可夢更新教學(三星雙開版本)
 
-- 下載完成後安裝即可
+> - 點擊寶可夢三星雙開版本的更新按鈕
+>> <img width="500" src="https://hackmd.io/_uploads/SJDUJSxs0.jpg" style="margin-right:10px" />
 
-<img width="600" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/install_pokemon.jpg" style="margin-right:10px" />
+> - 進入網頁後，往下滑一些，會有一個Download Pokémon Go的畫面如下，點擊v8a版本的左邊紅字進入下載
+>> <img width="500" src="https://hackmd.io/_uploads/HJG0REgo0.jpg" style="margin-right:10px" />
+
+> - 點擊按鈕後，若有顯示廣告，請按右上角或是左上角的X關閉
+>> <img width="300" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/apkmirror_AD.jpg" style="margin-right:10px" />
+
+> - 進入網頁後，往下滑一些，會有一個【DOWNLOAD APK】或是【下載 APK】的按鈕
+>> <img width="500" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/download_APK_E.jpg" style="margin-right:10px" />
+>> <img width="500" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/download_APK_C.jpg" style="margin-right:10px" />
+
+> - 下載好後開啟檔案，點選安裝或是更新
+>> <img width="500" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/install_pokemon.jpg" style="margin-right:10px" />
+
+- 若有重新安裝或是更新完成後，請記得將手機重新啟動
+
+### 寶可夢降版本
+> - 可以在支援版本列表左下方選擇要下載的版本
+>> <img width="500" src="https://hackmd.io/_uploads/Hk8MVrej0.jpg" style="margin-right:10px" />
+
+> - 若選擇的版本低於安裝版本，則需要先移除才能繼續下載安裝
+>> <img width="500" src="https://hackmd.io/_uploads/HJE_8BgjR.jpg" style="margin-right:10px" />
 
 ### 寶可夢版本過高
-- 如果寶可夢版本過高，表示可能被play商店自動更新了
-
-- 關閉方法商店搜尋寶可夢，點選右上角︙按鈕取消打勾自動更新，若無顯示重啟商店後即可關閉，之後再移除寶可夢，再到下載頁面下載支援版本的寶可夢
+- 如果寶可夢版本過高，表示可能被Play商店自動更新了
+> - 關閉方法
+> 1. 商店搜尋寶可夢
+> 2. 點選右上角︙按鈕
+> 3. 取消打勾自動更新
+>> <img width="500" src="https://hackmd.io/_uploads/r1ZrzHlo0.jpg" style="margin-right:10px" />
+> - 若無顯示重新啟動裝置後即可關閉
+- 若Play商店內顯示未安裝，或是已經取消自動更新，請操作[寶可夢降版本](#%E5%AF%B6%E5%8F%AF%E5%A4%A2%E9%99%8D%E7%89%88%E6%9C%AC)
 
 ### 寶可夢版本強制更新
-- 如果遇到強制更新，可以先到設定中啟用測試版自動抓開關，然後再到下載頁面下載測試版的寶可夢與自動抓，若還是不支援請等待PgTools團隊更新
+- 如果遇到強制更新，可以先嘗試啟用測試版開關
+> <img width="500" src="https://hackmd.io/_uploads/BkQVQrgs0.jpg" style="margin-right:10px" />
+- 若版本還是不支援請等待PgTools團隊更新
 
 ### 其他檔案下載
 - 點擊檔案下載並安裝
-<img width="600" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/download_APK_mediafire.jpg" style="margin-right:10px" />
+> <img width="500" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/download_APK_mediafire.jpg" style="margin-right:10px" />
+
+- 如果下載後遇到如圖只顯示下載中無法正常下載狀況
+> <img width="200" src="https://hackmd.io/_uploads/HJ2WOHgiA.jpg" style="margin-right:10px" />
+> 
+>> - 下載時請點擊中間的無法正常下載按鈕
+>> <img width="400" src="https://hackmd.io/_uploads/BkGltBejC.jpg" style="margin-right:10px" />
 
 
 # 建議玩法
 ## 單純改定位
-- 此玩法最為安全
-- 須注意[等待冷卻時間](#%E5%86%B7%E5%8D%BB%E8%A8%88%E7%AE%97)
+- **此玩法最為安全**
+- 須注意[等待冷卻時間](#冷卻計算)
 
 啟動順序如下:
-1. 打開搖桿設定位置並啟動搖桿
-2. 可搭配報寶貝與[WeCatch](#WeCatch-%E5%AF%B6%E5%8F%AF%E5%A4%A2%E5%9C%B0%E5%9C%96-)傳送座標尋找寶可夢
+1. 打開[搖桿](#GPS-Joystick-搖桿改定位-)並[設定位置啟動搖桿](#啟動搖桿)
+2. 可搭配報寶貝與[WeCatch](#WeCatch-寶可夢地圖-)或是[Pokelist](#PokeList-寶可夢列表-)等其他雷達傳送座標尋找寶可夢
 3. 開始遊玩
 
 
 ## 單純改定位看iv
 - **Polygon 暴力功屬於注入式軟體，使用可能會有風險**
-- 使用暴力功的顯示三圍iv與偵測色違功能
-- 須注意[等待冷卻時間](#%E5%86%B7%E5%8D%BB%E8%A8%88%E7%AE%97)
+- 使用[暴力功](#Polygon-暴力功-)的顯示三圍iv與偵測色違功能
+- 須注意[等待冷卻時間](#冷卻計算)
 
 啟動順序如下:
-1. 打開搖桿設定位置並啟動搖桿
-2. 打開[Polygon 暴力功](#Polygon-%E6%9A%B4%E5%8A%9B%E5%8A%9F-)點擊啟動按鈕
-3. 可搭配報寶貝與[WeCatch](#WeCatch-%E5%AF%B6%E5%8F%AF%E5%A4%A2%E5%9C%B0%E5%9C%96-)傳送座標捕捉寶可夢
+1. 打開[搖桿](#GPS-Joystick-搖桿改定位-)並[設定位置啟動搖桿](#啟動搖桿)
+2. 打開[Polygon 暴力功](#Polygon-暴力功-)並點擊啟動按鈕
+3. 可搭配報寶貝與[WeCatch](#WeCatch-寶可夢地圖-)或是[Pokelist](#PokeList-寶可夢列表-)等其他雷達傳送座標尋找寶可夢
 4. 開始遊玩
 
 
 ## 單純掛機
-- 須注意[等待冷卻時間](#%E5%86%B7%E5%8D%BB%E8%A8%88%E7%AE%97)
-- 須注意[掛機時間](#%E8%BB%9F%E9%AB%94%E9%8E%96)以免被軟鎖
+- **PGTools屬於注入式軟體，使用可能會有風險**
+- 須注意[等待冷卻時間](#冷卻計算)
+- 須注意[掛機時間](#軟體鎖)以免被軟鎖
 
 啟動順序如下:
-1. 使用搖桿改定位設定路線或是固定走路方向
+1. 使用搖桿改定位[設定路線或是固定走路方向](#啟動搖桿)
 2. 打開PgTools並自訂參數(若不會設定預設即可)
 3. 點擊最下方的開始掛機按鈕
 4. 開始掛機
 
 ## 掛機刷星辰(暴力功免費版)
-- 此為暴力功免費版本，半自動刷星辰，需手動傳送與點擊火箭隊
+- **2024/6月開始官方開始標記刷火箭隊玩家，目前不建議使用此功能**
 - **Polygon 暴力功與PGTools屬於注入式軟體，使用可能會有風險**
-- 須注意[掛機時間](https://hackmd.io/wNhk4AJmTACn5wqmt9O-Fw?both#%E8%BB%9F%E9%AB%94%E9%8E%96)以免被軟鎖
+- 此為暴力功免費版本，半自動刷星辰，需手動傳送與點擊火箭隊
+- 須注意[掛機時間](#軟體鎖)以免被軟鎖
 
 啟動順序如下:
-1. 打開搖桿設定位置並啟動搖桿
-2. 打開[GPS Joystick Wrapper](#GPS-Joystick-Wrapper-)，點擊左上角的▶按鈕啟動
-3. 打開[Polygon 暴力功](#Polygon-%E6%9A%B4%E5%8A%9B%E5%8A%9F-)點擊啟動按鈕
-4. 開始遊玩
+1. 打開[搖桿](#GPS-Joystick-搖桿改定位-)設定位置並啟動搖桿
+2. 打開[GPS Joystick Wrapper](#GPS-Joystick-Wrapper-)並點擊左上角的▶️按鈕啟動
+3. 打開[Polygon 暴力功](#Polygon-暴力功-)並點擊啟動按鈕
+4. 點擊⏩按鈕可傳送至下個火箭隊
 
 ## 掛機刷星辰(PGTools付費版本)
-- 此為PGTools付費版本，需月費，可全自動掛機
+- **2024/6月開始官方開始標記刷火箭隊玩家，目前不建議使用此功能**
 - **Polygon 暴力功與PGTools屬於注入式軟體，使用可能會有風險**
-- 須注意[掛機時間](https://hackmd.io/wNhk4AJmTACn5wqmt9O-Fw?both#%E8%BB%9F%E9%AB%94%E9%8E%96)以免被軟鎖
+- 此為PGTools付費版本，請另外購買，需月費，可全自動掛機
+- 須注意[掛機時間](#軟體鎖)以免被軟鎖
 
 啟動順序如下:
 1. 打開PGTools並選擇PAG功能
@@ -113,14 +157,33 @@ POGO外掛管理器可以讓你更方便的管理你的寶可夢外掛
 - 先開啟第一個寶可夢後，在手機的多工畫面中長按寶可夢APP圖示，點選分割畫面，再點選雙開版本寶可夢，即完成雙視窗連動
 - Android的分割畫面只能同時開啟兩個畫面，除非有特殊需求，否則不建議安裝超過2個客戶端
 
-# 外掛列表
+# 程式列表
 ## GPS Joystick 搖桿改定位 <img width="50" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/icon/gps_icon.png"/>
 可以讓你在遊戲中使用搖桿來移動你的位置，並且可以設定路徑移動與移動速度
 
 ### 匯入GPX路徑檔案
-先到管理器內下載路徑zip檔案，下載後解壓縮，左上角選項選擇匯入GPX檔案並轉換成路徑檔即可
-
-- [下載GPX路徑檔](https://drive.google.com/drive/u/0/folders/1iz4vnBLGwNq-3qishs-RkCuGMkoGeMEQ?sort=13&direction=a&fbclid=IwAR2BpvMIhlf-Awr6kku54O5kwk5F6Cd7k5b6QU7seMaXw-snf1cf03wrRhM)
+1. 至POGO管理器的捷徑頁面
+> <img width="300" src="https://hackmd.io/_uploads/SJ0xxLloA.jpg" style="margin-right:10px" />
+2. 下載任一路徑檔案壓縮包
+3. 下載Google檔案管理器，Play商店搜尋【File by Google】下載安裝
+> <img width="500" src="https://hackmd.io/_uploads/HJGmWLesA.jpg" style="margin-right:10px" />
+4. 開啟檔案管理器並允許權限
+5. 到下載資料夾，並找到剛剛下載的檔案
+> <img width="400" src="https://hackmd.io/_uploads/Sk9EGUloR.jpg" style="margin-right:10px" />
+6. 點選檔案並解壓縮
+> <img width="300" src="https://hackmd.io/_uploads/SkA5zLxoR.jpg" style="margin-right:10px" />
+7. 解壓縮完成後，應該會在資料夾中看到許多gpx檔案
+> <img width="200" src="https://hackmd.io/_uploads/BkgfmUgjR.jpg" style="margin-right:10px" />
+8. 回到搖桿改定位APP中，點選左上角☰漢堡按鈕，選擇GPX匯入/匯出選項
+9. 選擇匯入，點選左上角☰漢堡按鈕，選擇「下載」資料夾，再點選要匯入的GPX路徑檔
+10. 若選擇正確，會出現如下圖畫面
+> <img width="400" src="https://hackmd.io/_uploads/HywlSUejA.jpg" style="margin-right:10px" />
+11. 點選【航點】，點選右下角下載按鈕，再點選從【全部創建路線】
+> <img width="400" src="https://hackmd.io/_uploads/rJ9oSIloR.jpg" style="margin-right:10px" />
+12. 點選左上角的【保存路徑】按鈕
+> <img width="400" src="https://hackmd.io/_uploads/r1H-88giA.jpg" style="margin-right:10px" />
+13. 設定一個你喜歡的路徑名稱
+14. 恭喜匯入完成
 
 ### 啟動搖桿
 點右上角的圖示可切換模式選擇，可以選擇使用單一位置或是路徑移動
@@ -128,22 +191,46 @@ POGO外掛管理器可以讓你更方便的管理你的寶可夢外掛
 
 <img width="200" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/JoystickStart1-1.jpg" style="margin-right:10px" /> <img width="200" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/JoystickStart1-2.jpg" style="margin-right:10px" />
 
-- 路徑移動: 點擊地圖上的設置路徑，在選擇生成或是加載路徑，按下開始後就會依照路徑位置移動
+- 路徑移動: 點擊地圖上的設置路徑，在選擇生成或是加載路徑，按下開始後就會依照路徑位置移動，若要重複循環請記得要設定路徑模式
 
 <img width="200" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/JoystickStart2-1.jpg" style="margin-right:10px" /> <img width="200" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/JoystickStart2-2.jpg" style="margin-right:10px" />
 
-**三星系統Android 10以上在快捷欄中請不要按這<img width="30" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/JoystickMapIcon.jpg"/>按鈕，可能會導致搖桿崩潰，須重啟搖桿才能正常使用**
+### 搖桿快捷鍵功能介紹
+<img width="600" src="https://hackmd.io/_uploads/BJmLGwgoR.png" style="margin-right:10px" />
+
+- **三星系統Android 10以上在快捷欄中請不要按** <img width="30" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/JoystickMapIcon.jpg"/>
+- 可能會導致搖桿崩潰，須重啟搖桿才能正常使用
+- 替代方法可查看[三星功能半殘替代方法](#三星功能半殘替代方法)
+
+### 其他搖桿設定
+啟動搖桿改定位APP，點選左上角☰漢堡按鈕，設定
+- 切換搖桿外觀
+- 搖桿顯示大小
+- 搖桿顯示透明度
+- 三種模式速度
+- 匯入匯出資料
+> <img width="300" src="https://hackmd.io/_uploads/rkIDHDgoR.jpg)"/>
 
 ### 冷卻時間
-搖桿內地圖可察看冷卻剩餘時間，三星用戶請勿直接點擊懸浮的地圖按鈕<img width="30" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/JoystickMapIcon.jpg"/>，會導致搖桿崩潰，請直接開啟搖桿APP內的地圖
+- 搖桿內地圖傳送時可察看冷卻剩餘時間
+- 三星安卓10以上，替代方法可查看[三星功能半殘替代方法](#三星功能半殘替代方法)
 
-其他冷卻說明，可參考下方冷卻計算
+其他冷卻說明，可參考下方[冷卻計算](#冷卻計算)
+
+### 三星功能半殘替代方法
+- **三星系統Android 10以上在快捷欄中請勿點擊** <img width="30" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/JoystickMapIcon.jpg"/> 
+- 可能會導致搖桿崩潰，須重啟搖桿才能正常使用
+- 替代方式如下
+> - 若要傳送位置
+>> 請使用傳送座標功能或是切回去APP內[操作](#啟動搖桿)
+> - 若要設定路徑
+>> 切回去APP內[操作](#啟動搖桿)
 
 ## GPS Joystick Wrapper <img width="50" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/icon/Wrapper.jpg"/>
 可以快速尋找火箭隊的軟體
 
 ### 使用
-- 需搭配GPS Joystick搖桿使用，請先啟動"搖桿改定位"後使用
+- 需搭配[GPS Joystick搖桿](GPS-Joystick-搖桿改定位-)使用，請先[啟動搖桿定位](#啟動搖桿)後使用
 - 點擊左上角的【▶】按鈕即可開始傳送尋找火箭隊
 - 點擊【⏩】按鈕尋找下一個目標，【⏪】退回上一個位置
 - 點擊【🔁】按鈕可重新整理資料
@@ -345,3 +432,22 @@ POGO外掛管理器可以讓你更方便的管理你的寶可夢外掛
 - 1.單帳可同時至多佔20道館
 - 2.每10分鐘1P、單日最多50P(8小時20分鐘）
 - 3.佔崗輪值無收入、需下崗才結算計薪
+
+# 免責聲明
+
+本應用程式與寶可夢和魔物獵人的官方品牌、版權持有者或任何相關的遊戲開發公司（如 Game Freak、The Pokémon Company、任天堂、CAPCOM、Niantic 等）均無關聯。
+
+1. 版權與商標
+- 本應用程式不包含任何官方遊戲資源，且不侵犯任何版權或商標。人造成影響侵害著作權或商標的行為要負責。
+
+2. 責任限制
+- 本應用程式「按原樣」提供，並未附帶任何形式的明示或默許。不限於直接、間接、附帶、特殊或後果性損害。
+
+3. 外部連結
+- 本應用程式可能包含其他網站或資源的連結。
+
+4. 應用程式更新與變更
+- 本應用程式可能會不定期進行更新和改進。
+
+5. 使用者責任
+- 使用者程式應自行確保使用本應用程式符合其所在的法律法規。
