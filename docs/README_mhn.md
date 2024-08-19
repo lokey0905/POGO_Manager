@@ -1,4 +1,94 @@
+# 魔物獵人飛人
+## 目錄(閱讀模式)
+[TOC]
+
+# 建議玩法
+## 單純改定位
+- **此玩法最為安全**
+- 須注意等待冷卻時間
+
+啟動順序如下:
+1. 打開[搖桿](#GPS-Joystick-搖桿改定位-)並[設定位置啟動搖桿](#啟動搖桿)
+3. 開始遊玩
+
+
+## 改定位+修改魔物獵人數值
+- **MHN Tools屬於注入式軟體，使用可能會有風險**
+- 須注意等待冷卻時間
+
+啟動順序如下:
+1. 打開[搖桿](#GPS-Joystick-搖桿改定位-)並[設定位置啟動搖桿](#啟動搖桿)
+2. 打開MHN Tools並點擊啟動按鈕
+3. 開始遊玩
+
+## GPS Joystick 搖桿改定位 <img width="50" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/icon/gps_icon.png"/>
+可以讓你在遊戲中使用搖桿來移動你的位置，並且可以設定路徑移動與移動速度
+
+### 匯入GPX路徑檔案
+1. 至POGO管理器的捷徑頁面
+> <img width="300" src="https://hackmd.io/_uploads/SJ0xxLloA.jpg" style="margin-right:10px" />
+2. 下載任一路徑檔案壓縮包
+3. 下載Google檔案管理器，Play商店搜尋【File by Google】下載安裝
+> <img width="500" src="https://hackmd.io/_uploads/HJGmWLesA.jpg" style="margin-right:10px" />
+4. 開啟檔案管理器並允許權限
+5. 到下載資料夾，並找到剛剛下載的檔案
+> <img width="400" src="https://hackmd.io/_uploads/Sk9EGUloR.jpg" style="margin-right:10px" />
+6. 點選檔案並解壓縮
+> <img width="300" src="https://hackmd.io/_uploads/SkA5zLxoR.jpg" style="margin-right:10px" />
+7. 解壓縮完成後，應該會在資料夾中看到許多gpx檔案
+> <img width="200" src="https://hackmd.io/_uploads/BkgfmUgjR.jpg" style="margin-right:10px" />
+8. 回到搖桿改定位APP中，點選左上角☰漢堡按鈕，選擇GPX匯入/匯出選項
+9. 選擇匯入，點選左上角☰漢堡按鈕，選擇「下載」資料夾，再點選要匯入的GPX路徑檔
+10. 若選擇正確，會出現如下圖畫面
+> <img width="400" src="https://hackmd.io/_uploads/HywlSUejA.jpg" style="margin-right:10px" />
+11. 點選【航點】，點選右下角下載按鈕，再點選從【全部創建路線】
+> <img width="400" src="https://hackmd.io/_uploads/rJ9oSIloR.jpg" style="margin-right:10px" />
+12. 點選左上角的【保存路徑】按鈕
+> <img width="400" src="https://hackmd.io/_uploads/r1H-88giA.jpg" style="margin-right:10px" />
+13. 設定一個你喜歡的路徑名稱
+14. 恭喜匯入完成
+
+### 啟動搖桿
+點右上角的圖示可切換模式選擇，可以選擇使用單一位置或是路徑移動
+- 單一位置: 點擊地圖上的位置或是輸入經位度，按下開始後移動到該位置
+
+<img width="200" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/JoystickStart1-1.jpg" style="margin-right:10px" /> <img width="200" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/JoystickStart1-2.jpg" style="margin-right:10px" />
+
+- 路徑移動: 點擊地圖上的設置路徑，在選擇生成或是加載路徑，按下開始後就會依照路徑位置移動，若要重複循環請記得要設定路徑模式
+
+<img width="200" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/JoystickStart2-1.jpg" style="margin-right:10px" /> <img width="200" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/JoystickStart2-2.jpg" style="margin-right:10px" />
+
+### 搖桿快捷鍵功能介紹
+<img width="600" src="https://hackmd.io/_uploads/BJmLGwgoR.png" style="margin-right:10px" />
+
+- **三星系統Android 10以上在快捷欄中請不要按** <img width="30" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/JoystickMapIcon.jpg"/>
+- 可能會導致搖桿崩潰，須重啟搖桿才能正常使用
+- 替代方法可查看[三星功能半殘替代方法](#三星功能半殘替代方法)
+
+### 其他搖桿設定
+啟動搖桿改定位APP，點選左上角☰漢堡按鈕，設定
+- 切換搖桿外觀
+- 搖桿顯示大小
+- 搖桿顯示透明度
+- 三種模式速度
+- 匯入匯出資料
+> <img width="300" src="https://hackmd.io/_uploads/rkIDHDgoR.jpg)"/>
+
+### 冷卻時間
+- 搖桿內地圖傳送時可察看冷卻剩餘時間
+- 三星安卓10以上，替代方法可查看[三星功能半殘替代方法](#三星功能半殘替代方法)
+
+### 三星功能半殘替代方法
+- **三星系統Android 10以上在快捷欄中請勿點擊** <img width="30" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/JoystickMapIcon.jpg"/> 
+- 可能會導致搖桿崩潰，須重啟搖桿才能正常使用
+- 替代方式如下
+> - 若要傳送位置
+>> 請使用傳送座標功能或是切回去APP內[操作](#啟動搖桿)
+> - 若要設定路徑
+>> 切回去APP內[操作](#啟動搖桿)
+
 # MHN Tools 說明
+目前有部分玩家使用此軟體被封禁，請謹慎使用，若怕被封禁建議不要使用
 ## 功能英文/中文翻譯
 英文 | 中文（台灣）
 ---|---
