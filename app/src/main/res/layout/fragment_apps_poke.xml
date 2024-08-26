@@ -29,9 +29,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:layout_collapseMode="pin"/>
-
         </com.google.android.material.appbar.SubtitleCollapsingToolbarLayout>
-
     </com.google.android.material.appbar.AppBarLayout>
 
     <FrameLayout
@@ -53,18 +51,16 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:layout_marginTop="0dp"
+                    android:layout_margin="16dp"
                     tools:ignore="UselessParent">
 
                     <com.google.android.material.card.MaterialCardView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="16dp"
-                        android:layout_columnWeight="1"
                         android:checkable="true"
                         android:clickable="true"
                         android:focusable="true"
-                        tools:layout_editor_absoluteX="32dp">
+                        app:cardCornerRadius="16dp">
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -76,19 +72,21 @@
                                 android:id="@+id/supportVersion_PGTools"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="@string/appsPokePage_supportVersion_PGTools" />
+                                android:text="@string/appsPokePage_supportVersion_PGTools"
+                                android:textAppearance="?attr/textAppearanceBodyMedium" />
 
                             <TextView
                                 android:id="@+id/supportVersion_polygon"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="@string/appsPokePage_supportVersion_polygon" />
-
+                                android:text="@string/appsPokePage_supportVersion_polygon"
+                                android:textAppearance="?attr/textAppearanceBodyMedium" />
                             <TextView
                                 android:id="@+id/supportVersion_Aerilate"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="@string/appsPokePage_supportVersion_Aerilate" />
+                                android:text="@string/appsPokePage_supportVersion_Aerilate"
+                                android:textAppearance="?attr/textAppearanceBodyMedium" />
 
                             <Space
                                 android:layout_width="match_parent"
@@ -117,18 +115,14 @@
                                     android:id="@+id/pokeTestVersion_switch"
                                     android:text="@string/appsPokePage_PGToolsTestVersion">
                                 </com.google.android.material.materialswitch.MaterialSwitch>
-
                             </LinearLayout>
-
                         </LinearLayout>
-
                     </com.google.android.material.card.MaterialCardView>
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginEnd="16dp"
+                        android:layout_marginTop="16dp"
                         android:gravity="center"
                         android:orientation="vertical"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -160,24 +154,22 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginEnd="16dp"
-                                    android:layout_weight="0"
                                     android:text="@string/appsPokePage_PokeTitle" />
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_weight="0"
                                     android:text="@string/appsPokePage_PokeAppName" />
-
                             </LinearLayout>
 
                             <ImageButton
                                 android:id="@+id/pok_more"
                                 style="?attr/materialIconButtonStyle"
-                                android:layout_width="0dp"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="1"
+                                android:layout_gravity="end"
+                                android:contentDescription="@string/more_options"
+                                android:background="?attr/selectableItemBackgroundBorderless"
                                 android:src="@drawable/ic_baseline_more_vert_24" />
 
                         </LinearLayout>
@@ -210,7 +202,6 @@
                                     android:layout_weight="0"
                                     android:text="@string/format_installVersion" />
                             </LinearLayout>
-
                         </LinearLayout>
 
                         <LinearLayout
@@ -234,18 +225,14 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:text="@string/download" />
-
                         </LinearLayout>
-
                     </LinearLayout>
 
                     <LinearLayout
                         android:id="@+id/linearLayout_pokAres"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
                         android:layout_marginTop="16dp"
-                        android:layout_marginEnd="16dp"
                         android:gravity="center"
                         android:orientation="vertical"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -277,24 +264,22 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginEnd="16dp"
-                                    android:layout_weight="0"
                                     android:text="@string/appsPokePage_PokeAreaTitle" />
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_weight="0"
                                     android:text="@string/appsPokePage_PokeAreaAppName" />
-
                             </LinearLayout>
 
                             <ImageButton
                                 android:id="@+id/pokAres_more"
                                 style="?attr/materialIconButtonStyle"
-                                android:layout_width="0dp"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="1"
+                                android:layout_gravity="end"
+                                android:contentDescription="@string/more_options"
+                                android:background="?attr/selectableItemBackgroundBorderless"
                                 android:src="@drawable/ic_baseline_more_vert_24" />
 
                         </LinearLayout>
@@ -316,19 +301,14 @@
                                     android:id="@+id/pokAres_new_version"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginEnd="16dp"
-                                    android:layout_weight="0"
                                     android:text="@string/format_newerVersion" />
 
                                 <TextView
                                     android:id="@+id/pokAres_install_version"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_weight="0"
                                     android:text="@string/format_installVersion" />
-
                             </LinearLayout>
-
                         </LinearLayout>
 
                         <LinearLayout
@@ -352,17 +332,13 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:text="@string/download" />
-
                         </LinearLayout>
-
                     </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginEnd="16dp"
                         android:gravity="center"
                         android:orientation="vertical"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -394,14 +370,11 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginEnd="16dp"
-                                    android:layout_weight="0"
                                     android:text="@string/appsPokePage_GpsTitle" />
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_weight="0"
                                     android:text="@string/appsPokePage_GpsAppName" />
 
                             </LinearLayout>
@@ -409,9 +382,11 @@
                             <ImageButton
                                 android:id="@+id/gps_more"
                                 style="?attr/materialIconButtonStyle"
-                                android:layout_width="0dp"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="1"
+                                android:layout_gravity="end"
+                                android:contentDescription="@string/more_options"
+                                android:background="?attr/selectableItemBackgroundBorderless"
                                 android:src="@drawable/ic_baseline_more_vert_24" />
 
                         </LinearLayout>
@@ -432,19 +407,14 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginEnd="16dp"
-                                    android:layout_weight="0"
                                     android:text="@string/format_newerVersion_Gps32" />
 
                                 <TextView
                                     android:id="@+id/gps_install_version"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_weight="0"
                                     android:text="@string/format_installVersion" />
-
                             </LinearLayout>
-
                         </LinearLayout>
 
                         <LinearLayout
@@ -468,17 +438,13 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:text="@string/download" />
-
                         </LinearLayout>
-
                     </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginEnd="16dp"
                         android:gravity="center"
                         android:orientation="vertical"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -510,14 +476,11 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginEnd="16dp"
-                                    android:layout_weight="0"
                                     android:text="@string/appsPokePage_wrapperTitle" />
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_weight="0"
                                     android:text="@string/appsPokePage_wrapperAppName" />
 
                             </LinearLayout>
@@ -525,9 +488,11 @@
                             <ImageButton
                                 android:id="@+id/wrapper_more"
                                 style="?attr/materialIconButtonStyle"
-                                android:layout_width="0dp"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="1"
+                                android:layout_gravity="end"
+                                android:contentDescription="@string/more_options"
+                                android:background="?attr/selectableItemBackgroundBorderless"
                                 android:src="@drawable/ic_baseline_more_vert_24" />
 
                         </LinearLayout>
@@ -549,19 +514,14 @@
                                     android:id="@+id/wrapper_new_version"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginEnd="16dp"
-                                    android:layout_weight="0"
                                     android:text="@string/format_newerVersion" />
 
                                 <TextView
                                     android:id="@+id/wrapper_install_version"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_weight="0"
                                     android:text="@string/format_installVersion" />
-
                             </LinearLayout>
-
                         </LinearLayout>
 
                         <LinearLayout
@@ -580,22 +540,18 @@
                                 android:text="@string/remove" />
 
                             <Button
-                                android:layout_weight="1"
                                 android:id="@+id/download_wrapper"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
+                                android:layout_weight="1"
                                 android:text="@string/download" />
-
                         </LinearLayout>
-
                     </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
                         android:layout_marginTop="16dp"
-                        android:layout_marginEnd="16dp"
                         android:gravity="center"
                         android:orientation="vertical"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -627,14 +583,11 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginEnd="16dp"
-                                    android:layout_weight="0"
                                     android:text="@string/appsPokePage_AerilateTitle" />
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_weight="0"
                                     android:text="@string/appsPokePage_AerilateAppName" />
 
                             </LinearLayout>
@@ -642,9 +595,11 @@
                             <ImageButton
                                 android:id="@+id/Aerilate_more"
                                 style="?attr/materialIconButtonStyle"
-                                android:layout_width="0dp"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="1"
+                                android:layout_gravity="end"
+                                android:contentDescription="@string/more_options"
+                                android:background="?attr/selectableItemBackgroundBorderless"
                                 android:src="@drawable/ic_baseline_more_vert_24" />
 
                         </LinearLayout>
@@ -666,18 +621,14 @@
                                     android:id="@+id/Aerilate_new_version"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_weight="0"
                                     android:text="@string/format_newerVersion" />
 
                                 <TextView
                                     android:id="@+id/Aerilate_install_version"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_weight="0"
                                     android:text="@string/format_installVersion" />
-
                             </LinearLayout>
-
                         </LinearLayout>
 
                         <LinearLayout
@@ -701,17 +652,13 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:text="@string/download" />
-
                         </LinearLayout>
-
                     </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
                         android:layout_marginTop="16dp"
-                        android:layout_marginEnd="16dp"
                         android:gravity="center"
                         android:orientation="vertical"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -743,14 +690,11 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginEnd="16dp"
-                                    android:layout_weight="0"
                                     android:text="@string/appsPokePage_PolygonTitle" />
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_weight="0"
                                     android:text="@string/appsPokePage_PolygonAppName" />
 
                             </LinearLayout>
@@ -758,11 +702,12 @@
                             <ImageButton
                                 android:id="@+id/polygon_more"
                                 style="?attr/materialIconButtonStyle"
-                                android:layout_width="0dp"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="1"
+                                android:layout_gravity="end"
+                                android:contentDescription="@string/more_options"
+                                android:background="?attr/selectableItemBackgroundBorderless"
                                 android:src="@drawable/ic_baseline_more_vert_24" />
-
                         </LinearLayout>
 
                         <LinearLayout
@@ -782,18 +727,14 @@
                                     android:id="@+id/polygon_new_version"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_weight="0"
                                     android:text="@string/format_newerVersion" />
 
                                 <TextView
                                     android:id="@+id/polygon_install_version"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_weight="0"
                                     android:text="@string/format_installVersion" />
-
                             </LinearLayout>
-
                         </LinearLayout>
 
                         <LinearLayout
@@ -817,17 +758,13 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:text="@string/download" />
-
                         </LinearLayout>
-
                     </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
                         android:layout_marginTop="16dp"
-                        android:layout_marginEnd="16dp"
                         android:gravity="center"
                         android:orientation="vertical"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -859,14 +796,11 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginEnd="16dp"
-                                    android:layout_weight="0"
                                     android:text="@string/appsPokePage_PGToolsTitle" />
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_weight="0"
                                     android:text="@string/appsPokePage_PGToolsAppName" />
 
                             </LinearLayout>
@@ -874,9 +808,11 @@
                             <ImageButton
                                 android:id="@+id/pgtools_more"
                                 style="?attr/materialIconButtonStyle"
-                                android:layout_width="0dp"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="1"
+                                android:layout_gravity="end"
+                                android:contentDescription="@string/more_options"
+                                android:background="?attr/selectableItemBackgroundBorderless"
                                 android:src="@drawable/ic_baseline_more_vert_24" />
 
                         </LinearLayout>
@@ -900,18 +836,14 @@
                                     android:id="@+id/pgtools_new_version"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_weight="0"
                                     android:text="@string/format_newerVersion" />
 
                                 <TextView
                                     android:id="@+id/pgtools_install_version"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_weight="0"
                                     android:text="@string/format_installVersion" />
-
                             </LinearLayout>
-
                         </LinearLayout>
 
                         <LinearLayout
@@ -935,17 +867,13 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:text="@string/download" />
-
                         </LinearLayout>
-
                     </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
                         android:layout_marginTop="16dp"
-                        android:layout_marginEnd="16dp"
                         android:gravity="center"
                         android:orientation="vertical"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -977,24 +905,22 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginEnd="16dp"
-                                    android:layout_weight="0"
                                     android:text="@string/appsPokePage_PokeListTitle" />
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_weight="0"
                                     android:text="@string/appsPokePage_PokeListAppName" />
-
                             </LinearLayout>
 
                             <ImageButton
                                 android:id="@+id/pokelist_more"
                                 style="?attr/materialIconButtonStyle"
-                                android:layout_width="0dp"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="1"
+                                android:layout_gravity="end"
+                                android:contentDescription="@string/more_options"
+                                android:background="?attr/selectableItemBackgroundBorderless"
                                 android:src="@drawable/ic_baseline_more_vert_24" />
 
                         </LinearLayout>
@@ -1016,18 +942,14 @@
                                     android:id="@+id/pokelist_new_version"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_weight="0"
                                     android:text="@string/format_newerVersion" />
 
                                 <TextView
                                     android:id="@+id/pokelist_install_version"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_weight="0"
                                     android:text="@string/format_installVersion" />
-
                             </LinearLayout>
-
                         </LinearLayout>
 
                         <LinearLayout
@@ -1051,18 +973,13 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:text="@string/download" />
-
                         </LinearLayout>
-
                     </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
                         android:layout_marginTop="16dp"
-                        android:layout_marginEnd="16dp"
-                        android:layout_marginBottom="16dp"
                         android:gravity="center"
                         android:orientation="vertical"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -1094,14 +1011,11 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginEnd="16dp"
-                                    android:layout_weight="0"
                                     android:text="@string/appsPokePage_WeCatchTitle" />
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_weight="0"
                                     android:text="@string/appsPokePage_WeCatchAppName" />
 
                             </LinearLayout>
@@ -1109,9 +1023,11 @@
                             <ImageButton
                                 android:id="@+id/wecatch_more"
                                 style="?attr/materialIconButtonStyle"
-                                android:layout_width="0dp"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="1"
+                                android:layout_gravity="end"
+                                android:contentDescription="@string/more_options"
+                                android:background="?attr/selectableItemBackgroundBorderless"
                                 android:src="@drawable/ic_baseline_more_vert_24" />
 
                         </LinearLayout>
@@ -1133,18 +1049,14 @@
                                     android:id="@+id/wecatch_new_version"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_weight="0"
                                     android:text="@string/format_newerVersion" />
 
                                 <TextView
                                     android:id="@+id/wecatch_install_version"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_weight="0"
                                     android:text="@string/format_installVersion" />
-
                             </LinearLayout>
-
                         </LinearLayout>
 
                         <LinearLayout
@@ -1168,17 +1080,10 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:text="@string/download" />
-
                         </LinearLayout>
-
                     </LinearLayout>
-
                 </LinearLayout>
-
             </androidx.core.widget.NestedScrollView>
-
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-
     </FrameLayout>
-
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

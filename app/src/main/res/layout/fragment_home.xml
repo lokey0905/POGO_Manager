@@ -7,12 +7,10 @@
     tools:context=".fragment.Home">
 
     <com.google.android.material.appbar.AppBarLayout
-        android:fitsSystemWindows="true"
         android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints">
+        android:fitsSystemWindows="true">
 
         <com.google.android.material.appbar.SubtitleCollapsingToolbarLayout
             android:id="@+id/toolbar_layout"
@@ -44,199 +42,183 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <LinearLayout
+            <GridLayout
+                android:id="@+id/gridLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                tools:ignore="UselessParent">
+                android:columnCount="1"
+                android:padding="16dp">
 
-                <GridLayout
-                    android:id="@+id/gridLayout"
-                    android:layout_width="match_parent"
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:columnCount="1"
-                    android:rowCount="2">
+                    android:layout_gravity="fill"
+                    android:layout_columnWeight="1"
+                    android:checkable="true"
+                    android:clickable="true"
+                    android:focusable="true"
+                    app:cardCornerRadius="16dp">
 
-                    <com.google.android.material.card.MaterialCardView
-                        android:layout_width="0dp"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="16dp"
-                        android:layout_columnWeight="1"
-                        android:layout_marginTop="16dp"
-                        android:checkable="true"
-                        android:clickable="true"
-                        android:focusable="true"
-                        tools:layout_editor_absoluteX="32dp">
+                        android:orientation="vertical"
+                        android:padding="20dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/androidDevices"
+                            android:textAppearance="?attr/textAppearanceTitleMedium" />
+
+                        <TextView
+                            android:id="@+id/android_devices"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="16dp"
+                            android:textAppearance="?attr/textAppearanceBodyMedium" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/androidVersion"
+                            android:textAppearance="?attr/textAppearanceTitleMedium" />
+
+                        <TextView
+                            android:id="@+id/android_version"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="16dp"
+                            android:textAppearance="?attr/textAppearanceBodyMedium" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/androidAbi"
+                            android:textAppearance="?attr/textAppearanceTitleMedium" />
+
+                        <TextView
+                            android:id="@+id/android_abi"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="16dp"
+                            android:textAppearance="?attr/textAppearanceBodyMedium" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/androidRamSize"
+                            android:textAppearance="?attr/textAppearanceTitleMedium" />
+
+                        <TextView
+                            android:id="@+id/android_ramSize"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="16dp"
+                            android:textAppearance="?attr/textAppearanceBodyMedium" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/androidARM64Supper"
+                            android:textAppearance="?attr/textAppearanceTitleMedium" />
+
+                        <TextView
+                            android:id="@+id/android_pgtoolsSupper"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?attr/textAppearanceBodyMedium" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <Space
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:layout_gravity="center" />
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/check"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="fill"
+                    android:layout_columnWeight="1"
+                    android:checkable="true"
+                    android:clickable="true"
+                    android:focusable="true"
+                    app:cardCornerRadius="16dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="20dp">
+
+                        <Button
+                            android:id="@+id/check_location"
+                            style="@style/Widget.Material3.Button"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="16dp"
+                            android:text="@string/check_button" />
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="20dp"
-                                android:layout_marginTop="20dp"
-                                android:layout_marginEnd="20dp"
-                                android:text="@string/androidDevices" />
-
-                            <TextView
-                                android:id="@+id/android_devices"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="20dp"
-                                android:layout_marginEnd="20dp"
-                                android:text="" />
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="20dp"
-                                android:layout_marginTop="20dp"
-                                android:layout_marginEnd="20dp"
-                                android:text="@string/androidVersion" />
-
-                            <TextView
-                                android:id="@+id/android_version"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="20dp"
-                                android:layout_marginEnd="20dp"
-                                android:text="" />
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="20dp"
-                                android:layout_marginTop="20dp"
-                                android:layout_marginEnd="20dp"
-                                android:text="@string/androidAbi" />
-
-                            <TextView
-                                android:id="@+id/android_abi"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="20dp"
-                                android:layout_marginEnd="20dp"
-                                android:text="" />
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="20dp"
-                                android:layout_marginTop="20dp"
-                                android:layout_marginEnd="20dp"
-                                android:text="@string/androidRamSize" />
-
-                            <TextView
-                                android:id="@+id/android_ramSize"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="20dp"
-                                android:layout_marginEnd="20dp"
-                                android:text="" />
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="20dp"
-                                android:layout_marginTop="20dp"
-                                android:layout_marginEnd="20dp"
-                                android:text="@string/androidARM64Supper" />
-
-                            <TextView
-                                android:id="@+id/android_pgtoolsSupper"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="20dp"
-                                android:layout_marginEnd="20dp"
-                                android:layout_marginBottom="20dp"
-                                android:text="" />
-
-                        </LinearLayout>
-
-                    </com.google.android.material.card.MaterialCardView>
-
-                    <com.google.android.material.card.MaterialCardView
-                        android:id="@+id/check"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="16dp"
-                        android:layout_columnWeight="1"
-                        android:checkable="true"
-                        android:clickable="true"
-                        android:focusable="true"
-                        tools:layout_editor_absoluteX="32dp">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical">
-
-                            <Button
-                                android:id="@+id/check_location"
-                                style="@style/Widget.Material3.Button"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="16dp"
-                                android:layout_marginTop="16dp"
-                                android:layout_marginEnd="16dp"
-                                android:layout_marginBottom="16dp"
-                                android:text="@string/check_button" />
 
                             <LinearLayout
                                 android:id="@+id/check_information"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginStart="16dp"
-                                android:layout_marginEnd="16dp"
-                                android:layout_marginBottom="16dp"
                                 android:orientation="vertical">
 
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:text="@string/checkTitle_DetectLocationStatus" />
+                                    android:text="@string/checkTitle_DetectLocationStatus"
+                                    android:textAppearance="?attr/textAppearanceTitleMedium" />
 
                                 <TextView
                                     android:id="@+id/location_system"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:text="@string/notChecked" />
+                                    android:layout_marginBottom="16dp"
+                                    android:text="@string/notChecked"
+                                    android:textAppearance="?attr/textAppearanceBodyMedium" />
 
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginTop="20dp"
-                                    android:text="@string/checkTitle_deviceIsRoot" />
+                                    android:text="@string/checkTitle_deviceIsRoot"
+                                    android:textAppearance="?attr/textAppearanceTitleMedium" />
 
                                 <TextView
                                     android:id="@+id/check_root"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginBottom="20dp"
-                                    android:text="@string/notChecked" />
-
-                                <Button
-                                    android:id="@+id/check_safetynet"
-                                    style="?attr/materialButtonOutlinedStyle"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginBottom="8dp"
-                                    android:text="@string/check_devicesAPI" />
-
-                                <Button
-                                    android:id="@+id/check_appList"
-                                    style="?attr/materialButtonOutlinedStyle"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:text="@string/check_appList" />
+                                    android:layout_marginBottom="16dp"
+                                    android:text="@string/notChecked"
+                                    android:textAppearance="?attr/textAppearanceBodyMedium" />
                             </LinearLayout>
+
+                            <Button
+                                android:id="@+id/check_safetynet"
+                                style="?attr/materialButtonOutlinedStyle"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="8dp"
+                                android:text="@string/check_devicesAPI" />
+
+                            <Button
+                                android:id="@+id/check_appList"
+                                style="?attr/materialButtonOutlinedStyle"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@string/check_appList" />
                         </LinearLayout>
-                    </com.google.android.material.card.MaterialCardView>
-                </GridLayout>
-            </LinearLayout>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+            </GridLayout>
         </androidx.core.widget.NestedScrollView>
     </FrameLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

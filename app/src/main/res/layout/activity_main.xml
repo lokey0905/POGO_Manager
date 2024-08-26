@@ -83,5 +83,4 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@android:drawable/ic_dialog_email"
         tools:layout_editor_absoluteY="584dp" /-->
-
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

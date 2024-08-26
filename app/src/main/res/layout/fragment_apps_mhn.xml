@@ -29,9 +29,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:layout_collapseMode="pin"/>
-
         </com.google.android.material.appbar.SubtitleCollapsingToolbarLayout>
-
     </com.google.android.material.appbar.AppBarLayout>
 
     <FrameLayout
@@ -105,11 +103,8 @@
                                     android:id="@+id/mhnTestVersion_switch"
                                     android:text="@string/testVersion">
                                 </com.google.android.material.materialswitch.MaterialSwitch>
-
                             </LinearLayout>
-
                         </LinearLayout>
-
                     </com.google.android.material.card.MaterialCardView>
 
                     <LinearLayout
