@@ -404,7 +404,7 @@ class Home : Fragment() {
         val gridLayout = view?.findViewById<GridLayout>(R.id.gridLayout)
 
         if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            gridLayout?.columnCount = 2
+            gridLayout?.columnCount = 3
         } else {
             gridLayout?.columnCount = 1
         }

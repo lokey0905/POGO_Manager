@@ -49,6 +49,12 @@ data class PogoVersionInfo(
     val pogoARM: String,
 )
 
+data class ButtonsIdData(
+    val packageName: String,
+    val removeButtonId: Int,
+    val moreButtonId: Int
+)
+
 class AppsPoke : Fragment() {
     val pogoVersionsList = ArrayList<PogoVersionInfo>()
     private var polygonVersionsList = ArrayList<String>()
@@ -84,6 +90,54 @@ class AppsPoke : Fragment() {
 
     private var polygonTestKey = ""
     private var polygonTestToken = ""
+
+    private val buttonsIdData = listOf(
+        ButtonsIdData(
+            packageName = resources.getString(R.string.packageName_gps32),
+            removeButtonId = R.id.remove_gps,
+            moreButtonId = R.id.gps_more
+        ),
+        ButtonsIdData(
+            packageName = resources.getString(R.string.packageName_polygon),
+            removeButtonId = R.id.remove_polygon,
+            moreButtonId = R.id.polygon_more
+        ),
+        ButtonsIdData(
+            packageName = resources.getString(R.string.packageName_PGTools),
+            removeButtonId = R.id.remove_pgtools,
+            moreButtonId = R.id.pgtools_more
+        ),
+        ButtonsIdData(
+            packageName = resources.getString(R.string.packageName_pok),
+            removeButtonId = R.id.remove_pok,
+            moreButtonId = R.id.pok_more
+        ),
+        ButtonsIdData(
+            packageName = resources.getString(R.string.packageName_pokAres),
+            removeButtonId = R.id.remove_pokAres,
+            moreButtonId = R.id.pokAres_more
+        ),
+        ButtonsIdData(
+            packageName = resources.getString(R.string.packageName_PokeList),
+            removeButtonId = R.id.remove_pokelist,
+            moreButtonId = R.id.pokelist_more
+        ),
+        ButtonsIdData(
+            packageName = resources.getString(R.string.packageName_WeCatch),
+            removeButtonId = R.id.remove_wecatch,
+            moreButtonId = R.id.wecatch_more
+        ),
+        ButtonsIdData(
+            packageName = resources.getString(R.string.packageName_wrapper),
+            removeButtonId = R.id.remove_wrapper,
+            moreButtonId = R.id.wrapper_more
+        ),
+        ButtonsIdData(
+            packageName = resources.getString(R.string.packageName_Aerilate),
+            removeButtonId = R.id.remove_Aerilate,
+            moreButtonId = R.id.Aerilate_more
+        )
+    )
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -228,77 +282,19 @@ class AppsPoke : Fragment() {
             downloadAPPWithCheck(url_WeCatch)
         }
 
-        view.findViewById<Button>(R.id.remove_gps).setOnClickListener {
-            appUnInstall(resources.getString(R.string.packageName_gps32))
+        for (mapping in buttonsIdData) {
+            val removeButton = view.findViewById<Button>(mapping.removeButtonId)
+            val moreButton = view.findViewById<ImageButton>(mapping.moreButtonId)
+
+            removeButton?.setOnClickListener {
+                appUnInstall(mapping.packageName)
+            }
+
+            moreButton?.setOnClickListener {
+                popupMenu(view, mapping.moreButtonId, mapping.packageName)
+            }
         }
 
-        view.findViewById<Button>(R.id.remove_wrapper).setOnClickListener {
-            appUnInstall(resources.getString(R.string.packageName_wrapper))
-        }
-
-        view.findViewById<Button>(R.id.remove_Aerilate).setOnClickListener {
-            appUnInstall(resources.getString(R.string.packageName_Aerilate))
-        }
-
-        view.findViewById<Button>(R.id.remove_polygon).setOnClickListener {
-            appUnInstall(resources.getString(R.string.packageName_polygon))
-        }
-
-        view.findViewById<Button>(R.id.remove_pgtools).setOnClickListener {
-            appUnInstall(resources.getString(R.string.packageName_PGTools))
-        }
-
-        view.findViewById<Button>(R.id.remove_pok).setOnClickListener {
-            appUnInstall(resources.getString(R.string.packageName_pok))
-        }
-
-        view.findViewById<Button>(R.id.remove_pokAres).setOnClickListener {
-            appUnInstall(resources.getString(R.string.packageName_pokAres))
-        }
-
-        view.findViewById<Button>(R.id.remove_pokelist).setOnClickListener {
-            appUnInstall(resources.getString(R.string.packageName_PokeList))
-        }
-
-        view.findViewById<Button>(R.id.remove_wecatch).setOnClickListener {
-            appUnInstall(resources.getString(R.string.packageName_WeCatch))
-        }
-
-        view.findViewById<ImageButton>(R.id.pok_more).setOnClickListener {
-            popupMenu(view, R.id.pok_more, resources.getString(R.string.packageName_pok))
-        }
-
-        view.findViewById<ImageButton>(R.id.pokAres_more).setOnClickListener {
-            popupMenu(view, R.id.pokAres_more, resources.getString(R.string.packageName_pokAres))
-        }
-
-        view.findViewById<ImageButton>(R.id.gps_more).setOnClickListener {
-            popupMenu(view, R.id.gps_more, resources.getString(R.string.packageName_gps32))
-        }
-
-        view.findViewById<ImageButton>(R.id.wrapper_more).setOnClickListener {
-            popupMenu(view, R.id.wrapper_more, resources.getString(R.string.packageName_wrapper))
-        }
-
-        view.findViewById<ImageButton>(R.id.polygon_more).setOnClickListener {
-            popupMenu(view, R.id.polygon_more, resources.getString(R.string.packageName_polygon))
-        }
-
-        view.findViewById<ImageButton>(R.id.pgtools_more).setOnClickListener {
-            popupMenu(view, R.id.pgtools_more, resources.getString(R.string.packageName_PGTools))
-        }
-
-        view.findViewById<ImageButton>(R.id.pokelist_more).setOnClickListener {
-            popupMenu(view, R.id.pokelist_more, resources.getString(R.string.packageName_PokeList))
-        }
-
-        view.findViewById<ImageButton>(R.id.wecatch_more).setOnClickListener {
-            popupMenu(view, R.id.wecatch_more, resources.getString(R.string.packageName_WeCatch))
-        }
-
-        view.findViewById<ImageButton>(R.id.Aerilate_more).setOnClickListener {
-            popupMenu(view, R.id.Aerilate_more, resources.getString(R.string.packageName_Aerilate))
-        }
 
         view.findViewById<androidx.swiperefreshlayout.widget.SwipeRefreshLayout>(R.id.swipeRefreshLayout)
             .setOnRefreshListener {
@@ -485,32 +481,15 @@ class AppsPoke : Fragment() {
             val pokInstalledVersion = appInstalledVersion(pokePackageName)
             val pokeAresInstalledVersion = appInstalledVersion(pokeAresPackageName)
 
-            view.findViewById<TextView>(R.id.remove_gps).visibility =
-                viewShowOrHide(appInstalledOrNot(resources.getString(R.string.packageName_gps32)))
+            for (mapping in buttonsIdData) {
+                val removeButton = view.findViewById<Button>(mapping.removeButtonId)
+                val moreButton = view.findViewById<ImageButton>(mapping.moreButtonId)
 
-            view.findViewById<TextView>(R.id.remove_polygon).visibility =
-                viewShowOrHide(appInstalledOrNot(resources.getString(R.string.packageName_polygon)))
+                val visibility = viewShowOrHide(appInstalledOrNot(mapping.packageName))
 
-            view.findViewById<TextView>(R.id.remove_pgtools).visibility =
-                viewShowOrHide(appInstalledOrNot(resources.getString(R.string.packageName_PGTools)))
-
-            view.findViewById<TextView>(R.id.remove_pok).visibility =
-                viewShowOrHide(appInstalledOrNot(pokePackageName))
-
-            view.findViewById<TextView>(R.id.remove_pokAres).visibility =
-                viewShowOrHide(appInstalledOrNot(pokeAresPackageName))
-
-            view.findViewById<TextView>(R.id.remove_pokelist).visibility =
-                viewShowOrHide(appInstalledOrNot(resources.getString(R.string.packageName_PokeList)))
-
-            view.findViewById<TextView>(R.id.remove_wecatch).visibility =
-                viewShowOrHide(appInstalledOrNot(resources.getString(R.string.packageName_WeCatch)))
-
-            view.findViewById<TextView>(R.id.remove_wrapper).visibility =
-                viewShowOrHide(appInstalledOrNot(resources.getString(R.string.packageName_wrapper)))
-
-            view.findViewById<TextView>(R.id.remove_Aerilate).visibility =
-                viewShowOrHide(appInstalledOrNot(resources.getString(R.string.packageName_Aerilate)))
+                removeButton?.visibility = visibility
+                moreButton?.visibility = visibility
+            }
 
             val url = resources.getString(R.string.url_appInfo)
             extractAppVersionsFromJson(url) {

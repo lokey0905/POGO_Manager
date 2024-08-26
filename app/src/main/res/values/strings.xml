@@ -38,6 +38,8 @@
     <string name="getPolygonKey">暴力功key(實驗性)</string>
     <string name="requestPermission">請允許定位權限後在重試</string>
     <string name="somethingWrong">發生一些錯誤</string>
+    <string name="more_options">其他選項</string>
+    <string name="picture">圖片</string>
 
     <string name="appsAllUpdated">全部APP皆已最新版本</string>
     <string name="apps_ARMV8a">64位元</string>
@@ -112,9 +114,9 @@
     <string name="dialogAboutInfo">相關檔案皆為網路搜尋取得,檔案不歸我擁有,Pokemon,MHNOW與本項目無關</string>
     <string name="dialogAboutMaker">軟體作者:lokey0905 \n圖示作者:梧銳#4486</string>
     <string name="dialogAdNotReadyTitle">發生一些錯誤</string>
-    <string name="dialogAdNotReadyMessage">您的操作過快 或是網路不穩 請5秒後在試</string>
+    <string name="dialogAdNotReadyMessage">您的操作過快 或是網路不穩 請過5秒後在試</string>
     <string name="dialogCheckLocationAccuracyTitle">偵測到精確定位模式</string>
-    <string name="dialogCheckLocationAccuracyMessage">偵測到精確定位，建議前往關閉設定防止模擬定位跳轉，是否前往關閉?\n若已啟動搖桿或曾啟動過可能會觸發這則通知，可以按取消忽略此通知</string>
+    <string name="dialogCheckLocationAccuracyMessage">偵測到精確定位，建議前往關閉設定防止模擬定位跳轉，是否前往關閉?\n\n若已關閉定位精確度可以忽略此則訊息</string>
     <string name="dialogDownloadOfficialMessage">請選擇下載方式 在play商店下載或直接下載APK</string>
     <string name="dialogGetKeyTitle">取得暴力功金鑰</string>
     <string name="dialogGetKeyMessage">本項目為實驗性內容 金鑰可能與其他人重複\n點擊確定嘗試獲取暴力功金鑰</string>
@@ -152,7 +154,7 @@
     <string name="appsPokePage_GpsTitle">可修改手機定位</string>
     <string name="appsPokePage_GpsAppName">GPS JoyStick【搖桿改定位✅老K刷機】</string>
     <string name="appsPokePage_wrapperTitle">快速尋找火箭隊</string>
-    <string name="appsPokePage_wrapperAppName">GPS Joystick Wrapper【找火箭隊中文版】</string>
+    <string name="appsPokePage_wrapperAppName">GPS Joystick Wrapper【中文版】</string>
     <string name="appsPokePage_PolygonTitle">顯示IV三圍,偵測色違,打火箭隊等功能</string>
     <string name="appsPokePage_PolygonAppName">Polygon【暴力功中文版】</string>
     <string name="appsPokePage_PGToolsTitle">自動捕捉與旋轉補給站等功能</string>
