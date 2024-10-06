@@ -33,6 +33,7 @@ import app.lokey0905.location.fragment.ShortCuts
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.color.DynamicColors
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -56,7 +57,6 @@ class DynamicColors: Application() {
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private val MY_PERMISSIONS_REQUEST_LOCATION = 1
 
     private var home: Home = Home()
     private var appsPoke: AppsPoke = AppsPoke()
@@ -197,18 +197,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val MY_PERMISSIONS_REQUEST_LOCATION = 1
         WindowCompat.setDecorFitsSystemWindows(window, false)
-
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-            != PackageManager.PERMISSION_GRANTED
-        ) {
-            ActivityCompat.requestPermissions(
-                this,
-                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-                MY_PERMISSIONS_REQUEST_LOCATION
-            )
-        }
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -284,10 +273,17 @@ class MainActivity : AppCompatActivity() {
                             Toast.LENGTH_SHORT
                         ).show()
                     }
+                    setNegativeButton(resources.getString(R.string.doNotShowAgain)) { _, _ ->
+                        sharedPreferences.edit().putBoolean("location_accuracy_check", true).apply()
+                        Snackbar.make(
+                            findViewById(R.id.fragment_container_view),
+                            getString(R.string.doNotShowAgain),
+                            Snackbar.LENGTH_SHORT
+                        ).show()
+                    }
                 }
                 .show()
         }
-
     }
 
     override fun onStart() {
@@ -338,6 +334,7 @@ class MainActivity : AppCompatActivity() {
         grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        val MY_PERMISSIONS_REQUEST_LOCATION = 99
         if (requestCode == MY_PERMISSIONS_REQUEST_LOCATION) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 //Toast.makeText(this, "Permission Granted", Toast.LENGTH_SHORT).show()

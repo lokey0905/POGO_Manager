@@ -30,6 +30,9 @@ import androidx.lifecycle.lifecycleScope
 import androidx.preference.PreferenceManager
 import app.lokey0905.location.R
 import app.lokey0905.location.api.polygon
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdView
+import com.google.android.gms.ads.MobileAds
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.materialswitch.MaterialSwitch
 import com.google.android.material.snackbar.Snackbar
@@ -72,12 +75,15 @@ class AppsPoke : Fragment() {
     private var url_PokeList = ""
     private var url_WeCatch = ""
     private var url_samsungStore = ""
+    private var url_APKMirrorInstaller = ""
 
     private var version_wrapper = "未安裝"
     private var version_aerilate = "未安裝"
     private var version_polygon = "未安裝"
     private var version_PokeList = "未安裝"
     private var version_WeCatch = "未安裝"
+    private var version_galaxyStore = "未安裝"
+    private var version_APKMirrorInstaller = "未安裝"
 
     private var pgToolsTestVersion = false
     private var pokAresNoSupportDevices = false
@@ -90,60 +96,71 @@ class AppsPoke : Fragment() {
 
     private var polygonTestKey = ""
     private var polygonTestToken = ""
-
-    private val buttonsIdData = listOf(
-        ButtonsIdData(
-            packageName = resources.getString(R.string.packageName_gps32),
-            removeButtonId = R.id.remove_gps,
-            moreButtonId = R.id.gps_more
-        ),
-        ButtonsIdData(
-            packageName = resources.getString(R.string.packageName_polygon),
-            removeButtonId = R.id.remove_polygon,
-            moreButtonId = R.id.polygon_more
-        ),
-        ButtonsIdData(
-            packageName = resources.getString(R.string.packageName_PGTools),
-            removeButtonId = R.id.remove_pgtools,
-            moreButtonId = R.id.pgtools_more
-        ),
-        ButtonsIdData(
-            packageName = resources.getString(R.string.packageName_pok),
-            removeButtonId = R.id.remove_pok,
-            moreButtonId = R.id.pok_more
-        ),
-        ButtonsIdData(
-            packageName = resources.getString(R.string.packageName_pokAres),
-            removeButtonId = R.id.remove_pokAres,
-            moreButtonId = R.id.pokAres_more
-        ),
-        ButtonsIdData(
-            packageName = resources.getString(R.string.packageName_PokeList),
-            removeButtonId = R.id.remove_pokelist,
-            moreButtonId = R.id.pokelist_more
-        ),
-        ButtonsIdData(
-            packageName = resources.getString(R.string.packageName_WeCatch),
-            removeButtonId = R.id.remove_wecatch,
-            moreButtonId = R.id.wecatch_more
-        ),
-        ButtonsIdData(
-            packageName = resources.getString(R.string.packageName_wrapper),
-            removeButtonId = R.id.remove_wrapper,
-            moreButtonId = R.id.wrapper_more
-        ),
-        ButtonsIdData(
-            packageName = resources.getString(R.string.packageName_Aerilate),
-            removeButtonId = R.id.remove_Aerilate,
-            moreButtonId = R.id.Aerilate_more
-        )
-    )
+    private var buttonsIdData = listOf<ButtonsIdData>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
         val view: View = inflater.inflate(R.layout.fragment_apps_poke, container, false)
+
+        buttonsIdData = listOf(
+            ButtonsIdData(
+                resources.getString(R.string.packageName_gps32),
+                R.id.remove_gps,
+                R.id.gps_more
+            ),
+            ButtonsIdData(
+                resources.getString(R.string.packageName_polygon),
+                R.id.remove_polygon,
+                R.id.polygon_more
+            ),
+            ButtonsIdData(
+                resources.getString(R.string.packageName_PGTools),
+                R.id.remove_pgtools,
+                R.id.pgtools_more
+            ),
+            ButtonsIdData(
+                resources.getString(R.string.packageName_pok),
+                R.id.remove_pok,
+                R.id.pok_more
+            ),
+            ButtonsIdData(
+                resources.getString(R.string.packageName_pokAres),
+                R.id.remove_pokAres,
+                R.id.pokAres_more
+            ),
+            ButtonsIdData(
+                resources.getString(R.string.packageName_PokeList),
+                R.id.remove_pokelist,
+                R.id.pokelist_more
+            ),
+            ButtonsIdData(
+                resources.getString(R.string.packageName_WeCatch),
+                R.id.remove_wecatch,
+                R.id.wecatch_more
+            ),
+            ButtonsIdData(
+                resources.getString(R.string.packageName_wrapper),
+                R.id.remove_wrapper,
+                R.id.wrapper_more
+            ),
+            ButtonsIdData(
+                resources.getString(R.string.packageName_Aerilate),
+                R.id.remove_Aerilate,
+                R.id.Aerilate_more
+            ),
+            ButtonsIdData(
+                resources.getString(R.string.packageName_galaxyStore),
+                R.id.remove_galaxyStore,
+                R.id.galaxyStore_more
+            ),
+            ButtonsIdData(
+                resources.getString(R.string.packageName_APKMirrorInstaller),
+                R.id.remove_APKMirrorInstaller,
+                R.id.APKMirrorInstaller_more
+            )
+        )
 
         val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
         pokAresNoSupportDevices =
@@ -159,6 +176,11 @@ class AppsPoke : Fragment() {
             viewShowOrHide(totalMemory > 4 || pokAresNoSupportDevices)
 
         setupListeners(view)
+
+        MobileAds.initialize(requireActivity())
+        val mAdView = view.findViewById<AdView>(R.id.ad_banner)
+        val adRequest = AdRequest.Builder().build()
+        mAdView.loadAd(adRequest)
 
         return view
     }
@@ -282,6 +304,14 @@ class AppsPoke : Fragment() {
             downloadAPPWithCheck(url_WeCatch)
         }
 
+        view.findViewById<Button>(R.id.download_galaxyStore).setOnClickListener {
+            downloadAPPWithCheck(url_samsungStore)
+        }
+
+        view.findViewById<Button>(R.id.download_APKMirrorInstaller).setOnClickListener {
+            downloadAPPWithCheck(url_APKMirrorInstaller)
+        }
+
         for (mapping in buttonsIdData) {
             val removeButton = view.findViewById<Button>(mapping.removeButtonId)
             val moreButton = view.findViewById<ImageButton>(mapping.moreButtonId)
@@ -349,7 +379,7 @@ class AppsPoke : Fragment() {
 
                 polygon.checkPogoVersion(polygonTestKey, versionNumber) { token ->
                     if (token == "ERROR") {
-                        if (errorCounter > 3) {
+                        if (errorCounter > 1) {
                             Log.i("Polygon", "Try Login too many times")
                             return@checkPogoVersion
                         }
@@ -412,7 +442,7 @@ class AppsPoke : Fragment() {
                         matchingVersionInfo?.let { versionInfo ->
                             val selectionIndex = pogoVersionsList.size - 1 - pogoVersionsList.indexOf(versionInfo)
                             spinner.post {
-                                spinner.setSelection(selectionIndex)
+                                //spinner.setSelection(selectionIndex)
                                 Log.i("Polygon", "spinner.setSelection: $selectionIndex")
                             }
                         }
@@ -517,6 +547,16 @@ class AppsPoke : Fragment() {
                     String.format(
                         formatNewerVersion,
                         version_WeCatch,
+                    )
+                view.findViewById<TextView>(R.id.galaxyStore_new_version).text =
+                    String.format(
+                        formatNewerVersion,
+                        version_galaxyStore,
+                    )
+                view.findViewById<TextView>(R.id.APKMirrorInstaller_new_version).text =
+                    String.format(
+                        formatNewerVersion,
+                        version_APKMirrorInstaller,
                     )
 
                 if (appInstalledVersion(getString(R.string.packageName_wrapper)) != "未安裝" &&
@@ -630,6 +670,16 @@ class AppsPoke : Fragment() {
                 String.format(
                     formatInstallVersion,
                     appInstalledVersion(resources.getString(R.string.packageName_Aerilate))
+                )
+            view.findViewById<TextView>(R.id.galaxyStore_install_version).text =
+                String.format(
+                    formatInstallVersion,
+                    appInstalledVersion(resources.getString(R.string.packageName_galaxyStore))
+                )
+            view.findViewById<TextView>(R.id.APKMirrorInstaller_install_version).text =
+                String.format(
+                    formatInstallVersion,
+                    appInstalledVersion(resources.getString(R.string.packageName_APKMirrorInstaller))
                 )
 
             fun setDownloadButton(isUpdate: Boolean = false) {
@@ -945,6 +995,7 @@ class AppsPoke : Fragment() {
                 val pokeList = pogo.getJSONObject("pokeList")
                 val wecatch = pogo.getJSONObject("wecatch")
                 val samsungStore = pogo.getJSONObject("samsungStore")
+                val apkMirrorInstaller = pogo.getJSONObject("APKMirrorInstaller")
 
                 url_jokstick = jokstick.getString("url")
                 url_wrapper = warpper.getString("url")
@@ -953,6 +1004,7 @@ class AppsPoke : Fragment() {
                 url_PokeList = pokeList.getString("url")
                 url_WeCatch = wecatch.getString("url")
                 url_samsungStore = samsungStore.getString("url")
+                url_APKMirrorInstaller = apkMirrorInstaller.getString("url")
 
                 version_wrapper = warpper.getString("version")
                 version_aerilate = aerilate.getString("version")
@@ -960,6 +1012,8 @@ class AppsPoke : Fragment() {
                 polygonTestKey = polygon.getString("testKey")
                 version_PokeList = pokeList.getString("version")
                 version_WeCatch = wecatch.getString("version")
+                version_galaxyStore = samsungStore.getString("version")
+                version_APKMirrorInstaller = apkMirrorInstaller.getString("version")
 
                 Log.i(
                     "PgTools",
@@ -967,7 +1021,9 @@ class AppsPoke : Fragment() {
                             "aerilate:$version_aerilate\n" +
                             "polygon:$version_polygon $polygonTestKey\n" +
                             "pokeList:$version_PokeList\n" +
-                            "wecatch:$version_WeCatch"
+                            "wecatch:$version_WeCatch" +
+                            "samsungStore:$version_galaxyStore" +
+                            "APKMirrorInstaller:$version_APKMirrorInstaller"
                 )
 
                 launch(Dispatchers.Main) {
@@ -1104,14 +1160,12 @@ class AppsPoke : Fragment() {
                             requireContext().packageManager.getLaunchIntentForPackage(packageName)
 
                         if (intent != null) {
-
                             val resolveInfo = requireContext().packageManager.resolveActivity(
                                 intent,
                                 PackageManager.MATCH_DEFAULT_ONLY
                             )
 
                             if (resolveInfo != null) {
-
                                 startActivity(intent)
                             } else {
                                 Toast.makeText(
@@ -1137,19 +1191,6 @@ class AppsPoke : Fragment() {
                 }
             }
             show()
-        }
-    }
-
-    private fun gotoBrowser(url: String) {
-        context?.let {
-            val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
-            val customTabsOff = sharedPreferences.getBoolean("customTabsOff", false)
-
-            if (customTabsOff)
-                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
-            else
-                CustomTabsIntent.Builder().build()
-                    .launchUrl(it, Uri.parse(url))
         }
     }
 
@@ -1186,12 +1227,6 @@ class AppsPoke : Fragment() {
                         .show()
                 }
                 setPositiveButton(R.string.ok) { _, _ ->
-                    if (url.endsWith(".apk"))
-                        startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
-                    else
-                        gotoBrowser(url)
-                }
-                setNegativeButton(R.string.downloadProblem) { _, _ ->
                     startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
                 }
             }

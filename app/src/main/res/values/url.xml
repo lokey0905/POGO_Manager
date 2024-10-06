@@ -22,6 +22,7 @@
     <string name="url_pokAres">https://www.apkmirror.com/apk/niantic-inc/pokemon-go-samsung-galaxy-apps-version/pokemon-go-samsung-galaxy-apps-version-%1$s-release/</string>
     <string name="url_pokeMod">https://pokemod.dev/zh/</string>
     <string name="url_pokeInfo">https://twpkinfo.com/igym.aspx</string>
+    <string name="url_PGToolsRaids">https://pgtools.net/raids</string>
     <string name="url_PGToolsFile">https://www.mediafire.com/file/fecfev2pr5c8x6d/GilbertMike_100523_1.txt/file</string>
     <string name="url_gpx1">https://www.mediafire.com/file/xa0ml3uwz0l8uon/%25E7%2586%25B1%25E9%2596%2580%25E8%258A%25B1%25E5%258D%2580%25E9%25BB%259E_gpx.zip/file</string>
     <string name="url_gpx2">https://drive.google.com/drive/folders/1c89gK9hburycF6htoZLD2Zi2B1aDfTZt</string>
@@ -37,7 +38,7 @@
     <string name="url_AFWall_unofficial">https://github.com/ukanth/afwall/releases/download/v3.6.0/AFWall_3.6.0_Free.apk</string>
     <string name="url_checkDevicesAPI_official">https://play.google.com/store/apps/details?id=com.henrikherzig.playintegritychecker</string>
     <string name="url_checkDevicesAPI_unofficial">https://github.com/herzhenr/spic-android/releases/latest</string>
-    <string name="url_appListDetector">https://github.com/Dr-TSNG/ApplistDetector/releases/latest</string>
+    <string name="url_appListDetector">https://github.com/byxiaorun/Ruru/releases/latest</string>
     <string name="url_gameGuardian">https://gameguardian.net/forum/files/file/2-gameguardian/</string>
 
     <string name="packageName_gps32">com.theyerbnosob.vxpdplqpbzmhzbw</string>
@@ -52,8 +53,9 @@
     <string name="packageName_MHNow">com.nianticlabs.monsterhunter</string>
     <string name="packageName_mhnTools">net.mhntools.auto</string>
     <string name="packageName_checkDevicesAPI">com.henrikherzig.playintegritychecker</string>
-    <string name="packageName_appListDetector">icu.nullptr.applistdetector</string>
+    <string name="packageName_appListDetector">com.byxiaorun.detector</string>
     <string name="packageName_galaxyStore">com.sec.android.app.samsungapps</string>
     <string name="packageName_hylianer">com.hpkssgdxzuwyxtnoo</string>
     <string name="packageName_Aerilate">com.evermorelabs.aerilate</string>
+    <string name="packageName_APKMirrorInstaller"> com.apkmirror.helper.prod</string>
 </resources>

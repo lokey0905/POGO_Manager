@@ -107,6 +107,17 @@
                         </LinearLayout>
                     </com.google.android.material.card.MaterialCardView>
 
+                    <com.google.android.gms.ads.AdView
+                        android:id="@+id/ad_banner"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        app:adSize="BANNER"
+                        app:adUnitId="ca-app-pub-9117573027413270/8697722093"
+                        app:layout_constraintBottom_toBottomOf="parent" />
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

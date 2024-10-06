@@ -25,6 +25,9 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.preference.PreferenceManager
 import app.lokey0905.location.R
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdView
+import com.google.android.gms.ads.MobileAds
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.materialswitch.MaterialSwitch
 import com.google.android.material.snackbar.Snackbar
@@ -60,7 +63,11 @@ class AppsMHN : Fragment() {
 
         setupListeners(view)
 
-        // Inflate the layout for this fragment
+        MobileAds.initialize(requireActivity())
+        val mAdView = view.findViewById<AdView>(R.id.ad_banner)
+        val adRequest = AdRequest.Builder().build()
+        mAdView.loadAd(adRequest)
+
         return view
     }
 
@@ -665,12 +672,6 @@ class AppsMHN : Fragment() {
                         .show()
                 }
                 setPositiveButton(R.string.ok) { _, _ ->
-                    if (url.endsWith(".apk"))
-                        startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
-                    else
-                        gotoBrowser(url)
-                }
-                setNegativeButton(R.string.downloadProblem) { _, _ ->
                     startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
                 }
             }

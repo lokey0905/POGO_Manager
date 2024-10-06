@@ -131,10 +131,15 @@
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
 
-                <Space
-                    android:layout_width="16dp"
-                    android:layout_height="16dp"
-                    android:layout_gravity="center" />
+                <com.google.android.gms.ads.AdView
+                    android:id="@+id/ad_banner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    app:adSize="BANNER"
+                    app:adUnitId="ca-app-pub-9117573027413270/5090025289"
+                    app:layout_constraintBottom_toBottomOf="parent" />
 
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/check"

@@ -20,7 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="?collapsingToolbarLayoutLargeSize"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            app:subtitle="@string/shortcutsTitle_download"
+            app:subtitle="@string/shortcutsTitle"
             app:title="@string/shortcuts"
             app:titleCollapseMode="scale">
 
@@ -65,40 +65,6 @@
                     android:layout_height="wrap_content"
                     android:columnCount="2"
                     android:rowCount="2">
-
-                    <com.google.android.material.card.MaterialCardView
-                        android:id="@+id/manual"
-                        android:layout_width="0dp"
-                        android:layout_height="160dp"
-                        android:layout_margin="16dp"
-                        android:layout_columnWeight="1"
-                        android:checkable="true"
-                        android:clickable="true"
-                        android:focusable="true"
-                        app:contentPadding="32dp">
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:layout_gravity="center">
-
-                            <ImageView
-                                android:layout_width="50dp"
-                                android:layout_height="50dp"
-                                android:layout_gravity="center"
-                                android:importantForAccessibility="no"
-                                app:srcCompat="@drawable/baseline_menu_book_24" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:gravity="center"
-                                android:text="@string/manual"/>
-                        </LinearLayout>
-
-                    </com.google.android.material.card.MaterialCardView>
 
                     <com.google.android.material.card.MaterialCardView
                         android:id="@+id/coolDownCalculator"
@@ -203,108 +169,6 @@
                     </com.google.android.material.card.MaterialCardView>
 
                     <com.google.android.material.card.MaterialCardView
-                        android:id="@+id/pokeList_web"
-                        android:layout_width="0dp"
-                        android:layout_height="160dp"
-                        android:layout_margin="16dp"
-                        android:layout_columnWeight="1"
-                        android:checkable="true"
-                        android:clickable="true"
-                        android:focusable="true"
-                        app:contentPadding="32dp">
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:orientation="vertical">
-
-                            <ImageView
-                                android:layout_width="50dp"
-                                android:layout_height="50dp"
-                                android:layout_gravity="center"
-                                android:importantForAccessibility="no"
-                                app:srcCompat="@drawable/baseline_radar_24" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:gravity="center"
-                                android:text="@string/shortcuts_pokeListWeb" />
-                        </LinearLayout>
-
-                    </com.google.android.material.card.MaterialCardView>
-
-                    <com.google.android.material.card.MaterialCardView
-                        android:id="@+id/pokeInfo"
-                        android:layout_width="0dp"
-                        android:layout_height="160dp"
-                        android:layout_margin="16dp"
-                        android:layout_columnWeight="1"
-                        android:checkable="true"
-                        android:clickable="true"
-                        android:focusable="true"
-                        app:contentPadding="32dp">
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:orientation="vertical">
-
-                            <ImageView
-                                android:layout_width="50dp"
-                                android:layout_height="50dp"
-                                android:layout_gravity="center"
-                                android:importantForAccessibility="no"
-                                app:srcCompat="@drawable/ic_baseline_catching_pokemon_24" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:gravity="center"
-                                android:text="@string/shortcuts_pokeInfo" />
-                        </LinearLayout>
-
-                    </com.google.android.material.card.MaterialCardView>
-
-                    <com.google.android.material.card.MaterialCardView
-                        android:id="@+id/getPolygonKey"
-                        android:layout_width="0dp"
-                        android:layout_height="160dp"
-                        android:layout_margin="16dp"
-                        android:layout_columnWeight="1"
-                        android:checkable="true"
-                        android:clickable="true"
-                        android:focusable="true"
-                        app:contentPadding="32dp">
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:orientation="vertical">
-
-                            <ImageView
-                                android:layout_width="50dp"
-                                android:layout_height="50dp"
-                                android:layout_gravity="center"
-                                android:importantForAccessibility="no"
-                                app:srcCompat="@drawable/baseline_key_24" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:gravity="center"
-                                android:text="@string/getPolygonKey" />
-                        </LinearLayout>
-
-                    </com.google.android.material.card.MaterialCardView>
-
-                    <com.google.android.material.card.MaterialCardView
                         android:id="@+id/MiuiXSpace"
                         android:layout_width="0dp"
                         android:layout_height="160dp"
@@ -348,10 +212,234 @@
                     android:layout_marginEnd="16dp"
                     android:textSize="16sp"
                     android:textColor="?attr/colorPrimary"
-                    android:text="@string/shortcutsTitle_download" />
+                    android:text="@string/shortcutsTitle_poke" />
 
                 <GridLayout
                     android:id="@+id/gridLayout2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:columnCount="2"
+                    android:rowCount="2">
+
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/manual"
+                        android:layout_width="0dp"
+                        android:layout_height="160dp"
+                        android:layout_margin="16dp"
+                        android:layout_columnWeight="1"
+                        android:checkable="true"
+                        android:clickable="true"
+                        android:focusable="true"
+                        app:contentPadding="32dp">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_gravity="center">
+
+                            <ImageView
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:layout_gravity="center"
+                                android:importantForAccessibility="no"
+                                app:srcCompat="@drawable/baseline_menu_book_24" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:text="@string/manual"/>
+                        </LinearLayout>
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/pokeInfo"
+                        android:layout_width="0dp"
+                        android:layout_height="160dp"
+                        android:layout_margin="16dp"
+                        android:layout_columnWeight="1"
+                        android:checkable="true"
+                        android:clickable="true"
+                        android:focusable="true"
+                        app:contentPadding="32dp">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:layout_gravity="center"
+                                android:importantForAccessibility="no"
+                                app:srcCompat="@drawable/ic_baseline_catching_pokemon_24" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:text="@string/shortcuts_pokeInfo" />
+                        </LinearLayout>
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/pokeList_web"
+                        android:layout_width="0dp"
+                        android:layout_height="160dp"
+                        android:layout_margin="16dp"
+                        android:layout_columnWeight="1"
+                        android:checkable="true"
+                        android:clickable="true"
+                        android:focusable="true"
+                        app:contentPadding="32dp">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:layout_gravity="center"
+                                android:importantForAccessibility="no"
+                                app:srcCompat="@drawable/baseline_radar_24" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:text="@string/shortcuts_pokeListWeb" />
+                        </LinearLayout>
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/PGTools_raids"
+                        android:layout_width="0dp"
+                        android:layout_height="160dp"
+                        android:layout_margin="16dp"
+                        android:layout_columnWeight="1"
+                        android:checkable="true"
+                        android:clickable="true"
+                        android:focusable="true"
+                        app:contentPadding="32dp">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:layout_gravity="center"
+                                android:importantForAccessibility="no"
+                                app:srcCompat="@drawable/baseline_radar_24" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:text="@string/shortcuts_PGToolsRaids" />
+                        </LinearLayout>
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/downloadPokeMod"
+                        android:layout_width="0dp"
+                        android:layout_height="160dp"
+                        android:layout_margin="16dp"
+                        android:layout_columnWeight="1"
+                        android:checkable="true"
+                        android:clickable="true"
+                        android:focusable="true"
+                        app:contentPadding="32dp">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_gravity="center">
+
+                            <ImageView
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:layout_gravity="center"
+                                android:importantForAccessibility="no"
+                                app:srcCompat="@drawable/baseline_mode_standby_24" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:text="@string/shortcuts_pokeMod"/>
+                        </LinearLayout>
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/pgtoolsFile"
+                        android:layout_width="0dp"
+                        android:layout_height="160dp"
+                        android:layout_margin="16dp"
+                        android:layout_columnWeight="1"
+                        android:checkable="true"
+                        android:clickable="true"
+                        android:focusable="true"
+                        app:contentPadding="32dp">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:layout_gravity="center"
+                                android:importantForAccessibility="no"
+                                app:srcCompat="@drawable/baseline_insert_drive_file_24" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:text="@string/shortcuts_PGToolsFile" />
+                        </LinearLayout>
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                </GridLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:textSize="16sp"
+                    android:textColor="?attr/colorPrimary"
+                    android:text="@string/shortcutsTitle_download" />
+
+                <GridLayout
+                    android:id="@+id/gridLayout3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:columnCount="2"
@@ -523,74 +611,6 @@
                                 android:layout_gravity="center"
                                 android:gravity="center"
                                 android:text="@string/shortcuts_gameGuardian" />
-                        </LinearLayout>
-
-                    </com.google.android.material.card.MaterialCardView>
-
-                    <com.google.android.material.card.MaterialCardView
-                        android:id="@+id/pgtoolsFile"
-                        android:layout_width="0dp"
-                        android:layout_height="160dp"
-                        android:layout_margin="16dp"
-                        android:layout_columnWeight="1"
-                        android:checkable="true"
-                        android:clickable="true"
-                        android:focusable="true"
-                        app:contentPadding="32dp">
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:orientation="vertical">
-
-                            <ImageView
-                                android:layout_width="50dp"
-                                android:layout_height="50dp"
-                                android:layout_gravity="center"
-                                android:importantForAccessibility="no"
-                                app:srcCompat="@drawable/baseline_insert_drive_file_24" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:gravity="center"
-                                android:text="@string/shortcuts_PGToolsFile" />
-                        </LinearLayout>
-
-                    </com.google.android.material.card.MaterialCardView>
-
-                    <com.google.android.material.card.MaterialCardView
-                        android:id="@+id/downloadPokeMod"
-                        android:layout_width="0dp"
-                        android:layout_height="160dp"
-                        android:layout_margin="16dp"
-                        android:layout_columnWeight="1"
-                        android:checkable="true"
-                        android:clickable="true"
-                        android:focusable="true"
-                        app:contentPadding="32dp">
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:layout_gravity="center">
-
-                            <ImageView
-                                android:layout_width="50dp"
-                                android:layout_height="50dp"
-                                android:layout_gravity="center"
-                                android:importantForAccessibility="no"
-                                app:srcCompat="@drawable/baseline_mode_standby_24" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:gravity="center"
-                                android:text="@string/shortcuts_pokeMod"/>
                         </LinearLayout>
 
                     </com.google.android.material.card.MaterialCardView>
