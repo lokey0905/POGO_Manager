@@ -2,8 +2,8 @@ package app.lokey0905.location.fragment
 
 import android.Manifest
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.app.ActivityManager
+import android.content.Context
 import android.content.Context.LOCATION_SERVICE
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -17,6 +17,7 @@ import android.location.LocationManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
@@ -35,15 +36,23 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
 import app.lokey0905.location.BuildConfig
 import app.lokey0905.location.R
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdView
+import com.google.android.gms.ads.MobileAds
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationCallback
+import com.google.android.gms.location.LocationRequest
+import com.google.android.gms.location.LocationServices
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.snackbar.Snackbar
 import java.text.DecimalFormat
 import java.util.Locale
 import kotlin.math.roundToInt
 
 class Home : Fragment() {
-    private val locationPermissionCode = 2
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
     private val MY_PERMISSIONS_REQUEST_LOCATION = 1
 
     var newerCheckMockLocationApi = false
@@ -54,6 +63,8 @@ class Home : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?,
     ): View {
         val view: View = inflater.inflate(R.layout.fragment_home, container, false)
+
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
 
         val checkLocationButton = view.findViewById<Button>(R.id.check_location)
         val checkInformationLayout = view.findViewById<LinearLayout>(R.id.check_information)
@@ -211,36 +222,6 @@ class Home : Fragment() {
             }
         }
 
-        fun getLocation() {
-            val locationManager =
-                requireActivity().getSystemService(AppCompatActivity.LOCATION_SERVICE) as LocationManager
-            val bestProvider = locationManager.getBestProvider(Criteria(), true).toString()
-
-            if ((ContextCompat.checkSelfPermission(
-                    requireActivity(),
-                    Manifest.permission.ACCESS_FINE_LOCATION
-                ) != PackageManager.PERMISSION_GRANTED)
-            ) {
-                ActivityCompat.requestPermissions(
-                    requireActivity(),
-                    arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-                    locationPermissionCode
-                )
-            }
-            //findViewById<TextView>(R.id.location_system).text = "0.0,0.0"
-            /*if (locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
-                locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 500, 0f,locationListener);
-            }else if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
-                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 500, 0f,locationListener);
-            }else{
-                locationManager.requestLocationUpdates(bestProvider.toString(), 500, 0f,locationListener)
-            }*/
-            locationManager.requestLocationUpdates(bestProvider, 500, 0f, locationListener)
-            //locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 500, 1f,locationListener)
-            //locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 500, 1f,locationListener)
-            //locationManager.requestLocationUpdates(LocationManager.FUSED_PROVIDER, 500, 1f,locationListener)
-        }
-
         fun setFragmentResultListener() {
             setFragmentResultListener("newerCheckMockLocationApi") { _, bundle ->
                 newerCheckMockLocationApi = bundle.getBoolean("bundleKey")
@@ -268,23 +249,64 @@ class Home : Fragment() {
                 checkInformationLayout.visibility = View.VISIBLE
 
             magiskCheck()
-            if (context?.let { it1 ->
-                    ContextCompat.checkSelfPermission(
-                        it1,
-                        Manifest.permission.ACCESS_FINE_LOCATION
-                    )
-                }
-                != PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(context, "請允許定位權限後在重試", Toast.LENGTH_LONG).show()
+
+            if (ContextCompat.checkSelfPermission(
+                    requireActivity(),
+                    Manifest.permission.ACCESS_FINE_LOCATION
+                ) != PackageManager.PERMISSION_GRANTED
+            ) {
                 ActivityCompat.requestPermissions(
-                    context as Activity,
+                    requireActivity(),
                     arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
                     MY_PERMISSIONS_REQUEST_LOCATION
                 )
-            } else {
-                getLocation()
+                return@setOnClickListener
+            } else if (!isLocationEnabled()) {
+                Snackbar.make(
+                    view,
+                    "請開啟GPS或是網路",
+                    Snackbar.LENGTH_SHORT
+                ).show()
+                return@setOnClickListener
             }
-            getLocation()
+
+            val locationRequest = LocationRequest.create().apply {
+                interval = 500
+                fastestInterval = 100
+                priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+            }
+
+            val locationCallback = object : LocationCallback() {
+                override fun onLocationResult(locationResult: com.google.android.gms.location.LocationResult) {
+                    locationResult.locations.forEach { location ->
+                        locationListener.onLocationChanged(location)
+                    }
+                }
+            }
+
+            fusedLocationClient.requestLocationUpdates(
+                locationRequest,
+                locationCallback,
+                Looper.getMainLooper()
+            )
+
+            /*val locationManager =
+                requireActivity().getSystemService(AppCompatActivity.LOCATION_SERVICE) as LocationManager
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                locationManager.requestLocationUpdates(
+                    LocationManager.FUSED_PROVIDER,
+                    500,
+                    1f,
+                    locationListener
+                )
+            } else {
+                val bestProvider = locationManager.getBestProvider(Criteria(), true).toString()
+                locationManager.requestLocationUpdates(bestProvider, 500, 1f, locationListener)
+            }*/
+
+            //val bestProvider = locationManager.getBestProvider(Criteria(), true).toString()
+            //locationManager.requestLocationUpdates(bestProvider, 500, 1f, locationListener)
         }
 
         view.findViewById<Button>(R.id.check_safetynet).setOnClickListener {
@@ -344,6 +366,11 @@ class Home : Fragment() {
             }
         }
 
+        MobileAds.initialize(requireActivity())
+        val mAdView = view.findViewById<AdView>(R.id.ad_banner)
+        val adRequest = AdRequest.Builder().build()
+        mAdView.loadAd(adRequest)
+
         return view
     }
 
@@ -395,18 +422,6 @@ class Home : Fragment() {
             }
 
             else -> super.onOptionsItemSelected(item)
-        }
-    }
-
-    override fun onStart() {
-        super.onStart()
-
-        val gridLayout = view?.findViewById<GridLayout>(R.id.gridLayout)
-
-        if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            gridLayout?.columnCount = 3
-        } else {
-            gridLayout?.columnCount = 1
         }
     }
 
@@ -485,5 +500,11 @@ class Home : Fragment() {
         } catch (_: PackageManager.NameNotFoundException) {
         }
         return false
+    }
+
+    private fun isLocationEnabled(): Boolean {
+        val locationManager = requireActivity().getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) ||
+                locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
     }
 }

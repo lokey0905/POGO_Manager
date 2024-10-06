@@ -40,6 +40,7 @@
     <string name="somethingWrong">發生一些錯誤</string>
     <string name="more_options">其他選項</string>
     <string name="picture">圖片</string>
+    <string name="doNotShowAgain">不再顯示</string>
 
     <string name="appsAllUpdated">全部APP皆已最新版本</string>
     <string name="apps_ARMV8a">64位元</string>
@@ -64,15 +65,19 @@
     <string name="checkTitle_deviceIsRoot">偵測ROOT環境:</string>
     <string name="check_button">檢測定位與設備</string>
     <string name="check_devicesAPI">檢測設備完整性</string>
-    <string name="check_appList">App列表測試</string>
+    <string name="check_appList">設備環境測試</string>
     <string name="checkInfo_rootDetected">⚠️已發現root路徑</string>
     <string name="checkInfo_rootNotDetected">✅未發現root</string>
 
-    <string name="shortcutsTitle_docAndTool">文檔與工具 (長按可新增捷徑)</string>
-    <string name="shortcutsTitle_download">檔案下載</string>
+    <string name="shortcutsTitle">長按可新增捷徑</string>
+    <string name="shortcutsTitle_docAndTool">工具與捷徑</string>
+    <string name="shortcutsTitle_poke">寶可夢相關捷徑</string>
+    <string name="shortcutsTitle_mhn">魔物獵人相關捷徑</string>
+    <string name="shortcutsTitle_download">其他檔案下載</string>
     <string name="shortcuts_MiuiXSpace">MIUI應用雙開</string>
     <string name="shortcuts_coolDownCalculator">冷卻計算機</string>
     <string name="shortcuts_PGToolsFile">PGTools設定檔(贊助版本)</string>
+    <string name="shortcuts_PGToolsRaids">PGTools雷達</string>
     <string name="shortcuts_splitScreen">split screen 分割畫面app</string>
     <string name="shortcuts_island">island 創建雙開環境</string>
     <string name="shortcuts_pokeMod">下載PokeMod</string>
@@ -130,8 +135,8 @@
     <string name="androidAbi">系統架構:</string>
     <string name="androidRamSize">記憶體大小:</string>
     <string name="androidARM64Supper">軟體支援:</string>
-    <string name="androidARM64SupperTrue">✅完整支援暴力功自動抓\n✅完整支援魔物獵人</string>
-    <string name="androidARM64SupperFalse">❌不支援暴力功自動抓\n❌不支援魔物獵人</string>
+    <string name="androidARM64SupperTrue">✅完整支援艾略特&amp;PGTools\n✅完整支援魔物獵人</string>
+    <string name="androidARM64SupperFalse">❌不支援艾略特&amp;PGTools\n❌不支援魔物獵人</string>
 
     <string name="appsMHNPage_supportVersion_MHNTools">MHNTools支援版本: </string>
     <string name="appsMHNPage_MHNTitle">原版魔物獵人客戶端</string>
@@ -165,4 +170,8 @@
     <string name="appsPokePage_WeCatchAppName">WeCatch</string>
     <string name="appsPokePage_AerilateTitle">改良新版暴力功</string>
     <string name="appsPokePage_AerilateAppName">Aerilate【艾略特中文版】</string>
+    <string name="appsPokePage_galaxyStoreTitle">寶可夢三星雙開版本必要軟體</string>
+    <string name="appsPokePage_galaxyStoreAppName">三星應用商店</string>
+    <string name="appsPokePage_APKMirrorInstallerTitle">APKMirror apkm安裝器</string>
+    <string name="appsPokePage_APKMirrorInstallerAppName">APKMirror Installer</string>
 </resources>

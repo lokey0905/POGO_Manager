@@ -76,16 +76,17 @@
                                 android:textAppearance="?attr/textAppearanceBodyMedium" />
 
                             <TextView
-                                android:id="@+id/supportVersion_polygon"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="@string/appsPokePage_supportVersion_polygon"
-                                android:textAppearance="?attr/textAppearanceBodyMedium" />
-                            <TextView
                                 android:id="@+id/supportVersion_Aerilate"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="@string/appsPokePage_supportVersion_Aerilate"
+                                android:textAppearance="?attr/textAppearanceBodyMedium" />
+
+                            <TextView
+                                android:id="@+id/supportVersion_polygon"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@string/appsPokePage_supportVersion_polygon"
                                 android:textAppearance="?attr/textAppearanceBodyMedium" />
 
                             <Space
@@ -118,6 +119,15 @@
                             </LinearLayout>
                         </LinearLayout>
                     </com.google.android.material.card.MaterialCardView>
+
+                    <com.google.android.gms.ads.AdView
+                        android:id="@+id/ad_banner"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        app:adSize="BANNER"
+                        app:adUnitId="ca-app-pub-9117573027413270/3557076057"
+                        app:layout_constraintBottom_toBottomOf="parent" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -1077,6 +1087,230 @@
                             <Button
                                 android:layout_weight="1"
                                 android:id="@+id/download_wecatch"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:text="@string/download" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:textSize="16sp"
+                        android:textColor="?attr/colorPrimary"
+                        android:text="@string/shortcutsTitle_download" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="1.0"
+                        app:layout_constraintStart_toStartOf="parent">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                app:srcCompat="@drawable/galaxystore_icon"
+                                android:importantForAccessibility="no"
+                                tools:layout_editor_absoluteX="100dp"
+                                tools:layout_editor_absoluteY="100dp" />
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="16dp"
+                                android:layout_weight="10"
+                                android:gravity="center|start"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/appsPokePage_galaxyStoreTitle" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/appsPokePage_galaxyStoreAppName" />
+
+                            </LinearLayout>
+
+                            <ImageButton
+                                android:id="@+id/galaxyStore_more"
+                                style="?attr/materialIconButtonStyle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="end"
+                                android:contentDescription="@string/more_options"
+                                android:background="?attr/selectableItemBackgroundBorderless"
+                                android:src="@drawable/ic_baseline_more_vert_24" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal"
+                            android:layout_marginTop="4dp"
+                            android:layout_marginBottom="4dp">
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center|start"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:id="@+id/galaxyStore_new_version"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/format_newerVersion" />
+
+                                <TextView
+                                    android:id="@+id/galaxyStore_install_version"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/format_installVersion" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="end"
+                            android:orientation="horizontal">
+
+                            <Button
+                                android:layout_weight="1"
+                                android:id="@+id/remove_galaxyStore"
+                                style="@style/Widget.Material3.Button.OutlinedButton"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="16dp"
+                                android:text="@string/remove" />
+
+                            <Button
+                                android:layout_weight="1"
+                                android:id="@+id/download_galaxyStore"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:text="@string/download" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="1.0"
+                        app:layout_constraintStart_toStartOf="parent">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                app:srcCompat="@drawable/apkmirrorinstaller_icon"
+                                android:importantForAccessibility="no"
+                                tools:layout_editor_absoluteX="100dp"
+                                tools:layout_editor_absoluteY="100dp" />
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="16dp"
+                                android:layout_weight="10"
+                                android:gravity="center|start"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/appsPokePage_APKMirrorInstallerTitle" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/appsPokePage_APKMirrorInstallerAppName" />
+
+                            </LinearLayout>
+
+                            <ImageButton
+                                android:id="@+id/APKMirrorInstaller_more"
+                                style="?attr/materialIconButtonStyle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="end"
+                                android:contentDescription="@string/more_options"
+                                android:background="?attr/selectableItemBackgroundBorderless"
+                                android:src="@drawable/ic_baseline_more_vert_24" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal"
+                            android:layout_marginTop="4dp"
+                            android:layout_marginBottom="4dp">
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center|start"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:id="@+id/APKMirrorInstaller_new_version"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/format_newerVersion" />
+
+                                <TextView
+                                    android:id="@+id/APKMirrorInstaller_install_version"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/format_installVersion" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="end"
+                            android:orientation="horizontal">
+
+                            <Button
+                                android:layout_weight="1"
+                                android:id="@+id/remove_APKMirrorInstaller"
+                                style="@style/Widget.Material3.Button.OutlinedButton"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="16dp"
+                                android:text="@string/remove" />
+
+                            <Button
+                                android:layout_weight="1"
+                                android:id="@+id/download_APKMirrorInstaller"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:text="@string/download" />

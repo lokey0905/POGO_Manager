@@ -40,13 +40,13 @@
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
             <GridLayout
                 android:id="@+id/gridLayout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:columnCount="1"
+                android:layout_height="match_parent"
+                android:columnCount="2"
                 android:padding="16dp">
 
                 <com.google.android.material.card.MaterialCardView
@@ -54,6 +54,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="fill"
                     android:layout_columnWeight="1"
+                    android:layout_margin="8dp"
                     android:checkable="true"
                     android:clickable="true"
                     android:focusable="true"
@@ -131,22 +132,13 @@
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
 
-                <com.google.android.gms.ads.AdView
-                    android:id="@+id/ad_banner"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    app:adSize="BANNER"
-                    app:adUnitId="ca-app-pub-9117573027413270/5090025289"
-                    app:layout_constraintBottom_toBottomOf="parent" />
-
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/check"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_gravity="fill"
                     android:layout_columnWeight="1"
+                    android:layout_margin="8dp"
                     android:checkable="true"
                     android:clickable="true"
                     android:focusable="true"
@@ -223,6 +215,15 @@
                         </LinearLayout>
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
+                <com.google.android.gms.ads.AdView
+                    android:id="@+id/ad_banner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    app:adSize="BANNER"
+                    app:adUnitId="ca-app-pub-9117573027413270/5090025289"
+                    app:layout_constraintBottom_toBottomOf="parent" />
             </GridLayout>
         </androidx.core.widget.NestedScrollView>
     </FrameLayout>
