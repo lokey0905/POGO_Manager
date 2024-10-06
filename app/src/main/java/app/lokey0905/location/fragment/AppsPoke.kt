@@ -416,7 +416,7 @@ class AppsPoke : Fragment() {
                         if (it == "ERROR") {
                             polygonTestToken = ""
 
-                            if (errorCounter > 3) {
+                            if (errorCounter > 1) {
                                 Log.i("Polygon", "Try Login too many times")
                                 return@sendSecondJsonRequest
                             }
@@ -474,8 +474,19 @@ class AppsPoke : Fragment() {
 
                         var pogoVersionList =
                             resources.getString(R.string.appsPokePage_supportVersion_Aerilate)
+                        var matchingVersionInfo: PogoVersionInfo? = null
                         for (aerilateSupportedVersion in aerilateVersionsList) {
                             pogoVersionList += " ${aerilateSupportedVersion},"
+
+                            matchingVersionInfo = pogoVersionsList.find { it.pogoVersion == aerilateSupportedVersion }
+                        }
+
+                        matchingVersionInfo?.let { versionInfo ->
+                            val selectionIndex = pogoVersionsList.size - 1 - pogoVersionsList.indexOf(versionInfo)
+                            spinner.post {
+                                spinner.setSelection(selectionIndex)
+                                Log.i("Aerilate", "spinner.setSelection: $selectionIndex")
+                            }
                         }
 
                         pogoVersionList = pogoVersionList.substring(0, pogoVersionList.length - 1)
