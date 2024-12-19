@@ -16,20 +16,14 @@
 <img width="500" src="https://hackmd.io/_uploads/BkwJOVxsR.jpg" style="margin-right:10px" />
 
 ### 寶可夢更新教學
-- [點我觀看影片安裝教學](https://www.facebook.com/share/v/spAjZRszmSWoR2LZ/?mibextid=oFDknk)
-- 影片內容部分為舊版內容，請以下方圖像教學為準
+- [點我觀看影片安裝教學](https://www.facebook.com/share/v/EbXiibEdwAvraCRn/)(2024/11/19更新)
 
 > - 點擊寶可夢的更新按鈕
 >> <img width="500" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/NewVersion2.jpg" style="margin-right:10px" />
 
-> - 進入網頁後，往下滑一些，會有一個【DOWNLOAD APK BUNDLE】或是【下載 APK BUNDLE】的按鈕
->> <img width="500" src="https://hackmd.io/_uploads/HJJK-HgsR.jpg" style="margin-right:10px" />
->> <img width="500" src="https://hackmd.io/_uploads/BkktWSlsC.jpg" style="margin-right:10px" />
+> - 進入網頁後會自動下載更新檔案
+>> <img width="300" src="https://hackmd.io/_uploads/rJYnvU-Bkg.jpg" style="margin-right:10px" />
 
-> - 點擊下載按鈕後，若有顯示廣告，請按右上角或是左上角的X關閉
->> <img width="300" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/apkmirror_AD.jpg" style="margin-right:10px" />
-
-> - 關閉廣告後會自動下載更新檔案
 > - 下載後開啟檔案，如果是第一次安裝，請選擇APKMirror Installer，並且勾選【預設選擇】或是點【一律使用】
 >> <img width="300" src="https://hackmd.io/_uploads/SJ0-BrgiA.jpg" style="margin-right:10px" />
 > 打開後，點擊右下角的【Watch ad and install app】按鈕安裝
@@ -42,6 +36,7 @@
 >> <img width="600" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/install_pokemon.jpg" style="margin-right:10px" />
 
 - 若有重新安裝或是更新完成後，請記得將手機重新啟動
+- 若重開機後仍然顯示錯誤12，請依照[無法偵測位置12](#寶可夢顯示-無法偵測位置12)操作
 
 ### 寶可夢更新教學(三星雙開版本)
 
@@ -63,6 +58,24 @@
 >> <img width="500" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/install_pokemon.jpg" style="margin-right:10px" />
 
 - 若有重新安裝或是更新完成後，請記得將手機重新啟動
+- 若重開機後仍然顯示錯誤12，請依照[無法偵測位置12](#寶可夢顯示-無法偵測位置12)操作
+
+### 寶可夢更新教學(小米雙開版本)
+- 本教學僅適用小米、紅米、POCO且搭載MIUI或Hyper OS系統之設備
+- 正常依照[寶可夢更新教學](#%E5%AF%B6%E5%8F%AF%E5%A4%A2%E6%9B%B4%E6%96%B0%E6%95%99%E5%AD%B8)操作，小米雙開版本便會自動更新
+- 若沒有更新成功或是尚未安裝，在依照下方教學操作
+
+> - 點選捷徑頁面按鈕
+>> <img width="300" src="https://hackmd.io/_uploads/S1hdF8bH1g.jpg" style="margin-right:10px" />
+
+> - 點選MIUI應用雙開捷徑按鈕
+>> <img width="300" src="https://hackmd.io/_uploads/H1ml9L-BJg.jpg" style="margin-right:10px" />
+
+> - 打勾寶可夢選項即可
+>> <img width="300" src="https://hackmd.io/_uploads/r1aQiI-S1l.jpg" style="margin-right:10px" />
+
+- 若有重新安裝或是更新完成後，請記得將手機重新啟動
+- 若重開機後仍然顯示錯誤12，請依照[無法偵測位置12](#寶可夢顯示-無法偵測位置12)操作
 
 ### 寶可夢降版本
 > - 可以在支援版本列表左下方選擇要下載的版本
@@ -86,7 +99,7 @@
 ### 寶可夢版本強制更新
 - 如果遇到強制更新，可以先嘗試啟用測試版開關
 > <img width="500" src="https://hackmd.io/_uploads/BkQVQrgs0.jpg" style="margin-right:10px" />
-- 若版本還是不支援請等待PgTools團隊更新
+- 若版本還是不支援，請先至Play商店更新寶可夢，並等待PgTools團隊更新
 
 ### 其他檔案下載
 - 點擊檔案下載並安裝
@@ -111,64 +124,69 @@
 
 
 ## 單純改定位看iv
-- **Aerilate 艾略特屬於注入式軟體，使用可能會有風險**
-- 使用[Aerilate 艾略特](#Aerilate-%E8%89%BE%E7%95%A5%E7%89%B9-)的顯示三圍iv與偵測色違功能
+- **[Aerilate 艾略特](#Aerilate-艾略特-)屬於注入式軟體，使用可能會有風險**
+- **請先把帳號通過新手教學，再開啟使用[Aerilate 艾略特](#Aerilate-艾略特-)，否則帳號可能會發生問題無法使用**
+- 使用[Aerilate 艾略特](#Aerilate-艾略特-)的顯示三圍iv與偵測色違功能
 - 須注意[等待冷卻時間](#冷卻計算)
 
 啟動順序如下:
 1. 打開[搖桿](#GPS-Joystick-搖桿改定位-)並[設定位置啟動搖桿](#啟動搖桿)
-2. 打開[Aerilate 艾略特](#Aerilate-%E8%89%BE%E7%95%A5%E7%89%B9-)並點擊啟動按鈕
+2. 打開[Aerilate 艾略特](#Aerilate-艾略特-)並點擊啟動按鈕
 3. 可搭配報寶貝與[WeCatch](#WeCatch-寶可夢地圖-)或是[Pokelist](#PokeList-寶可夢列表-)等其他雷達傳送座標尋找寶可夢
 4. 開始遊玩
 
 
 ## 單純掛機自動捕捉
-- **PGTools屬於注入式軟體，使用可能會有風險**
+- **[PGTools](#Pgtools-自動抓-)屬於注入式軟體，使用可能會有風險**
+- **請先把帳號通過新手教學，再開啟使用[PGTools](#Pgtools-自動抓-)，否則帳號可能會發生問題無法使用**
 - 須注意[等待冷卻時間](#冷卻計算)
 - 須注意[掛機時間](#軟體鎖)以免被軟鎖
 
 啟動順序如下:
 1. 使用搖桿改定位[設定路線或是固定走路方向](#啟動搖桿)
-2. 打開PgTools並自訂參數(若不會設定預設即可)
+2. 打開[PGTools](#Pgtools-自動抓-)並自訂參數(若不會設定預設即可)
 3. 點擊最下方的開始掛機按鈕
 4. 開始掛機
 
 ## 掛機刷星辰(Aerilate 艾略特免費版)
 - **2024/6月開始官方開始標記刷火箭隊玩家，目前不建議使用此功能**
-- **Aerilate 艾略特與PGTools屬於注入式軟體，使用可能會有風險**
-- 此為Aerilate 艾略特免費版本，半自動刷星辰，需手動傳送與點擊火箭隊
+- **[Aerilate 艾略特](#Aerilate-艾略特-)與[PGTools](#Pgtools-自動抓-)屬於注入式軟體，使用可能會有風險**
+- **請先把帳號通過新手教學，再開啟使用[Aerilate 艾略特](#Aerilate-艾略特-)與[PGTools](#Pgtools-自動抓-)，否則帳號可能會發生問題無法使用**
+- 此為[Aerilate 艾略特](#Aerilate-艾略特-)免費版本，半自動刷星辰，需手動傳送與點擊火箭隊
 - 須注意[掛機時間](#軟體鎖)以免被軟鎖
 
 啟動順序如下:
 1. 打開[搖桿](#GPS-Joystick-搖桿改定位-)設定位置並啟動搖桿
 2. 打開[GPS Joystick Wrapper](#GPS-Joystick-Wrapper-)並點擊左上角的▶️按鈕啟動
-3. 打開[Aerilate 艾略特](#Aerilate-%E8%89%BE%E7%95%A5%E7%89%B9-)在一般設定內啟用火箭隊自動攻擊設定，並點擊啟動按鈕
+3. 打開[Aerilate 艾略特](#Aerilate-艾略特-)在一般設定內啟用火箭隊自動攻擊設定，並點擊啟動按鈕
 4. 點擊⏩按鈕可傳送至下個火箭隊
 
 ## 掛機刷星辰(PGTools付費版本)
 - **2024/6月開始官方開始標記刷火箭隊玩家，目前不建議使用此功能**
-- **Aerilate 艾略特與PGTools屬於注入式軟體，使用可能會有風險**
-- 此為PGTools付費版本，需另外購買，需月費，可全自動掛機
+- **[Aerilate 艾略特](#Aerilate-艾略特-)與[PGTools](#Pgtools-自動抓-)屬於注入式軟體，使用可能會有風險**
+- **請先把帳號通過新手教學，再開啟使用[Aerilate 艾略特](#Aerilate-艾略特-)與[PGTools](#Pgtools-自動抓-)，否則帳號可能會發生問題無法使用**
+- 此為[PGTools](#Pgtools-自動抓-)付費版本，需另外購買，需月費，可全自動掛機
 - 須注意[掛機時間](#軟體鎖)以免被軟鎖
 
 啟動順序如下:
-1. 打開PGTools並選擇PAG功能
-2. 點擊PGTools最下方的開始掛機按鈕
+1. 打開[PGTools](#Pgtools-自動抓-)並選擇PAG功能
+2. 點擊[PGTools](#Pgtools-自動抓-)最下方的開始掛機按鈕
 3. 開始掛機
     
 ## 狙擊100iv與色違
-- **Aerilate 艾略特屬於注入式軟體，使用可能會有風險**
+- **[Aerilate 艾略特](#Aerilate-艾略特-)屬於注入式軟體，使用可能會有風險**
+- **請先把帳號通過新手教學，再開啟使用[Aerilate 艾略特](#Aerilate-艾略特-)，否則帳號可能會發生問題無法使用**
 - 使用[Pokelist](#PokeList-寶可夢列表-)的寶可夢雷達
-- 使用[Aerilate 艾略特](#Aerilate-%E8%89%BE%E7%95%A5%E7%89%B9-)的顯示三圍iv與偵測色違功能
+- 使用[Aerilate 艾略特](#Aerilate-艾略特-)的顯示三圍iv與偵測色違功能
 - 須注意[掛機時間](#軟體鎖)以免被軟鎖
 
 啟動順序如下:
 1. 打開[Pokelist](#PokeList-寶可夢列表-)，點擊左邊上角的【啟動服務】按鈕或是【start service】啟動
-2. 打開[Aerilate 艾略特](#Aerilate-%E8%89%BE%E7%95%A5%E7%89%B9-)並點擊啟動按鈕
-3. 點擊[Pokelist](#PokeList-寶可夢列表-)列表中的寶可夢進行傳送，可以使用[Aerilate 艾略特](#Aerilate-%E8%89%BE%E7%95%A5%E7%89%B9-)顯示三圍iv與偵測色違
+2. 打開[Aerilate 艾略特](#Aerilate-艾略特-)並點擊啟動按鈕
+3. 點擊[Pokelist](#PokeList-寶可夢列表-)列表中的寶可夢進行傳送，可以使用[Aerilate 艾略特](#Aerilate-艾略特-)顯示三圍iv與偵測色違
 
 ## 寶可夢雙開(以上)
-- 雙開版本的寶可夢無法使用暴力功跟Pgtools的功能，只能使用虛擬定位，建議記憶體6~8G以上
+- 雙開版本的寶可夢無法使用艾略特或Pgtools的功能，只能使用虛擬定位飛人，建議記憶體6~8G以上
 - 先開啟第一個寶可夢後，在手機的多工畫面中長按寶可夢APP圖示，點選分割畫面，再點選雙開版本寶可夢，即完成雙視窗連動
 - Android的分割畫面只能同時開啟兩個畫面，除非有特殊需求，否則不建議安裝超過2個客戶端
 
@@ -531,6 +549,8 @@
 # 常見問題
 ## 寶可夢顯示: 無法偵測位置(11)
 表示未偵測到手機定位
+
+- 請依照下方順序操作測試
 1. 請先嘗試重開機
 2. 檢查手機是否有開啟定位功能
 3. 需要啟動搖桿改定位
@@ -545,6 +565,8 @@
 
 ## 寶可夢顯示: 無法偵測位置(12)
 表示可能偵測到模擬定位
+
+- 請依照下方順序操作測試
 1. 請先嘗試重開機
 2. 如果是開艾略特顯示錯誤12，嘗試移除ART(Android runtime package) [影片教學](https://fb.watch/obvKzrwUoD/?mibextid=Nif5oz)
 3. 若重開機後還是一樣錯誤12，依照[影片教學](https://fb.watch/pnIRae_IUJ/)操作打勾魔物獵人/寶可夢即可，若無顯示遊戲，請右上角︙取消打勾隱藏遊戲 
