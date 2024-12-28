@@ -1,4 +1,6 @@
 # POGO寶可夢管理器 POGOManager
+圖示介紹:
+
 <img width="300" src="https://hackmd.io/_uploads/S1JjmYgiA.jpg" style="margin-right:10px" />
 
 ## 閱讀模式
@@ -14,21 +16,17 @@
 <img width="500" src="https://hackmd.io/_uploads/BkwJOVxsR.jpg" style="margin-right:10px" />
 
 ### 寶可夢更新教學
-- [點我觀看影片安裝教學](https://www.facebook.com/watch/?mibextid=4rjikB)
+- [點我觀看影片安裝教學](https://www.facebook.com/share/v/EbXiibEdwAvraCRn/)(2024/11/19更新)
 
 > - 點擊寶可夢的更新按鈕
 >> <img width="500" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/NewVersion2.jpg" style="margin-right:10px" />
 
-> - 進入網頁後，往下滑一些，會有一個【DOWNLOAD APK BUNDLE】或是【下載 APK BUNDLE】的按鈕
->> <img width="500" src="https://hackmd.io/_uploads/HJJK-HgsR.jpg" style="margin-right:10px" />
->> <img width="500" src="https://hackmd.io/_uploads/BkktWSlsC.jpg" style="margin-right:10px" />
+> - 進入網頁後會自動下載更新檔案
+>> <img width="300" src="https://hackmd.io/_uploads/rJYnvU-Bkg.jpg" style="margin-right:10px" />
 
-> - 點擊下載按鈕後，若有顯示廣告，請按右上角或是左上角的X關閉
->> <img width="300" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/apkmirror_AD.jpg" style="margin-right:10px" />
-
-> - 下載後開啟檔案，如果是第一次安裝，請選擇APKMirror Installer，並且勾選【預設選擇】或是【一律使用】
+> - 下載後開啟檔案，如果是第一次安裝，請選擇APKMirror Installer，並且勾選【預設選擇】或是點【一律使用】
 >> <img width="300" src="https://hackmd.io/_uploads/SJ0-BrgiA.jpg" style="margin-right:10px" />
-> 點擊右下角的【Watch ad and install app】按鈕安裝
+> 打開後，點擊右下角的【Watch ad and install app】按鈕安裝
 >> <img width="300" src="https://hackmd.io/_uploads/rkyPq4xsC.jpg" style="margin-right:10px" />
 
 > - 等待廣告，完成後，請按右上角或是左上角的X關閉
@@ -38,13 +36,15 @@
 >> <img width="600" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/install_pokemon.jpg" style="margin-right:10px" />
 
 - 若有重新安裝或是更新完成後，請記得將手機重新啟動
+- 若重開機後仍然顯示錯誤12，請依照[無法偵測位置12](#寶可夢顯示-無法偵測位置12)操作
 
 ### 寶可夢更新教學(三星雙開版本)
 
 > - 點擊寶可夢三星雙開版本的更新按鈕
 >> <img width="500" src="https://hackmd.io/_uploads/SJDUJSxs0.jpg" style="margin-right:10px" />
 
-> - 進入網頁後，往下滑一些，會有一個Download Pokémon Go的畫面如下，點擊v8a版本的左邊紅字進入下載
+> - 進入網頁後，往下滑一些，會有一個Download Pokémon Go的畫面如下
+> - 點選【arm64-v8a】版本的左邊紅字進入下載網頁
 >> <img width="500" src="https://hackmd.io/_uploads/HJG0REgo0.jpg" style="margin-right:10px" />
 
 > - 點擊按鈕後，若有顯示廣告，請按右上角或是左上角的X關閉
@@ -58,6 +58,24 @@
 >> <img width="500" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/install_pokemon.jpg" style="margin-right:10px" />
 
 - 若有重新安裝或是更新完成後，請記得將手機重新啟動
+- 若重開機後仍然顯示錯誤12，請依照[無法偵測位置12](#寶可夢顯示-無法偵測位置12)操作
+
+### 寶可夢更新教學(小米雙開版本)
+- 本教學僅適用小米、紅米、POCO且搭載MIUI或Hyper OS系統之設備
+- 正常依照[寶可夢更新教學](#%E5%AF%B6%E5%8F%AF%E5%A4%A2%E6%9B%B4%E6%96%B0%E6%95%99%E5%AD%B8)操作，小米雙開版本便會自動更新
+- 若沒有更新成功或是尚未安裝，在依照下方教學操作
+
+> - 點選捷徑頁面按鈕
+>> <img width="300" src="https://hackmd.io/_uploads/S1hdF8bH1g.jpg" style="margin-right:10px" />
+
+> - 點選MIUI應用雙開捷徑按鈕
+>> <img width="300" src="https://hackmd.io/_uploads/H1ml9L-BJg.jpg" style="margin-right:10px" />
+
+> - 打勾寶可夢選項即可
+>> <img width="300" src="https://hackmd.io/_uploads/r1aQiI-S1l.jpg" style="margin-right:10px" />
+
+- 若有重新安裝或是更新完成後，請記得將手機重新啟動
+- 若重開機後仍然顯示錯誤12，請依照[無法偵測位置12](#寶可夢顯示-無法偵測位置12)操作
 
 ### 寶可夢降版本
 > - 可以在支援版本列表左下方選擇要下載的版本
@@ -66,7 +84,9 @@
 > - 若選擇的版本低於安裝版本，則需要先移除才能繼續下載安裝
 >> <img width="500" src="https://hackmd.io/_uploads/HJE_8BgjR.jpg" style="margin-right:10px" />
 
-### 寶可夢版本過高
+- 移除過高的版本後，請重新[下載支援版本寶可夢](#%E5%AF%B6%E5%8F%AF%E5%A4%A2%E6%9B%B4%E6%96%B0%E6%95%99%E5%AD%B8)
+
+### 寶可夢版本過高&停用自動更新
 - 如果寶可夢版本過高，表示可能被Play商店自動更新了
 > - 關閉方法
 > 1. 商店搜尋寶可夢
@@ -79,7 +99,7 @@
 ### 寶可夢版本強制更新
 - 如果遇到強制更新，可以先嘗試啟用測試版開關
 > <img width="500" src="https://hackmd.io/_uploads/BkQVQrgs0.jpg" style="margin-right:10px" />
-- 若版本還是不支援請等待PgTools團隊更新
+- 若版本還是不支援，請先至Play商店更新寶可夢，並等待PgTools團隊更新
 
 ### 其他檔案下載
 - 點擊檔案下載並安裝
@@ -104,57 +124,69 @@
 
 
 ## 單純改定位看iv
-- **Polygon 暴力功屬於注入式軟體，使用可能會有風險**
-- 使用[暴力功](#Polygon-暴力功-)的顯示三圍iv與偵測色違功能
+- **[Aerilate 艾略特](#Aerilate-艾略特-)屬於注入式軟體，使用可能會有風險**
+- **請先把帳號通過新手教學，再開啟使用[Aerilate 艾略特](#Aerilate-艾略特-)，否則帳號可能會發生問題無法使用**
+- 使用[Aerilate 艾略特](#Aerilate-艾略特-)的顯示三圍iv與偵測色違功能
 - 須注意[等待冷卻時間](#冷卻計算)
 
 啟動順序如下:
 1. 打開[搖桿](#GPS-Joystick-搖桿改定位-)並[設定位置啟動搖桿](#啟動搖桿)
-2. 打開[Polygon 暴力功](#Polygon-暴力功-)並點擊啟動按鈕
+2. 打開[Aerilate 艾略特](#Aerilate-艾略特-)並點擊啟動按鈕
 3. 可搭配報寶貝與[WeCatch](#WeCatch-寶可夢地圖-)或是[Pokelist](#PokeList-寶可夢列表-)等其他雷達傳送座標尋找寶可夢
 4. 開始遊玩
 
 
-## 單純掛機
-- **PGTools屬於注入式軟體，使用可能會有風險**
+## 單純掛機自動捕捉
+- **[PGTools](#Pgtools-自動抓-)屬於注入式軟體，使用可能會有風險**
+- **請先把帳號通過新手教學，再開啟使用[PGTools](#Pgtools-自動抓-)，否則帳號可能會發生問題無法使用**
 - 須注意[等待冷卻時間](#冷卻計算)
 - 須注意[掛機時間](#軟體鎖)以免被軟鎖
 
 啟動順序如下:
 1. 使用搖桿改定位[設定路線或是固定走路方向](#啟動搖桿)
-2. 打開PgTools並自訂參數(若不會設定預設即可)
+2. 打開[PGTools](#Pgtools-自動抓-)並自訂參數(若不會設定預設即可)
 3. 點擊最下方的開始掛機按鈕
 4. 開始掛機
 
-## 掛機刷星辰(暴力功免費版)
+## 掛機刷星辰(Aerilate 艾略特免費版)
 - **2024/6月開始官方開始標記刷火箭隊玩家，目前不建議使用此功能**
-- **Polygon 暴力功與PGTools屬於注入式軟體，使用可能會有風險**
-- 此為暴力功免費版本，半自動刷星辰，需手動傳送與點擊火箭隊
+- **[Aerilate 艾略特](#Aerilate-艾略特-)與[PGTools](#Pgtools-自動抓-)屬於注入式軟體，使用可能會有風險**
+- **請先把帳號通過新手教學，再開啟使用[Aerilate 艾略特](#Aerilate-艾略特-)與[PGTools](#Pgtools-自動抓-)，否則帳號可能會發生問題無法使用**
+- 此為[Aerilate 艾略特](#Aerilate-艾略特-)免費版本，半自動刷星辰，需手動傳送與點擊火箭隊
 - 須注意[掛機時間](#軟體鎖)以免被軟鎖
 
 啟動順序如下:
 1. 打開[搖桿](#GPS-Joystick-搖桿改定位-)設定位置並啟動搖桿
 2. 打開[GPS Joystick Wrapper](#GPS-Joystick-Wrapper-)並點擊左上角的▶️按鈕啟動
-3. 打開[Polygon 暴力功](#Polygon-暴力功-)並點擊啟動按鈕
+3. 打開[Aerilate 艾略特](#Aerilate-艾略特-)在一般設定內啟用火箭隊自動攻擊設定，並點擊啟動按鈕
 4. 點擊⏩按鈕可傳送至下個火箭隊
 
 ## 掛機刷星辰(PGTools付費版本)
 - **2024/6月開始官方開始標記刷火箭隊玩家，目前不建議使用此功能**
-- **Polygon 暴力功與PGTools屬於注入式軟體，使用可能會有風險**
-- 此為PGTools付費版本，請另外購買，需月費，可全自動掛機
+- **[Aerilate 艾略特](#Aerilate-艾略特-)與[PGTools](#Pgtools-自動抓-)屬於注入式軟體，使用可能會有風險**
+- **請先把帳號通過新手教學，再開啟使用[Aerilate 艾略特](#Aerilate-艾略特-)與[PGTools](#Pgtools-自動抓-)，否則帳號可能會發生問題無法使用**
+- 此為[PGTools](#Pgtools-自動抓-)付費版本，需另外購買，需月費，可全自動掛機
 - 須注意[掛機時間](#軟體鎖)以免被軟鎖
 
 啟動順序如下:
-1. 打開PGTools並選擇PAG功能
-2. 點擊PGTools最下方的開始掛機按鈕
+1. 打開[PGTools](#Pgtools-自動抓-)並選擇PAG功能
+2. 點擊[PGTools](#Pgtools-自動抓-)最下方的開始掛機按鈕
 3. 開始掛機
     
-## 自動狙擊
-1. 搖桿+poklist+Polygon 暴力功
-    - 使用pokelist自動狙擊功能，搭配Polygon 暴力功可偵測色違,IV相關資訊
+## 狙擊100iv與色違
+- **[Aerilate 艾略特](#Aerilate-艾略特-)屬於注入式軟體，使用可能會有風險**
+- **請先把帳號通過新手教學，再開啟使用[Aerilate 艾略特](#Aerilate-艾略特-)，否則帳號可能會發生問題無法使用**
+- 使用[Pokelist](#PokeList-寶可夢列表-)的寶可夢雷達
+- 使用[Aerilate 艾略特](#Aerilate-艾略特-)的顯示三圍iv與偵測色違功能
+- 須注意[掛機時間](#軟體鎖)以免被軟鎖
+
+啟動順序如下:
+1. 打開[Pokelist](#PokeList-寶可夢列表-)，點擊左邊上角的【啟動服務】按鈕或是【start service】啟動
+2. 打開[Aerilate 艾略特](#Aerilate-艾略特-)並點擊啟動按鈕
+3. 點擊[Pokelist](#PokeList-寶可夢列表-)列表中的寶可夢進行傳送，可以使用[Aerilate 艾略特](#Aerilate-艾略特-)顯示三圍iv與偵測色違
 
 ## 寶可夢雙開(以上)
-- 雙開版本的寶可夢無法使用暴力功跟Pgtools的功能，只能使用虛擬定位，建議記憶體6~8G以上
+- 雙開版本的寶可夢無法使用艾略特或Pgtools的功能，只能使用虛擬定位飛人，建議記憶體6~8G以上
 - 先開啟第一個寶可夢後，在手機的多工畫面中長按寶可夢APP圖示，點選分割畫面，再點選雙開版本寶可夢，即完成雙視窗連動
 - Android的分割畫面只能同時開啟兩個畫面，除非有特殊需求，否則不建議安裝超過2個客戶端
 
@@ -237,9 +269,10 @@
 - 點擊【🔁】按鈕可重新整理資料
 - 若無傳送表示可能無資料，請擴大搜尋範圍尋找
 
-## Polygon 暴力功 <img width="50" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/icon/polygon_icon.png"/>
+## Polygon 暴力功 <img width="50" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/icon/polygon_icon.png"/> (目前僅提供付費使用)
 可以用來顯示寶可夢IV三圍、偵測色違；自動E球、點擊自動轉補給站、火箭隊直接勝利等功能
 
+- 目前已將免費版本功能移至[Aerilate 艾略特](#Aerilate-%E8%89%BE%E7%95%A5%E7%89%B9-)，目前版本僅提供付費會員使用
 - **本軟體不適用:32位元裝置,雙開版本(Miui應用雙開,island),三星版本寶可夢**
 
 ### 使用
@@ -285,8 +318,11 @@
 
 ### 暴力功常見問題
 1. Q.顯示尚未設定預設模擬定位應用程式
+
 <img width="400" src="https://hackmd.io/_uploads/HJuCtwxjC.jpg"/>
+
 > 前往暴力功一般設定內，關閉【joystick搖桿】與【點擊傳送】選項
+
 <img width="400" src="https://hackmd.io/_uploads/HJsT9vgsA.jpg"/>
 
 2. Q.登入時顯示Key expired或是Key not Valid
@@ -308,10 +344,10 @@
 ### 使用
 點擊"START"或是"啟動"即可開始使用，啟動前請先至一般設定內啟用需要的功能
 
-功能如下(可在一般設定中查看):
+部分功能說明如下(可在一般設定中查看):
 | 模組設定 | 功能說明 |
 | --- | --- |
-| 遭遇瞄準輔助 | 輔助瞄準寶可夢 |
+| 捕捉時丟球輔助 | 輔助瞄準寶可夢 |
 | 點擊捕捉寶可夢 | 點擊寶可夢後自動捕捉 |
 | 自動旋轉補給站 | 自動旋轉補給站，如果背包還有空間 |
 | 點擊旋轉補給站 | 點擊補給站自動旋轉 |
@@ -322,63 +358,39 @@
 | 孵化蛋 | 自動使用無限孵化器孵蛋，優先選擇距離最短的 |
 | 治療寶可夢 | 自動治療寶可夢，優先使用稀有度和價值較低的物品，優先治療最高CP的寶可夢 |
 | 自動傳送寶可夢 | 捕捉後自動傳送，捕捉的寶可夢如果低於100%IV就會自動傳送。異色寶可夢、0%IV寶可夢或來孵蛋或團體戰的寶可夢不會被傳送 |
-| 顯示IV資訊 | 顯示IV相關資訊，寶可夢銘牌顯示格式請參考如下 |
 
-寶可夢銘牌顯示格式:
-| 替代符號 | 格式說明 |
-| --- | --- |
-| {id}                | 寶可夢圖鑑編號                                  |
-| {iv}                | 個體值百分比                                    |
-| {iv%}               | 個體值百分比並附加百分比符號                    |
-| {iv:n}              | 個體值百分比，格式化為小數點後n位               |
-| {^iv}               | 個體值百分比以上標形式顯示                      |
-| {^iv:n}             | 個體值百分比以上標形式顯示並格式化為小數點後n位 |
-| {iv;n}              | 個體值百分比，包含整數和小數位的總位數          |
-| {^iv;n}             | 個體值百分比以上標形式顯示並包含整數和小數位的總位數 |
-| {atk}               | 個體攻擊值                                      |
-| {def}               | 個體防禦值                                      |
-| {sta}               | 個體耐力值                                      |
-| {atk0}              | 個體攻擊值，補零格式                            |
-| {def0}              | 個體防禦值，補零格式                            |
-| {sta0}              | 個體耐力值，補零格式                            |
-| {lvl}               | 寶可夢等級                                      |
-| {lvl0}              | 寶可夢等級，補零格式                            |
-| {name}              | 寶可夢名稱                                      |
-| {gender}            | 寶可夢性別符號 '♂', '♀', '○' (雄性, 雌性, 無性別) |
-| {default}           | 原始寶可夢名稱（使用你自己的語言）              |
-| {pureIv}            | 淨化後的個體值百分比                            |
-| {pureIv%}           | 淨化後的個體值百分比並附加百分比符號            |
-| {pureIv:n}          | 淨化後的個體值百分比，格式化為小數點後n位       |
-| {^pureIv}           | 淨化後的個體值百分比以上標形式顯示              |
-| {^pureIv:n}         | 淨化後的個體值百分比以上標形式顯示並格式化為小數點後n位 |
-| {pureIv;n}          | 淨化後的個體值百分比，包含整數和小數位的總位數  |
-| {^pureIv;n}         | 淨化後的個體值百分比以上標形式顯示並包含整數和小數位的總位數 |
-| {pureatk}           | 淨化後的個體攻擊值                              |
-| {puredef}           | 淨化後的個體防禦值                              |
-| {puresta}           | 淨化後的個體耐力值                              |
-| 粗體格式            | 使用 * 包圍文本（例如：*粗體*）                |
-| 斜體格式            | 使用 _ 包圍文本（例如：_斜體_）                |
-| 顏色格式            | 使用 #色碼[文本]（例如：#ff0000[紅色文本]）     |
-| 字體大小格式        | 使用 $大小[文本]（例如：$24[大字體文本]）       |
-
-常用顏色名稱與數值對照表: [連結](https://www.famous1993.com.tw/tech/tech1016.html)
+<img width="400" src="https://hackmd.io/_uploads/HJt-fEPfye.jpg" style="margin-right:10px" />
 
 ### 偵測100IV與色違燈號
 
 🟣正常(normal)
 
-🔴𝟭𝟬𝟬％（hungo)
+🔴𝟭𝟬𝟬％(hungo)
 
 🟡色違(shiny)
 
 🟢𝟭𝟬𝟬％+色違(Shungo)
+
+### 使用點擊傳送功能
+- **設定使用艾略特的點擊傳送功能較麻煩且無查詢冷卻時間，不推薦使用**
+1. 在一般設定中，啟用【點擊瞬間傳送】與【模擬位置搖桿】功能
+3. 填入起始座標位置
+4. 在進階設定內啟用【設定系統模擬位置應用程式】選項
+5. 在開發人員選項中選擇模擬定位應用程式為【Aerilate 艾略特】
+
+### 將定位服務切換回搖桿改定位
+1. 在一般設定中，關閉點擊瞬間傳送與模擬位置搖桿功能
+2. 在進階設定內關閉【設定系統模擬位置應用程式】選項
+3. 在開發人員選項中選擇模擬定位應用程式為【搖桿改定位】
+
+**模擬定位服務：搖桿與暴力功只能二選一，不能同時使用，建議使用搖桿改定位即可**
 
 ## Pgtools 自動抓 <img width="50" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/icon/pgtools_icon.png"/>
 可以自動掛機抓寶可夢，並且可以自動轉補給站等功能
 
 **本軟體不適用:32位元裝置,雙開版本(小米應用雙開,island),三星版本寶可夢**
 
-開啟後，點選右上角地圖圖示，可將語言切換成繁體中文(台灣)
+開啟後，點選右上角國旗圖示，可將語言切換成繁體中文(台灣)
 
 ### 使用
 第一次進入可能會顯示一個new script的對話框，這是更新腳本的功能，點下載按鈕即可
@@ -390,22 +402,32 @@
 ## PokeList 寶可夢列表 <img width="50" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/icon/pokelist_icon.png"/>
 可用來追蹤寶可夢
 
+### 傳送方式
+| 顯示內容 | 功能說明 |
+| --- | --- |
+| Tele | 直接傳送 |
+| Tele & Copy | 直接傳送與複製座標 |
+| Only Copy | 只複製座標 |
+- 若只使用[搖桿](#GPS-Joystick-搖桿改定位-)的定位服務，可以設定Tele
+- 若有使用[Aerilate 艾略特](#Aerilate-%E8%89%BE%E7%95%A5%E7%89%B9-)的定位服務，可以設定Only Copy，在傳送後貼上複製的座標
+- 其他模擬GPS定位傳送設定，請點擊右上角三個點︙的模擬GPS定位設定進入設定
+
 ### 使用
 直接點擊寶可夢，可跳轉至該寶可夢位置
 
-若要在遊戲中使用，點擊左邊上角的啟動服務按鈕或是start service即可開始使用，點擊寶可夢選項即可跳轉位置
+若要在遊戲中使用，點擊左邊上角的【啟動服務】按鈕或是【start service】即可開始使用，點擊列表中寶可夢選項即可跳轉到寶可夢的位置
 
 ### 顯示冷卻時間
 若要查看冷卻時間請點快捷欄中房子的按鈕，會設定當前位置並計算冷卻時間並顯示於畫面上方
 
 若無顯示，請長按房子按鈕，將會移除儲存位置，在點擊一次即可重新顯示
 
-### 自動追擊
-點擊右上角三個點的自動狙擊，啟動自動狙擊在允許通知存取權限，啟動服務點擊開始按鈕後會自動狙擊附近的寶可夢
+### 自動狙擊
+點擊右上角三個點︙的自動狙擊設定，啟動自動狙擊在允許通知存取權限，啟動服務點擊開始按鈕後會自動狙擊附近的寶可夢
 
 可依狀況自行設定等待時間與偵測提示
 
-自動點擊功能需搭配Polygon 暴力功的付費功能使用
+自動點擊功能只有少數機型可以使用(可自行測試)，建議手動進行傳送
 
 ## WeCatch 寶可夢地圖 <img width="50" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/icon/wecatch_icon.png"/>
 可用來尋找與追蹤寶可夢、補給站、道館等等
@@ -525,6 +547,39 @@
 - 3.佔崗輪值無收入、需下崗才結算計薪
 
 # 常見問題
+## 寶可夢顯示: 無法偵測位置(11)
+表示未偵測到手機定位
+
+- 請依照下方順序操作測試
+1. 請先嘗試重開機
+2. 檢查手機是否有開啟定位功能
+3. 需要啟動搖桿改定位
+4. 嘗試將搖桿停止再重新啟動
+5. 定位權限未設定正確
+> 1. 打開pogo管理器的寶可夢/魔物獵人頁面
+> 2. 點擊寶可夢/魔物獵人右邊的︙管理
+> 3. 在點擊權限設定裡面的定位
+> 4. 位置權限需打開精確位置(與定位精確度不同)
+> > <img width="300" src="https://hackmd.io/_uploads/S1kSswX3C.jpg)"/>
+6. 若重啟後還是一樣，請移除再重新安裝搖桿或寶可夢
+
+## 寶可夢顯示: 無法偵測位置(12)
+表示可能偵測到模擬定位
+
+- 請依照下方順序操作測試
+1. 請先嘗試重開機
+2. 如果是開艾略特顯示錯誤12，嘗試移除ART(Android runtime package) [影片教學](https://fb.watch/obvKzrwUoD/?mibextid=Nif5oz)
+3. 若重開機後還是一樣錯誤12，依照[影片教學](https://fb.watch/pnIRae_IUJ/)操作打勾魔物獵人/寶可夢即可，若無顯示遊戲，請右上角︙取消打勾隱藏遊戲 
+
+## 定位跳回實體位置
+1. 檢查搖桿的設定，左上角︙設定內有一個間接模擬選項需要關閉
+> <img width="300" src="https://hackmd.io/_uploads/S1A89Dm2C.jpg)"/>
+2. PoGo外掛管理器捷徑內有一個定位精確度也需要關閉
+> <img width="300" src="https://hackmd.io/_uploads/SkACcw72A.jpg)"/>
+3. **三星系統Android 10以上在快捷欄中請勿點擊** <img width="30" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/JoystickMapIcon.jpg"/> 
+- 可能會導致搖桿崩潰，須重啟搖桿才能正常使用
+- [替代方式](#三星功能半殘替代方法)
+
 ## PGTools與暴力功沒有功能或是無部分功能
 1. 嘗試移除ART(Android runtime package)
 > [影片教學](https://fb.watch/obvKzrwUoD/?mibextid=Nif5oz)
