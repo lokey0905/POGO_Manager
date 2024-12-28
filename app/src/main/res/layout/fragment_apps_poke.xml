@@ -89,6 +89,13 @@
                                 android:text="@string/appsPokePage_supportVersion_polygon"
                                 android:textAppearance="?attr/textAppearanceBodyMedium" />
 
+                            <TextView
+                                android:id="@+id/supportVersion_Pokemod"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@string/appsPokePage_supportVersion_Pokemod"
+                                android:textAppearance="?attr/textAppearanceBodyMedium" />
+
                             <Space
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"

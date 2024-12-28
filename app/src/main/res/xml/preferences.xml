@@ -3,85 +3,85 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <PreferenceCategory/>
     <PreferenceCategory
-        android:title="@string/downloadSetting"
+        android:title="@string/preferences_downloadSettings_Title"
         app:allowDividerAbove="false"
         app:allowDividerBelow="false">
 
         <SwitchPreferenceCompat
             android:key="customTabsOff"
-            android:title="在瀏覽器中開啟網頁"
+            android:title="@string/preferences_customTabsOff_Title"
             android:icon="@drawable/baseline_open_in_browser_24"
-            app:summary="在預設瀏覽器中開啟網頁,而不是使用Custom Tabs,若無法正常下載檔案可嘗試開啟\n此設定僅適用捷徑頁面"
+            app:summary="@string/preferences_customTabsOff_Summary"
             android:persistent="true"
             android:defaultValue="false" />
 
         <SwitchPreferenceCompat
             android:key="allow_download_on_non_arm64"
-            android:title="允許下載非裝置支援軟體"
+            android:title="@string/preferences_allow_download_on_non_arm64_Title"
             android:icon="@drawable/ic_baseline_browser_updated_24"
-            app:summary="允許在非arm64裝置下載軟體,軟體可能無法正常運作"
+            app:summary="@string/preferences_allow_download_on_non_arm64_Summary"
             android:persistent="true"
             android:defaultValue="false" />
     </PreferenceCategory>
 
     <PreferenceCategory
-        android:title="定位設定"
+        android:title="@string/preferences_locationSettings_Title"
         app:allowDividerAbove="false"
         app:allowDividerBelow="false">
 
         <Preference
             android:key="location_accuracy"
-            android:title="@string/locationAccuracyActivity1"
+            android:title="@string/preferences_location_accuracy_Title"
             android:icon="@drawable/ic_baseline_share_location_24"
-            app:summary="如需使用虛擬定位,須關閉定位精確度,需使用實體定位可開啟,點擊此處前往設定。" />
+            app:summary="@string/preferences_location_accuracy_Summary" />
 
         <SwitchPreferenceCompat
             android:key="location_check_A12"
-            android:title="新方式檢測虛擬定位"
+            android:title="@string/preferences_location_check_A12_Title"
             android:icon="@drawable/baseline_not_listed_location_24"
-            app:summary="使用Android 12的新版API檢測裝置是否使用虛擬定位"
+            app:summary="@string/preferences_location_check_A12_Summary"
             android:persistent="true"
             android:defaultValue="false" />
 
         <SwitchPreferenceCompat
             android:key="location_accuracy_check"
-            android:title="不再偵測定位精確度"
+            android:title="@string/preferences_location_accuracy_check_Title"
             android:icon="@drawable/baseline_notifications_off_24"
-            app:summary="開啟APP時, 不再偵測定位精確度與顯示通知"
+            app:summary="@string/preferences_location_accuracy_check_Summary"
             android:persistent="true"
             android:defaultValue="false" />
     </PreferenceCategory>
 
     <PreferenceCategory
-        android:title="Pokémon GO【寶可夢】相關設定"
+        android:title="@string/preferences_pokeSettings_Title"
         app:allowDividerAbove="false"
         app:allowDividerBelow="false">
 
         <Preference
             android:key="disable_auto_update_pok"
-            android:title="關閉自動更新"
+            android:title="@string/preferences_disable_auto_update_pok_Title"
             android:icon="@drawable/ic_baseline_sync_disabled_24"
-            app:summary="關閉商店自動更新,點擊此處前往關閉" />
+            app:summary="@string/preferences_disable_auto_update_pok_Summary" />
 
         <SwitchPreferenceCompat
             android:key="allow_download_on_non_samsung"
-            android:title="允許下載三星版本寶可夢"
+            android:title="@string/preferences_allow_download_on_non_samsung_Title"
             android:icon="@drawable/ic_baseline_download_24"
-            app:summary="允許用戶在非三星(Samsung)裝置上下載三星版本寶可夢"
+            app:summary="@string/preferences_allow_download_on_non_samsung_Summary"
             android:persistent="true"
             android:defaultValue="false" />
     </PreferenceCategory>
 
     <PreferenceCategory
-        android:title="MH Now【魔物獵人】相關設定"
+        android:title="@string/preferences_mhnSettings_Title"
         app:allowDividerAbove="false"
         app:allowDividerBelow="false">
 
         <Preference
             android:key="disable_auto_update_mhn"
-            android:title="關閉自動更新"
+            android:title="@string/preferences_disable_auto_update_mhn_Title"
             android:icon="@drawable/ic_baseline_sync_disabled_24"
-            app:summary="關閉商店自動更新,點擊此處前往關閉" />
+            app:summary="@string/preferences_disable_auto_update_mhn_Summary" />
     </PreferenceCategory>
 
     <PreferenceCategory

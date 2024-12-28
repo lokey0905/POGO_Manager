@@ -15,6 +15,7 @@
     <string name="url_mhnJson">https://assets.mhntools.net/versions.json</string>
     <string name="url_mhnJsonTest">https://assets.mhntools.net/test-versions.json</string>
     <string name="url_AerilateAPI">https://api.aerilate.io/Aerilate/HelloV2?pg=%1$s&amp;ll=en_US&amp;lt=1721344303621</string>
+    <string name="url_PokemodAPI">https://discovery.pokemod.dev/hal/modules/getAgentHash?game_version=%1$s</string>
 
     <string name="url_googlePlay">https://play.google.com/store/apps/details?id=</string>
 
