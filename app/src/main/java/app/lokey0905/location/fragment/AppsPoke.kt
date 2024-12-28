@@ -1131,9 +1131,10 @@ class AppsPoke : Fragment() {
                 inputStream.close()
 
                 val containsNullP = response.contains("null\"P")
+                val containsNull = response.contains("null\"")
 
                 launch(Dispatchers.Main) {
-                    onCheckCompleted(containsNullP)
+                    onCheckCompleted(containsNullP||containsNull)
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
