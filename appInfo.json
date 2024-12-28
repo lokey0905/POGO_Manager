@@ -1,43 +1,52 @@
 {
   "pogo": {
     "jokstick": {
-      "version": "32",
-      "url": "https://www.mediafire.com/file/maf260fw7u805tm/gpsjoystick_lokey_new.apk/file"
+      "version": "64",
+      "url": "https://www.mediafire.com/file/i2jmsi2teyrhn5j/gpsjoystick_lokey_new64.apk/file",
+      "officialLink": "http://gpsjoystick.theappninjas.com/faq/"
     },
     "warpper": {
-      "version": "1.7.9",
-      "url": "https://www.mediafire.com/file/hjkbrj513oi3v1l/gpsjoystick_wrapper%25E4%25B8%25AD%25E6%2596%2587%25E5%258C%25961.7.9.apk/file"
+      "version": "1.7.151",
+      "url": "https://www.mediafire.com/file/hjkbrj513oi3v1l/gpsjoystick_wrapper%25E4%25B8%25AD%25E6%2596%2587%25E5%258C%25961.7.9.apk/file",
+      "officialLink": "https://discord.gg/pgtools"
     },
     "polygon": {
-      "version": "0.9.3",
-      "url": "https://www.mediafire.com/file/g9kazm0lhuzqdk0/com.evermorelabs.polygonsharp-0.9.4_%25E4%25B8%25AD%25E6%2596%2587%25E5%258C%2596by_lokey0905.apk/file",
-      "testKey": "ENHANCER-40HRgqXxJur1Hv4eLtH8i6f"
+      "version": "0.9.5",
+      "url": "https://www.mediafire.com/file/es6mx5fwbset0f4/com.evermorelabs.polygonsharp-0.9.5.apk/file",
+      "officialLink": "https://discord.polygonsharp.io/",
+      "testKey": "ENHANCER-wSF8QAyZYPfUpJTng7gOjgd"
     },
     "aerilate": {
-      "version": "0.1.3",
-      "url": "https://www.mediafire.com/file/8wt27llvmkdwb98/com.evermorelabs.aerilate-0.1.1_%E4%B8%AD%E6%96%87%E5%8C%96by_lokey0905.apk/file"
+      "version": "0.1.4",
+      "url": "https://www.mediafire.com/file/8wt27llvmkdwb98/com.evermorelabs.aerilate-0.1.1_%E4%B8%AD%E6%96%87%E5%8C%96by_lokey0905.apk/file",
+      "officialLink": "https://discord.gg/KnVYh9tj53"
     },
     "pokeList": {
-      "version": "1.3.15",
-      "url": "https://www.mediafire.com/file/zs6baik33minkq3/PokeList%25E4%25B8%25AD%25E6%2596%2587%25E5%258C%2596–1.3.13.apk/file"
+      "version": "1.3.16",
+      "url": "https://www.mediafire.com/file/zs6baik33minkq3/PokeList%25E4%25B8%25AD%25E6%2596%2587%25E5%258C%2596–1.3.13.apk/file",
+      "officialLink": "https://moonani.com/PokeList/PokeList.apk"
     },
     "wecatch": {
       "version": "4.4.5",
-      "url": "https://github.com/daydreamer1222/WeCatch-Android/releases/download/v4.4.5/wecatch.apk"
+      "url": "https://github.com/daydreamer1222/WeCatch-Android/releases/download/v4.4.5/wecatch.apk",
+      "officialLink": "https://github.com/daydreamer1222/WeCatch-Android?tab=readme-ov-file"
     },
     "samsungStore": {
-      "version": "4.5.84.5",
-      "url": "https://www.apkmirror.com/apk/samsung-electronics-co-ltd/galaxy-apps/galaxy-apps-4-5-84-5-release/samsung-galaxy-store-galaxy-apps-4-5-84-5-android-apk-download/"
+      "version": "4.5.87.6",
+      "url": "https://www.apkmirror.com/apk/samsung-electronics-co-ltd/galaxy-apps/galaxy-apps-4-5-87-6-release/samsung-galaxy-store-galaxy-apps-4-5-87-6-android-apk-download/",
+      "officialLink": ""
     },
     "APKMirrorInstaller": {
-      "version": "1.7.1",
-      "url": "https://www.apkmirror.com/apk/apkmirror/apkmirror-installer-official/apkmirror-installer-official-1-7-1-26-821f366-release/apkmirror-installer-official-1-7-1-26-821f366-android-apk-download/"
+      "version": "1.8.3",
+      "url": "https://www.apkmirror.com/apk/apkmirror/apkmirror-installer-official/apkmirror-installer-official-1-8-3-30-92fd45a-release/apkmirror-installer-official-1-8-3-30-92fd45a-android-apk-download/",
+      "officialLink": "https://play.google.com/store/apps/details/APKMirror_Installer_Official?id=com.apkmirror.helper.prod"
     }
   },
   "mhn": {
     "jokstick": {
       "version": "64",
-      "url": "https://www.mediafire.com/file/i2jmsi2teyrhn5j/gpsjoystick_lokey_new64.apk/file"
+      "url": "https://www.mediafire.com/file/i2jmsi2teyrhn5j/gpsjoystick_lokey_new64.apk/file",
+      "officialLink": "http://gpsjoystick.theappninjas.com/faq/"
     }
   }
 }
