@@ -2,8 +2,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/open"
-        android:title="開啟" />
+        android:title="@string/popup_menu_startApp" />
+    <item
+        android:id="@+id/officialLink"
+        android:title="@string/popup_menu_officialLink" />
     <item
         android:id="@+id/setting"
-        android:title="管理" />
+        android:title="@string/popup_menu_setting" />
 </menu>
