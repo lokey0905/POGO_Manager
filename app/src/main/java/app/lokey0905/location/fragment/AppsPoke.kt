@@ -88,7 +88,7 @@ class AppsPoke : Fragment() {
     private var polygonTestKey = ""
     private var polygonTestToken = ""
     private var appsInfo = listOf<AppsInfo>()
-    private var url_pokAres = resources.getString(R.string.url_pokAres)
+    private var url_pokAres = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -217,6 +217,8 @@ class AppsPoke : Fragment() {
         val mAdView = view.findViewById<AdView>(R.id.ad_banner)
         val adRequest = AdRequest.Builder().build()
         mAdView.loadAd(adRequest)
+
+        url_pokAres = resources.getString(R.string.url_pokAres)
 
         return view
     }
@@ -1044,6 +1046,8 @@ class AppsPoke : Fragment() {
                         "appName:$appName version:${apps.newVersion} downloadLink:${apps.downloadLink} officialLink:${apps.officialLink}"
                     )
                 }
+
+                url_pokAres = pogo.getJSONObject("pokAres").getString("url")
 
                 launch(Dispatchers.Main) {
                     onAppVersionsExtracted()
