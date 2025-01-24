@@ -1,11 +1,11 @@
 {
   "pogo": {
-    "jokstick": {
+    "joystick": {
       "version": "64",
       "url": "https://www.mediafire.com/file/i2jmsi2teyrhn5j/gpsjoystick_lokey_new64.apk/file",
       "officialLink": "http://gpsjoystick.theappninjas.com/faq/"
     },
-    "warpper": {
+    "wrapper": {
       "version": "1.7.151",
       "url": "https://www.mediafire.com/file/hjkbrj513oi3v1l/gpsjoystick_wrapper%25E4%25B8%25AD%25E6%2596%2587%25E5%258C%25961.7.9.apk/file",
       "officialLink": "https://discord.gg/pgtools"
@@ -43,7 +43,7 @@
     }
   },
   "mhn": {
-    "jokstick": {
+    "joystick": {
       "version": "64",
       "url": "https://www.mediafire.com/file/i2jmsi2teyrhn5j/gpsjoystick_lokey_new64.apk/file",
       "officialLink": "http://gpsjoystick.theappninjas.com/faq/"
