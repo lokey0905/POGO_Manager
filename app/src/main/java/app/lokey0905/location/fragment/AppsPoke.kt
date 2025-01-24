@@ -1032,22 +1032,30 @@ class AppsPoke : Fragment() {
                         continue
                     }
 
-                    val appInfo = pogo.getJSONObject(appName)
-                    apps.newVersion = appInfo.getString("version")
-                    apps.downloadLink = appInfo.getString("url")
-                    apps.officialLink = appInfo.getString("officialLink")
+                    try {
+                        val appInfo = pogo.getJSONObject(appName)
+                        apps.newVersion = appInfo.getString("version")
+                        apps.downloadLink = appInfo.getString("url")
+                        apps.officialLink = appInfo.getString("officialLink")
 
-                    if (appName == "polygon") {
-                        polygonTestKey = appInfo.getString("testKey")
+                        if (appName == "polygon") {
+                            polygonTestKey = appInfo.getString("testKey")
+                        }
+
+                        Log.i(
+                            "getAppsInfo",
+                            "appName:$appName version:${apps.newVersion} downloadLink:${apps.downloadLink} officialLink:${apps.officialLink}"
+                        )
+                    } catch (e: Exception) {
+                        Log.e("extractAppVersionsFromJson", "Error processing $appName", e)
                     }
-
-                    Log.i(
-                        "getAppsInfo",
-                        "appName:$appName version:${apps.newVersion} downloadLink:${apps.downloadLink} officialLink:${apps.officialLink}"
-                    )
                 }
 
-                url_pokAres = pogo.getJSONObject("pokAres").getString("url")
+                try {
+                    url_pokAres = pogo.getJSONObject("pokAres").getString("url")
+                } catch (e: Exception) {
+                    Log.e("extractAppVersionsFromJson", "Error processing pokAres", e)
+                }
 
                 launch(Dispatchers.Main) {
                     onAppVersionsExtracted()
