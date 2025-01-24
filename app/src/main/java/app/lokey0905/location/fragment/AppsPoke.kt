@@ -88,6 +88,7 @@ class AppsPoke : Fragment() {
     private var polygonTestKey = ""
     private var polygonTestToken = ""
     private var appsInfo = listOf<AppsInfo>()
+    private var url_pokAres = resources.getString(R.string.url_pokAres)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -97,7 +98,7 @@ class AppsPoke : Fragment() {
 
         appsInfo = listOf(
             AppsInfo(
-                "jokstick",
+                "joystick",
                 resources.getString(R.string.packageName_gps64),
                 R.id.download_gps,
                 R.id.remove_gps,
@@ -160,7 +161,7 @@ class AppsPoke : Fragment() {
                 R.id.wecatch_install_version
             ),
             AppsInfo(
-                "warpper",
+                "wrapper",
                 resources.getString(R.string.packageName_wrapper),
                 R.id.download_wrapper,
                 R.id.remove_wrapper,
@@ -262,7 +263,7 @@ class AppsPoke : Fragment() {
                 ).setAction("Action", null).show()
         }
 
-        fun downloadPokAres(){
+        fun downloadPokAres() {
             if (Build.MANUFACTURER == "samsung" || pokAresNoSupportDevices) {
                 if (appInstalledVersion(resources.getString(R.string.packageName_galaxyStore)) == "未安裝") {
                     MaterialAlertDialogBuilder(requireContext())
@@ -287,10 +288,7 @@ class AppsPoke : Fragment() {
                         .show()
                 } else {
                     downloadAPPWithCheck(
-                        String.format(
-                            resources.getString(R.string.url_pokAres),
-                            pogoVersion.replace(".", "-")
-                        )
+                        String.format(url_pokAres, pogoVersion.replace(".", "-"))
                     )
 
                 }
@@ -328,15 +326,19 @@ class AppsPoke : Fragment() {
                             if (Build.SUPPORTED_ABIS[0] == "arm64-v8a") pgToolsARM64Url else pgToolsARMUrl
                         downloadAPPWithCheck(url)
                     }
+
                     "pokAres" -> {
                         downloadPokAres()
                     }
+
                     "PGTools" -> {
                         downloadAppCheckARM64(pgToolsUrl)
                     }
+
                     "polygon" -> {
                         downloadAppCheckARM64(mapping.downloadLink)
                     }
+
                     else -> {
                         downloadAPPWithCheck(mapping.downloadLink)
                     }
@@ -449,11 +451,13 @@ class AppsPoke : Fragment() {
                         for (polygonSupportedVersion in polygonVersionsList) {
                             pogoVersionList += " ${polygonSupportedVersion},"
 
-                            matchingVersionInfo = pogoVersionsList.find { it.pogoVersion == polygonSupportedVersion }
+                            matchingVersionInfo =
+                                pogoVersionsList.find { it.pogoVersion == polygonSupportedVersion }
                         }
 
                         matchingVersionInfo?.let { versionInfo ->
-                            val selectionIndex = pogoVersionsList.size - 1 - pogoVersionsList.indexOf(versionInfo)
+                            val selectionIndex =
+                                pogoVersionsList.size - 1 - pogoVersionsList.indexOf(versionInfo)
                             spinner.post {
                                 //spinner.setSelection(selectionIndex)
                                 Log.i("Polygon", "spinner.setSelection: $selectionIndex")
@@ -605,7 +609,7 @@ class AppsPoke : Fragment() {
                 fun updateNewVersionText() {
                     val needUpdateList =
                         listOf(
-                            "warpper",
+                            "wrapper",
                             "aerilate",
                             "polygon",
                             "pokeList",
@@ -632,7 +636,7 @@ class AppsPoke : Fragment() {
                 fun checkNeedUpdateAppsAmount() {
                     val needUpdateList =
                         listOf(
-                            "warpper", "aerilate", "polygon", "pokeList", "wecatch",
+                            "wrapper", "aerilate", "polygon", "pokeList", "wecatch",
                         )
 
                     for (apps in appsInfo) {
@@ -689,7 +693,7 @@ class AppsPoke : Fragment() {
                             appInstalledVersion(pokeAresPackageName),
                             "(${resources.getString(R.string.unsupportedDevices)})"
                         )
-                } else if (appName == "jokstick") {
+                } else if (appName == "joystick") {
                     installVersionTextView.text =
                         String.format(
                             formatInstallVersionOther,
@@ -1010,8 +1014,8 @@ class AppsPoke : Fragment() {
 
                 val needUpdateList =
                     listOf(
-                        "jokstick",
-                        "warpper",
+                        "joystick",
+                        "wrapper",
                         "aerilate",
                         "polygon",
                         "pokeList",

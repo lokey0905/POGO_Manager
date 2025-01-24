@@ -50,7 +50,7 @@ class AppsMHN : Fragment() {
 
     private var mhnTestVersion = false
 
-    private var url_jokstick = ""
+    private var url_joystick = ""
 
     private var mhnToolsCheckDone = false
     private var appListCheckDone = false
@@ -99,7 +99,7 @@ class AppsMHN : Fragment() {
         }
 
         gpsDownloadButton.setOnClickListener {
-            downloadAPPWithCheck(url_jokstick)
+            downloadAPPWithCheck(url_joystick)
         }
 
         hylianerDownloadButton.setOnClickListener {
@@ -471,10 +471,10 @@ class AppsMHN : Fragment() {
                 val jsonObject = JSONObject(response.toString())
 
                 val mhn = jsonObject.getJSONObject("mhn")
-                val jokstick = mhn.getJSONObject("jokstick")
+                val joystick = mhn.getJSONObject("joystick")
 
 
-                url_jokstick = jokstick.getString("url")
+                url_joystick = joystick.getString("url")
 
                 launch(Dispatchers.Main) {
                     onAppVersionsExtracted()
