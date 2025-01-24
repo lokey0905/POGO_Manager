@@ -1,5 +1,8 @@
 {
   "pogo": {
+    "pokAres": {
+      "url": "https://www.apkmirror.com/apk/niantic-inc/pokemon-go-samsung-galaxy-apps-version/pokemon-go-samsung-galaxy-store-%1$s-release/"
+    },
     "joystick": {
       "version": "64",
       "url": "https://www.mediafire.com/file/i2jmsi2teyrhn5j/gpsjoystick_lokey_new64.apk/file",
