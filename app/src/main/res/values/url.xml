@@ -42,6 +42,9 @@
     <string name="url_appListDetector">https://github.com/byxiaorun/Ruru/releases/latest</string>
     <string name="url_gameGuardian">https://gameguardian.net/forum/files/file/2-gameguardian/</string>
 
+    <string name="packageName_gms">com.google.android.gms</string>
+    <string name="packageName_gmsLocationAccuracy">com.google.android.gms.location.settings.LocationAccuracyActivity</string>
+    <string name="packageName_gmsLocationAccuracyA12">com.google.android.gms.location.settings.LocationAccuracyNonwearableActivity</string>
     <string name="packageName_gps32">com.theyerbnosob.vxpdplqpbzmhzbw</string>
     <string name="packageName_gps64">com.thejhijuqoqy.bdujvrwdcajvzin</string>
     <string name="packageName_polygon">com.evermorelabs.polygonsharp</string>

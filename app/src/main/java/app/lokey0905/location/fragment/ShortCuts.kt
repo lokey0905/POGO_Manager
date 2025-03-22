@@ -77,14 +77,14 @@ class ShortCuts: Fragment() {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
                     activityIntent.component =
                         ComponentName(
-                            "com.google.android.gms",
-                            "com.google.android.gms.location.settings.LocationAccuracyV31Activity"
+                            getString(R.string.packageName_gms),
+                            getString(R.string.packageName_gmsLocationAccuracyA12)
                         )
                 } else
                     activityIntent.component =
                         ComponentName(
-                            "com.google.android.gms",
-                            "com.google.android.gms.location.settings.LocationAccuracyActivity"
+                            getString(R.string.packageName_gms),
+                            getString(R.string.packageName_gmsLocationAccuracy)
                         )
                 startActivity(activityIntent)
             }
