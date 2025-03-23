@@ -8,6 +8,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.widget.RemoteViews
+import androidx.preference.PreferenceManager
 import app.lokey0905.location.R
 
 class LocationAccuracyActivity : AppWidgetProvider() {
@@ -49,19 +50,30 @@ class LocationAccuracyActivity : AppWidgetProvider() {
     override fun onReceive(context: Context, intent: Intent) {
         super.onReceive(context, intent)
         if (intent.action == ACTION_BUTTON_CLICK) {
-            val activityIntent = Intent()
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                activityIntent.component =
-                    ComponentName(
-                        context.getString(R.string.packageName_gms),
-                        context.getString(R.string.packageName_gmsLocationAccuracyA12)
-                    )
-            } else
-                activityIntent.component =
-                    ComponentName(
-                        context.getString(R.string.packageName_gms),
-                        context.getString(R.string.packageName_gmsLocationAccuracyA12)
-                    )
+            val sharedPreferences =
+                PreferenceManager.getDefaultSharedPreferences(context)
+            val location_accuracy_switch =
+                sharedPreferences.getBoolean("location_accuracy_switch", false)
+            var activityIntent = Intent()
+            if (location_accuracy_switch) {
+                // open location settings page
+                activityIntent = Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS)
+
+            } else {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                    activityIntent.component =
+                        ComponentName(
+                            context.getString(R.string.packageName_gms),
+                            context.getString(R.string.packageName_gmsLocationAccuracyA12)
+                        )
+                } else
+                    activityIntent.component =
+                        ComponentName(
+                            context.getString(R.string.packageName_gms),
+                            context.getString(R.string.packageName_gmsLocationAccuracy)
+                        )
+            }
+
             activityIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK) // Add this line
             context.startActivity(activityIntent)
         }

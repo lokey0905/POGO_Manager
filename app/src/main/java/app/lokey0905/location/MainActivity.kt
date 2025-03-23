@@ -251,20 +251,31 @@ class MainActivity : AppCompatActivity() {
                 .setMessage(getString(R.string.dialogCheckLocationAccuracyMessage))
                 .apply {
                     setPositiveButton(resources.getString(R.string.ok)) { _, _ ->
-                        val activityIntent = Intent()
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                            activityIntent.component =
-                                ComponentName(
-                                    getString(R.string.packageName_gms),
-                                    getString(R.string.packageName_gmsLocationAccuracyA12)
-                                )
-                        } else
-                            activityIntent.component =
-                                ComponentName(
-                                    getString(R.string.packageName_gms),
-                                    getString(R.string.packageName_gmsLocationAccuracy)
-                                )
-                        startActivity(activityIntent)
+                        val location_accuracy_switch =
+                            sharedPreferences.getBoolean("location_accuracy_switch", false)
+                        if (location_accuracy_switch) {
+                            // open location settings page
+                            val intent = Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS)
+                            startActivity(intent)
+
+                        } else {
+                            val activityIntent = Intent()
+
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                                activityIntent.component =
+                                    ComponentName(
+                                        getString(R.string.packageName_gms),
+                                        getString(R.string.packageName_gmsLocationAccuracyA12)
+                                    )
+                            } else
+                                activityIntent.component =
+                                    ComponentName(
+                                        getString(R.string.packageName_gms),
+                                        getString(R.string.packageName_gmsLocationAccuracy)
+                                    )
+
+                            startActivity(activityIntent)
+                        }
                     }
                     setNeutralButton(resources.getString(R.string.cancel)) { _, _ ->
                         Toast.makeText(
