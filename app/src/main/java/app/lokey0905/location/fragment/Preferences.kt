@@ -23,6 +23,7 @@ import com.google.android.material.snackbar.Snackbar
 
 class Preferences : PreferenceFragmentCompat() {
     private var allow_download_on_non_arm64: Boolean = false
+    private var location_accuracy_switch: Boolean = false
     private var location_check_A12: Boolean = false
     private var location_accuracy_check: Boolean = false
     private var allow_download_on_non_samsung: Boolean = false
@@ -64,21 +65,32 @@ class Preferences : PreferenceFragmentCompat() {
 
         findPreference<Preference>("app")?.summary =
             "${BuildConfig.VERSION_NAME} (${BuildConfig.VERSION_CODE})"
+
         findPreference<Preference>("location_check_A12")?.isEnabled =
             Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
-        findPreference<Preference>("always_download_apk_from_apk")?.isVisible =
+
+        findPreference<Preference>("always_download_apk_from_apk")?.isEnabled =
             Build.MANUFACTURER == "samsung"
 
+        findPreference<Preference>("allow_download_on_non_arm64")?.isEnabled =
+            !Build.SUPPORTED_ABIS.contains("arm64-v8a")
+
         val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
+
         allow_download_on_non_arm64 =
             sharedPreferences.getBoolean("allow_download_on_non_arm64", false)
-        location_check_A12 = sharedPreferences.getBoolean("location_check_A12", false)
-        location_accuracy_check = sharedPreferences.getBoolean("location_accuracy_check", false)
+        location_accuracy_switch =
+            sharedPreferences.getBoolean("location_accuracy_switch", false)
+        location_check_A12 =
+            sharedPreferences.getBoolean("location_check_A12", false)
+        location_accuracy_check =
+            sharedPreferences.getBoolean("location_accuracy_check", false)
         allow_download_on_non_samsung =
             sharedPreferences.getBoolean("allow_download_on_non_samsung", false)
         always_download_apk_from_apk =
             sharedPreferences.getBoolean("always_download_apk_from_apk", false)
-        customTabsOff = sharedPreferences.getBoolean("customTabsOff", false)
+        customTabsOff =
+            sharedPreferences.getBoolean("customTabsOff", false)
 
         setFragmentResult(
             "newerCheckMockLocationApi",
@@ -111,20 +123,39 @@ class Preferences : PreferenceFragmentCompat() {
             }
 
             "location_accuracy" -> {
-                val activityIntent = Intent()
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                    activityIntent.component =
-                        ComponentName(
-                            "com.google.android.gms",
-                            "com.google.android.gms.location.settings.LocationAccuracyV31Activity"
-                        )
-                } else
-                    activityIntent.component =
-                        ComponentName(
-                            "com.google.android.gms",
-                            "com.google.android.gms.location.settings.LocationAccuracyActivity"
-                        )
-                startActivity(activityIntent)
+                if (location_accuracy_switch) {
+                    // open location settings page
+                    val intent = Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS)
+                    startActivity(intent)
+
+                } else {
+                    val activityIntent = Intent()
+
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                        activityIntent.component =
+                            ComponentName(
+                                getString(R.string.packageName_gms),
+                                getString(R.string.packageName_gmsLocationAccuracyA12)
+                            )
+                    } else
+                        activityIntent.component =
+                            ComponentName(
+                                getString(R.string.packageName_gms),
+                                getString(R.string.packageName_gmsLocationAccuracy)
+                            )
+
+                    startActivity(activityIntent)
+                }
+                return true
+            }
+
+            "location_accuracy_switch" -> {
+                location_accuracy_switch =
+                    sharedPreferences.getBoolean("location_accuracy_switch", false)
+                setFragmentResult(
+                    "location_accuracy_switch",
+                    bundleOf("bundleKey" to location_accuracy_switch)
+                )
                 return true
             }
 

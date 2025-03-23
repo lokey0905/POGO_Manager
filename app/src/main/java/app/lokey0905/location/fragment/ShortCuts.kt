@@ -3,7 +3,6 @@ package app.lokey0905.location.fragment
 import android.app.PendingIntent
 import android.appwidget.AppWidgetManager
 import android.content.ComponentName
-import android.content.ContentValues
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.pm.ShortcutInfo
@@ -13,7 +12,7 @@ import android.graphics.drawable.Icon
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
+import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,10 +24,7 @@ import androidx.fragment.app.Fragment
 import androidx.preference.PreferenceManager
 import app.lokey0905.location.R
 import app.lokey0905.location.widget.LocationAccuracyActivity
-import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.rewarded.RewardedAd
-import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
@@ -73,20 +69,33 @@ class ShortCuts: Fragment() {
             }
 
             view.findViewById<MaterialCardView>(R.id.LocationAccuracyActivity)?.setOnClickListener {
-                val activityIntent = Intent()
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                    activityIntent.component =
-                        ComponentName(
-                            getString(R.string.packageName_gms),
-                            getString(R.string.packageName_gmsLocationAccuracyA12)
-                        )
-                } else
-                    activityIntent.component =
-                        ComponentName(
-                            getString(R.string.packageName_gms),
-                            getString(R.string.packageName_gmsLocationAccuracy)
-                        )
-                startActivity(activityIntent)
+                val sharedPreferences =
+                    PreferenceManager.getDefaultSharedPreferences(requireContext())
+                val location_accuracy_switch =
+                    sharedPreferences.getBoolean("location_accuracy_switch", false)
+                if (location_accuracy_switch) {
+                    // open location settings page
+                    val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
+                    startActivity(intent)
+
+                } else {
+                    val activityIntent = Intent()
+
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                        activityIntent.component =
+                            ComponentName(
+                                getString(R.string.packageName_gms),
+                                getString(R.string.packageName_gmsLocationAccuracyA12)
+                            )
+                    } else
+                        activityIntent.component =
+                            ComponentName(
+                                getString(R.string.packageName_gms),
+                                getString(R.string.packageName_gmsLocationAccuracy)
+                            )
+
+                    startActivity(activityIntent)
+                }
             }
 
             view.findViewById<MaterialCardView>(R.id.LocationAccuracyActivity)
@@ -176,7 +185,7 @@ class ShortCuts: Fragment() {
                 } else {
                     Snackbar.make(
                         view,
-                        "${resources.getString(R.string.unsupportedDevices)}(非MIUI系統)",
+                        "${resources.getString(R.string.unsupportedDevices)}(${resources.getString(R.string.isNotMIUI)})",
                         Snackbar.LENGTH_LONG
                     )
                         .setAction("Action", null).show()
