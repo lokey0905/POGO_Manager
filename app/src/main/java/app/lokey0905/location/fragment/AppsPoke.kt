@@ -881,8 +881,10 @@ class AppsPoke : Fragment() {
             var url = resources.getString(R.string.url_PGToolsJson)
             if (pgToolsTestVersion)
                 url = resources.getString(R.string.url_PGToolsJsonTest)
-            val versionType =
-                if (pgToolsTestVersion) " (${resources.getString(R.string.testVersion)})" else ""
+
+            var versionType = ""
+            if (pgToolsTestVersion)
+                versionType = " (${resources.getString(R.string.testVersion)})"
 
             extractPgToolsFromJson(url) { pogoVersion, pgtoolsVersion, pogoVersionsList ->
                 val versionsList = ArrayList<String>()
