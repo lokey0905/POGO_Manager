@@ -42,6 +42,8 @@
     <string name="noUpdate">詳情</string>
     <string name="picture">圖片</string>
     <string name="doNotShowAgain">不再顯示</string>
+    <string name="developerModeIsOff">開發者選項未開啟</string>
+    <string name="isNotMIUI">非MIUI系統</string>
 
     <string name="appsAllUpdated">全部APP皆已最新版本</string>
     <string name="apps_ARMV8a">64位元</string>
@@ -75,8 +77,10 @@
     <string name="shortcutsTitle_poke">寶可夢相關捷徑</string>
     <string name="shortcutsTitle_mhn">魔物獵人相關捷徑</string>
     <string name="shortcutsTitle_download">其他檔案下載</string>
-    <string name="shortcuts_MiuiXSpace">MIUI應用雙開</string>
-    <string name="shortcuts_coolDownCalculator">冷卻計算機</string>
+    <string name="shortcuts_MiuiXSpace">MIUI/Hyper OS應用雙開</string>
+    <string name="shortcuts_locationSettings">定位設定</string>
+    <string name="shortcuts_developerMode">開發者選項</string>
+    <string name="shortcuts_coolDownCalculator">位置冷卻計算機</string>
     <string name="shortcuts_PGToolsFile">PGTools設定檔(贊助版本)</string>
     <string name="shortcuts_PGToolsRaids">PGTools雷達</string>
     <string name="shortcuts_splitScreen">split screen 分割畫面app</string>
@@ -152,6 +156,7 @@
     <string name="popup_menu_officialLink">官方網站</string>
     <string name="popup_menu_setting">管理</string>
 
+    <string name="appsPokePage_supportVersion_pokemon">Pokémon GO可登入最低版本: </string>
     <string name="appsPokePage_supportVersion_polygon">Polygon支援版本: </string>
     <string name="appsPokePage_supportVersion_PGTools">PGTools支援版本: </string>
     <string name="appsPokePage_supportVersion_Aerilate">Aerilate支援版本: </string>
@@ -164,7 +169,7 @@
     <string name="appsPokePage_GpsTitle">可修改手機定位</string>
     <string name="appsPokePage_GpsAppName">GPS JoyStick【搖桿改定位✅老K刷機】</string>
     <string name="appsPokePage_wrapperTitle">快速尋找火箭隊</string>
-    <string name="appsPokePage_wrapperAppName">GPS Joystick Wrapper【中文版】</string>
+    <string name="appsPokePage_wrapperAppName">Data Hub【中文版】</string>
     <string name="appsPokePage_PolygonTitle">顯示IV三圍,偵測色違,打火箭隊等功能</string>
     <string name="appsPokePage_PolygonAppName">Polygon【暴力功】目前須付費使用</string>
     <string name="appsPokePage_PGToolsTitle">自動捕捉與旋轉補給站等功能</string>
@@ -185,19 +190,21 @@
     <string name="preferences_pokeSettings_Title">Pokémon GO【寶可夢】相關設定</string>
     <string name="preferences_mhnSettings_Title">MH Now【魔物獵人】相關設定</string>
     <string name="preferences_customTabsOff_Title">在瀏覽器中開啟網頁</string>
-    <string name="preferences_customTabsOff_Summary">在預設瀏覽器中開啟網頁,而不是使用Custom Tabs,若無法正常下載檔案可嘗試開啟\n此設定僅適用捷徑頁面</string>
-    <string name="preferences_allow_download_on_non_arm64_Title">允許下載非裝置支援軟體</string>
-    <string name="preferences_allow_download_on_non_arm64_Summary">允許在非64位元(arm64)裝置下載軟體,軟體可能無法正常運作</string>
-    <string name="preferences_location_accuracy_Title">定位精確度</string>
-    <string name="preferences_location_accuracy_Summary">如需使用虛擬定位,須關閉定位精確度,需使用實體定位可開啟,點擊此處前往設定。</string>
+    <string name="preferences_customTabsOff_Summary">使用預設瀏覽器開啟網頁, 若無法正常下載檔案可嘗試開啟\n此設定僅適用捷徑頁面</string>
+    <string name="preferences_allow_download_on_non_arm64_Title">允許在非支援裝置下載軟體</string>
+    <string name="preferences_allow_download_on_non_arm64_Summary">部分功能可能無法正常運作</string>
+    <string name="preferences_location_accuracy_Title">定位精確度捷徑</string>
+    <string name="preferences_location_accuracy_Summary">如需使用虛擬定位, 須關閉定位精確度, 若需使用實體定位可開啟, 點擊此處前往設定</string>
+    <string name="preferences_location_accuracy_switch_Title">定位精確度捷徑設定</string>
+    <string name="preferences_location_accuracy_switch_Summary">若定位精確度捷徑失效, 啟用選項後跳轉置定位設定頁面</string>
     <string name="preferences_location_check_A12_Title">新方式檢測虛擬定位</string>
-    <string name="preferences_location_check_A12_Summary">使用Android 12新版API檢測裝置是否使用虛擬定位</string>
+    <string name="preferences_location_check_A12_Summary">使用Android 12新版API檢測定位</string>
     <string name="preferences_location_accuracy_check_Title">不再偵測定位精確度</string>
-    <string name="preferences_location_accuracy_check_Summary">開啟APP時, 不再偵測定位精確度與顯示通知</string>
-    <string name="preferences_disable_auto_update_pok_Title">關閉自動更新</string>
-    <string name="preferences_disable_auto_update_pok_Summary">關閉商店自動更新,點擊此處前往關閉</string>
+    <string name="preferences_location_accuracy_check_Summary">開啟APP時, 不再偵測與顯示通知</string>
+    <string name="preferences_disable_auto_update_pok_Title">關閉Play 商店自動更新</string>
+    <string name="preferences_disable_auto_update_pok_Summary">點擊此處前往關閉</string>
     <string name="preferences_allow_download_on_non_samsung_Title">允許下載三星版本寶可夢</string>
     <string name="preferences_allow_download_on_non_samsung_Summary">允許用戶在非三星(Samsung)裝置上下載三星版本寶可夢</string>
-    <string name="preferences_disable_auto_update_mhn_Title">關閉自動更新</string>
-    <string name="preferences_disable_auto_update_mhn_Summary">關閉商店自動更新,點擊此處前往關閉</string>
+    <string name="preferences_disable_auto_update_mhn_Title">關閉Play 商店自動更新</string>
+    <string name="preferences_disable_auto_update_mhn_Summary">點擊此處前往關閉</string>
 </resources>

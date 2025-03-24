@@ -37,11 +37,13 @@
     <string name="url_PackageDisablerPro">https://apkcombo.com/tw/package-disabler-pro-all-android/com.ospolice.packagedisablerpro/download/apk</string>
     <string name="url_AFWall_official">https://play.google.com/store/apps/details?id=dev.ukanth.ufirewall</string>
     <string name="url_AFWall_unofficial">https://github.com/ukanth/afwall/releases/download/v3.6.0/AFWall_3.6.0_Free.apk</string>
-    <string name="url_checkDevicesAPI_official">https://play.google.com/store/apps/details?id=com.henrikherzig.playintegritychecker</string>
-    <string name="url_checkDevicesAPI_unofficial">https://github.com/herzhenr/spic-android/releases/latest</string>
+    <string name="url_playintegritychecker_official">https://play.google.com/store/apps/details?id=com.henrikherzig.playintegritychecker</string>
+    <string name="url_playintegritychecker_unofficial">https://github.com/herzhenr/spic-android/releases/latest</string>
+    <string name="url_integritycheck">https://play.google.com/store/apps/details?id=gr.nikolasspyr.integritycheck</string>
     <string name="url_appListDetector">https://github.com/byxiaorun/Ruru/releases/latest</string>
     <string name="url_gameGuardian">https://gameguardian.net/forum/files/file/2-gameguardian/</string>
 
+    <!-->package name list<-->
     <string name="packageName_gms">com.google.android.gms</string>
     <string name="packageName_gmsLocationAccuracy">com.google.android.gms.location.settings.LocationAccuracyActivity</string>
     <string name="packageName_gmsLocationAccuracyA12">com.google.android.gms.location.settings.LocationAccuracyNonwearableActivity</string>
@@ -56,7 +58,8 @@
     <string name="packageName_WeCatch">com.daydreamer.wecatch</string>
     <string name="packageName_MHNow">com.nianticlabs.monsterhunter</string>
     <string name="packageName_mhnTools">net.mhntools.auto</string>
-    <string name="packageName_checkDevicesAPI">com.henrikherzig.playintegritychecker</string>
+    <string name="packageName_playintegritychecker">com.henrikherzig.playintegritychecker</string>
+    <string name="packageName_integritycheck">gr.nikolasspyr.integritycheck</string>
     <string name="packageName_appListDetector">com.byxiaorun.detector</string>
     <string name="packageName_galaxyStore">com.sec.android.app.samsungapps</string>
     <string name="packageName_hylianer">com.hpkssgdxzuwyxtnoo</string>
