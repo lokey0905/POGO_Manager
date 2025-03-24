@@ -56,7 +56,7 @@ class Home : Fragment() {
     private val MY_PERMISSIONS_REQUEST_LOCATION = 1
 
     var newerCheckMockLocationApi = false
-    var bIsMagisk = false
+    private var bIsMagisk = false
 
     @SuppressLint("SetTextI18n")
     override fun onCreateView(
@@ -310,9 +310,15 @@ class Home : Fragment() {
         }
 
         view.findViewById<Button>(R.id.check_safetynet).setOnClickListener {
-            if (appInstalledOrNot(resources.getString(R.string.packageName_checkDevicesAPI))) {
+            if (appInstalledOrNot(resources.getString(R.string.packageName_integritycheck))) {
                 val launchIntent =
-                    requireActivity().packageManager.getLaunchIntentForPackage(resources.getString(R.string.packageName_checkDevicesAPI))
+                    requireActivity().packageManager.getLaunchIntentForPackage(resources.getString(R.string.packageName_integritycheck))
+                if (launchIntent != null) {
+                    startActivity(launchIntent)
+                }
+            } else if (appInstalledOrNot(resources.getString(R.string.packageName_playintegritychecker))) {
+                val launchIntent =
+                    requireActivity().packageManager.getLaunchIntentForPackage(resources.getString(R.string.packageName_playintegritychecker))
                 if (launchIntent != null) {
                     startActivity(launchIntent)
                 }
@@ -322,10 +328,7 @@ class Home : Fragment() {
                     .setMessage(resources.getString(R.string.dialogDownloadDetectorMessage))
                     .apply {
                         setPositiveButton(getString(R.string.downloadOnGooglePlay)) { _, _ ->
-                            gotoBrowser(resources.getString(R.string.url_checkDevicesAPI_official))
-                        }
-                        setNegativeButton(getString(R.string.downloadAPK)) { _, _ ->
-                            gotoBrowser(resources.getString(R.string.url_checkDevicesAPI_unofficial))
+                            gotoBrowser(resources.getString(R.string.url_integritycheck))
                         }
                         setNeutralButton(R.string.cancel) { _, _ ->
                             Toast.makeText(

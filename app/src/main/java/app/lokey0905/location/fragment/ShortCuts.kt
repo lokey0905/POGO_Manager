@@ -45,11 +45,11 @@ class ShortCuts: Fragment() {
             }
 
             view.findViewById<MaterialCardView>(R.id.manual)?.setOnLongClickListener {
-                createShortcutWithURL(
+                createShortcut(
                     "manual",
                     getString(R.string.manual),
                     R.drawable.baseline_menu_book_24,
-                    getString(R.string.github_manual),
+                    url = getString(R.string.github_manual),
                 )
                 true
             }
@@ -59,11 +59,11 @@ class ShortCuts: Fragment() {
             }
 
             view.findViewById<MaterialCardView>(R.id.coolDownCalculator)?.setOnLongClickListener {
-                createShortcutWithURL(
+                createShortcut(
                     "coolDownCalculator",
                     getString(R.string.shortcuts_coolDownCalculator),
                     R.drawable.baseline_calculate_24,
-                    getString(R.string.url_coolDownCalculator)
+                    url = getString(R.string.url_coolDownCalculator)
                 )
                 true
             }
@@ -119,11 +119,11 @@ class ShortCuts: Fragment() {
                     getString(R.string.shortcuts_pokeInfoMessage),
                     Toast.LENGTH_LONG
                 ).show()
-                createShortcutWithURL(
+                createShortcut(
                     "pokeInfo",
                     getString(R.string.shortcuts_pokeInfo),
                     R.drawable.ic_baseline_catching_pokemon_24,
-                    getString(R.string.url_pokeInfo)
+                    url = getString(R.string.url_pokeInfo)
                 )
                 true
             }
@@ -133,11 +133,11 @@ class ShortCuts: Fragment() {
             }
 
             view.findViewById<MaterialCardView>(R.id.pokeList_web)?.setOnLongClickListener {
-                createShortcutWithURL(
+                createShortcut(
                     "pokeList_web",
                     getString(R.string.shortcuts_pokeListWeb),
                     R.drawable.baseline_radar_24,
-                    getString(R.string.url_pokeListWeb)
+                    url = getString(R.string.url_pokeListWeb)
                 )
                 true
             }
@@ -147,11 +147,11 @@ class ShortCuts: Fragment() {
             }
 
             view.findViewById<MaterialCardView>(R.id.PGTools_raids)?.setOnLongClickListener {
-                createShortcutWithURL(
+                createShortcut(
                     "PGTools_raids",
                     getString(R.string.shortcuts_PGToolsRaids),
                     R.drawable.baseline_radar_24,
-                    getString(R.string.url_PGToolsRaids)
+                    url = getString(R.string.url_PGToolsRaids)
                 )
                 true
             }
@@ -173,6 +173,29 @@ class ShortCuts: Fragment() {
                 startActivity(activityIntent)
             }
 
+            view.findViewById<MaterialCardView>(R.id.action_nearbySharing)?.setOnLongClickListener {
+                createShortcut(
+                    "action_nearbySharing",
+                    getString(R.string.nearbySharing),
+                    R.drawable.baseline_share_24,
+                    intent = Intent(Intent.ACTION_MAIN).setComponent(
+                        if (appInstalledOrNot("com.samsung.android.app.sharelive")) {
+                            ComponentName(
+                                "com.samsung.android.app.sharelive",
+                                "com.samsung.android.app.sharelive.presentation.main.MainActivity"
+                            )
+                        } else {
+                            ComponentName(
+                                "com.google.android.gms",
+                                "com.google.android.gms.nearby.sharing.settings.SettingsActivity"
+                            )
+                        }
+                    )
+                )
+
+                true
+            }
+
             view.findViewById<MaterialCardView>(R.id.MiuiXSpace)?.setOnClickListener {
                 if (appInstalledOrNot("com.miui.securitycore")) {
                     val activityIntent = Intent()
@@ -190,7 +213,89 @@ class ShortCuts: Fragment() {
                     )
                         .setAction("Action", null).show()
                 }
+            }
 
+            view.findViewById<MaterialCardView>(R.id.MiuiXSpace)?.setOnLongClickListener {
+                if (appInstalledOrNot("com.miui.securitycore")) {
+                    createShortcut(
+                        "MiuiXSpace",
+                        getString(R.string.shortcuts_MiuiXSpace),
+                        R.drawable.baseline_call_split_24,
+                        intent = Intent(Intent.ACTION_MAIN).setComponent(
+                            ComponentName(
+                                "com.miui.securitycore",
+                                "com.miui.xspace.ui.activity.XSpaceSettingActivity"
+                            )
+                        )
+                    )
+                } else {
+                    Snackbar.make(
+                        view,
+                        "${resources.getString(R.string.unsupportedDevices)}(${resources.getString(R.string.isNotMIUI)})",
+                        Snackbar.LENGTH_LONG
+                    )
+                        .setAction("Action", null).show()
+                }
+
+                true
+            }
+
+            view.findViewById<MaterialCardView>(R.id.location_settings)?.setOnClickListener {
+                val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
+                startActivity(intent)
+            }
+
+            view.findViewById<MaterialCardView>(R.id.location_settings)?.setOnLongClickListener {
+                createShortcut(
+                    "location_settings",
+                    getString(R.string.shortcuts_locationSettings),
+                    R.drawable.baseline_edit_location_24,
+                    intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
+                )
+                true
+            }
+
+            view.findViewById<MaterialCardView>(R.id.developerMode)?.setOnClickListener {
+                //check if developer mode is enabled
+                if (Settings.Global.getInt(
+                        context?.contentResolver,
+                        Settings.Global.DEVELOPMENT_SETTINGS_ENABLED,
+                        0
+                    ) != 0
+                ) {
+                    val intent =
+                        Intent(Settings.ACTION_APPLICATION_DEVELOPMENT_SETTINGS)
+                    startActivity(intent)
+                } else {
+                    Snackbar.make(
+                        view,
+                        resources.getString(R.string.developerModeIsOff),
+                        Snackbar.LENGTH_LONG
+                    ).show()
+                }
+            }
+
+            view.findViewById<MaterialCardView>(R.id.developerMode)?.setOnLongClickListener {
+                if (Settings.Global.getInt(
+                        context?.contentResolver,
+                        Settings.Global.DEVELOPMENT_SETTINGS_ENABLED,
+                        0
+                    ) != 0
+                ) {
+                    createShortcut(
+                        "developerMode",
+                        getString(R.string.shortcuts_developerMode),
+                        R.drawable.baseline_developer_mode_24,
+                        intent = Intent(Settings.ACTION_APPLICATION_DEVELOPMENT_SETTINGS)
+                    )
+                } else {
+                    Snackbar.make(
+                        view,
+                        resources.getString(R.string.developerModeIsOff),
+                        Snackbar.LENGTH_LONG
+                    ).show()
+                }
+                true
             }
         }
 
@@ -319,20 +424,30 @@ class ShortCuts: Fragment() {
         ).show()
     }
 
-    private fun createShortcutWithURL(id: String, label: String, icon: Int, url: String) {
+    private fun createShortcut(
+        id: String,
+        label: String,
+        icon: Int,
+        intent: Intent? = null,
+        url: String? = null
+    ) {
         val shortcutManager = context?.getSystemService(ShortcutManager::class.java)
         if (shortcutManager != null) {
             if (shortcutManager.isRequestPinShortcutSupported) {
+                // Determine which intent to use
+                val shortcutIntent = when {
+                    intent != null -> intent
+                    url != null -> Intent(Intent.ACTION_VIEW, Uri.parse(url))
+                    else -> return // No intent provided
+                }
+
+                // Create the shortcut with the appropriate intent
                 val shortcut = ShortcutInfo.Builder(context, id)
                     .setShortLabel(label)
                     .setIcon(Icon.createWithResource(context, icon))
-                    .setIntent(
-                        Intent(
-                            Intent.ACTION_VIEW,
-                            Uri.parse(url)
-                        )
-                    )
+                    .setIntent(shortcutIntent)
                     .build()
+
                 shortcutManager.requestPinShortcut(shortcut, null)
 
                 if (Build.MANUFACTURER == "Xiaomi") {
@@ -394,7 +509,7 @@ class ShortCuts: Fragment() {
             imageView.findViewById<ImageView>(R.id.dialog_imageview)
                 .setImageResource(R.drawable.download_mediafire)
             setview = true
-        } else if (url.contains("apkmirror") || url.contains("bit.ly")) {
+        } else if (url.contains("apkmirror")) {
             imageView.findViewById<ImageView>(R.id.dialog_imageview)
                 .setImageResource(R.drawable.download_apk_e)
             setview = true

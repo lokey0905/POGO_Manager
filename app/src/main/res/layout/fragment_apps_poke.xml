@@ -69,6 +69,13 @@
                             android:orientation="vertical">
 
                             <TextView
+                                android:id="@+id/supportVersion_pokemon"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@string/appsPokePage_supportVersion_pokemon"
+                                android:textAppearance="?attr/textAppearanceBodyMedium" />
+
+                            <TextView
                                 android:id="@+id/supportVersion_PGTools"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
