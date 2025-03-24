@@ -16,10 +16,13 @@
     <string name="url_mhnJsonTest">https://assets.mhntools.net/test-versions.json</string>
     <string name="url_AerilateAPI">https://api.aerilate.io/Aerilate/HelloV2?pg=%1$s&amp;ll=en_US&amp;lt=1721344303621</string>
     <string name="url_PokemodAPI">https://discovery.pokemod.dev/hal/modules/getAgentHash?game_version=%1$s</string>
+    <string name="url_PokemonCheckVersionAPI">https://pgorelease.nianticlabs.com/plfe/version</string>
+    <string name="url_MHNowCheckVersionAPI">https://magellan-rel.nianticlabs.com/server-info/GET_CLIENT_VERSIONS</string>
 
     <string name="url_googlePlay">https://play.google.com/store/apps/details?id=</string>
 
     <string name="url_app">https://www.mediafire.com/file/5mdun6u78jr96rw/app-debug.apk/file</string>
+    <string name="url_poke">https://www.apkmirror.com/apk/niantic-inc/pokemon-go/pokemon-go-%1$s-release/</string>
     <string name="url_pokAres">https://www.apkmirror.com/apk/niantic-inc/pokemon-go-samsung-galaxy-apps-version/pokemon-go-samsung-galaxy-store-%1$s-release/</string>
     <string name="url_pokeMod">https://pokemod.dev/zh/</string>
     <string name="url_pokeInfo">https://twpkinfo.com/igym.aspx</string>

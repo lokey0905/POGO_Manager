@@ -70,6 +70,7 @@ class AppsPoke : Fragment() {
     private var polygonVersionsList = ArrayList<String>()
     private var aerilateVersionsList = ArrayList<String>()
     private var pokemodVersionsList = ArrayList<String>()
+    private var pokemonLatestVersion = ""
     private var pogoVersion: String = "未安裝"
     private var pgToolsARMUrl: String = ""
     private var pgToolsARM64Url: String = ""
@@ -357,6 +358,7 @@ class AppsPoke : Fragment() {
             }
     }
 
+    @SuppressLint("SetTextI18n")
     private fun setupAppVersionInfo(view: View) {
         val formatInstallVersion: String = resources.getString(R.string.format_installVersion)
         val formatInstallVersionOther: String =
@@ -379,6 +381,18 @@ class AppsPoke : Fragment() {
 
         val pokeTestVersionSwitch = view.findViewById<MaterialSwitch>(R.id.pokeTestVersion_switch)
         val spinner = view.findViewById<Spinner>(R.id.poke_spinner)
+
+        fun getPokemonLatestVersion() {
+            checkPokemon { latestVersion ->
+                Log.i("Pokemon", "Pokemon最新版本: $latestVersion")
+                view.findViewById<TextView>(R.id.supportVersion_pokemon)?.text =
+                    "${getString(R.string.appsPokePage_supportVersion_pokemon)} $latestVersion"
+
+                if (latestVersion != "ERROR") {
+                    pokemonLatestVersion = latestVersion
+                }
+            }
+        }
 
         fun getPolygonSupportedVersion() {
             if (polygonTestKey == "") {
@@ -448,23 +462,24 @@ class AppsPoke : Fragment() {
 
                         var pogoVersionList =
                             resources.getString(R.string.appsPokePage_supportVersion_polygon)
-                        var matchingVersionInfo: PogoVersionInfo? = null
+                        //var matchingVersionInfo: PogoVersionInfo? = null
 
                         for (polygonSupportedVersion in polygonVersionsList) {
                             pogoVersionList += " ${polygonSupportedVersion},"
 
-                            matchingVersionInfo =
+                            /*matchingVersionInfo =
                                 pogoVersionsList.find { it.pogoVersion == polygonSupportedVersion }
+                             */
                         }
 
-                        matchingVersionInfo?.let { versionInfo ->
+                        /*matchingVersionInfo?.let { versionInfo ->
                             val selectionIndex =
                                 pogoVersionsList.size - 1 - pogoVersionsList.indexOf(versionInfo)
                             spinner.post {
-                                //spinner.setSelection(selectionIndex)
+                                spinner.setSelection(selectionIndex)
                                 Log.i("Polygon", "spinner.setSelection: $selectionIndex")
                             }
-                        }
+                        }*/
 
                         Log.i("Polygon", "polygonVersionsList: $polygonVersionsList")
 
@@ -505,9 +520,17 @@ class AppsPoke : Fragment() {
                                 pogoVersionsList.find { it.pogoVersion == aerilateSupportedVersion }
                         }
 
+                        val spinnerAdapter = ArrayAdapter(
+                            requireContext(),
+                            android.R.layout.simple_spinner_item,
+                            pogoVersionsList.map { it.pogoVersion }
+                        ).also { adapter ->
+                            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                        }
+                        spinner.adapter = spinnerAdapter
+
                         matchingVersionInfo?.let { versionInfo ->
-                            val selectionIndex =
-                                pogoVersionsList.size - 1 - pogoVersionsList.indexOf(versionInfo)
+                            val selectionIndex = spinnerAdapter.getPosition(versionInfo.pogoVersion)
                             spinner.post {
                                 spinner.setSelection(selectionIndex)
                                 Log.i("Aerilate", "spinner.setSelection: $selectionIndex")
@@ -570,6 +593,26 @@ class AppsPoke : Fragment() {
         }
 
         fun appAllCheckDone() {
+            //check if the latest version is in the list
+            if (pogoVersionsList.find { it.pogoVersion == pokemonLatestVersion } == null) {
+                pogoVersionsList.add(
+                     PogoVersionInfo(
+                        pokemonLatestVersion,
+                        String.format(getString(R.string.url_poke), pokemonLatestVersion),
+                        String.format(getString(R.string.url_poke), pokemonLatestVersion)
+                    )
+                )
+
+                // update spinner
+                spinner.adapter = ArrayAdapter(
+                    requireContext(),
+                    android.R.layout.simple_spinner_item,
+                    pogoVersionsList.map { it.pogoVersion }
+                ).also { adapter ->
+                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                }
+            }
+
             if (pgToolsCheckDone && appListCheckDone) {
                 pgToolsCheckDone = false
                 appListCheckDone = false
@@ -986,7 +1029,8 @@ class AppsPoke : Fragment() {
             }
         }
 
-        //checkAppVersion()
+        checkAppVersion()
+        getPokemonLatestVersion()
         getPGToolsVersion()
         setOnCheckedChangeListener()
     }
@@ -1062,6 +1106,34 @@ class AppsPoke : Fragment() {
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
+            }
+        }
+    }
+
+    private fun checkPokemon(onCheckCompleted: (String) -> Unit) {
+        lifecycleScope.launch(Dispatchers.IO) {
+            try {
+                val urlObject = URL(getString(R.string.url_PokemonCheckVersionAPI))
+                val connection: HttpURLConnection = urlObject.openConnection() as HttpURLConnection
+                connection.requestMethod = "GET"
+
+                val inputStream = connection.inputStream
+                val response = inputStream.bufferedReader().use { it.readText() }
+
+                inputStream.close()
+
+                // Extract the version number from the response
+                val version = response.trim().substringAfter("")
+
+                launch(Dispatchers.Main) {
+                    onCheckCompleted(version)
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+
+                launch(Dispatchers.Main) {
+                    onCheckCompleted("ERROR")
+                }
             }
         }
     }
@@ -1284,7 +1356,7 @@ class AppsPoke : Fragment() {
             imageView.findViewById<ImageView>(R.id.dialog_imageview)
                 .setImageResource(R.drawable.download_mediafire)
             setview = true
-        } else if (url.contains("apkmirror") || url.contains("bit.ly")) {
+        } else if (url.contains("apkmirror")) {
             imageView.findViewById<ImageView>(R.id.dialog_imageview)
                 .setImageResource(R.drawable.download_apk_e)
             setview = true
