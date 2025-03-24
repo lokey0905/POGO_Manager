@@ -60,18 +60,11 @@ class LocationAccuracyActivity : AppWidgetProvider() {
                 activityIntent = Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS)
 
             } else {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                    activityIntent.component =
-                        ComponentName(
-                            context.getString(R.string.packageName_gms),
-                            context.getString(R.string.packageName_gmsLocationAccuracyA12)
-                        )
-                } else
-                    activityIntent.component =
-                        ComponentName(
-                            context.getString(R.string.packageName_gms),
-                            context.getString(R.string.packageName_gmsLocationAccuracy)
-                        )
+                activityIntent.component =
+                    ComponentName(
+                        context.getString(R.string.packageName_gms),
+                        context.getString(R.string.packageName_gmsLocationAccuracy)
+                    )
             }
 
             activityIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK) // Add this line

@@ -261,18 +261,11 @@ class MainActivity : AppCompatActivity() {
                         } else {
                             val activityIntent = Intent()
 
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                                activityIntent.component =
-                                    ComponentName(
-                                        getString(R.string.packageName_gms),
-                                        getString(R.string.packageName_gmsLocationAccuracyA12)
-                                    )
-                            } else
-                                activityIntent.component =
-                                    ComponentName(
-                                        getString(R.string.packageName_gms),
-                                        getString(R.string.packageName_gmsLocationAccuracy)
-                                    )
+                            activityIntent.component =
+                                ComponentName(
+                                    getString(R.string.packageName_gms),
+                                    getString(R.string.packageName_gmsLocationAccuracy)
+                                )
 
                             startActivity(activityIntent)
                         }
