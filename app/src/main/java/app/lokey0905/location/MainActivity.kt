@@ -43,6 +43,8 @@ import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.net.HttpURLConnection
 import java.net.URL
+import androidx.core.content.edit
+import androidx.core.net.toUri
 
 
 class DynamicColors: Application() {
@@ -162,7 +164,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun gotoBrowser(url: String) {
-        startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
+        startActivity(Intent(Intent.ACTION_VIEW, url.toUri()))
     }
 
     private fun downloadAPPSetup(url: String) {
@@ -278,12 +280,14 @@ class MainActivity : AppCompatActivity() {
                         ).show()
                     }
                     setNegativeButton(resources.getString(R.string.doNotShowAgain)) { _, _ ->
-                        sharedPreferences.edit().putBoolean("location_accuracy_check", true).apply()
+                        sharedPreferences.edit { putBoolean("location_accuracy_check", true) }
                         Snackbar.make(
                             findViewById(R.id.fragment_container_view),
                             getString(R.string.doNotShowAgain),
                             Snackbar.LENGTH_SHORT
-                        ).show()
+                        ).setAction(getString(R.string.cancel)) {
+                            sharedPreferences.edit { putBoolean("location_accuracy_check", false) }
+                        }.show()
                     }
                 }
                 .show()

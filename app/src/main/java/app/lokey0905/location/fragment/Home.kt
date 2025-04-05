@@ -50,6 +50,7 @@ import com.google.android.material.snackbar.Snackbar
 import java.text.DecimalFormat
 import java.util.Locale
 import kotlin.math.roundToInt
+import androidx.core.net.toUri
 
 class Home : Fragment() {
     private lateinit var fusedLocationClient: FusedLocationProviderClient
@@ -266,7 +267,10 @@ class Home : Fragment() {
                     view,
                     "請開啟GPS或是網路",
                     Snackbar.LENGTH_SHORT
-                ).show()
+                ).setAction(getString(R.string.setting)) {
+                    val intent = Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS)
+                    startActivity(intent)
+                }.show()
                 return@setOnClickListener
             }
 
@@ -491,7 +495,7 @@ class Home : Fragment() {
 
     private fun gotoBrowser(url: String) {
         context?.let {
-            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
+            startActivity(Intent(Intent.ACTION_VIEW, url.toUri()))
         }
     }
 
