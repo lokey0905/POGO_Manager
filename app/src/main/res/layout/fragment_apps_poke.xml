@@ -117,19 +117,30 @@
                                 app:layout_constraintHorizontal_bias="1.0"
                                 app:layout_constraintStart_toStartOf="parent">
 
-                                <Spinner
-                                    android:id="@+id/poke_spinner"
+                                <com.google.android.material.textfield.TextInputLayout
+                                    android:id="@+id/textField"
+                                    android:layout_width="150dp"
+                                    android:layout_height="match_parent"
+                                    android:hint="@string/appsPokePage_supportVersion"
+                                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+
+                                    <AutoCompleteTextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:inputType="none"/>
+                                </com.google.android.material.textfield.TextInputLayout>
+
+                                <Space
                                     android:layout_width="0dp"
                                     android:layout_height="match_parent"
-                                    android:layout_weight="1">
-                                </Spinner>
+                                    android:layout_weight="1" />
 
                                 <com.google.android.material.materialswitch.MaterialSwitch
+                                    android:id="@+id/pokeTestVersion_switch"
                                     android:layout_width="wrap_content"
                                     android:layout_height="match_parent"
-                                    android:id="@+id/pokeTestVersion_switch"
-                                    android:text="@string/appsPokePage_PGToolsTestVersion">
-                                </com.google.android.material.materialswitch.MaterialSwitch>
+                                    android:layout_marginStart="4dp"
+                                    android:text="@string/appsPokePage_PGToolsTestVersion"/>
                             </LinearLayout>
                         </LinearLayout>
                     </com.google.android.material.card.MaterialCardView>
