@@ -44,6 +44,7 @@ import java.io.InputStreamReader
 import java.net.HttpURLConnection
 import java.net.URL
 import kotlin.math.roundToInt
+import androidx.core.net.toUri
 
 
 data class PogoVersionInfo(
@@ -1260,13 +1261,13 @@ class AppsPoke : Fragment() {
                     R.id.officialLink -> {
                         val officialLink =
                             appsInfo.find { it.packageName == packageName }?.officialLink
-                        if (officialLink == "") {
+                        if (officialLink == "" || officialLink == null) {
                             showAlertDialog(
                                 resources.getString(R.string.dialogAdNotReadyTitle),
                                 resources.getString(R.string.dialogAdNotReadyMessage)
                             )
                         } else {
-                            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(officialLink)))
+                            startActivity(Intent(Intent.ACTION_VIEW, officialLink.toUri()))
                         }
                         true
                     }
@@ -1320,7 +1321,7 @@ class AppsPoke : Fragment() {
                         .show()
                 }
                 setPositiveButton(R.string.ok) { _, _ ->
-                    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
+                    startActivity(Intent(Intent.ACTION_VIEW, url.toUri()))
                 }
             }
             .show()
@@ -1380,7 +1381,7 @@ class AppsPoke : Fragment() {
 
     private fun appUnInstall(packageName: String) {
         val intent = Intent(Intent.ACTION_DELETE)
-        intent.data = Uri.parse("package:$packageName")
+        intent.data = "package:$packageName".toUri()
         startActivity(intent)
     }
 }

@@ -19,6 +19,7 @@ import app.lokey0905.location.BuildConfig
 import app.lokey0905.location.R
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
+import androidx.core.net.toUri
 
 
 class Preferences : PreferenceFragmentCompat() {
@@ -33,10 +34,10 @@ class Preferences : PreferenceFragmentCompat() {
     private fun gotoBrowser(url: String) {
         context?.let {
             if (customTabsOff)
-                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
+                startActivity(Intent(Intent.ACTION_VIEW, url.toUri()))
             else
                 CustomTabsIntent.Builder().build()
-                    .launchUrl(it, Uri.parse(url))
+                    .launchUrl(it, url.toUri())
         }
     }
 

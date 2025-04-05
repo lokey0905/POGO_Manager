@@ -20,7 +20,6 @@ import android.widget.PopupMenu
 import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
-import androidx.browser.customtabs.CustomTabsIntent
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.preference.PreferenceManager
@@ -32,13 +31,13 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.materialswitch.MaterialSwitch
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import org.json.JSONObject
 import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.net.HttpURLConnection
 import java.net.URL
+import androidx.core.net.toUri
 
 class AppsMHN : Fragment() {
     private val gameVersionsMap = mutableMapOf<String, String>()
@@ -612,19 +611,6 @@ class AppsMHN : Fragment() {
         }
     }
 
-    private fun gotoBrowser(url: String) {
-        context?.let {
-            val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
-            val customTabsOff = sharedPreferences.getBoolean("customTabsOff", false)
-
-            if (customTabsOff)
-                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
-            else
-                CustomTabsIntent.Builder().build()
-                    .launchUrl(it, Uri.parse(url))
-        }
-    }
-
     private fun downloadAPPWithCheck(url: String) {
         if (url == "") {
             showAlertDialog(
@@ -672,7 +658,7 @@ class AppsMHN : Fragment() {
                         .show()
                 }
                 setPositiveButton(R.string.ok) { _, _ ->
-                    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
+                    startActivity(Intent(Intent.ACTION_VIEW, url.toUri()))
                 }
             }
             .show()
@@ -712,7 +698,7 @@ class AppsMHN : Fragment() {
 
     private fun appUnInstall(packageName: String) {
         val intent = Intent(Intent.ACTION_DELETE)
-        intent.data = Uri.parse("package:$packageName")
+        intent.data = "package:$packageName".toUri()
         startActivity(intent)
     }
 }

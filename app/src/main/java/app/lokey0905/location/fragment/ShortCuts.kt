@@ -28,6 +28,7 @@ import com.google.android.gms.ads.rewarded.RewardedAd
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
+import androidx.core.net.toUri
 
 
 class ShortCuts: Fragment() {
@@ -430,7 +431,7 @@ class ShortCuts: Fragment() {
                 // Determine which intent to use
                 val shortcutIntent = when {
                     intent != null -> intent
-                    url != null -> Intent(Intent.ACTION_VIEW, Uri.parse(url))
+                    url != null -> Intent(Intent.ACTION_VIEW, url.toUri())
                     else -> return // No intent provided
                 }
 
@@ -478,10 +479,10 @@ class ShortCuts: Fragment() {
             val customTabsOff = sharedPreferences.getBoolean("customTabsOff", false)
 
             if (customTabsOff)
-                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
+                startActivity(Intent(Intent.ACTION_VIEW, url.toUri()))
             else
                 CustomTabsIntent.Builder().build()
-                    .launchUrl(it, Uri.parse(url))
+                    .launchUrl(it, url.toUri())
         }
     }
 
@@ -519,12 +520,12 @@ class ShortCuts: Fragment() {
                 }
                 setPositiveButton(R.string.ok) { _, _ ->
                     if (url.endsWith(".apk"))
-                        startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
+                        startActivity(Intent(Intent.ACTION_VIEW, url.toUri()))
                     else
                         gotoBrowser(url)
                 }
                 setNegativeButton(R.string.downloadProblem) { _, _ ->
-                    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
+                    startActivity(Intent(Intent.ACTION_VIEW, url.toUri()))
                 }
             }
             .show()
