@@ -12,14 +12,13 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.PopupMenu
-import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -36,6 +35,7 @@ import com.google.android.material.appbar.SubtitleCollapsingToolbarLayout
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.materialswitch.MaterialSwitch
 import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.textfield.TextInputLayout
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.json.JSONObject
@@ -71,7 +71,7 @@ class AppsPoke : Fragment() {
     private var aerilateVersionsList = ArrayList<String>()
     private var pokemodVersionsList = ArrayList<String>()
     private var pokemonMinVersion = ""
-    private var pogoInstallVersion: String = "未安裝"
+    private var pogoVersion: String = "未安裝"
     private var pgToolsARMUrl: String = ""
     private var pgToolsARM64Url: String = ""
     private var pgToolsVersion: String = "未安裝"
@@ -291,7 +291,7 @@ class AppsPoke : Fragment() {
                         .show()
                 } else {
                     downloadAPPWithCheck(
-                        String.format(url_pokAres, pogoInstallVersion.replace(".", "-"))
+                        String.format(url_pokAres, pogoVersion.replace(".", "-"))
                     )
 
                 }
@@ -380,7 +380,8 @@ class AppsPoke : Fragment() {
         val pgToolsDownloadButton = view.findViewById<Button>(R.id.download_pgtools)
 
         val pokeTestVersionSwitch = view.findViewById<MaterialSwitch>(R.id.pokeTestVersion_switch)
-        val spinner = view.findViewById<Spinner>(R.id.poke_spinner)
+        val textInputLayout = view.findViewById<TextInputLayout>(R.id.textField)
+        val autoCompleteTextView = textInputLayout.editText as? AutoCompleteTextView
 
         fun getPokemonLatestVersion() {
             checkPokemon { latestVersion ->
@@ -520,20 +521,16 @@ class AppsPoke : Fragment() {
                                 pogoVersionsList.find { it.pogoVersion == aerilateSupportedVersion }
                         }
 
-                        val spinnerAdapter = ArrayAdapter(
+                        val adapter: ArrayAdapter<String> = ArrayAdapter(
                             requireContext(),
-                            android.R.layout.simple_spinner_item,
+                            android.R.layout.simple_list_item_1,
                             pogoVersionsList.map { it.pogoVersion }
-                        ).also { adapter ->
-                            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                        }
-                        spinner.adapter = spinnerAdapter
+                        )
+                        autoCompleteTextView?.setAdapter(adapter)
 
                         matchingVersionInfo?.let { versionInfo ->
-                            val selectionIndex = spinnerAdapter.getPosition(versionInfo.pogoVersion)
-                            spinner.post {
-                                spinner.setSelection(selectionIndex)
-                                Log.i("Aerilate", "spinner.setSelection: $selectionIndex")
+                            autoCompleteTextView?.post {
+                                autoCompleteTextView.setText(versionInfo.pogoVersion, false)
                             }
                         }
 
@@ -606,13 +603,12 @@ class AppsPoke : Fragment() {
                 Log.i( "Pokemon", "Pokemon新增版本: $pokemonMinVersion\n")
 
                 // update spinner
-                spinner.adapter = ArrayAdapter(
+                val adapter: ArrayAdapter<String> = ArrayAdapter(
                     requireContext(),
-                    android.R.layout.simple_spinner_item,
+                    android.R.layout.simple_list_item_1,
                     pogoVersionsList.map { it.pogoVersion }
-                ).also { adapter ->
-                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                }
+                )
+                autoCompleteTextView?.setAdapter(adapter)
             }
 
             if (pgToolsCheckDone && appListCheckDone) {
@@ -767,8 +763,8 @@ class AppsPoke : Fragment() {
             }
 
             //check poke version
-            if (pogoInstallVersion != "未安裝" && pokInstalledVersion != "未安裝") {
-                val versionComparison = compareVersions(pogoInstallVersion, pokInstalledVersion)
+            if (pogoVersion != "未安裝" && pokInstalledVersion != "未安裝") {
+                val versionComparison = compareVersions(pogoVersion, pokInstalledVersion)
                 when {
                     // need downgrade
                     versionComparison < 0 -> {
@@ -795,8 +791,8 @@ class AppsPoke : Fragment() {
             }
 
             //check pokeAres version
-            if (pogoInstallVersion != "未安裝" && pokeAresInstalledVersion != "未安裝") {
-                val versionComparison = compareVersions(pogoInstallVersion, pokeAresInstalledVersion)
+            if (pogoVersion != "未安裝" && pokeAresInstalledVersion != "未安裝") {
+                val versionComparison = compareVersions(pogoVersion, pokeAresInstalledVersion)
 
                 pokeAresDownloadButton.text = if (versionComparison > 0) {
                     needUpdateAppsAmount++
@@ -810,7 +806,7 @@ class AppsPoke : Fragment() {
 
             //check pgtools version
             if (pgToolsVersion != "未安裝" && pgToolsInstalledVersion != "未安裝") {
-                val versionComparison = compareVersions(pogoInstallVersion, pokeAresInstalledVersion)
+                val versionComparison = compareVersions(pogoVersion, pokeAresInstalledVersion)
 
                 pgToolsDownloadButton.text = if (versionComparison > 0) {
                     needUpdateAppsAmount++
@@ -874,14 +870,12 @@ class AppsPoke : Fragment() {
 
                 val adapter: ArrayAdapter<String> = ArrayAdapter(
                     view.context,
-                    android.R.layout.simple_spinner_item,
+                    android.R.layout.simple_list_item_1,
                     versionsList
                 )
+                autoCompleteTextView?.setAdapter(adapter)
 
-                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                spinner.adapter = adapter
-
-                //spinner.setSelection(0)
+                autoCompleteTextView?.setText(pogoVersion, false)
 
                 pokeSupportVersion.text =
                     String.format(
@@ -933,57 +927,40 @@ class AppsPoke : Fragment() {
                 getPGToolsVersion()
             }
 
-            spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(
-                    parent: AdapterView<*>,
-                    view: View?,
-                    position: Int,
-                    id: Long,
-                ) {
-                    val version = parent.getItemAtPosition(position).toString()
-                    var armUrl = ""
-                    var arm64Url = ""
-
-                    for (versionInfo in pogoVersionsList) {
-                        if (versionInfo.pogoVersion == version) {
-                            pogoInstallVersion = versionInfo.pogoVersion
-                            armUrl = versionInfo.pogoARM
-                            arm64Url = versionInfo.pogoARM64
-                            break
-                        }
+            autoCompleteTextView?.setOnItemClickListener { parent, _, position, _ ->
+                val version = parent.getItemAtPosition(position).toString()
+                var armUrl = ""
+                var arm64Url = ""
+                for (versionInfo in pogoVersionsList) {
+                    if (versionInfo.pogoVersion == version) {
+                        pogoVersion = versionInfo.pogoVersion
+                        armUrl = versionInfo.pogoARM
+                        arm64Url = versionInfo.pogoARM64
+                        break
                     }
-
-                    if (arm64Url != "" && armUrl != "") {
-                        pgToolsARMUrl = armUrl
-                        pgToolsARM64Url = arm64Url
-
-                        val versionType =
-                            if (pgToolsTestVersion) " (${resources.getString(R.string.testVersion)})" else ""
-                        pokeSupportVersion.text =
-                            String.format(
-                                formatNewerVersionOther,
-                                pogoInstallVersion,
-                                if (Build.SUPPORTED_ABIS[0] == "arm64-v8a")
-                                    resources.getString(R.string.apps_ARMV8a) + versionType
-                                else
-                                    resources.getString(R.string.apps_ARMV7a) + versionType
-                            )
-                        pokeAresSupportVersion.text =
-                            String.format(
-                                formatNewerVersionOther,
-                                pogoInstallVersion,
-                                if (Build.SUPPORTED_ABIS[0] == "arm64-v8a")
-                                    resources.getString(R.string.apps_ARMV8a)
-                                else
-                                    resources.getString(R.string.apps_ARMV7a)
-                            )
-                    }
-                    checkAppVersion()
                 }
-
-                override fun onNothingSelected(parent: AdapterView<*>?) {
-                    // Another interface callback
+                if (arm64Url.isNotEmpty() && armUrl.isNotEmpty()) {
+                    pgToolsARMUrl = armUrl
+                    pgToolsARM64Url = arm64Url
+                    val versionType = if (pgToolsTestVersion) " (${resources.getString(R.string.testVersion)})" else ""
+                    pokeSupportVersion.text = String.format(
+                        formatNewerVersionOther,
+                        pogoVersion,
+                        if (Build.SUPPORTED_ABIS[0] == "arm64-v8a")
+                            resources.getString(R.string.apps_ARMV8a) + versionType
+                        else
+                            resources.getString(R.string.apps_ARMV7a) + versionType
+                    )
+                    pokeAresSupportVersion.text = String.format(
+                        formatNewerVersionOther,
+                        pogoVersion,
+                        if (Build.SUPPORTED_ABIS[0] == "arm64-v8a")
+                            resources.getString(R.string.apps_ARMV8a)
+                        else
+                            resources.getString(R.string.apps_ARMV7a)
+                    )
                 }
+                checkAppVersion()
             }
         }
 
@@ -1119,7 +1096,7 @@ class AppsPoke : Fragment() {
 
                 val jsonObject = JSONObject(response.toString())
 
-                pogoInstallVersion = jsonObject.getString("pogoVersion")
+                pogoVersion = jsonObject.getString("pogoVersion")
                 pgToolsARMUrl = jsonObject.getString("pogoARM")
                 pgToolsARM64Url = jsonObject.getString("pogoARM64")
                 pgToolsVersion = jsonObject.getString("appName")
@@ -1130,7 +1107,7 @@ class AppsPoke : Fragment() {
 
                 Log.i(
                     "PgTools",
-                    "pogoVersion:$pogoInstallVersion\n" +
+                    "pogoVersion:$pogoVersion\n" +
                             "pgToolsVersion:$pgToolsVersion\n" +
                             "pgToolsARMUrl:$pgToolsARMUrl\n" +
                             "pgToolsARM64Url:$pgToolsARM64Url"
@@ -1155,13 +1132,13 @@ class AppsPoke : Fragment() {
 
                 Log.i(
                     "PgTools",
-                    "PgTools支援版本: $pogoInstallVersion\n" +
+                    "PgTools支援版本: $pogoVersion\n" +
                             "pogoARM64: $pgToolsARM64Url\n" +
                             "pogoARM: $pgToolsARMUrl"
                 )
 
                 launch(Dispatchers.Main) {
-                    onAppVersionsExtracted(pogoInstallVersion, pgToolsVersion, pogoVersionsList)
+                    onAppVersionsExtracted(pogoVersion, pgToolsVersion, pogoVersionsList)
                 }
             } catch (e: Exception) {
                 e.printStackTrace()

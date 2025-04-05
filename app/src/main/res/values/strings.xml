@@ -156,6 +156,7 @@
     <string name="popup_menu_officialLink">官方網站</string>
     <string name="popup_menu_setting">管理</string>
 
+    <string name="appsPokePage_supportVersion">支援版本</string>
     <string name="appsPokePage_supportVersion_pokemon">Pokémon GO可登入最低版本: </string>
     <string name="appsPokePage_supportVersion_polygon">Polygon支援版本: </string>
     <string name="appsPokePage_supportVersion_PGTools">PGTools支援版本: </string>
