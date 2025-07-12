@@ -56,3 +56,12 @@
 -keepclassmembers class **.R$* {
     public static <fields>;
 }
+
+# If you want to preserve the original names of all your protocol buffer classes,
+# methods, and fields, you can use the following rule:
+-keep,allowobfuscation,allowshrinking class com.google.protobuf.** { *; }
+
+# Keep the following rule if you are using protocol buffers in your app.
+-keepclassmembers class * extends com.google.protobuf.GeneratedMessageLite {
+    <fields>;
+}
