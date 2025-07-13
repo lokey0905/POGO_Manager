@@ -24,15 +24,10 @@ class polygonX {
         polygonXVersionNumber: Int
     ): PolygonXCheckResult = withContext(Dispatchers.IO) {
         try {
-            var setpolygonXVersionNumber = polygonXVersionNumber
-            if (polygonXVersionNumber == 0) {
-                setpolygonXVersionNumber = 2025070901
-                Log.i("PolygonX", "PolygonX not found, using default settings")
-            }
-            Log.i("PolygonX", "Checking PolygonX version $setpolygonXVersionNumber")
+            Log.i("PolygonX", "Checking PolygonX version $polygonXVersionNumber")
 
             val request = PolygonXHello.PolygonXHelloAPIRequest.newBuilder()
-                .setVersionNumber(setpolygonXVersionNumber)
+                .setVersionNumber(polygonXVersionNumber)
                 .setLocalizationLocale("en_US")
                 .setLocalizationTimestamp(System.currentTimeMillis() / 1000L)
                 .build()
@@ -53,11 +48,11 @@ class polygonX {
                 conn.inputStream.close()
                 try {
                     val resp = PolygonXHello.PolygonXHelloAPIResponse.parseFrom(responseBin)
-                    Log.d("PolygonX", "Response for version $setpolygonXVersionNumber: $resp")
+                    Log.d("PolygonX", "Response for version $polygonXVersionNumber: $resp")
                     Log.d("PolygonX", "Latest Gamemaster Available: ${resp.latestGamemasterAvailable}")
                     Log.d("PolygonX", "Forced Version Number: ${resp.forcedVersionNumber}")
 
-                    return@withContext if (resp.forcedVersionNumber > setpolygonXVersionNumber) {
+                    return@withContext if (resp.forcedVersionNumber > polygonXVersionNumber) {
                         PolygonXCheckResult(
                             PolygonXCheckResult.Status.UPDATE_REQUIRED,
                             resp.latestVersionCode
