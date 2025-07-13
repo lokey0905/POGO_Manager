@@ -14,10 +14,9 @@
       "officialLink": "https://discord.gg/pgtools"
     },
     "polygon": {
-      "version": "0.9.5",
-      "url": "https://www.mediafire.com/file/es6mx5fwbset0f4/com.evermorelabs.polygonsharp-0.9.5.apk/file",
-      "officialLink": "https://discord.polygonsharp.io/",
-      "testKey": "ENHANCER-tn7LoTCt6fzX6TdYgWqDOrO"
+      "version": "0.6.0",
+      "url": "https://polygonx.dl.assets.evermorelabs.io/apk/com.evermorelabs.polygonx-0.6.0.apk",
+      "officialLink": "https://discord.gg/polygonx"
     },
     "aerilate": {
       "version": "0.2.1",
