@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+package tessellate;
+
+message PolygonXHelloAPIRequest {
+  int32 versionNumber = 1;
+  string localizationLocale = 3;
+  int64 localizationTimestamp = 4;
+}
+
+message PolygonXHelloAPIResponse {
+  bool success = 1;
+  GlobalConfigs globalConfigs = 3;
+  LocalizationList localizations = 4;
+  int32 latestVersionNumber = 5;
+  string latestVersionCode = 6;
+  int32 forcedVersionNumber = 7;
+  int64 latestGamemasterAvailable = 8;
+}
+
+message GlobalConfigs {
+  repeated bytes availableQuestTemplates = 1;
+  repeated bytes availableQuestRewards = 2;
+}
+
+message LocalizationList {
+  string locale = 1;
+  int64 localeTimestamp = 2;
+  repeated Localization localizations = 3;
+}
+
+message Localization {
+  string key = 1;
+  string value = 2;
+}

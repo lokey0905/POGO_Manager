@@ -36,15 +36,6 @@
             app:summary="@string/preferences_location_accuracy_Summary" />
 
         <SwitchPreferenceCompat
-            android:key="location_accuracy_switch"
-            android:title="@string/preferences_location_accuracy_switch_Title"
-            android:icon="@drawable/baseline_edit_location_24"
-            app:summary="@string/preferences_location_accuracy_switch_Summary"
-            app:iconSpaceReserved="false"
-            android:persistent="true"
-            android:defaultValue="false" />
-
-        <SwitchPreferenceCompat
             android:key="location_check_A12"
             android:title="@string/preferences_location_check_A12_Title"
             android:icon="@drawable/baseline_not_listed_location_24"
@@ -73,10 +64,26 @@
             app:summary="@string/preferences_disable_auto_update_pok_Summary" />
 
         <SwitchPreferenceCompat
+            android:key="pok_download_on_apkmirror"
+            android:title="@string/preferences_pok_download_on_apkmirror_Title"
+            android:icon="@drawable/ic_baseline_download_24"
+            app:summary="@string/preferences_pok_download_on_apkmirror_Summary"
+            android:persistent="true"
+            android:defaultValue="false" />
+
+        <SwitchPreferenceCompat
             android:key="allow_download_on_non_samsung"
             android:title="@string/preferences_allow_download_on_non_samsung_Title"
             android:icon="@drawable/ic_baseline_download_24"
             app:summary="@string/preferences_allow_download_on_non_samsung_Summary"
+            android:persistent="true"
+            android:defaultValue="false" />
+
+        <SwitchPreferenceCompat
+            android:key="pgtools_testversion"
+            android:title="@string/preferences_pgtools_testversion_Title"
+            android:icon="@drawable/ic_baseline_download_24"
+            app:summary="@string/preferences_pgtools_testversion_Summary"
             android:persistent="true"
             android:defaultValue="false" />
     </PreferenceCategory>
@@ -91,6 +98,14 @@
             android:title="@string/preferences_disable_auto_update_mhn_Title"
             android:icon="@drawable/ic_baseline_sync_disabled_24"
             app:summary="@string/preferences_disable_auto_update_mhn_Summary" />
+
+        <SwitchPreferenceCompat
+            android:key="mhntools_testversion"
+            android:title="@string/preferences_mhntools_testversion_Title"
+            android:icon="@drawable/ic_baseline_download_24"
+            app:summary="@string/preferences_mhntools_testversion_Summary"
+            android:persistent="true"
+            android:defaultValue="false" />
     </PreferenceCategory>
 
     <PreferenceCategory

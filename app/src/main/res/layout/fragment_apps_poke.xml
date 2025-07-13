@@ -94,6 +94,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="@string/appsPokePage_supportVersion_polygon"
+                                android:visibility="gone"
                                 android:textAppearance="?attr/textAppearanceBodyMedium" />
 
                             <TextView
@@ -119,9 +120,9 @@
 
                                 <com.google.android.material.textfield.TextInputLayout
                                     android:id="@+id/textField"
-                                    android:layout_width="wrap_content"
+                                    android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    android:hint="@string/appsPokePage_supportVersion"
+                                    android:hint="@string/appsPokePage_supportVersion_textfield"
                                     style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
 
                                     <AutoCompleteTextView
@@ -129,18 +130,6 @@
                                         android:layout_height="wrap_content"
                                         android:inputType="none"/>
                                 </com.google.android.material.textfield.TextInputLayout>
-
-                                <Space
-                                    android:layout_width="0dp"
-                                    android:layout_height="match_parent"
-                                    android:layout_weight="1" />
-
-                                <com.google.android.material.materialswitch.MaterialSwitch
-                                    android:id="@+id/pokeTestVersion_switch"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="match_parent"
-                                    android:layout_marginStart="4dp"
-                                    android:text="@string/appsPokePage_PGToolsTestVersion"/>
                             </LinearLayout>
                         </LinearLayout>
                     </com.google.android.material.card.MaterialCardView>
@@ -710,7 +699,7 @@
                                 android:layout_width="50dp"
                                 android:layout_height="50dp"
                                 android:importantForAccessibility="no"
-                                app:srcCompat="@drawable/polygon_icon"
+                                app:srcCompat="@drawable/polygonx_icon"
                                 tools:layout_editor_absoluteX="100dp"
                                 tools:layout_editor_absoluteY="100dp" />
 
