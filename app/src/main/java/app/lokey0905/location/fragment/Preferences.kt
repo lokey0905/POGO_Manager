@@ -24,11 +24,12 @@ import androidx.core.net.toUri
 
 class Preferences : PreferenceFragmentCompat() {
     private var allow_download_on_non_arm64: Boolean = false
-    private var location_accuracy_switch: Boolean = false
     private var location_check_A12: Boolean = false
     private var location_accuracy_check: Boolean = false
+    private var pok_download_on_apkmirror: Boolean = false
     private var allow_download_on_non_samsung: Boolean = false
-    private var always_download_apk_from_apk: Boolean = false
+    private var pgtools_testversion: Boolean = false
+    private var mhntools_testversion: Boolean = false
     private var customTabsOff: Boolean = false
 
     private fun gotoBrowser(url: String) {
@@ -70,9 +71,6 @@ class Preferences : PreferenceFragmentCompat() {
         findPreference<Preference>("location_check_A12")?.isEnabled =
             Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
 
-        findPreference<Preference>("always_download_apk_from_apk")?.isEnabled =
-            Build.MANUFACTURER == "samsung"
-
         findPreference<Preference>("allow_download_on_non_arm64")?.isEnabled =
             !Build.SUPPORTED_ABIS.contains("arm64-v8a")
 
@@ -80,18 +78,20 @@ class Preferences : PreferenceFragmentCompat() {
 
         allow_download_on_non_arm64 =
             sharedPreferences.getBoolean("allow_download_on_non_arm64", false)
-        location_accuracy_switch =
-            sharedPreferences.getBoolean("location_accuracy_switch", false)
         location_check_A12 =
             sharedPreferences.getBoolean("location_check_A12", false)
         location_accuracy_check =
             sharedPreferences.getBoolean("location_accuracy_check", false)
         allow_download_on_non_samsung =
             sharedPreferences.getBoolean("allow_download_on_non_samsung", false)
-        always_download_apk_from_apk =
-            sharedPreferences.getBoolean("always_download_apk_from_apk", false)
         customTabsOff =
             sharedPreferences.getBoolean("customTabsOff", false)
+        pok_download_on_apkmirror =
+            sharedPreferences.getBoolean("pok_download_on_apkmirror", false)
+        pgtools_testversion =
+            sharedPreferences.getBoolean("pgtools_testversion", false)
+        mhntools_testversion =
+            sharedPreferences.getBoolean("mhntools_testversion", false)
 
         setFragmentResult(
             "newerCheckMockLocationApi",
@@ -103,10 +103,6 @@ class Preferences : PreferenceFragmentCompat() {
             bundleOf("bundleKey" to allow_download_on_non_samsung)
         )
 
-        setFragmentResult(
-            "pokAresDownloadAPK",
-            bundleOf("bundleKey" to always_download_apk_from_apk)
-        )
     }
 
     override fun onPreferenceTreeClick(preference: Preference): Boolean {
@@ -124,32 +120,14 @@ class Preferences : PreferenceFragmentCompat() {
             }
 
             "location_accuracy" -> {
-                if (location_accuracy_switch) {
-                    // open location settings page
-                    val intent = Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS)
-                    startActivity(intent)
+                val activityIntent = Intent()
+                activityIntent.component =
+                    ComponentName(
+                        getString(R.string.packageName_gms),
+                        getString(R.string.packageName_gmsLocationAccuracy)
+                    )
 
-                } else {
-                    val activityIntent = Intent()
-
-                    activityIntent.component =
-                        ComponentName(
-                            getString(R.string.packageName_gms),
-                            getString(R.string.packageName_gmsLocationAccuracy)
-                        )
-
-                    startActivity(activityIntent)
-                }
-                return true
-            }
-
-            "location_accuracy_switch" -> {
-                location_accuracy_switch =
-                    sharedPreferences.getBoolean("location_accuracy_switch", false)
-                setFragmentResult(
-                    "location_accuracy_switch",
-                    bundleOf("bundleKey" to location_accuracy_switch)
-                )
+                startActivity(activityIntent)
                 return true
             }
 
@@ -163,10 +141,11 @@ class Preferences : PreferenceFragmentCompat() {
             }
 
             "location_accuracy_check" -> {
+                val key = "location_accuracy_check"
                 location_accuracy_check =
-                    sharedPreferences.getBoolean("location_accuracy_check", false)
+                    sharedPreferences.getBoolean(key, false)
                 setFragmentResult(
-                    "location_accuracy_check",
+                    key,
                     bundleOf("bundleKey" to location_accuracy_check)
                 )
                 Snackbar.make(
@@ -205,6 +184,36 @@ class Preferences : PreferenceFragmentCompat() {
                 return true
             }
 
+            "pok_download_on_apkmirror" -> {
+                val key = "pok_download_on_apkmirror"
+                pok_download_on_apkmirror = sharedPreferences.getBoolean(key, false)
+                setFragmentResult(
+                    key,
+                    bundleOf("bundleKey" to pok_download_on_apkmirror)
+                )
+                return true
+            }
+
+            "allow_download_on_non_samsung" -> {
+                allow_download_on_non_samsung =
+                    sharedPreferences.getBoolean("allow_download_on_non_samsung", false)
+                setFragmentResult(
+                    "pokAresNoSupportDevices",
+                    bundleOf("bundleKey" to allow_download_on_non_samsung)
+                )
+                return true
+            }
+
+            "pgtools_testversion" -> {
+                val key = "pgtools_testversion"
+                pgtools_testversion = sharedPreferences.getBoolean(key, false)
+                setFragmentResult(
+                    key,
+                    bundleOf("bundleKey" to pgtools_testversion)
+                )
+                return true
+            }
+
             "disable_auto_update_mhn" -> {
                 MaterialAlertDialogBuilder(requireContext())
                     .setTitle("取消自動更新")
@@ -233,22 +242,12 @@ class Preferences : PreferenceFragmentCompat() {
                 return true
             }
 
-            "allow_download_on_non_samsung" -> {
-                allow_download_on_non_samsung =
-                    sharedPreferences.getBoolean("allow_download_on_non_samsung", false)
+            "mhntools_testversion" -> {
+                val key = "mhntools_testversion"
+                mhntools_testversion = sharedPreferences.getBoolean(key, false)
                 setFragmentResult(
-                    "pokAresNoSupportDevices",
-                    bundleOf("bundleKey" to allow_download_on_non_samsung)
-                )
-                return true
-            }
-
-            "always_download_apk_from_apk" -> {
-                always_download_apk_from_apk =
-                    sharedPreferences.getBoolean("always_download_apk_from_apk", false)
-                setFragmentResult(
-                    "pokAresDownloadAPK",
-                    bundleOf("bundleKey" to always_download_apk_from_apk)
+                    key,
+                    bundleOf("bundleKey" to mhntools_testversion)
                 )
                 return true
             }

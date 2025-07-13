@@ -1,0 +1,48 @@
+syntax = "proto3";
+
+message FileVersion {
+  int32 versionNumber = 1;
+  string fileDigest = 2;
+}
+
+message GamemasterPokemonForm {
+  int32 pokedexId = 1;
+  int32 form = 2;
+}
+
+message Gamemaster {
+  int64 batchId = 1;
+  repeated GamemasterPokemonForm pokemon = 2;
+}
+
+message HelloAPIRequest {
+  string aerilateVersion = 1;
+  int64 aerilateVersionNumber = 2;
+  string pogoVersion = 3;
+  int64 pogoVersionNumber = 4;
+  bool debug = 5;
+  string localizationLocale = 6;
+  int64 localizationTimestamp = 7;
+  int64 gamemasterBatchId = 8;
+}
+
+message HelloAPIResponse {
+  int32 forcedAerilate = 1;
+  FileVersion aerilateUpdate = 2;
+  FileVersion scriptUpdate = 3;
+  LocalizationList localizationUpdate = 4;
+  Gamemaster gamemaster = 5;
+  int32 latestAerilate = 6;
+  int64 latestGamemaster = 7;
+}
+
+message Localization {
+  string key = 1;
+  string value = 2;
+}
+
+message LocalizationList {
+  string locale = 1;
+  repeated Localization localizations = 2;
+  int64 localeTimestamp = 3;
+}

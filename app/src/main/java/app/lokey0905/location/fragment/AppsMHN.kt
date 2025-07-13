@@ -16,6 +16,7 @@ import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.PopupMenu
 import android.widget.Spinner
 import android.widget.TextView
@@ -38,6 +39,7 @@ import java.io.InputStreamReader
 import java.net.HttpURLConnection
 import java.net.URL
 import androidx.core.net.toUri
+import androidx.fragment.app.setFragmentResultListener
 
 class AppsMHN : Fragment() {
     private val gameVersionsMap = mutableMapOf<String, String>()
@@ -62,6 +64,11 @@ class AppsMHN : Fragment() {
 
         setupListeners(view)
 
+        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
+        mhnTestVersion = sharedPreferences.getBoolean("mhntools_testversion", false)
+
+        view.findViewById<MaterialSwitch>(R.id.mhnTestVersion_switch).isChecked = mhnTestVersion
+
         MobileAds.initialize(requireActivity())
         val mAdView = view.findViewById<AdView>(R.id.ad_banner)
         val adRequest = AdRequest.Builder().build()
@@ -74,6 +81,13 @@ class AppsMHN : Fragment() {
     override fun onResume() {
         super.onResume()
         val view: View = requireView()
+
+        setFragmentResultListener("mhntools_testversion") { _, bundle ->
+            mhnTestVersion = bundle.getBoolean("bundleKey")
+            view.findViewById<MaterialSwitch>(R.id.mhnTestVersion_switch).isChecked = mhnTestVersion
+
+            setupAppVersionInfo(view)
+        }
 
         setupAppVersionInfo(view)
     }

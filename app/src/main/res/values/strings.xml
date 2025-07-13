@@ -7,6 +7,7 @@
     <string name="mh_nowAppList">魔物獵人App列表</string>
     <string name="ok">確定</string>
     <string name="copy">複製</string>
+    <string name="error">錯誤</string>
     <string name="cancel">取消</string>
     <string name="home">首頁</string>
     <string name="about">關於</string>
@@ -157,6 +158,7 @@
     <string name="popup_menu_setting">管理</string>
 
     <string name="appsPokePage_supportVersion">支援版本</string>
+    <string name="appsPokePage_supportVersion_textfield">選擇下載版本</string>
     <string name="appsPokePage_supportVersion_pokemon">Pokémon GO可登入最低版本: </string>
     <string name="appsPokePage_supportVersion_polygon">Polygon支援版本: </string>
     <string name="appsPokePage_supportVersion_PGTools">PGTools支援版本: </string>
@@ -171,8 +173,8 @@
     <string name="appsPokePage_GpsAppName">GPS JoyStick【搖桿改定位✅老K刷機】</string>
     <string name="appsPokePage_wrapperTitle">快速尋找火箭隊</string>
     <string name="appsPokePage_wrapperAppName">Data Hub</string>
-    <string name="appsPokePage_PolygonTitle">顯示IV三圍,偵測色違,打火箭隊等功能</string>
-    <string name="appsPokePage_PolygonAppName">Polygon【暴力功】目前須付費使用</string>
+    <string name="appsPokePage_PolygonTitle">自動打道館、火箭隊等功能</string>
+    <string name="appsPokePage_PolygonAppName">PolygonX【暴力功】目前須付費使用</string>
     <string name="appsPokePage_PGToolsTitle">自動捕捉與旋轉補給站等功能</string>
     <string name="appsPokePage_PGToolsAppName">PGTools【自動抓】</string>
     <string name="appsPokePage_PokeListTitle">尋找附近IV100色違與火箭隊的座標</string>
@@ -204,8 +206,14 @@
     <string name="preferences_location_accuracy_check_Summary">開啟APP時, 不再偵測與顯示通知</string>
     <string name="preferences_disable_auto_update_pok_Title">關閉Play 商店自動更新</string>
     <string name="preferences_disable_auto_update_pok_Summary">點擊此處前往關閉</string>
+    <string name="preferences_pok_download_on_apkmirror_Title">從APKMirror下載寶可夢</string>
+    <string name="preferences_pok_download_on_apkmirror_Summary">使用ApkMirror連結下載寶可夢, 而不是使用pgtools連結</string>
     <string name="preferences_allow_download_on_non_samsung_Title">允許下載三星版本寶可夢</string>
     <string name="preferences_allow_download_on_non_samsung_Summary">允許用戶在非三星(Samsung)裝置上下載三星版本寶可夢</string>
+    <string name="preferences_pgtools_testversion_Title">使用pgtools測試版本連結</string>
+    <string name="preferences_pgtools_testversion_Summary">使用pgtools測試版本連結, 可能導致使用不穩定</string>
     <string name="preferences_disable_auto_update_mhn_Title">關閉Play 商店自動更新</string>
     <string name="preferences_disable_auto_update_mhn_Summary">點擊此處前往關閉</string>
+    <string name="preferences_mhntools_testversion_Title">使用mhntools測試版本</string>
+    <string name="preferences_mhntools_testversion_Summary">使用mhntools測試版本連結, 可能導致使用不穩定</string>
 </resources>
