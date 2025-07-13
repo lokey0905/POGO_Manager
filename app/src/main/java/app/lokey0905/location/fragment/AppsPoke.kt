@@ -462,10 +462,20 @@ class AppsPoke : Fragment() {
                         String.format(formatNewerVersion, getString(R.string.error))
                 }
 
-                downloadButton.text = when (result.status) {
-                    app.lokey0905.location.api.PolygonXCheckResult.Status.SUCCESS -> getString(R.string.downloadAgain)
-                    app.lokey0905.location.api.PolygonXCheckResult.Status.UPDATE_REQUIRED -> getString(R.string.update)
-                    app.lokey0905.location.api.PolygonXCheckResult.Status.FAILURE -> getString(R.string.download)
+                if(appInstalledOrNot(getString(R.string.packageName_polygonX))) {
+                    when (result.status) {
+                        app.lokey0905.location.api.PolygonXCheckResult.Status.SUCCESS -> {
+                            downloadButton.text = getString(R.string.downloadAgain)
+                        }
+                        app.lokey0905.location.api.PolygonXCheckResult.Status.UPDATE_REQUIRED -> {
+                            downloadButton.text = getString(R.string.update)
+                        }
+                        app.lokey0905.location.api.PolygonXCheckResult.Status.FAILURE -> {
+                            downloadButton.text = getString(R.string.download)
+                        }
+                    }
+                } else {
+                    downloadButton.text = getString(R.string.download)
                 }
             }
         }
