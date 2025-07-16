@@ -574,7 +574,6 @@ class AppsPoke : Fragment() {
                 pgToolsCheckDone = false
                 appListCheckDone = false
                 getAerilateSupportedVersion()
-                getPolygonXSupportedVersion()
                 getPokemodSupportedVersion()
                 view.findViewById<androidx.swiperefreshlayout.widget.SwipeRefreshLayout>(R.id.swipeRefreshLayout).isRefreshing =
                     false
@@ -890,6 +889,7 @@ class AppsPoke : Fragment() {
 
         checkAppVersion()
         getPokemonMinLoginVersion()
+        getPolygonXSupportedVersion()
         getPGToolsVersion()
         setOnCheckedChangeListener()
     }
@@ -1044,7 +1044,7 @@ class AppsPoke : Fragment() {
                 while (pogoVersions.hasNext()) {
                     val version = pogoVersions.next() as String
                     val pogoData = supportPogoVersions.getJSONObject(version)
-                    val versionNumber: Long = pogoData.getJSONArray("pogoVersionCodes").getLong(1)
+                    val versionNumber: Long = pogoData.getJSONArray("pogoVersionCodes").getLong(0)
                     val arm64Url = pogoData.getString("pogoARM64")
 
                     Log.i(
