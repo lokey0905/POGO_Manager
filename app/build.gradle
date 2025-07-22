@@ -12,7 +12,7 @@ android {
         minSdk 28
         targetSdkVersion compileSdk
         versionCode 3
-        versionName "2.20"
+        versionName "2.21"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         externalNativeBuild {
