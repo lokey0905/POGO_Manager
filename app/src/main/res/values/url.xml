@@ -8,7 +8,7 @@
     <string name="githubApi">https://api.github.com/repos/lokey0905/POGO_Manager/releases/latest</string>
     <string name="github_manual">https://hackmd.io/@lokey0905/B1x_pZAT2</string>
 
-    <string name="url_appInfo">https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/appInfo.json</string>
+    <string name="url_appInfo">https://raw.githubusercontent.com/lokey0905/POGO_Manager_files/refs/heads/main/appInfo.json</string>
     <string name="url_pokeListWeb">https://moonani.com/PokeList/</string>
     <string name="url_PGToolsJson">https://assets.pgtools.net/auto-versions.json</string>
     <string name="url_PGToolsJsonTest">https://assets.pgtools.net/test-auto-versions.json</string>
@@ -52,6 +52,7 @@
     <string name="packageName_gps64">com.thejhijuqoqy.bdujvrwdcajvzin</string>
     <string name="packageName_polygonX">com.evermorelabs.polygonx</string>
     <string name="packageName_PGTools">net.pgtools.auto</string>
+    <string name="packageName_pokemod">com.pokemod.app.public</string>
     <string name="packageName_wrapper">net.pgtools.gps_wrapper</string>
     <string name="packageName_pok">com.nianticlabs.pokemongo</string>
     <string name="packageName_pokAres">com.nianticlabs.pokemongo.ares</string>
