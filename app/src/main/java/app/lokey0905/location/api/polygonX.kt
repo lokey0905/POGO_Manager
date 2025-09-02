@@ -48,9 +48,11 @@ class polygonX {
                 conn.inputStream.close()
                 try {
                     val resp = PolygonXHello.PolygonXHelloAPIResponse.parseFrom(responseBin)
-                    Log.d("PolygonX", "Response for version $polygonXVersionNumber: $resp")
-                    Log.d("PolygonX", "Latest Gamemaster Available: ${resp.latestGamemasterAvailable}")
+                    //Log.d("PolygonX", "Response for version $polygonXVersionNumber: $resp")
+                    Log.d("PolygonX", "Latest Version Number: ${resp.latestVersionNumber}")
+                    Log.d("PolygonX", "Latest Version Code: ${resp.latestVersionCode}")
                     Log.d("PolygonX", "Forced Version Number: ${resp.forcedVersionNumber}")
+                    Log.d("PolygonX", "Latest Gamemaster Available: ${resp.latestGamemasterAvailable}")
 
                     return@withContext if (resp.forcedVersionNumber > polygonXVersionNumber) {
                         PolygonXCheckResult(

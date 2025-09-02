@@ -83,13 +83,6 @@
                                 android:textAppearance="?attr/textAppearanceBodyMedium" />
 
                             <TextView
-                                android:id="@+id/supportVersion_Aerilate"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="@string/appsPokePage_supportVersion_Aerilate"
-                                android:textAppearance="?attr/textAppearanceBodyMedium" />
-
-                            <TextView
                                 android:id="@+id/supportVersion_polygon"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -98,10 +91,17 @@
                                 android:textAppearance="?attr/textAppearanceBodyMedium" />
 
                             <TextView
-                                android:id="@+id/supportVersion_Pokemod"
+                                android:id="@+id/supportVersion_pokemod"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="@string/appsPokePage_supportVersion_Pokemod"
+                                android:textAppearance="?attr/textAppearanceBodyMedium" />
+
+                            <TextView
+                                android:id="@+id/supportVersion_pokemon_min"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@string/appsPokePage_supportVersion_pokemon_min"
                                 android:textAppearance="?attr/textAppearanceBodyMedium" />
 
                             <Space
@@ -592,7 +592,7 @@
                                 android:layout_width="50dp"
                                 android:layout_height="50dp"
                                 android:importantForAccessibility="no"
-                                app:srcCompat="@drawable/aerilate_icon"
+                                app:srcCompat="@drawable/pokemod_icon"
                                 tools:layout_editor_absoluteX="100dp"
                                 tools:layout_editor_absoluteY="100dp" />
 
@@ -607,17 +607,17 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="@string/appsPokePage_AerilateTitle" />
+                                    android:text="@string/appsPokePage_PokemodTitle" />
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="@string/appsPokePage_AerilateAppName" />
+                                    android:text="@string/appsPokePage_PokemodAppName" />
 
                             </LinearLayout>
 
                             <ImageButton
-                                android:id="@+id/Aerilate_more"
+                                android:id="@+id/pokemod_more"
                                 style="?attr/materialIconButtonStyle"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -642,13 +642,13 @@
                                 android:orientation="vertical">
 
                                 <TextView
-                                    android:id="@+id/Aerilate_new_version"
+                                    android:id="@+id/pokemod_new_version"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="@string/format_newerVersion" />
 
                                 <TextView
-                                    android:id="@+id/Aerilate_install_version"
+                                    android:id="@+id/pokemod_install_version"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="@string/format_installVersion" />
@@ -662,7 +662,7 @@
                             android:orientation="horizontal">
 
                             <Button
-                                android:id="@+id/remove_Aerilate"
+                                android:id="@+id/remove_pokemod"
                                 style="@style/Widget.Material3.Button.OutlinedButton"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
@@ -672,7 +672,7 @@
 
                             <Button
                                 android:layout_weight="1"
-                                android:id="@+id/download_Aerilate"
+                                android:id="@+id/download_pokemod"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:text="@string/download" />

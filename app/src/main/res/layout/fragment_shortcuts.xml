@@ -101,6 +101,75 @@
                     </com.google.android.material.card.MaterialCardView>
 
                     <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/developerMode"
+                        android:layout_width="0dp"
+                        android:layout_height="160dp"
+                        android:layout_margin="16dp"
+                        android:layout_columnWeight="1"
+                        android:checkable="true"
+                        android:clickable="true"
+                        android:focusable="true"
+                        app:contentPadding="32dp">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_gravity="center">
+
+                            <ImageView
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:layout_gravity="center"
+                                android:importantForAccessibility="no"
+                                app:srcCompat="@drawable/baseline_developer_mode_24" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:text="@string/shortcuts_developerMode" />
+                        </LinearLayout>
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/location_settings"
+                        android:layout_width="0dp"
+                        android:layout_height="160dp"
+                        android:layout_margin="16dp"
+                        android:layout_columnWeight="1"
+                        android:checkable="true"
+                        android:clickable="true"
+                        android:focusable="true"
+                        app:contentPadding="32dp">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_gravity="center">
+
+                            <ImageView
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:layout_gravity="center"
+                                android:importantForAccessibility="no"
+                                app:srcCompat="@drawable/baseline_settings_24" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:text="@string/shortcuts_locationSettings" />
+                        </LinearLayout>
+
+                    </com.google.android.material.card.MaterialCardView>
+
+
+                    <com.google.android.material.card.MaterialCardView
                         android:id="@+id/LocationAccuracyActivity"
                         android:layout_width="0dp"
                         android:layout_height="160dp"
@@ -130,6 +199,40 @@
                                 android:layout_gravity="center"
                                 android:gravity="center"
                                 android:text="@string/locationAccuracyActivity1" />
+                        </LinearLayout>
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/accountSettings"
+                        android:layout_width="0dp"
+                        android:layout_height="160dp"
+                        android:layout_margin="16dp"
+                        android:layout_columnWeight="1"
+                        android:checkable="true"
+                        android:clickable="true"
+                        android:focusable="true"
+                        app:contentPadding="32dp">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_gravity="center">
+
+                            <ImageView
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:layout_gravity="center"
+                                android:importantForAccessibility="no"
+                                app:srcCompat="@drawable/outline_switch_account_24" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:text="@string/shortcuts_accountSettings" />
                         </LinearLayout>
 
                     </com.google.android.material.card.MaterialCardView>
@@ -198,74 +301,6 @@
                                 android:layout_gravity="center"
                                 android:gravity="center"
                                 android:text="@string/shortcuts_MiuiXSpace" />
-                        </LinearLayout>
-
-                    </com.google.android.material.card.MaterialCardView>
-
-                    <com.google.android.material.card.MaterialCardView
-                        android:id="@+id/location_settings"
-                        android:layout_width="0dp"
-                        android:layout_height="160dp"
-                        android:layout_margin="16dp"
-                        android:layout_columnWeight="1"
-                        android:checkable="true"
-                        android:clickable="true"
-                        android:focusable="true"
-                        app:contentPadding="32dp">
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:layout_gravity="center">
-
-                            <ImageView
-                                android:layout_width="50dp"
-                                android:layout_height="50dp"
-                                android:layout_gravity="center"
-                                android:importantForAccessibility="no"
-                                app:srcCompat="@drawable/baseline_settings_24" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:gravity="center"
-                                android:text="@string/shortcuts_locationSettings" />
-                        </LinearLayout>
-
-                    </com.google.android.material.card.MaterialCardView>
-
-                    <com.google.android.material.card.MaterialCardView
-                        android:id="@+id/developerMode"
-                        android:layout_width="0dp"
-                        android:layout_height="160dp"
-                        android:layout_margin="16dp"
-                        android:layout_columnWeight="1"
-                        android:checkable="true"
-                        android:clickable="true"
-                        android:focusable="true"
-                        app:contentPadding="32dp">
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:layout_gravity="center">
-
-                            <ImageView
-                                android:layout_width="50dp"
-                                android:layout_height="50dp"
-                                android:layout_gravity="center"
-                                android:importantForAccessibility="no"
-                                app:srcCompat="@drawable/baseline_developer_mode_24" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:gravity="center"
-                                android:text="@string/shortcuts_developerMode" />
                         </LinearLayout>
 
                     </com.google.android.material.card.MaterialCardView>
@@ -427,93 +462,6 @@
                     </com.google.android.material.card.MaterialCardView>
 
                     <com.google.android.material.card.MaterialCardView
-                        android:id="@+id/downloadPokeMod"
-                        android:layout_width="0dp"
-                        android:layout_height="160dp"
-                        android:layout_margin="16dp"
-                        android:layout_columnWeight="1"
-                        android:checkable="true"
-                        android:clickable="true"
-                        android:focusable="true"
-                        app:contentPadding="32dp">
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:layout_gravity="center">
-
-                            <ImageView
-                                android:layout_width="50dp"
-                                android:layout_height="50dp"
-                                android:layout_gravity="center"
-                                android:importantForAccessibility="no"
-                                app:srcCompat="@drawable/baseline_mode_standby_24" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:gravity="center"
-                                android:text="@string/shortcuts_pokeMod"/>
-                        </LinearLayout>
-
-                    </com.google.android.material.card.MaterialCardView>
-
-                    <com.google.android.material.card.MaterialCardView
-                        android:id="@+id/pgtoolsFile"
-                        android:layout_width="0dp"
-                        android:layout_height="160dp"
-                        android:layout_margin="16dp"
-                        android:layout_columnWeight="1"
-                        android:checkable="true"
-                        android:clickable="true"
-                        android:focusable="true"
-                        app:contentPadding="32dp">
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:orientation="vertical">
-
-                            <ImageView
-                                android:layout_width="50dp"
-                                android:layout_height="50dp"
-                                android:layout_gravity="center"
-                                android:importantForAccessibility="no"
-                                app:srcCompat="@drawable/baseline_insert_drive_file_24" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:gravity="center"
-                                android:text="@string/shortcuts_PGToolsFile" />
-                        </LinearLayout>
-
-                    </com.google.android.material.card.MaterialCardView>
-
-                </GridLayout>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:textSize="16sp"
-                    android:textColor="?attr/colorPrimary"
-                    android:text="@string/shortcutsTitle_download" />
-
-                <GridLayout
-                    android:id="@+id/gridLayout3"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:columnCount="2"
-                    android:rowCount="2">
-
-                    <com.google.android.material.card.MaterialCardView
                         android:id="@+id/download_gpx1"
                         android:layout_width="0dp"
                         android:layout_height="160dp"
@@ -650,7 +598,7 @@
                     </com.google.android.material.card.MaterialCardView>
 
                     <com.google.android.material.card.MaterialCardView
-                        android:id="@+id/gameGuardian"
+                        android:id="@+id/pgtoolsFile"
                         android:layout_width="0dp"
                         android:layout_height="160dp"
                         android:layout_margin="16dp"
@@ -671,153 +619,39 @@
                                 android:layout_height="50dp"
                                 android:layout_gravity="center"
                                 android:importantForAccessibility="no"
-                                app:srcCompat="@drawable/baseline_games_24" />
+                                app:srcCompat="@drawable/baseline_insert_drive_file_24" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 android:gravity="center"
-                                android:text="@string/shortcuts_gameGuardian" />
+                                android:text="@string/shortcuts_PGToolsFile" />
                         </LinearLayout>
 
                     </com.google.android.material.card.MaterialCardView>
 
-                    <com.google.android.material.card.MaterialCardView
-                        android:id="@+id/PackageDisablerPro"
-                        android:layout_width="0dp"
-                        android:layout_height="160dp"
-                        android:layout_margin="16dp"
-                        android:layout_columnWeight="1"
-                        android:checkable="true"
-                        android:clickable="true"
-                        android:focusable="true"
-                        app:contentPadding="32dp">
 
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:orientation="vertical">
+                </GridLayout>
 
-                            <ImageView
-                                android:layout_width="50dp"
-                                android:layout_height="50dp"
-                                android:layout_gravity="center"
-                                android:importantForAccessibility="no"
-                                app:srcCompat="@drawable/baseline_app_blocking_24" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:textSize="16sp"
+                    android:textColor="?attr/colorPrimary"
+                    android:text="@string/shortcutsTitle_download" />
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:gravity="center"
-                                android:text="@string/shortcuts_packageDisablerPro" />
-                        </LinearLayout>
+                <GridLayout
+                    android:id="@+id/gridLayout3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:columnCount="2"
+                    android:rowCount="2">
 
-                    </com.google.android.material.card.MaterialCardView>
 
-                    <com.google.android.material.card.MaterialCardView
-                        android:id="@+id/AFWall"
-                        android:layout_width="0dp"
-                        android:layout_height="160dp"
-                        android:layout_margin="16dp"
-                        android:layout_columnWeight="1"
-                        android:checkable="true"
-                        android:clickable="true"
-                        android:focusable="true"
-                        app:contentPadding="32dp">
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:layout_gravity="center">
-
-                            <ImageView
-                                android:layout_width="50dp"
-                                android:layout_height="50dp"
-                                android:layout_gravity="center"
-                                android:importantForAccessibility="no"
-                                app:srcCompat="@drawable/baseline_shield_24" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:gravity="center"
-                                android:text="@string/shortcuts_AfWall" />
-                        </LinearLayout>
-
-                    </com.google.android.material.card.MaterialCardView>
-
-                    <com.google.android.material.card.MaterialCardView
-                        android:id="@+id/downloadSplitScreen"
-                        android:layout_width="0dp"
-                        android:layout_height="160dp"
-                        android:layout_margin="16dp"
-                        android:layout_columnWeight="1"
-                        android:checkable="true"
-                        android:clickable="true"
-                        android:focusable="true"
-                        app:contentPadding="32dp">
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:layout_gravity="center">
-
-                            <ImageView
-                                android:layout_width="50dp"
-                                android:layout_height="50dp"
-                                android:layout_gravity="center"
-                                android:importantForAccessibility="no"
-                                app:srcCompat="@drawable/baseline_splitscreen_24" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:gravity="center"
-                                android:text="@string/shortcuts_splitScreen"/>
-                        </LinearLayout>
-
-                    </com.google.android.material.card.MaterialCardView>
-
-                    <com.google.android.material.card.MaterialCardView
-                        android:id="@+id/downloadIsland"
-                        android:layout_width="0dp"
-                        android:layout_height="160dp"
-                        android:layout_margin="16dp"
-                        android:layout_columnWeight="1"
-                        android:checkable="true"
-                        android:clickable="true"
-                        android:focusable="true"
-                        app:contentPadding="32dp">
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:layout_gravity="center">
-
-                            <ImageView
-                                android:layout_width="50dp"
-                                android:layout_height="50dp"
-                                android:layout_gravity="center"
-                                android:importantForAccessibility="no"
-                                app:srcCompat="@drawable/baseline_apps_24" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:gravity="center"
-                                android:text="@string/shortcuts_island" />
-                        </LinearLayout>
-
-                    </com.google.android.material.card.MaterialCardView>
                 </GridLayout>
             </TableLayout>
         </androidx.core.widget.NestedScrollView>
