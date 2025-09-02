@@ -1,18 +1,20 @@
 package app.lokey0905.location.fragment
 
 import android.app.PendingIntent
-import android.appwidget.AppWidgetManager
+import android.appwidget.AppWidgetManager // don't touch this line, it's needed for widget
 import android.content.ComponentName
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.pm.ShortcutInfo
 import android.content.pm.ShortcutManager
 import android.content.res.Configuration
 import android.graphics.drawable.Icon
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
+import android.util.Log
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -29,11 +31,19 @@ import com.google.android.material.card.MaterialCardView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import androidx.core.net.toUri
-
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import org.json.JSONObject
+import java.io.BufferedReader
+import java.io.InputStreamReader
+import java.net.HttpURLConnection
+import java.net.URL
 
 class ShortCuts: Fragment() {
     private var mRewardedAd: RewardedAd? = null
 
+    private var downloadData: JSONObject? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
@@ -291,6 +301,21 @@ class ShortCuts: Fragment() {
                 }
                 true
             }
+
+            view.findViewById<MaterialCardView>(R.id.accountSettings)?.setOnClickListener {
+                val intent = Intent(Settings.ACTION_SYNC_SETTINGS)
+                startActivity(intent)
+            }
+
+            view.findViewById<MaterialCardView>(R.id.accountSettings)?.setOnLongClickListener {
+                createShortcut(
+                    "accountSettings",
+                    getString(R.string.shortcuts_accountSettings),
+                    R.drawable.outline_switch_account_24,
+                    intent = Intent(Settings.ACTION_SYNC_SETTINGS)
+                )
+                true
+            }
         }
 
         fun setDownloadButton() {
@@ -313,60 +338,6 @@ class ShortCuts: Fragment() {
             view.findViewById<MaterialCardView>(R.id.pgtoolsFile)?.setOnClickListener {
                 downloadAPPWithCheck(getString(R.string.url_PGToolsFile))
             }
-
-            view.findViewById<MaterialCardView>(R.id.PackageDisablerPro)?.setOnClickListener {
-                downloadAPPWithCheck(resources.getString(R.string.url_PackageDisablerPro))
-            }
-
-            view.findViewById<MaterialCardView>(R.id.AFWall)?.setOnClickListener {
-                MaterialAlertDialogBuilder(requireContext())
-                    .setTitle(resources.getString(R.string.dialogDownloadTitle))
-                    .setMessage(resources.getString(R.string.dialogDownloadOfficialMessage))
-                    .setNeutralButton(R.string.cancel) { _, _ -> }
-                    .setNegativeButton(getString(R.string.downloadAPK)) { _, _ ->
-                        downloadAPPWithCheck(resources.getString(R.string.url_AFWall_unofficial))
-                    }
-                    .setPositiveButton(getString(R.string.downloadOnGooglePlay)) { _, _ ->
-                        downloadAPPWithCheck(resources.getString(R.string.url_AFWall_official))
-                    }
-                    .show()
-            }
-
-            view.findViewById<MaterialCardView>(R.id.gameGuardian)?.setOnClickListener {
-                downloadAPPWithCheck(resources.getString(R.string.url_gameGuardian))
-            }
-
-            view.findViewById<MaterialCardView>(R.id.downloadSplitScreen)?.setOnClickListener {
-                MaterialAlertDialogBuilder(requireContext())
-                    .setTitle(resources.getString(R.string.dialogDownloadTitle))
-                    .setMessage(resources.getString(R.string.dialogDownloadOfficialMessage))
-                    .setNeutralButton(R.string.cancel) { _, _ -> }
-                    .setNegativeButton(getString(R.string.downloadAPK)) { _, _ ->
-                        downloadAPPWithCheck(resources.getString(R.string.url_split_unofficial))
-                    }
-                    .setPositiveButton(getString(R.string.downloadOnGooglePlay)) { _, _ ->
-                        downloadAPPWithCheck(resources.getString(R.string.url_split_official))
-                    }
-                    .show()
-            }
-
-            view.findViewById<MaterialCardView>(R.id.downloadIsland)?.setOnClickListener {
-                MaterialAlertDialogBuilder(requireContext())
-                    .setTitle(resources.getString(R.string.dialogDownloadTitle))
-                    .setMessage(resources.getString(R.string.dialogDownloadOfficialMessage))
-                    .setNeutralButton(R.string.cancel) { _, _ -> }
-                    .setNegativeButton(getString(R.string.downloadAPK)) { _, _ ->
-                        downloadAPPWithCheck(resources.getString(R.string.url_island_unofficial))
-                    }
-                    .setPositiveButton(getString(R.string.downloadOnGooglePlay)) { _, _ ->
-                        downloadAPPWithCheck(resources.getString(R.string.url_island_official))
-                    }
-                    .show()
-            }
-
-            view.findViewById<MaterialCardView>(R.id.downloadPokeMod)?.setOnClickListener {
-                downloadAPPWithCheck(getString(R.string.url_pokeMod))
-            }
         }
 
         setButton()
@@ -374,6 +345,14 @@ class ShortCuts: Fragment() {
         // Inflate the layout for this fragment
         return view
     }
+
+    // 新增資料類別
+    data class DownloadItem(
+        val key: String,
+        val title: String,
+        val url: String,
+        val isIntent: Boolean
+    )
 
     override fun onStart() {
         super.onStart()
@@ -391,11 +370,109 @@ class ShortCuts: Fragment() {
             gridLayout2?.columnCount = 2
             gridLayout3?.columnCount = 2
         }
+
+        extractFilsUrlFromJson(getString(R.string.url_files)) { items ->
+            gridLayout3?.removeAllViews()
+            items.forEach { item ->
+                val card = MaterialCardView(requireContext()).apply {
+                    layoutParams = GridLayout.LayoutParams().apply {
+                        width = 0
+                        height = (160 * resources.displayMetrics.density).toInt()
+                        columnSpec = GridLayout.spec(GridLayout.UNDEFINED, 1f)
+                        setMargins(
+                            (16 * resources.displayMetrics.density).toInt(),
+                            (16 * resources.displayMetrics.density).toInt(),
+                            (16 * resources.displayMetrics.density).toInt(),
+                            (16 * resources.displayMetrics.density).toInt()
+                        )
+                    }
+                    isClickable = true
+                    isFocusable = true
+                    isCheckable = true
+                    setPadding(
+                        (32 * resources.displayMetrics.density).toInt(),
+                        (32 * resources.displayMetrics.density).toInt(),
+                        (32 * resources.displayMetrics.density).toInt(),
+                        (32 * resources.displayMetrics.density).toInt()
+                    )
+                    setOnClickListener {
+                        if (item.isIntent) {
+                            try {
+                                val intent = Intent.parseUri(item.url, Intent.URI_INTENT_SCHEME)
+                                startActivity(intent)
+                            } catch (e: Exception) {
+                                Toast.makeText(context, "無法啟動應用程式", Toast.LENGTH_SHORT).show()
+                                e.printStackTrace()
+                            }
+                        } else {
+                            downloadAPPWithCheck(item.url)
+                        }
+                    }
+                }
+
+                val textView = android.widget.TextView(requireContext()).apply {
+                    text = item.title
+                    gravity = android.view.Gravity.CENTER
+                    setTextSize(TypedValue.COMPLEX_UNIT_SP, 16f) // 使用 sp 單位，支援螢幕縮放
+                    layoutParams = ViewGroup.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT,
+                        ViewGroup.LayoutParams.MATCH_PARENT
+                    )
+                }
+
+                card.addView(textView)
+                gridLayout3?.addView(card)
+            }
+        }
+    }
+
+
+    private fun extractFilsUrlFromJson(url: String, onItemsReady: (List<DownloadItem>) -> Unit) {
+        lifecycleScope.launch(Dispatchers.IO) {
+            val items = mutableListOf<DownloadItem>()
+            try {
+                val urlObject = URL(url)
+                val connection: HttpURLConnection = urlObject.openConnection() as HttpURLConnection
+                connection.requestMethod = "GET"
+                val inputStream = connection.inputStream
+                val bufferedReader = BufferedReader(InputStreamReader(inputStream))
+                val response = StringBuilder()
+                var line: String? = bufferedReader.readLine()
+                while (line != null) {
+                    response.append(line)
+                    line = bufferedReader.readLine()
+                }
+                bufferedReader.close()
+                connection.disconnect()
+                val jsonObject = JSONObject(response.toString())
+                Log.d("JSON", jsonObject.toString())
+                jsonObject.keys().forEach { key ->
+                    val obj = jsonObject.getJSONObject(key)
+                    items.add(
+                        DownloadItem(
+                            key,
+                            obj.optString("title", key),
+                            obj.optString("url", ""),
+                            obj.optBoolean("isIntent", false)
+                        )
+                    )
+                }
+                // 切換到主線程調用回調函數
+                launch(Dispatchers.Main) {
+                    onItemsReady(items)
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+                // 即使出錯也要調用回調，防止UI阻塞
+                launch(Dispatchers.Main) {
+                    onItemsReady(emptyList())
+                }
+            }
+        }
     }
 
     private fun createWidget() {
-        val appWidgetManager = requireContext().getSystemService(AppWidgetManager::class.java)
-
+        val appWidgetManager = requireContext().getSystemService(Context.APPWIDGET_SERVICE) as AppWidgetManager
         val myProvider = ComponentName(requireContext(), LocationAccuracyActivity::class.java)
         if (appWidgetManager.isRequestPinAppWidgetSupported) {
             val pinnedWidgetCallbackIntent = Intent()

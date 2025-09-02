@@ -29,7 +29,7 @@
     <string name="location">定位</string>
     <string name="locationError">無法偵測目前位置</string>
     <string name="notChecked">未檢查</string>
-    <string name="nearbySharing">鄰近分享</string>
+    <string name="nearbySharing">快速分享(鄰近分享)</string>
     <string name="networkError">網路可能錯誤 請稍後在試</string>
     <string name="shareManager">分享管理器</string>
     <string name="cancelOperation">取消操作</string>
@@ -81,19 +81,16 @@
     <string name="shortcuts_MiuiXSpace">MIUI/Hyper OS應用雙開</string>
     <string name="shortcuts_locationSettings">定位設定</string>
     <string name="shortcuts_developerMode">開發者選項</string>
+    <string name="shortcuts_accountSettings">登入帳號設定</string>
     <string name="shortcuts_coolDownCalculator">位置冷卻計算機</string>
     <string name="shortcuts_PGToolsFile">PGTools設定檔(贊助版本)</string>
     <string name="shortcuts_PGToolsRaids">PGTools雷達</string>
-    <string name="shortcuts_splitScreen">split screen 分割畫面app</string>
     <string name="shortcuts_island">island 創建雙開環境</string>
     <string name="shortcuts_pokeMod">下載PokeMod</string>
     <string name="shortcuts_gpx1">下載GPX路徑檔1(中文)</string>
     <string name="shortcuts_gpx2">下載GPX路徑檔2(英文)</string>
     <string name="shortcuts_gpx3">下載GPX路徑檔3(英文)</string>
     <string name="shortcuts_gpx4">下載GPX路徑檔4(英文)</string>
-    <string name="shortcuts_gameGuardian">下載GG修改器</string>
-    <string name="shortcuts_packageDisablerPro">Package Disabler Pro</string>
-    <string name="shortcuts_AfWall">AFWall+ 防火牆</string>
     <string name="shortcuts_pokeInfo">報寶貝 雷達</string>
     <string name="shortcuts_pokeInfoMessage">報寶貝若顯示黑影 請重新整理網頁30次後即會恢復正常</string>
     <string name="shortcuts_pokeListWeb">PokeList雷達</string>
@@ -140,8 +137,8 @@
     <string name="androidAbi">系統架構:</string>
     <string name="androidRamSize">記憶體大小:</string>
     <string name="androidARM64Supper">軟體支援:</string>
-    <string name="androidARM64SupperTrue">✅完整支援艾略特&amp;PGTools\n✅完整支援魔物獵人</string>
-    <string name="androidARM64SupperFalse">❌不支援艾略特&amp;PGTools\n❌不支援魔物獵人</string>
+    <string name="androidARM64SupperTrue">✅完整支援Pokemod&amp;PGTools\n✅完整支援魔物獵人</string>
+    <string name="androidARM64SupperFalse">❌不支援Pokemod&amp;PGTools\n❌不支援魔物獵人</string>
 
     <string name="appsMHNPage_supportVersion_MHNTools">MHNTools支援版本: </string>
     <string name="appsMHNPage_MHNTitle">原版魔物獵人客戶端</string>
@@ -159,11 +156,11 @@
 
     <string name="appsPokePage_supportVersion">支援版本</string>
     <string name="appsPokePage_supportVersion_textfield">選擇下載版本</string>
-    <string name="appsPokePage_supportVersion_pokemon">Pokémon GO可登入最低版本: </string>
-    <string name="appsPokePage_supportVersion_polygon">Polygon支援版本: </string>
-    <string name="appsPokePage_supportVersion_PGTools">PGTools支援版本: </string>
-    <string name="appsPokePage_supportVersion_Aerilate">Aerilate支援版本: </string>
-    <string name="appsPokePage_supportVersion_Pokemod">Pokemod支援版本: </string>
+    <string name="appsPokePage_supportVersion_pokemon">Pokémon GO 版本: </string>
+    <string name="appsPokePage_supportVersion_pokemon_min">Pokémon 最低版本: </string>
+    <string name="appsPokePage_supportVersion_polygon">Polygon 支援版本: </string>
+    <string name="appsPokePage_supportVersion_PGTools">PGTools 支援版本: </string>
+    <string name="appsPokePage_supportVersion_Pokemod">Pokemod 支援版本: </string>
     <string name="appsPokePage_PGToolsTestVersion">PGTools測試版</string>
     <string name="appsPokePage_PokeTitle">原版寶可夢客戶端</string>
     <string name="appsPokePage_PokeAppName">Pokémon GO【寶可夢】</string>
@@ -179,17 +176,17 @@
     <string name="appsPokePage_PGToolsAppName">PGTools【自動抓】</string>
     <string name="appsPokePage_PokeListTitle">尋找附近IV100色違與火箭隊的座標</string>
     <string name="appsPokePage_PokeListAppName">PokeList【中文版】</string>
+    <string name="appsPokePage_PokemodTitle">寶可夢輔助軟體</string>
+    <string name="appsPokePage_PokemodAppName">Pokemod</string>
     <string name="appsPokePage_WeCatchTitle">寶可夢雷達</string>
     <string name="appsPokePage_WeCatchAppName">WeCatch</string>
-    <string name="appsPokePage_AerilateTitle">改良新版暴力功</string>
-    <string name="appsPokePage_AerilateAppName">Aerilate【艾略特中文版】</string>
     <string name="appsPokePage_galaxyStoreTitle">寶可夢三星雙開版本必要軟體</string>
     <string name="appsPokePage_galaxyStoreAppName">三星應用商店</string>
     <string name="appsPokePage_APKMirrorInstallerTitle">APKMirror apkm安裝器</string>
     <string name="appsPokePage_APKMirrorInstallerAppName">APKMirror Installer</string>
 
     <string name="preferences_downloadSettings_Title">下載設定</string>
-    <string name="preferences_locationSettings_Title">定位設定</string>
+    <string name="preferences_locationSettings_Title">位置設定</string>
     <string name="preferences_pokeSettings_Title">Pokémon GO【寶可夢】相關設定</string>
     <string name="preferences_mhnSettings_Title">MH Now【魔物獵人】相關設定</string>
     <string name="preferences_customTabsOff_Title">在瀏覽器中開啟網頁</string>

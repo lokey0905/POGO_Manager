@@ -9,6 +9,7 @@
     <string name="github_manual">https://hackmd.io/@lokey0905/B1x_pZAT2</string>
 
     <string name="url_appInfo">https://raw.githubusercontent.com/lokey0905/POGO_Manager_files/refs/heads/main/appInfo.json</string>
+    <string name="url_files">https://raw.githubusercontent.com/lokey0905/POGO_Manager_files/refs/heads/main/files.json</string>
     <string name="url_pokeListWeb">https://moonani.com/PokeList/</string>
     <string name="url_PGToolsJson">https://assets.pgtools.net/auto-versions.json</string>
     <string name="url_PGToolsJsonTest">https://assets.pgtools.net/test-auto-versions.json</string>
@@ -32,18 +33,10 @@
     <string name="url_gpx3">https://drive.google.com/drive/folders/1XIPcu0tIRT4CbWFtkYaEcjY8hH33u_M2</string>
     <string name="url_gpx4">https://drive.google.com/drive/folders/1X0F0uBUTA8HDhY7uBukMLDPzdJi53-FO</string>
     <string name="url_coolDownCalculator">https://cool.android.ovh/</string>
-    <string name="url_island_official">https://play.google.com/store/apps/details?id=com.oasisfeng.island</string>
-    <string name="url_island_unofficial">https://d.cdnpure.com/b/APK/com.oasisfeng.island?version=latest</string>
-    <string name="url_split_official">https://play.google.com/store/apps/details?id=com.github.ericytsang.multiwindow.app.android</string>
-    <string name="url_split_unofficial">https://www.mediafire.com/file/ufyvz2dm6inulxj/com.github.ericytsang.multiwindow.app.android.apk/file</string>
-    <string name="url_PackageDisablerPro">https://apkcombo.com/tw/package-disabler-pro-all-android/com.ospolice.packagedisablerpro/download/apk</string>
-    <string name="url_AFWall_official">https://play.google.com/store/apps/details?id=dev.ukanth.ufirewall</string>
-    <string name="url_AFWall_unofficial">https://github.com/ukanth/afwall/releases/download/v3.6.0/AFWall_3.6.0_Free.apk</string>
     <string name="url_playintegritychecker_official">https://play.google.com/store/apps/details?id=com.henrikherzig.playintegritychecker</string>
     <string name="url_playintegritychecker_unofficial">https://github.com/herzhenr/spic-android/releases/latest</string>
     <string name="url_integritycheck">https://play.google.com/store/apps/details?id=gr.nikolasspyr.integritycheck</string>
     <string name="url_appListDetector">https://github.com/byxiaorun/Ruru/releases/latest</string>
-    <string name="url_gameGuardian">https://gameguardian.net/forum/files/file/2-gameguardian/</string>
 
     <!-->package name list<-->
     <string name="packageName_gms">com.google.android.gms</string>
