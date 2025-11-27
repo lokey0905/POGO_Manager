@@ -170,7 +170,7 @@ class ShortCuts: Fragment() {
                 } else {
                     activityIntent.component = ComponentName(
                         "com.google.android.gms",
-                        "com.google.android.gms.nearby.sharing.settings.SettingsActivity"
+                        "com.google.android.gms.nearby.sharing.main.MainActivity"
                     )
                 }
 
@@ -191,7 +191,7 @@ class ShortCuts: Fragment() {
                         } else {
                             ComponentName(
                                 "com.google.android.gms",
-                                "com.google.android.gms.nearby.sharing.settings.SettingsActivity"
+                                "com.google.android.gms.nearby.sharing.main.MainActivity"
                             )
                         }
                     )
