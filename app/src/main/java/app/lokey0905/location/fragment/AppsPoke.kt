@@ -1040,7 +1040,7 @@ class AppsPoke : Fragment() {
                 val jsonObject = JSONObject(response.toString())
 
                 val choosePogoVersion = jsonObject.getString("pogoVersion")
-                val pgToolsVersion = jsonObject.getString("appName")
+                pgToolsVersion = jsonObject.getString("appName")
                 pgToolsUrl = if (pgToolsTestVersion)
                     "https://assets.pgtools.net/test-pgtools-${pgToolsVersion}.apk"
                 else
