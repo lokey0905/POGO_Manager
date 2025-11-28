@@ -13,8 +13,8 @@
     <string name="url_pokeListWeb">https://moonani.com/PokeList/</string>
     <string name="url_PGToolsJson">https://assets.pgtools.net/auto-versions.json</string>
     <string name="url_PGToolsJsonTest">https://assets.pgtools.net/test-auto-versions.json</string>
-    <string name="url_mhnJson">https://assets.mhntools.net/versions.json</string>
-    <string name="url_mhnJsonTest">https://assets.mhntools.net/test-versions.json</string>
+    <string name="url_mhnJson">https://assets.mhntools.net/versions-v2.json</string>
+    <string name="url_mhnJsonTest">https://assets.mhntools.net/test-versions-v2.json</string>
     <string name="url_PokemodAPI">https://discovery.pokemod.dev/hal/modules/getAgentHash?game_version=%1$s</string>
     <string name="url_PokemonCheckVersionAPI">https://pgorelease.nianticlabs.com/plfe/version</string>
     <string name="url_MHNowCheckVersionAPI">https://magellan-rel.nianticlabs.com/server-info/GET_CLIENT_VERSIONS</string>

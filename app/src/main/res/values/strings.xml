@@ -213,4 +213,6 @@
     <string name="preferences_disable_auto_update_mhn_Summary">點擊此處前往關閉</string>
     <string name="preferences_mhntools_testversion_Title">使用mhntools測試版本</string>
     <string name="preferences_mhntools_testversion_Summary">使用mhntools測試版本連結, 可能導致使用不穩定</string>
+    <string name="preferences_mhn_download_on_apkmirror_Title">從APKMirror下載魔物獵人</string>
+    <string name="preferences_mhn_download_on_apkmirror_Summary">使用ApkMirror連結下載魔物獵人, 而不是使用mhntools連結</string>
 </resources>
