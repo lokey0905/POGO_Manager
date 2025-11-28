@@ -17,6 +17,11 @@ class ApkPure {
         return getVersionHistory("com.nianticlabs.pokemongo")
     }
 
+    fun getAPKMirrorInstallerLatestVersion(): String {
+        val versions = getVersionHistory("com.apkmirror.helper.prod")
+        return versions.firstOrNull()?.versionName ?: ""
+    }
+
     fun getVersionHistory(packageName: String): List<ApkPureVersion> {
         val versionList = mutableListOf<ApkPureVersion>()
 
