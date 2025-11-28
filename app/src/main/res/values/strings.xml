@@ -102,12 +102,12 @@
     <string name="locationAccuracyActivity2">開關捷徑</string>
 
     <string name="format_installApps">發現 %1$d 個APP可更新</string>
-    <string name="format_newerVersion">支援版本:%1$s</string>
-    <string name="format_newerVersion_other">支援版本:%1$s %2$s</string>
-    <string name="format_installVersion">安裝版本:%1$s</string>
-    <string name="format_installVersion_other">安裝版本:%1$s %2$s</string>
-    <string name="format_newerVersion_Gps32">支援版本:已修改無廣告版本</string>
-    <string name="format_newerVersion_Gps64">支援版本:已修改無廣告版本(64位元)</string>
+    <string name="format_newerVersion">支援版本: %1$s</string>
+    <string name="format_newerVersion_other">支援版本: %1$s %2$s</string>
+    <string name="format_installVersion">安裝版本: %1$s</string>
+    <string name="format_installVersion_other">安裝版本: %1$s %2$s</string>
+    <string name="format_newerVersion_Gps32">支援版本: 已修改無廣告版本</string>
+    <string name="format_newerVersion_Gps64">支援版本: 已修改無廣告版本(64位元)</string>
 
     <string name="dialogDownloadTitle">即將開始下載</string>
     <string name="dialogDownloadMessage">請點擊網頁的【Download】或【Download APK】或是【下載】按鈕以下載APK</string>
@@ -118,17 +118,13 @@
     <string name="dialogUpdateAvailableManagerMessage">建議更新至最新版本以取得最好的體驗，是否要更新管理器?</string>
     <string name="dialogUpdateAvailablePokMessage">建議更新至最新版本以取得最好的體驗，請手動點擊【更新】按鈕更新APP</string>
     <string name="dialogIsLatestVersion">已經是最新版本</string>
-    <string name="dialogAboutInfo">相關檔案皆為網路搜尋取得,檔案不歸我擁有,Pokemon,MHNOW與本項目無關</string>
+    <string name="dialogAboutInfo">免責聲明：\n本應用程式所提供的相關檔案皆從網路公開資源搜尋取得，檔案版權不歸本項目所有。\n\nPokémon GO、Monster Hunter NOW 及其相關商標為各自版權所有者之財產，與本項目無任何隸屬或授權關係。\n\n本應用僅作為檔案管理工具使用，使用者須自行承擔使用風險。</string>
     <string name="dialogAboutMaker">軟體作者:lokey0905 \n圖示作者:梧銳#4486</string>
     <string name="dialogAdNotReadyTitle">發生一些錯誤</string>
     <string name="dialogAdNotReadyMessage">您的操作過快 或是網路不穩 請過5秒後在試</string>
     <string name="dialogCheckLocationAccuracyTitle">偵測到精確定位模式</string>
     <string name="dialogCheckLocationAccuracyMessage">偵測到精確定位，建議前往關閉設定防止模擬定位跳轉，是否前往關閉?\n\n若已關閉定位精確度可以忽略此則訊息</string>
     <string name="dialogDownloadOfficialMessage">請選擇下載方式 在play商店下載或直接下載APK</string>
-    <string name="dialogGetKeyTitle">取得暴力功金鑰</string>
-    <string name="dialogGetKeyMessage">本項目為實驗性內容 金鑰可能與其他人重複\n點擊確定嘗試獲取暴力功金鑰</string>
-    <string name="dialogGetKeyADDone">已取得 請返回APP內複製暴力功金鑰欄\n本項目為實驗性內容 金鑰可能與其他人重複</string>
-    <string name="dialogGetKeyDone">已取得 請複製並貼上至暴力功金鑰欄內\n本項目為實驗性內容 金鑰可能與其他人重複</string>
     <string name="dialogInstallSamsungStoreTitle">尚未安裝三星應用商店</string>
     <string name="dialogInstallSamsungStoreMessage">檢測到設備尚未安裝三星應用商店，若無安裝可能導致部分功能無法正常運作，是否前往下載安裝?</string>
 
