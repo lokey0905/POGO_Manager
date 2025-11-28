@@ -48,6 +48,7 @@ import java.text.DecimalFormat
 import java.util.Locale
 import kotlin.math.roundToInt
 import androidx.core.net.toUri
+import com.google.android.material.appbar.SubtitleCollapsingToolbarLayout
 
 class Home : Fragment() {
     private lateinit var fusedLocationClient: FusedLocationProviderClient
@@ -67,6 +68,12 @@ class Home : Fragment() {
         val checkLocationButton = view.findViewById<Button>(R.id.check_location)
         val checkInformationLayout = view.findViewById<LinearLayout>(R.id.check_information)
         val checkRootText = view.findViewById<TextView>(R.id.check_root)
+
+        val toolbar_layout =
+            view.findViewById<SubtitleCollapsingToolbarLayout>(R.id.toolbar_layout)
+
+        toolbar_layout.title = getString(R.string.app_name_short) + " v" + BuildConfig.VERSION_NAME
+
 
         val toolbar =
             view.findViewById<com.google.android.material.appbar.MaterialToolbar>(R.id.toolbar)
