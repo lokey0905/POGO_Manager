@@ -182,6 +182,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun replaceFragment(fragment: Fragment, targetIndex: Int) {
+        supportFragmentManager.executePendingTransactions()
+
         val (enterAnim, exitAnim) = if (targetIndex > currentNavIndex) {
             R.anim.fragment_slide_in_right to R.anim.fragment_slide_out_left
         } else {
@@ -199,7 +201,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
             show(fragment)
-        }.commit()
+        }.commitNow()
         currentNavIndex = targetIndex
     }
 
