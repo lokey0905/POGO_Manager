@@ -57,7 +57,13 @@ class MainActivity : AppCompatActivity() {
     private var appsMhn: AppsMHN = AppsMHN()
     private var shortcuts: ShortCuts = ShortCuts()
     private var preferenceFragmentCompat: Preferences = Preferences()
-
+    private val navigationOrder = listOf(
+        R.id.nav_mhn,
+        R.id.nav_home,
+        R.id.nav_shortcuts,
+        R.id.nav_setting
+    )
+    private var currentNavIndex = 0
 
     var bServiceBound = false
 
@@ -175,8 +181,17 @@ class MainActivity : AppCompatActivity() {
             .show()
     }
 
-    private fun replaceFragment(fragment: Fragment) {
+    private fun replaceFragment(fragment: Fragment, targetIndex: Int) {
+        supportFragmentManager.executePendingTransactions()
+
+        val (enterAnim, exitAnim) = if (targetIndex > currentNavIndex) {
+            R.anim.fragment_slide_in_right to R.anim.fragment_slide_out_left
+        } else {
+            R.anim.fragment_slide_in_left to R.anim.fragment_slide_out_right
+        }
+
         supportFragmentManager.beginTransaction().apply {
+            setCustomAnimations(enterAnim, exitAnim)
             if (!fragment.isAdded) {
                 add(R.id.fragment_container_view, fragment)
             }
@@ -186,7 +201,8 @@ class MainActivity : AppCompatActivity() {
                 }
             }
             show(fragment)
-        }.commit()
+        }.commitNow()
+        currentNavIndex = targetIndex
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -203,29 +219,33 @@ class MainActivity : AppCompatActivity() {
         fragmentContainerView.removeAllViewsInLayout()
 
         findViewById<BottomNavigationView>(R.id.navigation).setOnItemSelectedListener { item ->
+            val targetIndex = when (item.itemId) {
+                R.id.nav_poke -> -1
+                else -> navigationOrder.indexOf(item.itemId)
+            }
             when (item.itemId) {
-                R.id.nav_home -> {
-                    replaceFragment(home)
-                    return@setOnItemSelectedListener true
-                }
-
                 R.id.nav_poke -> {
-                    replaceFragment(appsPoke)
+                    replaceFragment(appsPoke, -1)
                     return@setOnItemSelectedListener true
                 }
 
                 R.id.nav_mhn -> {
-                    replaceFragment(appsMhn)
+                    replaceFragment(appsMhn, targetIndex)
+                    return@setOnItemSelectedListener true
+                }
+
+                R.id.nav_home -> {
+                    replaceFragment(home, targetIndex)
                     return@setOnItemSelectedListener true
                 }
 
                 R.id.nav_shortcuts -> {
-                    replaceFragment(shortcuts)
+                    replaceFragment(shortcuts, targetIndex)
                     return@setOnItemSelectedListener true
                 }
 
                 R.id.nav_setting -> {
-                    replaceFragment(preferenceFragmentCompat)
+                    replaceFragment(preferenceFragmentCompat, targetIndex)
                     return@setOnItemSelectedListener true
                 }
             }

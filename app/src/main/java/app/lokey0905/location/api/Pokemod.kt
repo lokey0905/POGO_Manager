@@ -1,5 +1,6 @@
 package app.lokey0905.location.api
 
+import android.util.Log
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.net.HttpURLConnection
@@ -27,6 +28,76 @@ class Pokemod {
             } catch (e: Exception) {
                 e.printStackTrace()
                 false
+            }
+        }
+    }
+
+    suspend fun getPokemodVersion(url: String): String {
+        return withContext(Dispatchers.IO) {
+            try {
+                var currentUrl = url
+                var redirectCount = 0
+                val maxRedirects = 5
+
+                // 手動處理重定向
+                while (redirectCount < maxRedirects) {
+                    val urlObject = URL(currentUrl)
+                    val connection: HttpURLConnection = urlObject.openConnection() as HttpURLConnection
+                    connection.instanceFollowRedirects = false // 關閉自動重定向
+                    connection.requestMethod = "GET"
+                    connection.setRequestProperty("User-Agent", "Mozilla/5.0")
+
+                    try {
+                        connection.connect()
+                        val responseCode = connection.responseCode
+                        Log.i("Pokemod", "Response Code: $responseCode, URL: $currentUrl")
+
+                        // 檢查是否為重定向狀態碼
+                        if (responseCode in 300..399) {
+                            val location = connection.getHeaderField("Location")
+
+                            if (location.isNullOrEmpty()) {
+                                Log.e("Pokemod", "重定向但沒有 Location header")
+                                break
+                            }
+
+                            // 處理相對路徑和絕對路徑
+                            currentUrl = if (location.startsWith("http")) {
+                                location
+                            } else {
+                                URL(urlObject, location).toString()
+                            }
+
+                            Log.i("Pokemod", "重定向到: $currentUrl")
+                            redirectCount++
+                        } else {
+                            // 沒有重定向，使用當前 URL
+                            break
+                        }
+                    } finally {
+                        connection.disconnect()
+                    }
+                }
+
+                Log.i("Pokemod", "最終 URL: $currentUrl")
+
+                // 從 URL 中提取版本號
+                val regex = Regex("""Pokemod_Public_v(\d+)_(\d+)_(\d+)r""")
+                val matchResult = regex.find(currentUrl)
+
+                if (matchResult != null) {
+                    val (major, minor, patch) = matchResult.destructured
+                    val version = "$major.$minor.$patch"
+                    Log.i("Pokemod", "提取版本號: $version")
+                    version
+                } else {
+                    Log.w("Pokemod", "無法從 URL 提取版本號: $currentUrl")
+                    "未知版本"
+                }
+            } catch (e: Exception) {
+                Log.e("Pokemod", "getPokemodVersion 錯誤", e)
+                e.printStackTrace()
+                "ERROR"
             }
         }
     }
