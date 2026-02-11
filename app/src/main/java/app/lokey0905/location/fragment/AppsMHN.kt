@@ -49,6 +49,7 @@ class AppsMHN : Fragment() {
     private var mhnUrl: String = ""
     private var mhnVersion: String = "未安裝"
 
+    private var mhn_download_on_apkmirror = false
     private var mhnTestVersion = false
 
     private var url_joystick = ""
@@ -66,6 +67,7 @@ class AppsMHN : Fragment() {
 
         val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
         mhnTestVersion = sharedPreferences.getBoolean("mhntools_testversion", false)
+        mhn_download_on_apkmirror = sharedPreferences.getBoolean("mhn_download_on_apkmirror", false)
 
         view.findViewById<MaterialSwitch>(R.id.mhnTestVersion_switch).isChecked = mhnTestVersion
 
@@ -81,6 +83,12 @@ class AppsMHN : Fragment() {
     override fun onResume() {
         super.onResume()
         val view: View = requireView()
+
+        setFragmentResultListener("mhn_download_on_apkmirror") { _, bundle ->
+            mhn_download_on_apkmirror = bundle.getBoolean("bundleKey")
+
+            setupAppVersionInfo(view)
+        }
 
         setFragmentResultListener("mhntools_testversion") { _, bundle ->
             mhnTestVersion = bundle.getBoolean("bundleKey")
@@ -369,7 +377,7 @@ class AppsMHN : Fragment() {
 
                 view.findViewById<TextView>(R.id.supportVersion_MHNTools).text = mhnVersionList
 
-                versionsList.reverse()
+                //versionsList.reverse() //do not need reverse again
 
                 val adapter: ArrayAdapter<String> = ArrayAdapter(
                     view.context,
@@ -522,40 +530,78 @@ class AppsMHN : Fragment() {
                 bufferedReader.close()
 
                 val jsonObject = JSONObject(response.toString())
+                val supportedVersions = jsonObject.optJSONObject("supportedVersions")
 
-                mhnVersion = jsonObject.getString("gameVersion")
-                mhnUrl = jsonObject.getString("gameARM64")
-                mhnToolsVersion = jsonObject.getString("appVersionName")
-                mhnToolsHash = jsonObject.getString("appVersionHash")
-                mhnToolsUrl = if (mhnTestVersion)
-                    "https://assets.mhntools.net/test-mhntools-$mhnToolsVersion-$mhnToolsHash.apk?"
-                else
-                    "https://assets.mhntools.net/mhntools-$mhnToolsVersion-$mhnToolsHash.apk?"
+                if (supportedVersions == null) {
+                    Log.e("mhnTools", "supportedVersions not found in response")
+                    launch(Dispatchers.Main) {
+                        onPogoVersionExtracted(mhnVersion, mhnToolsVersion, gameVersionsMap)
+                    }
+                    return@launch
+                }
+
+                val versionKeys = mutableListOf<String>()
+                val iterator = supportedVersions.keys()
+                while (iterator.hasNext()) {
+                    versionKeys.add(iterator.next())
+                }
+
+                if (versionKeys.isEmpty()) {
+                    Log.e("mhnTools", "No version entries inside supportedVersions")
+                    launch(Dispatchers.Main) {
+                        onPogoVersionExtracted(mhnVersion, mhnToolsVersion, gameVersionsMap)
+                    }
+                    return@launch
+                }
+
+                versionKeys.sortWith { first, second -> compareVersions(second, first) }
 
                 gameVersionsMap.clear()
+                var latestAppVersionCode = -1
+                var latestAppVersionName = ""
+                var latestAppVersionHash = ""
 
-                val supportGameVersions = jsonObject.getJSONObject("supportGameVersions")
-                val gameVersions = supportGameVersions.keys()
+                versionKeys.forEach { versionKey ->
+                    val versionObject = supportedVersions.optJSONObject(versionKey) ?: return@forEach
+                    val gameObject = versionObject.optJSONObject("game")
+                    val gameVersionName = gameObject?.optString("gameVersionName", versionKey) ?: versionKey
+                    val downloadUrl = buildMHNDownloadUrl(gameVersionName)
+                    gameVersionsMap[gameVersionName] = downloadUrl
 
-                while (gameVersions.hasNext()) {
-                    val gameVersion = gameVersions.next() as String
-                    val gameData = supportGameVersions.optJSONObject(gameVersion)
-                    val version = gameData?.optString("gameVersion", "")
-                    val arm64Url = gameData?.optString("gameARM64", "")
+                    val appObject = versionObject.optJSONObject("app")
+                    val appVersionCode = appObject?.optInt("appVersionCode", -1) ?: -1
+                    val appVersionName = appObject?.optString("appVersionName").orEmpty()
+                    val appVersionHash = appObject?.optString("appVersionHash").orEmpty()
 
-                    if (version != null && arm64Url != null) {
-                        gameVersionsMap[version] = arm64Url
-
-                        Log.i(
-                            "mhnTools",
-                            "mhnVersion: $version\nmhnUrl: $arm64Url\n"
-                        )
-                    } else {
-                        Log.e(
-                            "mhnTools",
-                            "Invalid data for game version: $gameVersion"
-                        )
+                    if (appVersionCode > latestAppVersionCode) {
+                        latestAppVersionCode = appVersionCode
+                        latestAppVersionName = appVersionName
+                        latestAppVersionHash = appVersionHash
                     }
+                }
+
+                val latestGameKey = versionKeys.first()
+                val latestGameObject = supportedVersions.optJSONObject(latestGameKey)
+                val latestGameVersionName = latestGameObject?.optJSONObject("game")
+                    ?.optString("gameVersionName", latestGameKey) ?: latestGameKey
+
+                mhnVersion = latestGameVersionName
+                mhnUrl = gameVersionsMap[latestGameVersionName] ?: ""
+                mhnToolsVersion = if (latestAppVersionName.isNotBlank()) latestAppVersionName else "未安裝"
+                mhnToolsHash = latestAppVersionHash
+                mhnToolsUrl = if (mhnToolsVersion != "未安裝" && latestAppVersionHash.isNotBlank()) {
+                    if (mhnTestVersion) {
+                        "https://assets.mhntools.net/test-mhntools-$mhnToolsVersion-$mhnToolsHash.apk?"
+                    } else {
+                        "https://assets.mhntools.net/mhntools-$mhnToolsVersion-$mhnToolsHash.apk?"
+                    }
+                } else {
+                    ""
+                }
+
+                versionKeys.forEach { versionKey ->
+                    val urlForLog = gameVersionsMap[versionKey] ?: gameVersionsMap[mhnVersion]
+                    Log.i("mhnTools", "mhnVersion: $versionKey\nmhnUrl: ${urlForLog ?: ""}\n")
                 }
 
                 launch(Dispatchers.Main) {
@@ -565,6 +611,31 @@ class AppsMHN : Fragment() {
                 e.printStackTrace()
             }
         }
+    }
+
+    private fun buildMHNDownloadUrl(gameVersionName: String): String {
+        Log.i("mhnTools", "mhn_download_on_apkmirror: $mhn_download_on_apkmirror")
+        if(!mhn_download_on_apkmirror) return "https://assets.mhntools.net/games/$gameVersionName-arm64.apkm"
+
+        val normalizedVersion = gameVersionName.trim().replace('.', '-')
+        return "https://www.apkmirror.com/apk/niantic-inc/monster-hunter-now/" +
+            "monster-hunter-now-$normalizedVersion-release/" +
+            "monster-hunter-now-$normalizedVersion-android-apk-download/"
+    }
+
+    private fun compareVersions(v1: String, v2: String): Int {
+        val numericV1 = v1.split(" ")[0].split("-")[0]
+        val numericV2 = v2.split(" ")[0].split("-")[0]
+
+        val parts1 = numericV1.split(".")
+        val parts2 = numericV2.split(".")
+        val length = maxOf(parts1.size, parts2.size)
+        for (i in 0 until length) {
+            val p1 = parts1.getOrNull(i)?.toIntOrNull() ?: 0
+            val p2 = parts2.getOrNull(i)?.toIntOrNull() ?: 0
+            if (p1 != p2) return p1 - p2
+        }
+        return 0
     }
 
     private fun showAlertDialog(title: String, message: String) {

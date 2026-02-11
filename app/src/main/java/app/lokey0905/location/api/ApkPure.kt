@@ -17,6 +17,11 @@ class ApkPure {
         return getVersionHistory("com.nianticlabs.pokemongo")
     }
 
+    fun getAPKMirrorInstallerLatestVersion(): String {
+        val versions = getVersionHistory("com.apkmirror.helper.prod")
+        return versions.firstOrNull()?.versionName ?: ""
+    }
+
     fun getVersionHistory(packageName: String): List<ApkPureVersion> {
         val versionList = mutableListOf<ApkPureVersion>()
 
@@ -83,14 +88,18 @@ class ApkPure {
                 if (jsonObject.has("retcode") && jsonObject.getInt("retcode") == 0) {
                     if (jsonObject.has("version_list")) {
                         val versions = jsonObject.getJSONArray("version_list")
+                        val seenVersions = mutableSetOf<String>()
                         //Log.d("ApkPure", "找到 ${versions.length()} 個版本")
 
                         for (i in 0 until versions.length()) {
                             val version = versions.getJSONObject(i)
                             val versionCode = version.getString("version_code")
                             val versionName = version.getString("version_name")
+                            val versionKey = "$versionCode|$versionName"
 
-                            versionList.add(ApkPureVersion(versionCode, versionName))
+                            if (seenVersions.add(versionKey)) {
+                                versionList.add(ApkPureVersion(versionCode, versionName))
+                            }
                             //Log.d("ApkPure", "versionCode: $versionName, versionCode: $versionCode")
                         }
                     } else {

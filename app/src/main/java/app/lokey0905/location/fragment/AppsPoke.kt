@@ -63,9 +63,15 @@ data class AppsInfo(
     val moreButtonId: Int,
     var newVersionTextId: Int,
     val installVersionTextId: Int,
+    var updateNewVersionFromJson: Boolean = false,
+    var updateDownloadLinkFromJson: Boolean = false,
+    var updateOfficialLinkFromJson: Boolean = false,
+    var updateNewVersionText: Boolean = true,
+    var checkNeedUpdateAppsAmount: Boolean = true,
     var newVersion: String = "未安裝",
     var downloadLink: String = "",
     var officialLink: String = "",
+    var haveNewVersionTag: Boolean = false,
 )
 
 class AppsPoke : Fragment() {
@@ -105,7 +111,11 @@ class AppsPoke : Fragment() {
                 R.id.remove_gps,
                 R.id.gps_more,
                 0,
-                R.id.gps_install_version
+                R.id.gps_install_version,
+                updateNewVersionFromJson = true,
+                updateDownloadLinkFromJson = true,
+                updateOfficialLinkFromJson = true,
+                updateNewVersionText = false,
             ),
             AppsInfo(
                 "polygon",
@@ -114,7 +124,10 @@ class AppsPoke : Fragment() {
                 R.id.remove_polygon,
                 R.id.polygon_more,
                 R.id.polygon_new_version,
-                R.id.polygon_install_version
+                R.id.polygon_install_version,
+                updateNewVersionFromJson = false,
+                updateDownloadLinkFromJson = false,
+                updateOfficialLinkFromJson = true,
             ),
             AppsInfo(
                 "PGTools",
@@ -123,7 +136,12 @@ class AppsPoke : Fragment() {
                 R.id.remove_pgtools,
                 R.id.pgtools_more,
                 R.id.pgtools_new_version,
-                R.id.pgtools_install_version
+                R.id.pgtools_install_version,
+                updateNewVersionFromJson = false,
+                updateDownloadLinkFromJson = false,
+                updateOfficialLinkFromJson = false,
+                updateNewVersionText = false,
+                checkNeedUpdateAppsAmount = false,
             ),
             AppsInfo(
                 "pok",
@@ -132,7 +150,12 @@ class AppsPoke : Fragment() {
                 R.id.remove_pok,
                 R.id.pok_more,
                 R.id.pok_new_version,
-                R.id.pok_install_version
+                R.id.pok_install_version,
+                updateNewVersionFromJson = false,
+                updateDownloadLinkFromJson = false,
+                updateOfficialLinkFromJson = false,
+                updateNewVersionText = false,
+                checkNeedUpdateAppsAmount = false,
             ),
             AppsInfo(
                 "pokAres",
@@ -141,7 +164,12 @@ class AppsPoke : Fragment() {
                 R.id.remove_pokAres,
                 R.id.pokAres_more,
                 R.id.pokAres_new_version,
-                R.id.pokAres_install_version
+                R.id.pokAres_install_version,
+                updateNewVersionFromJson = false,
+                updateDownloadLinkFromJson = true,
+                updateOfficialLinkFromJson = false,
+                updateNewVersionText = false,
+                checkNeedUpdateAppsAmount = false,
             ),
             AppsInfo(
                 "pokeList",
@@ -150,7 +178,10 @@ class AppsPoke : Fragment() {
                 R.id.remove_pokelist,
                 R.id.pokelist_more,
                 R.id.pokelist_new_version,
-                R.id.pokelist_install_version
+                R.id.pokelist_install_version,
+                updateNewVersionFromJson = true,
+                updateDownloadLinkFromJson = true,
+                updateOfficialLinkFromJson = true,
             ),
             AppsInfo(
                 "wecatch",
@@ -159,7 +190,10 @@ class AppsPoke : Fragment() {
                 R.id.remove_wecatch,
                 R.id.wecatch_more,
                 R.id.wecatch_new_version,
-                R.id.wecatch_install_version
+                R.id.wecatch_install_version,
+                updateNewVersionFromJson = true,
+                updateDownloadLinkFromJson = true,
+                updateOfficialLinkFromJson = true,
             ),
             AppsInfo(
                 "wrapper",
@@ -168,7 +202,10 @@ class AppsPoke : Fragment() {
                 R.id.remove_wrapper,
                 R.id.wrapper_more,
                 R.id.wrapper_new_version,
-                R.id.wrapper_install_version
+                R.id.wrapper_install_version,
+                updateNewVersionFromJson = true,
+                updateDownloadLinkFromJson = true,
+                updateOfficialLinkFromJson = true,
             ),
             AppsInfo(
                 "pokemod",
@@ -177,7 +214,10 @@ class AppsPoke : Fragment() {
                 R.id.remove_pokemod,
                 R.id.pokemod_more,
                 R.id.pokemod_new_version,
-                R.id.pokemod_install_version
+                R.id.pokemod_install_version,
+                updateNewVersionFromJson = false,
+                updateDownloadLinkFromJson = true,
+                updateOfficialLinkFromJson = true,
             ),
             AppsInfo(
                 "samsungStore",
@@ -186,7 +226,10 @@ class AppsPoke : Fragment() {
                 R.id.remove_galaxyStore,
                 R.id.galaxyStore_more,
                 R.id.galaxyStore_new_version,
-                R.id.galaxyStore_install_version
+                R.id.galaxyStore_install_version,
+                updateNewVersionFromJson = true,
+                updateDownloadLinkFromJson = true,
+                updateOfficialLinkFromJson = true,
             ),
             AppsInfo(
                 "APKMirrorInstaller",
@@ -195,7 +238,10 @@ class AppsPoke : Fragment() {
                 R.id.remove_APKMirrorInstaller,
                 R.id.APKMirrorInstaller_more,
                 R.id.APKMirrorInstaller_new_version,
-                R.id.APKMirrorInstaller_install_version
+                R.id.APKMirrorInstaller_install_version,
+                updateNewVersionFromJson = false,
+                updateDownloadLinkFromJson = false,
+                updateOfficialLinkFromJson = true,
             )
         )
 
@@ -463,23 +509,49 @@ class AppsPoke : Fragment() {
                 moreButton?.visibility = visibility
             }
 
+            lifecycleScope.launch {
+                try {
+                    for (apps in appsInfo) {
+                        if (apps.appName == "pokemod") {
+                            val versionName =
+                                Pokemod().getPokemodVersion(getString(R.string.url_PokemodDownload))
+
+                            apps.newVersion = versionName
+
+                        }
+                    }
+                } catch (_: Exception) {
+                    Log.e("AppsPoke", "getPokemodVersion error")
+                }
+            }
+
+            lifecycleScope.launch(Dispatchers.IO) {
+                try {
+                    for (apps in appsInfo) {
+                        if (apps.appName == "APKMirrorInstaller") {
+                            val versionName = ApkPure().getAPKMirrorInstallerLatestVersion()
+                            val versionNameText = versionName.replace(".", "-")
+                                .replace(" (", "-")
+                                .replace(")", "")
+
+                            apps.newVersion = versionName
+                            apps.downloadLink = String.format(
+                                getString(R.string.url_apkMirrorInstaller),
+                                versionNameText,
+                                versionNameText
+                            )
+                        }
+                    }
+                } catch (_: Exception) {
+                    Log.e("AppsPoke", "getAPKMirrorInstallerLatestVersion error")
+                }
+            }
+
             val url = getString(R.string.url_appInfo)
             extractAppVersionsFromJson(url) {
                 fun updateNewVersionText() {
-                    val needUpdateList =
-                        listOf(
-                            "wrapper",
-                            "pokemod",
-                            "polygon",
-                            "pokeList",
-                            "wecatch",
-                            "samsungStore",
-                            "APKMirrorInstaller"
-                        )
-
                     for (apps in appsInfo) {
-                        val appName = apps.appName
-                        if (!needUpdateList.contains(appName)) {
+                        if (!apps.updateNewVersionText) {
                             continue
                         }
 
@@ -493,25 +565,12 @@ class AppsPoke : Fragment() {
                 }
 
                 fun checkNeedUpdateAppsAmount() {
-                    val needUpdateList =
-                        listOf(
-                            "joystick",
-                            "wrapper",
-                            "pokemod",
-                            "PGTools",
-                            "polygon",
-                            "pokeList",
-                            "wecatch",
-                            "samsungStore",
-                            "APKMirrorInstaller"
-                        )
-
                     for (apps in appsInfo) {
-                        val appName = apps.appName
-                        if (!needUpdateList.contains(appName)) {
+                        if (!apps.checkNeedUpdateAppsAmount) {
                             continue
                         }
 
+                        val appName = apps.appName
                         val packageName = apps.packageName
                         val newVersion = apps.newVersion
                         val installVersion = appInstalledVersion(packageName)
@@ -535,7 +594,7 @@ class AppsPoke : Fragment() {
                 updateNewVersionText()
                 checkNeedUpdateAppsAmount()
 
-                toolbar_layout.subtitle = if (needUpdateAppsAmount > 0){
+                toolbar_layout.subtitle = if (needUpdateAppsAmount > 0) {
                     String.format(
                         getString(R.string.format_installApps),
                         needUpdateAppsAmount
@@ -656,7 +715,7 @@ class AppsPoke : Fragment() {
                 pgToolsDownloadButton.text = download
             }
 
-            toolbar_layout.subtitle = if (needUpdateAppsAmount > 0){
+            toolbar_layout.subtitle = if (needUpdateAppsAmount > 0) {
                 String.format(
                     getString(R.string.format_installApps),
                     needUpdateAppsAmount
@@ -692,14 +751,16 @@ class AppsPoke : Fragment() {
                         String.format(formatNewerVersion, getString(R.string.error))
                 }
 
-                if(appInstalledOrNot(getString(R.string.packageName_polygonX))) {
+                if (appInstalledOrNot(getString(R.string.packageName_polygonX))) {
                     when (result.status) {
                         app.lokey0905.location.api.PolygonXCheckResult.Status.SUCCESS -> {
                             downloadButton.text = getString(R.string.downloadAgain)
                         }
+
                         app.lokey0905.location.api.PolygonXCheckResult.Status.UPDATE_REQUIRED -> {
                             downloadButton.text = getString(R.string.update)
                         }
+
                         app.lokey0905.location.api.PolygonXCheckResult.Status.FAILURE -> {
                             downloadButton.text = getString(R.string.download)
                         }
@@ -752,15 +813,14 @@ class AppsPoke : Fragment() {
 
         fun getPGToolsVersion() {
             val url =
-                if (pgToolsTestVersion) getString(R.string.url_PGToolsJsonTest) else getString(R.string.url_PGToolsJson)
+                if (pgToolsTestVersion) getString(R.string.url_PGToolsJsonTest)
+                else getString(R.string.url_PGToolsJson)
+
             val versionType =
                 if (pgToolsTestVersion) " (${getString(R.string.testVersion)})" else ""
 
             extractPgToolsFromJson(url) { pogoVersion, pgtoolsVersion ->
                 pgtoolsVersionsList.sortByDescending { it.pogoVersionNumber }
-
-                val pgtoolsPogoVersionString =
-                    getString(R.string.appsPokePage_supportVersion_PGTools)
 
                 for (versionInfo in pgtoolsVersionsList) {
                     Log.i(
@@ -770,8 +830,11 @@ class AppsPoke : Fragment() {
                     )
                 }
 
-                view.findViewById<TextView>(R.id.supportVersion_PGTools).text =
-                    pgtoolsPogoVersionString + pgtoolsVersionsList.joinToString(", ") { it.pogoVersion }
+                updateSupportedVersionsTextView(
+                    R.id.supportVersion_PGTools,
+                    R.string.appsPokePage_supportVersion_PGTools,
+                    listOf(pgtoolsVersionsList.joinToString(", ") { it.pogoVersion })
+                )
 
                 autoCompleteTextView?.setText(pogoVersion, false)
                 updatePogoVersionSelection(pogoVersion, view)
@@ -964,40 +1027,34 @@ class AppsPoke : Fragment() {
 
                 val pogo = jsonObject.getJSONObject("pogo")
 
-                val needUpdateList =
-                    listOf(
-                        "joystick",
-                        "wrapper",
-                        "pokemod",
-                        "polygon",
-                        "pokeList",
-                        "wecatch",
-                        "samsungStore",
-                        "APKMirrorInstaller"
-                    )
-
                 for (apps in appsInfo) {
                     val appName = apps.appName
-                    if (!needUpdateList.contains(appName)) {
-                        continue
-                    }
 
-                    try {
-                        val appInfo = pogo.getJSONObject(appName)
-                        if (appName == "polygon") {
-                            apps.officialLink = appInfo.getString("officialLink")
-                        } else{
-                            apps.newVersion = appInfo.getString("version")
-                            apps.downloadLink = appInfo.getString("url")
-                            apps.officialLink = appInfo.getString("officialLink")
+                    if (apps.updateNewVersionFromJson || apps.updateDownloadLinkFromJson || apps.updateOfficialLinkFromJson){
+                        try {
+                            val appInfo = pogo.getJSONObject(appName)
+
+                            if (apps.updateNewVersionFromJson) {
+                                apps.newVersion = appInfo.getString("version") ?: ""
+                            }
+
+                            if (apps.updateDownloadLinkFromJson) {
+                                apps.downloadLink = appInfo.getString("url") ?: ""
+                            }
+
+                            if (apps.updateOfficialLinkFromJson) {
+                                apps.officialLink = appInfo.getString("officialLink") ?: ""
+                            }
+
+                            Log.i(
+                                "getAppsInfo",
+                                "appName:$appName version:${apps.newVersion} " +
+                                        "downloadLink:${apps.downloadLink} " +
+                                        "officialLink:${apps.officialLink}"
+                            )
+                        } catch (e: Exception) {
+                            Log.e("extractAppVersionsFromJson", "Error processing $appName", e)
                         }
-
-                        Log.i(
-                            "getAppsInfo",
-                            "appName:$appName version:${apps.newVersion} downloadLink:${apps.downloadLink} officialLink:${apps.officialLink}"
-                        )
-                    } catch (e: Exception) {
-                        Log.e("extractAppVersionsFromJson", "Error processing $appName", e)
                     }
                 }
 
@@ -1040,7 +1097,7 @@ class AppsPoke : Fragment() {
                 val jsonObject = JSONObject(response.toString())
 
                 val choosePogoVersion = jsonObject.getString("pogoVersion")
-                val pgToolsVersion = jsonObject.getString("appName")
+                pgToolsVersion = jsonObject.getString("appName")
                 pgToolsUrl = if (pgToolsTestVersion)
                     "https://assets.pgtools.net/test-pgtools-${pgToolsVersion}.apk"
                 else

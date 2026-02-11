@@ -29,6 +29,7 @@ class Preferences : PreferenceFragmentCompat() {
     private var pok_download_on_apkmirror: Boolean = false
     private var allow_download_on_non_samsung: Boolean = false
     private var pgtools_testversion: Boolean = false
+    private var mhn_download_on_apkmirror: Boolean = false
     private var mhntools_testversion: Boolean = false
     private var customTabsOff: Boolean = false
 
@@ -90,6 +91,8 @@ class Preferences : PreferenceFragmentCompat() {
             sharedPreferences.getBoolean("pok_download_on_apkmirror", false)
         pgtools_testversion =
             sharedPreferences.getBoolean("pgtools_testversion", false)
+        mhn_download_on_apkmirror =
+            sharedPreferences.getBoolean("mhn_download_on_apkmirror", false)
         mhntools_testversion =
             sharedPreferences.getBoolean("mhntools_testversion", false)
 
@@ -239,6 +242,16 @@ class Preferences : PreferenceFragmentCompat() {
                         }
                     }
                     .show()
+                return true
+            }
+
+            "mhn_download_on_apkmirror" -> {
+                val key = "mhn_download_on_apkmirror"
+                mhn_download_on_apkmirror = sharedPreferences.getBoolean(key, false)
+                setFragmentResult(
+                    key,
+                    bundleOf("bundleKey" to mhn_download_on_apkmirror)
+                )
                 return true
             }
 

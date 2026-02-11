@@ -13,9 +13,10 @@
     <string name="url_pokeListWeb">https://moonani.com/PokeList/</string>
     <string name="url_PGToolsJson">https://assets.pgtools.net/auto-versions.json</string>
     <string name="url_PGToolsJsonTest">https://assets.pgtools.net/test-auto-versions.json</string>
-    <string name="url_mhnJson">https://assets.mhntools.net/versions.json</string>
-    <string name="url_mhnJsonTest">https://assets.mhntools.net/test-versions.json</string>
+    <string name="url_mhnJson">https://assets.mhntools.net/versions-v2.json</string>
+    <string name="url_mhnJsonTest">https://assets.mhntools.net/test-versions-v2.json</string>
     <string name="url_PokemodAPI">https://discovery.pokemod.dev/hal/modules/getAgentHash?game_version=%1$s</string>
+    <string name="url_PokemodDownload">https://discovery.pokemod.dev/dl/pkmd/public</string>
     <string name="url_PokemonCheckVersionAPI">https://pgorelease.nianticlabs.com/plfe/version</string>
     <string name="url_MHNowCheckVersionAPI">https://magellan-rel.nianticlabs.com/server-info/GET_CLIENT_VERSIONS</string>
 
@@ -37,6 +38,7 @@
     <string name="url_playintegritychecker_unofficial">https://github.com/herzhenr/spic-android/releases/latest</string>
     <string name="url_integritycheck">https://play.google.com/store/apps/details?id=gr.nikolasspyr.integritycheck</string>
     <string name="url_appListDetector">https://github.com/byxiaorun/Ruru/releases/latest</string>
+    <string name="url_apkMirrorInstaller">https://www.apkmirror.com/apk/apkmirror/apkmirror-installer-official/apkmirror-installer-official-%1$s-release/apkmirror-installer-official-%2$s-android-apk-download/</string>
 
     <!-->package name list<-->
     <string name="packageName_gms">com.google.android.gms</string>
@@ -59,5 +61,5 @@
     <string name="packageName_galaxyStore">com.sec.android.app.samsungapps</string>
     <string name="packageName_hylianer">com.hpkssgdxzuwyxtnoo</string>
     <string name="packageName_Aerilate">com.evermorelabs.aerilate</string>
-    <string name="packageName_APKMirrorInstaller"> com.apkmirror.helper.prod</string>
+    <string name="packageName_APKMirrorInstaller">com.apkmirror.helper.prod</string>
 </resources>

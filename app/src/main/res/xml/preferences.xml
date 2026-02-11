@@ -100,6 +100,14 @@
             app:summary="@string/preferences_disable_auto_update_mhn_Summary" />
 
         <SwitchPreferenceCompat
+            android:key="mhn_download_on_apkmirror"
+            android:title="@string/preferences_mhn_download_on_apkmirror_Title"
+            android:icon="@drawable/ic_baseline_download_24"
+            app:summary="@string/preferences_mhn_download_on_apkmirror_Summary"
+            android:persistent="true"
+            android:defaultValue="false" />
+
+        <SwitchPreferenceCompat
             android:key="mhntools_testversion"
             android:title="@string/preferences_mhntools_testversion_Title"
             android:icon="@drawable/ic_baseline_download_24"
