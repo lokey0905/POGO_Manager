@@ -81,9 +81,13 @@ class Pokemod {
 
                 Log.i("Pokemod", "最終 URL: $currentUrl")
 
-                // 從 URL 中提取版本號
-                val regex = Regex("""Pokemod_Public_v(\d+)_(\d+)_(\d+)r""")
-                val matchResult = regex.find(currentUrl)
+                // 從 URL 中提取版本號 - 支援多種格式
+                // 格式1: PokemodPublic-v11.1.2r1112 (新格式)
+                // 格式2: Pokemod_Public_v1_2_3r (舊格式)
+                val newFormatRegex = Regex("""PokemodPublic-v(\d+)\.(\d+)\.(\d+)r""", RegexOption.IGNORE_CASE)
+                val oldFormatRegex = Regex("""Pokemod_Public_v(\d+)_(\d+)_(\d+)r""", RegexOption.IGNORE_CASE)
+
+                val matchResult = newFormatRegex.find(currentUrl) ?: oldFormatRegex.find(currentUrl)
 
                 if (matchResult != null) {
                     val (major, minor, patch) = matchResult.destructured
