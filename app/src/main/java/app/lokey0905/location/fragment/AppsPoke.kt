@@ -39,6 +39,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputLayout
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.json.JSONObject
 import java.io.BufferedReader
 import java.io.InputStreamReader
@@ -518,10 +519,18 @@ class AppsPoke : Fragment() {
 
                             apps.newVersion = versionName
 
+                            // 更新 UI 上的版本號顯示
+                            withContext(Dispatchers.Main) {
+                                val newVersionText = view.findViewById<TextView>(apps.newVersionTextId)
+                                newVersionText?.text = String.format(
+                                    formatNewerVersion,
+                                    versionName
+                                )
+                            }
                         }
                     }
-                } catch (_: Exception) {
-                    Log.e("AppsPoke", "getPokemodVersion error")
+                } catch (e: Exception) {
+                    Log.e("AppsPoke", "getPokemodVersion error", e)
                 }
             }
 
