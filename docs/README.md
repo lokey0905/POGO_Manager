@@ -79,15 +79,15 @@
 
 - 點選捷徑頁面按鈕
 
-	<img width="300" src="https://hackmd.io/_uploads/S1hdF8bH1g.jpg" style="margin-right:10px" />
+	<img width="300" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/pogoManager_homeToShortCuts.png" style="margin-right:10px" />
 
 - 點選MIUI應用雙開捷徑按鈕
 
-	<img width="300" src="https://hackmd.io/_uploads/H1ml9L-BJg.jpg" style="margin-right:10px" />
+	<img width="500" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/pogoManager_shortCutsMIXSpace.png" style="margin-right:10px" />
 
 - 打勾寶可夢選項即可
 
-	<img width="300" src="https://hackmd.io/_uploads/r1aQiI-S1l.jpg" style="margin-right:10px" />
+	<img width="500" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/pogoManager_shortCutsMIXSpaceSwitch.png" style="margin-right:10px" />
 
 - 若有重新安裝或是更新完成後，請記得將裝置**重新啟動**
 - 若重開機後仍然顯示錯誤12，請依照[無法偵測位置12](#寶可夢顯示-無法偵測位置12)操作
@@ -95,11 +95,11 @@
 ### 寶可夢降版本
 - 可以在支援版本列表左下方選擇要下載的版本
 
-	<img width="500" src="https://hackmd.io/_uploads/Hk8MVrej0.jpg" style="margin-right:10px" />
+	<img width="500" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/pogoManager_pokemonNewerVersion.png" style="margin-right:10px" />
 
 - 若選擇的版本低於安裝版本，則需要先移除才能繼續下載安裝
 
-	<img width="500" src="https://hackmd.io/_uploads/HJE_8BgjR.jpg" style="margin-right:10px" />
+	<img width="500" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/pogoManager_pokemonNeedDowngrade.png" style="margin-right:10px" />
 
 - 移除過高的版本後，請重新[下載支援版本寶可夢](#%E5%AF%B6%E5%8F%AF%E5%A4%A2%E6%9B%B4%E6%96%B0%E6%95%99%E5%AD%B8)
 
@@ -110,7 +110,7 @@
 		2. 點選右上角︙按鈕
 		3. 取消打勾自動更新
 
-			 <img width="500" src="https://hackmd.io/_uploads/r1ZrzHlo0.jpg" style="margin-right:10px" />
+			 <img width="500" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/playStoreDisableAutoUpdate.png" style="margin-right:10px" />
 	- 若無顯示重新啟動裝置後即可關閉
 - 若Play商店內顯示未安裝，或是已經取消自動更新，請操作[寶可夢降版本](#%E5%AF%B6%E5%8F%AF%E5%A4%A2%E9%99%8D%E7%89%88%E6%9C%AC)
 
@@ -118,7 +118,7 @@
 - 可先至寶可夢頁面上查看: 目前可安裝版本、各輔助軟體的支援版本與寶可夢最低可登入版本
 - 如果支援版本**低於**寶可夢最低可登入版本，則須等待輔助軟體團隊支援新版本後才能繼續使用
 
-	<img width="500" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/docs/images/pogoManager_pokemonNewerVersion.png" style="margin-right:10px" />
+	<img width="500" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/pogoManager_pokemonNewerVersion.png" style="margin-right:10px" />
 
 - 若更新檔案下載失敗，請先至Play商店更新寶可夢，並等待輔助軟體團隊更新支援
 
@@ -508,6 +508,7 @@
 - 2.每10分鐘1P、單日最多50P(8小時20分鐘）
 - 3.佔崗輪值無收入、需下崗才結算計薪
 
+
 # 常見問題
 ## 寶可夢顯示: 無法偵測位置(11)
 表示未偵測到手機定位
@@ -520,10 +521,19 @@
 5. 定位權限未設定正確
 	1. 打開pogo管理器的寶可夢/魔物獵人頁面
 	2. 點擊寶可夢/魔物獵人右邊的︙管理
+
+		<img width="500" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/pogoManager_pokemonSettings.png"/>
+
 	3. 在點擊權限設定裡面的定位
+
+		<img width="500" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/settingsPokemon.png"/>
+
+		<img width="500" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/settingsPokemonPermissions.png"/>
+
 	4. 位置權限需打開精確位置(與定位精確度不同)
 
-		<img width="300" src="https://hackmd.io/_uploads/S1kSswX3C.jpg"/>
+		<img width="500" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/settingsPokemonPermissionsLocation.png"/>
+
 6. 若重啟後還是一樣，請移除再重新安裝搖桿或寶可夢
 
 ## 寶可夢顯示: 無法偵測位置(12)
