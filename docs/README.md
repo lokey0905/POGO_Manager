@@ -1,7 +1,7 @@
 # POGO寶可夢管理器 POGOManager
 圖示介紹：
 
-<img width="300" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/%E5%9C%96%E7%A4%BA%E4%BB%8B%E7%B4%B9.png" alt="POGO 管理器圖示" />
+<img width="300" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/icon_intro.png" alt="POGO 管理器圖示" />
 
 ## 閱讀模式
 ### [書本閱讀模式頁面(HackMD)](https://hackmd.io/@lokey0905/B1x_pZAT2)
@@ -25,15 +25,15 @@
 
 - 進入網頁後會自動下載更新檔案
 
-	<img width="300" src="https://hackmd.io/_uploads/rJYnvU-Bkg.jpg" style="margin-right:10px" />
+	<img width="300" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/downloadPage.png" style="margin-right:10px" />
 
 - 下載後開啟檔案，如果是第一次安裝，請選擇APKMirror Installer，並且勾選【預設選擇】或是點【一律使用】
 
-	<img width="300" src="https://hackmd.io/_uploads/SJ0-BrgiA.jpg" style="margin-right:10px" />
+	<img width="300" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/downloadPageChoose.png" style="margin-right:10px" />
 
 	打開後，點擊右下角的【Watch ad and install app】按鈕安裝
 
-	<img width="300" src="https://hackmd.io/_uploads/rkyPq4xsC.jpg" style="margin-right:10px" />
+	<img width="300" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/downloadPageInstall.png" style="margin-right:10px" />
 
 - 等待廣告，完成後，請按右上角或是左上角的X關閉
 
