@@ -41,19 +41,19 @@ Pogo管理器是一款專為 Pokémon GO、Monster Hunter Now 和 Pikmin Bloom �
 
 ## 截圖
 ### 首頁
-<img width="250" src="https://github.com/lokey0905/POGO_Manager/blob/master/docs/root/Screenshot_1.jpg?raw=true" />
+<img width="250" src="https://github.com/lokey0905/POGO_Manager/blob/master/docs/images/root/Screenshot_1.jpg?raw=true" />
 
 ### 寶可夢頁面
-<img width="250" src="https://github.com/lokey0905/POGO_Manager/blob/master/docs/root/Screenshot_2_1.jpg?raw=true" style="margin-right:10px" /> <img width="250" src="https://github.com/lokey0905/POGO_Manager/blob/master/docs/root/Screenshot_2_2.jpg?raw=true" style="margin-right:10px" /> <img width="250" src="https://github.com/lokey0905/POGO_Manager/blob/master/docs/root/Screenshot_2_3.jpg?raw=true" style="margin-right:10px" />
+<img width="250" src="https://github.com/lokey0905/POGO_Manager/blob/master/docs/images/root/Screenshot_2_1.jpg?raw=true" style="margin-right:10px" /> <img width="250" src="https://github.com/lokey0905/POGO_Manager/blob/master/docs/images/root/Screenshot_2_2.jpg?raw=true" style="margin-right:10px" /> <img width="250" src="https://github.com/lokey0905/POGO_Manager/blob/master/docs/images/root/Screenshot_2_3.jpg?raw=true" style="margin-right:10px" />
 
 ### 魔物獵人頁面
-<img width="250" src="https://github.com/lokey0905/POGO_Manager/blob/master/docs/root/Screenshot_3_1.jpg?raw=true" style="margin-right:10px" /> <img width="250" src="https://github.com/lokey0905/POGO_Manager/blob/master/docs/root/Screenshot_3_2.jpg?raw=true" style="margin-right:10px" />
+<img width="250" src="https://github.com/lokey0905/POGO_Manager/blob/master/docs/images/root/Screenshot_3_1.jpg?raw=true" style="margin-right:10px" /> <img width="250" src="https://github.com/lokey0905/POGO_Manager/blob/master/docs/images/root/Screenshot_3_2.jpg?raw=true" style="margin-right:10px" />
 
 ### 捷徑頁面
-<img width="250" src="https://github.com/lokey0905/POGO_Manager/blob/master/docs/root/Screenshot_4_1.jpg?raw=true" style="margin-right:10px" /> <img width="250" src="https://github.com/lokey0905/POGO_Manager/blob/master/docs/root/Screenshot_4_2.jpg?raw=true" style="margin-right:10px" />
+<img width="250" src="https://github.com/lokey0905/POGO_Manager/blob/master/docs/images/root/Screenshot_4_1.jpg?raw=true" style="margin-right:10px" /> <img width="250" src="https://github.com/lokey0905/POGO_Manager/blob/master/docs/images/root/Screenshot_4_2.jpg?raw=true" style="margin-right:10px" />
 
 ### 設定頁面
-<img width="250" src="https://github.com/lokey0905/POGO_Manager/blob/master/docs/root/Screenshot_5_1.jpg?raw=true" style="margin-right:10px" /> <img width="250" src="https://github.com/lokey0905/POGO_Manager/blob/master/docs/root/Screenshot_5_2.jpg?raw=true" style="margin-right:10px" />
+<img width="250" src="https://github.com/lokey0905/POGO_Manager/blob/master/docs/images/root/Screenshot_5_1.jpg?raw=true" style="margin-right:10px" /> <img width="250" src="https://github.com/lokey0905/POGO_Manager/blob/master/docs/images/root/Screenshot_5_2.jpg?raw=true" style="margin-right:10px" />
 
 
 ## 參考資源與使用的開源專案
