@@ -1,7 +1,7 @@
 # POGO寶可夢管理器 POGOManager
 圖示介紹：
 
-<img width="300" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/icon_intro.png" alt="POGO 管理器圖示" />
+<img width="500" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/icon_intro.png" alt="POGO 管理器圖示" />
 
 ## 閱讀模式
 ### [書本閱讀模式頁面(HackMD)](https://hackmd.io/@lokey0905/B1x_pZAT2)
@@ -14,66 +14,65 @@
 
 - 如果「安裝版本」低於「支援版本」，表示可能需要進行更新
 
-	<img width="500" src="https://hackmd.io/_uploads/BkwJOVxsR.jpg" alt="安裝版本提示" />
+	<img width="500" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/pogoManager_pokemonNeedUpdate.png" alt="安裝版本提示" />
 
 ### 寶可夢更新教學
 - [點我觀看影片安裝教學](https://www.facebook.com/share/v/EbXiibEdwAvraCRn/)(2024/11/19更新)
 
 - 點擊寶可夢的更新按鈕
 
-	<img width="500" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/NewVersion2.jpg" style="margin-right:10px" />
+	<img width="500" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/pogoManager_pokemonUpdate.png" style="margin-right:10px" />
 
 - 進入網頁後會自動下載更新檔案
 
-	<img width="300" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/downloadPage.png" style="margin-right:10px" />
+	<img width="500" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/downloadPage.png" style="margin-right:10px" />
 
-- 下載後開啟檔案，如果是第一次安裝，請選擇APKMirror Installer，並且勾選【預設選擇】或是點【一律使用】
+- 下載後開啟檔案，如果是第一次安裝，請選擇Shizuku 安裝器，並且勾選【預設選擇】或是點【一律使用】
 
-	<img width="300" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/downloadPageChoose.png" style="margin-right:10px" />
+	<img width="500" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/downloadPageChoose.png" style="margin-right:10px" />
 
-	打開後，點擊右下角的【Watch ad and install app】按鈕安裝
+	打開後，確認勾選設定安裝來源，後點擊右下角的【更新】按鈕安裝
 
-	<img width="300" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/downloadPageInstall.png" style="margin-right:10px" />
+	<img width="500" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/downloadPageInstall.png" style="margin-right:10px" />
 
-- 等待廣告，完成後，請按右上角或是左上角的X關閉
+- 這樣就更新完成了
 
-	<img width="300" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/apkmirror_AD.jpg" style="margin-right:10px" />
+	<img width="500" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/downloadPageInstallDone.png" style="margin-right:10px" />
 
-- 點選安裝或是更新
-
-	<img width="600" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/install_pokemon.jpg" style="margin-right:10px" />
-
-- 若有重新安裝或是更新完成後，請記得將手機重新啟動
+- 若有重新安裝或是更新完成後，請記得將裝置**重新啟動**
 - 若重開機後仍然顯示錯誤12，請依照[無法偵測位置12](#寶可夢顯示-無法偵測位置12)操作
 
 ### 寶可夢更新教學(三星雙開版本)
 
 - 點擊寶可夢三星雙開版本的更新按鈕
 
-	<img width="500" src="https://hackmd.io/_uploads/SJDUJSxs0.jpg" style="margin-right:10px" />
+	<img width="500" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/pogoManager_pokemonUpdateAres.png"  style="margin-right:10px" />
 
-- 進入網頁後，往下滑一些，會有一個Download Pokémon Go的畫面如下
-- 點選【arm64-v8a】版本的左邊紅字進入下載網頁
+- 進入網頁後往下滑一些，會有一個【DOWNLOAD APK】或是【下載 APK】的按鈕
 
-	<img width="500" src="https://hackmd.io/_uploads/HJG0REgo0.jpg" style="margin-right:10px" />
+	<img width="300" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/downloadPage_pokemonAres.png" style="margin-right:10px" />
 
 - 點擊按鈕後，若有顯示廣告，請按右上角或是左上角的X關閉
 
 	<img width="300" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/apkmirror_AD.jpg" style="margin-right:10px" />
 
-- 進入網頁後，往下滑一些，會有一個【DOWNLOAD APK】或是【下載 APK】的按鈕
+- 進入網頁後，下載更新檔
 
-	<img width="500" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/download_APK_E.jpg" style="margin-right:10px" />
-	<img width="500" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/download_APK_C.jpg" style="margin-right:10px" />
+	<img width="500" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/downloadPageDialog.png" style="margin-right:10px" />
 
-- 下載好後開啟檔案，點選安裝或是更新
+- 下載好後開啟檔案，點選更新
 
-	<img width="500" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/install_pokemon.jpg" style="margin-right:10px" />
+	<img width="500" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/downloadPageInstall.png" style="margin-right:10px" />
 
-- 若有重新安裝或是更新完成後，請記得將手機重新啟動
+- 這樣就更新完成了
+
+	<img width="500" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/downloadPageInstallDone.png" style="margin-right:10px" />
+
+- 若有重新安裝或是更新完成後，請記得將裝置**重新啟動**
 - 若重開機後仍然顯示錯誤12，請依照[無法偵測位置12](#寶可夢顯示-無法偵測位置12)操作
 
 ### 寶可夢更新教學(小米雙開版本)
+- **若需要安裝雙開，請優先使用三星雙開版本**
 - 本教學僅適用小米、紅米、POCO且搭載MIUI或Hyper OS系統之設備
 - 正常依照[寶可夢更新教學](#%E5%AF%B6%E5%8F%AF%E5%A4%A2%E6%9B%B4%E6%96%B0%E6%95%99%E5%AD%B8)操作，小米雙開版本便會自動更新
 - 若沒有更新成功或是尚未安裝，在依照下方教學操作
@@ -90,7 +89,7 @@
 
 	<img width="300" src="https://hackmd.io/_uploads/r1aQiI-S1l.jpg" style="margin-right:10px" />
 
-- 若有重新安裝或是更新完成後，請記得將手機重新啟動
+- 若有重新安裝或是更新完成後，請記得將裝置**重新啟動**
 - 若重開機後仍然顯示錯誤12，請依照[無法偵測位置12](#寶可夢顯示-無法偵測位置12)操作
 
 ### 寶可夢降版本
@@ -116,23 +115,12 @@
 - 若Play商店內顯示未安裝，或是已經取消自動更新，請操作[寶可夢降版本](#%E5%AF%B6%E5%8F%AF%E5%A4%A2%E9%99%8D%E7%89%88%E6%9C%AC)
 
 ### 寶可夢版本強制更新
-- 如果遇到強制更新，可以先嘗試啟用測試版開關
+- 可先至寶可夢頁面上查看: 目前可安裝版本、各輔助軟體的支援版本與寶可夢最低可登入版本
+- 如果支援版本**低於**寶可夢最低可登入版本，則須等待輔助軟體團隊支援新版本後才能繼續使用
 
-	<img width="500" src="https://hackmd.io/_uploads/BkQVQrgs0.jpg" style="margin-right:10px" />
-- 若版本還是不支援，請先至Play商店更新寶可夢，並等待PgTools團隊更新
+	<img width="500" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/docs/images/pogoManager_pokemonNewerVersion.png" style="margin-right:10px" />
 
-### 其他檔案下載
-- 點擊檔案下載並安裝
-
-	<img width="500" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/download_APK_mediafire.jpg" style="margin-right:10px" />
-
-- 如果下載後遇到如圖只顯示下載中無法正常下載狀況
-
-	<img width="200" src="https://hackmd.io/_uploads/HJ2WOHgiA.jpg" style="margin-right:10px" />
-
-	- 下載時請點擊中間的無法正常下載按鈕
-
-		<img width="400" src="https://hackmd.io/_uploads/BkGltBejC.jpg" style="margin-right:10px" />
+- 若更新檔案下載失敗，請先至Play商店更新寶可夢，並等待輔助軟體團隊更新支援
 
 
 # 建議玩法
@@ -215,8 +203,7 @@
 
 # 程式列表
 ## GPS Joystick 搖桿改定位
-<img width="50" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/icon/gps_icon.png" alt="GPS Joystick 圖示" />
-可以讓你在遊戲中使用搖桿來移動你的位置，並且可以設定路徑移動與移動速度
+<img width="50" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/icon/gps_icon.png" alt="GPS Joystick 圖示" /> 可以讓你在遊戲中使用搖桿來移動你的位置，並且可以設定路徑移動與移動速度
 
 ### 匯入GPX路徑檔案
 1. 至POGO管理器的捷徑頁面
@@ -263,10 +250,6 @@
 ### 搖桿快捷鍵功能介紹
 <img width="600" src="https://hackmd.io/_uploads/BJmLGwgoR.png" style="margin-right:10px" />
 
-- **三星系統Android 10以上在快捷欄中請不要按** <img width="30" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/JoystickMapIcon.jpg" alt="快捷圖示" />
-- 可能會導致搖桿崩潰，須重啟搖桿才能正常使用
-- 替代方法可查看[三星功能半殘替代方法](#三星功能半殘替代方法)
-
 ### 其他搖桿設定
 啟動搖桿改定位APP，點選左上角☰漢堡按鈕，設定
 - 切換搖桿外觀
@@ -279,18 +262,8 @@
 
 ### 冷卻時間
 - 搖桿內地圖傳送時可察看冷卻剩餘時間
-- 三星安卓10以上，替代方法可查看[三星功能半殘替代方法](#三星功能半殘替代方法)
 
 其他冷卻說明，可參考下方[冷卻計算](#冷卻計算)
-
-### 三星功能半殘替代方法
-- **三星系統Android 10以上在快捷欄中請勿點擊** <img width="30" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/JoystickMapIcon.jpg" alt="快捷圖示" />
-- 可能會導致搖桿崩潰，須重啟搖桿才能正常使用
-- 替代方式如下
-	- 若要傳送位置
-		- 請使用傳送座標功能或是切回去APP內[操作](#啟動搖桿)
-	- 若要設定路徑
-		- 切回去APP內[操作](#啟動搖桿)
 
 ## GPS Joystick Wrapper
 <img width="50" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/icon/Wrapper.jpg" alt="GPS Joystick Wrapper 圖示" />
@@ -308,7 +281,7 @@
 可以用來顯示寶可夢IV三圍、偵測色違；自動E球、點擊自動轉補給站、火箭隊直接勝利等功能
 
 - 目前已將免費版本功能移至[Aerilate 艾略特](#Aerilate-%E8%89%BE%E7%95%A5%E7%89%B9-)，目前版本僅提供付費會員使用
-- **本軟體不適用:32位元裝置,雙開版本(Miui應用雙開,island),三星版本寶可夢**
+- **本軟體不適用: 雙開版本(Miui應用雙開,island),三星版本寶可夢**
 
 ### 使用
 點擊"START"或是"啟動"即可開始使用，大部分功能皆以預先設定完成，若無法登入請參閱[常見問題](#暴力功常見問題)
@@ -371,61 +344,11 @@
 > 1. 請確認啟動時有顯示【以授予 暴力功 超級使用者權限】
 > 2. [常見問題](#常見問題)
 
-## Aerilate 艾略特
-<img width="50" src="https://hackmd.io/_uploads/H1aC4KeiR.png" alt="Aerilate 圖示" />
-新版[暴力功](#Polygon-暴力功-)，無須金鑰即可使用
-
-**本軟體不適用:32位元裝置,雙開版本(小米應用雙開,island),三星版本寶可夢**
-
-### 使用
-點擊"START"或是"啟動"即可開始使用，啟動前請先至一般設定內啟用需要的功能
-
-部分功能說明如下(可在一般設定中查看):
-| 模組設定 | 功能說明 |
-| --- | --- |
-| 捕捉時丟球輔助 | 輔助瞄準寶可夢 |
-| 點擊捕捉寶可夢 | 點擊寶可夢後自動捕捉 |
-| 自動旋轉補給站 | 自動旋轉補給站，如果背包還有空間 |
-| 點擊旋轉補給站 | 點擊補給站自動旋轉 |
-| 寶可夢掃描器 | 掃描寶可夢與偵測色違 |
-| 火箭隊自動勝利 | 自動打火箭隊，[目前建議關閉不使用](掛機刷星辰暴力功免費版) |
-| 點擊火箭隊小兵 | 點擊火箭隊後自動打火箭隊，[目前建議關閉不使用](掛機刷星辰暴力功免費版) |
-| 道館自動點擊 | 自動攻擊道館與團體戰 |
-| 孵化蛋 | 自動使用無限孵化器孵蛋，優先選擇距離最短的 |
-| 治療寶可夢 | 自動治療寶可夢，優先使用稀有度和價值較低的物品，優先治療最高CP的寶可夢 |
-| 自動傳送寶可夢 | 捕捉後自動傳送，捕捉的寶可夢如果低於100%IV就會自動傳送。異色寶可夢、0%IV寶可夢或來孵蛋或團體戰的寶可夢不會被傳送 |
-
-<img width="400" src="https://hackmd.io/_uploads/HJt-fEPfye.jpg" style="margin-right:10px" />
-
-### 偵測100IV與色違燈號
-
-🟣正常(normal)
-
-🔴𝟭𝟬𝟬％(hungo)
-
-🟡色違(shiny)
-
-🟢𝟭𝟬𝟬％+色違(Shungo)
-
-### 使用點擊傳送功能
-- **設定使用艾略特的點擊傳送功能較麻煩且無查詢冷卻時間，不推薦使用**
-1. 在一般設定中，啟用【點擊瞬間傳送】與【模擬位置搖桿】功能
-3. 填入起始座標位置
-4. 在進階設定內啟用【設定系統模擬位置應用程式】選項
-5. 在開發人員選項中選擇模擬定位應用程式為【Aerilate 艾略特】
-
-### 將定位服務切換回搖桿改定位
-1. 在一般設定中，關閉點擊瞬間傳送與模擬位置搖桿功能
-2. 在進階設定內關閉【設定系統模擬位置應用程式】選項
-3. 在開發人員選項中選擇模擬定位應用程式為【搖桿改定位】
-
-**模擬定位服務：搖桿與暴力功只能二選一，不能同時使用，建議使用搖桿改定位即可**
-
 ## Pgtools 自動抓
 <img width="50" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/icon/pgtools_icon.png" alt="Pgtools 圖示" />
 可以自動掛機抓寶可夢，並且可以自動轉補給站等功能
 
-**本軟體不適用:32位元裝置,雙開版本(小米應用雙開,island),三星版本寶可夢**
+**本軟體不適用: 雙開版本(小米應用雙開,island),三星版本寶可夢**
 
 開啟後，點選右上角國旗圖示，可將語言切換成繁體中文(台灣)
 
@@ -608,8 +531,7 @@
 
 - 請依照下方順序操作測試
 1. 請先嘗試重開機
-2. 如果是開艾略特顯示錯誤12，嘗試移除ART(Android runtime package) [影片教學](https://fb.watch/obvKzrwUoD/?mibextid=Nif5oz)
-3. 若重開機後還是一樣錯誤12，依照[影片教學](https://fb.watch/pnIRae_IUJ/)操作打勾魔物獵人/寶可夢即可，若無顯示遊戲，請右上角︙取消打勾隱藏遊戲 
+2. 若重開機後還是一樣顯示錯誤12，依照[影片教學](https://fb.watch/pnIRae_IUJ/)操作打勾魔物獵人/寶可夢/皮克敏即可，若無顯示遊戲，請右上角︙取消打勾隱藏遊戲 
 
 ## 定位跳回實體位置
 1. 檢查搖桿的設定，左上角︙設定內有一個間接模擬選項需要關閉
@@ -618,9 +540,6 @@
 2. PoGo外掛管理器捷徑內有一個定位精確度也需要關閉
 
 	<img width="300" src="https://hackmd.io/_uploads/SkACcw72A.jpg"/>
-3. **三星系統Android 10以上在快捷欄中請勿點擊** <img width="30" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/JoystickMapIcon.jpg" alt="快捷圖示" />
-- 可能會導致搖桿崩潰，須重啟搖桿才能正常使用
-- [替代方式](#三星功能半殘替代方法)
 
 ## PGTools與暴力功沒有功能或是無部分功能
 1. 嘗試移除ART(Android runtime package)
@@ -642,19 +561,56 @@
 
 # 免責聲明
 
-本應用程式與寶可夢和魔物獵人的官方品牌、版權持有者或任何相關的遊戲開發公司（如 Game Freak、The Pokémon Company、任天堂、CAPCOM、Niantic 等）均無關聯。
+本免責聲明適用於本應用程式與其相關文件（以下合稱「本應用程式」）。使用本應用程式即表示你理解並同意以下條款。
 
-1. 版權與商標
-- 本應用程式不包含任何官方遊戲資源，且不侵犯任何版權或商標。人造成影響侵害著作權或商標的行為要負責。
+## 中文
+1. 關聯與標示
+- 本應用程式與寶可夢、魔物獵人、皮克敏及其任何官方品牌、版權持有者或相關公司（如 Game Freak、The Pokémon Company、任天堂、CAPCOM、Niantic 等）均無關聯。
 
-2. 責任限制
-- 本應用程式「按原樣」提供，並未附帶任何形式的明示或默許。不限於直接、間接、附帶、特殊或後果性損害。
+2. 版權與商標
+- 本應用程式不包含任何官方遊戲資源，亦不主張擁有任何第三方商標或版權。任何未經授權的使用或侵權行為應由使用者自行負責。
 
-3. 外部連結
-- 本應用程式可能包含其他網站或資源的連結。
+3. 無保證
+- 本應用程式以「現狀」與「可用為基礎」提供，不提供任何明示或默示保證，包括但不限於適售性、特定目的適用性與不侵權。
 
-4. 應用程式更新與變更
-- 本應用程式可能會不定期進行更新和改進。
+4. 責任限制
+- 在任何情況下，本應用程式之提供者不對任何直接、間接、附帶、特殊或衍生性損害負責，包含但不限於資料遺失、商譽損失或服務中斷。
 
-5. 使用者責任
-- 使用者程式應自行確保使用本應用程式符合其所在的法律法規。
+5. 外部連結
+- 本應用程式可能包含第三方網站或資源連結。該等內容由第三方負責，本應用程式不保證其正確性、合法性或可用性，亦不負任何責任。
+
+6. 使用者責任與法規遵循
+- 使用者應自行確保使用本應用程式符合所在地之法律與相關規範，並自行承擔使用風險與後果。
+
+7. 更新與變更
+- 本應用程式可能不定期更新或變更內容，亦可能停止部分功能或全部服務，恕不另行通知。
+
+8. 商業與第三方平台聲明
+- 本應用程式內可能出現公司名稱、品牌識別或對外連結（如蝦皮賣場、Facebook 粉絲專頁、Discord 社群）僅作為開發者/營運者識別與資訊提供用途，不代表與任何遊戲官方或平台方存在授權、背書或合作關係。
+- 交易、付款、退款、平台規則、帳號處分與內容審核等事項，依各第三方平台之條款與機制辦理；使用者應自行閱讀並遵循相關規範。
+
+## English
+1. Affiliation and Branding
+- This application is not affiliated with Pokemon, Monster Hunter, Pikmin, or any official brand owners or related companies (e.g., Game Freak, The Pokemon Company, Nintendo, CAPCOM, Niantic).
+
+2. Copyrights and Trademarks
+- This application does not include any official game assets and does not claim ownership of any third-party trademarks or copyrights. Any unauthorized use or infringement is the user's sole responsibility.
+
+3. No Warranty
+- This application is provided "as is" and "as available" without any warranties, express or implied, including but not limited to merchantability, fitness for a particular purpose, or non-infringement.
+
+4. Limitation of Liability
+- Under no circumstances shall the provider of this application be liable for any direct, indirect, incidental, special, or consequential damages, including but not limited to data loss, loss of goodwill, or service interruption.
+
+5. External Links
+- This application may contain links to third-party websites or resources. Such content is provided by third parties, and this application does not guarantee its accuracy, legality, or availability, nor assume any responsibility.
+
+6. User Responsibility and Legal Compliance
+- Users are responsible for ensuring compliance with local laws and regulations and for all risks and consequences arising from use.
+
+7. Updates and Changes
+- This application may be updated or modified from time to time, and features or services may be changed or discontinued without notice.
+
+8. Commercial and Third-Party Platform Statement
+- Company names, brand identifiers, and external links in this application (such as Shopee stores, Facebook pages, and Discord communities) are provided only for developer/operator identification and informational purposes, and do not imply authorization, endorsement, or partnership with any official game publisher or platform.
+- Transactions, payments, refunds, platform rules, account actions, and content moderation are governed by each third-party platform's own terms and mechanisms; users are responsible for reviewing and complying with those rules.
