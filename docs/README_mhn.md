@@ -22,7 +22,7 @@
 3. 開始遊玩
 
 ## GPS Joystick 搖桿改定位
-<img width="50" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/icon/gps_icon.png" alt="GPS Joystick 圖示" />
+<img width="50" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/icon/gps_icon.png" alt="GPS Joystick 圖示" />
 可以讓你在遊戲中使用搖桿來移動你的位置，並且可以設定路徑移動與移動速度
 
 ### 匯入GPX路徑檔案
@@ -61,16 +61,16 @@
 點右上角的圖示可切換模式選擇，可以選擇使用單一位置或是路徑移動
 - 單一位置: 點擊地圖上的位置或是輸入經位度，按下開始後移動到該位置
 
-<img width="200" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/JoystickStart1-1.jpg" style="margin-right:10px" /> <img width="200" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/JoystickStart1-2.jpg" style="margin-right:10px" />
+<img width="200" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/JoystickStart1-1.jpg" style="margin-right:10px" /> <img width="200" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/JoystickStart1-2.jpg" style="margin-right:10px" />
 
 - 路徑移動: 點擊地圖上的設置路徑，在選擇生成或是加載路徑，按下開始後就會依照路徑位置移動，若要重複循環請記得要設定路徑模式
 
-<img width="200" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/JoystickStart2-1.jpg" style="margin-right:10px" /> <img width="200" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/JoystickStart2-2.jpg" style="margin-right:10px" />
+<img width="200" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/JoystickStart2-1.jpg" style="margin-right:10px" /> <img width="200" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/JoystickStart2-2.jpg" style="margin-right:10px" />
 
 ### 搖桿快捷鍵功能介紹
 <img width="600" src="https://hackmd.io/_uploads/BJmLGwgoR.png" style="margin-right:10px" />
 
-- **三星系統Android 10以上在快捷欄中請不要按** <img width="30" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/JoystickMapIcon.jpg" alt="快捷圖示" />
+- **三星系統Android 10以上在快捷欄中請不要按** <img width="30" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/JoystickMapIcon.jpg" alt="快捷圖示" />
 - 可能會導致搖桿崩潰，須重啟搖桿才能正常使用
 - 替代方法可查看[三星功能半殘替代方法](#三星功能半殘替代方法)
 
@@ -89,7 +89,7 @@
 - 三星安卓10以上，替代方法可查看[三星功能半殘替代方法](#三星功能半殘替代方法)
 
 ### 三星功能半殘替代方法
-- **三星系統Android 10以上在快捷欄中請勿點擊** <img width="30" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/JoystickMapIcon.jpg" alt="快捷圖示" />
+- **三星系統Android 10以上在快捷欄中請勿點擊** <img width="30" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/JoystickMapIcon.jpg" alt="快捷圖示" />
 - 可能會導致搖桿崩潰，須重啟搖桿才能正常使用
 - 替代方式如下
 	- 若要傳送位置

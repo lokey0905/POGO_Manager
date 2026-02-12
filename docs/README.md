@@ -1,7 +1,7 @@
 # POGO寶可夢管理器 POGOManager
 圖示介紹：
 
-<img width="300" src="https://hackmd.io/_uploads/S1JjmYgiA.jpg" alt="POGO 管理器圖示" />
+<img width="300" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/%E5%9C%96%E7%A4%BA%E4%BB%8B%E7%B4%B9.png" alt="POGO 管理器圖示" />
 
 ## 閱讀模式
 ### [書本閱讀模式頁面(HackMD)](https://hackmd.io/@lokey0905/B1x_pZAT2)
@@ -21,7 +21,7 @@
 
 - 點擊寶可夢的更新按鈕
 
-	<img width="500" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/NewVersion2.jpg" style="margin-right:10px" />
+	<img width="500" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/NewVersion2.jpg" style="margin-right:10px" />
 
 - 進入網頁後會自動下載更新檔案
 
@@ -37,11 +37,11 @@
 
 - 等待廣告，完成後，請按右上角或是左上角的X關閉
 
-	<img width="300" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/apkmirror_AD.jpg" style="margin-right:10px" />
+	<img width="300" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/apkmirror_AD.jpg" style="margin-right:10px" />
 
 - 點選安裝或是更新
 
-	<img width="600" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/install_pokemon.jpg" style="margin-right:10px" />
+	<img width="600" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/install_pokemon.jpg" style="margin-right:10px" />
 
 - 若有重新安裝或是更新完成後，請記得將手機重新啟動
 - 若重開機後仍然顯示錯誤12，請依照[無法偵測位置12](#寶可夢顯示-無法偵測位置12)操作
@@ -59,16 +59,16 @@
 
 - 點擊按鈕後，若有顯示廣告，請按右上角或是左上角的X關閉
 
-	<img width="300" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/apkmirror_AD.jpg" style="margin-right:10px" />
+	<img width="300" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/apkmirror_AD.jpg" style="margin-right:10px" />
 
 - 進入網頁後，往下滑一些，會有一個【DOWNLOAD APK】或是【下載 APK】的按鈕
 
-	<img width="500" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/download_APK_E.jpg" style="margin-right:10px" />
-	<img width="500" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/download_APK_C.jpg" style="margin-right:10px" />
+	<img width="500" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/download_APK_E.jpg" style="margin-right:10px" />
+	<img width="500" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/download_APK_C.jpg" style="margin-right:10px" />
 
 - 下載好後開啟檔案，點選安裝或是更新
 
-	<img width="500" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/install_pokemon.jpg" style="margin-right:10px" />
+	<img width="500" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/install_pokemon.jpg" style="margin-right:10px" />
 
 - 若有重新安裝或是更新完成後，請記得將手機重新啟動
 - 若重開機後仍然顯示錯誤12，請依照[無法偵測位置12](#寶可夢顯示-無法偵測位置12)操作
@@ -124,7 +124,7 @@
 ### 其他檔案下載
 - 點擊檔案下載並安裝
 
-	<img width="500" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/download_APK_mediafire.jpg" style="margin-right:10px" />
+	<img width="500" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/download_APK_mediafire.jpg" style="margin-right:10px" />
 
 - 如果下載後遇到如圖只顯示下載中無法正常下載狀況
 
@@ -215,7 +215,7 @@
 
 # 程式列表
 ## GPS Joystick 搖桿改定位
-<img width="50" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/icon/gps_icon.png" alt="GPS Joystick 圖示" />
+<img width="50" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/icon/gps_icon.png" alt="GPS Joystick 圖示" />
 可以讓你在遊戲中使用搖桿來移動你的位置，並且可以設定路徑移動與移動速度
 
 ### 匯入GPX路徑檔案
@@ -254,16 +254,16 @@
 點右上角的圖示可切換模式選擇，可以選擇使用單一位置或是路徑移動
 - 單一位置: 點擊地圖上的位置或是輸入經位度，按下開始後移動到該位置
 
-<img width="200" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/JoystickStart1-1.jpg" style="margin-right:10px" /> <img width="200" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/JoystickStart1-2.jpg" style="margin-right:10px" />
+<img width="200" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/JoystickStart1-1.jpg" style="margin-right:10px" /> <img width="200" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/JoystickStart1-2.jpg" style="margin-right:10px" />
 
 - 路徑移動: 點擊地圖上的設置路徑，在選擇生成或是加載路徑，按下開始後就會依照路徑位置移動，若要重複循環請記得要設定路徑模式
 
-<img width="200" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/JoystickStart2-1.jpg" style="margin-right:10px" /> <img width="200" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/JoystickStart2-2.jpg" style="margin-right:10px" />
+<img width="200" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/JoystickStart2-1.jpg" style="margin-right:10px" /> <img width="200" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/JoystickStart2-2.jpg" style="margin-right:10px" />
 
 ### 搖桿快捷鍵功能介紹
 <img width="600" src="https://hackmd.io/_uploads/BJmLGwgoR.png" style="margin-right:10px" />
 
-- **三星系統Android 10以上在快捷欄中請不要按** <img width="30" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/JoystickMapIcon.jpg" alt="快捷圖示" />
+- **三星系統Android 10以上在快捷欄中請不要按** <img width="30" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/JoystickMapIcon.jpg" alt="快捷圖示" />
 - 可能會導致搖桿崩潰，須重啟搖桿才能正常使用
 - 替代方法可查看[三星功能半殘替代方法](#三星功能半殘替代方法)
 
@@ -284,7 +284,7 @@
 其他冷卻說明，可參考下方[冷卻計算](#冷卻計算)
 
 ### 三星功能半殘替代方法
-- **三星系統Android 10以上在快捷欄中請勿點擊** <img width="30" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/JoystickMapIcon.jpg" alt="快捷圖示" />
+- **三星系統Android 10以上在快捷欄中請勿點擊** <img width="30" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/JoystickMapIcon.jpg" alt="快捷圖示" />
 - 可能會導致搖桿崩潰，須重啟搖桿才能正常使用
 - 替代方式如下
 	- 若要傳送位置
@@ -293,7 +293,7 @@
 		- 切回去APP內[操作](#啟動搖桿)
 
 ## GPS Joystick Wrapper
-<img width="50" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/icon/Wrapper.jpg" alt="GPS Joystick Wrapper 圖示" />
+<img width="50" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/icon/Wrapper.jpg" alt="GPS Joystick Wrapper 圖示" />
 可以快速尋找火箭隊的軟體
 
 ### 使用
@@ -304,7 +304,7 @@
 - 若無傳送表示可能無資料，請擴大搜尋範圍尋找
 
 ## Polygon 暴力功 (目前僅提供付費使用)
-<img width="50" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/icon/polygon_icon.png" alt="Polygon 圖示" />
+<img width="50" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/icon/polygon_icon.png" alt="Polygon 圖示" />
 可以用來顯示寶可夢IV三圍、偵測色違；自動E球、點擊自動轉補給站、火箭隊直接勝利等功能
 
 - 目前已將免費版本功能移至[Aerilate 艾略特](#Aerilate-%E8%89%BE%E7%95%A5%E7%89%B9-)，目前版本僅提供付費會員使用
@@ -326,7 +326,7 @@
 | 遊戲視野擴增80米 | 遊戲視野更寬闊，若裝置會卡頓建議關閉 |
 | 最大FPS禎率模式 | 啟用裝置最高更新率流暢顯示，若裝置會發熱卡頓建議關閉 |
 
-<img width="400" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/PolygonSetting.jpg" style="margin-right:10px" />
+<img width="400" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/PolygonSetting.jpg" style="margin-right:10px" />
 
 - **進階設定不建議自行設定，可能會導致不可預期的後果**
 
@@ -422,7 +422,7 @@
 **模擬定位服務：搖桿與暴力功只能二選一，不能同時使用，建議使用搖桿改定位即可**
 
 ## Pgtools 自動抓
-<img width="50" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/icon/pgtools_icon.png" alt="Pgtools 圖示" />
+<img width="50" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/icon/pgtools_icon.png" alt="Pgtools 圖示" />
 可以自動掛機抓寶可夢，並且可以自動轉補給站等功能
 
 **本軟體不適用:32位元裝置,雙開版本(小米應用雙開,island),三星版本寶可夢**
@@ -437,7 +437,7 @@
 - 若有功能問題，可以參考[常見問題](#常見問題)
 
 ## PokeList 寶可夢列表
-<img width="50" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/icon/pokelist_icon.png" alt="PokeList 圖示" />
+<img width="50" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/icon/pokelist_icon.png" alt="PokeList 圖示" />
 可用來追蹤寶可夢
 
 ### 傳送方式
@@ -468,7 +468,7 @@
 自動點擊功能只有少數機型可以使用(可自行測試)，建議手動進行傳送
 
 ## WeCatch 寶可夢地圖
-<img width="50" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/icon/wecatch_icon.png" alt="WeCatch 圖示" />
+<img width="50" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/icon/wecatch_icon.png" alt="WeCatch 圖示" />
 可用來尋找與追蹤寶可夢、補給站、道館等等
 
 ### 使用
@@ -618,7 +618,7 @@
 2. PoGo外掛管理器捷徑內有一個定位精確度也需要關閉
 
 	<img width="300" src="https://hackmd.io/_uploads/SkACcw72A.jpg"/>
-3. **三星系統Android 10以上在快捷欄中請勿點擊** <img width="30" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/JoystickMapIcon.jpg" alt="快捷圖示" />
+3. **三星系統Android 10以上在快捷欄中請勿點擊** <img width="30" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/JoystickMapIcon.jpg" alt="快捷圖示" />
 - 可能會導致搖桿崩潰，須重啟搖桿才能正常使用
 - [替代方式](#三星功能半殘替代方法)
 
