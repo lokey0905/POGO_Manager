@@ -21,41 +21,8 @@
 2. 打開MHN Tools並點擊啟動按鈕
 3. 開始遊玩
 
-## GPS Joystick 搖桿改定位
-<img width="50" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/icon/gps_icon.png" alt="GPS Joystick 圖示" />
+## <img width="24" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/icon/gps_icon.png" alt="GPS Joystick 圖示" /> GPS Joystick 搖桿改定位
 可以讓你在遊戲中使用搖桿來移動你的位置，並且可以設定路徑移動與移動速度
-
-### 匯入GPX路徑檔案
-1. 至POGO管理器的捷徑頁面
-
-   <img width="300" src="https://hackmd.io/_uploads/SJ0xxLloA.jpg" style="margin-right:10px" />
-2. 下載任一路徑檔案壓縮包
-3. 下載Google檔案管理器，Play商店搜尋【File by Google】下載安裝
-
-   <img width="500" src="https://hackmd.io/_uploads/HJGmWLesA.jpg" style="margin-right:10px" />
-4. 開啟檔案管理器並允許權限
-5. 到下載資料夾，並找到剛剛下載的檔案
-
-   <img width="400" src="https://hackmd.io/_uploads/Sk9EGUloR.jpg" style="margin-right:10px" />
-6. 點選檔案並解壓縮
-
-   <img width="300" src="https://hackmd.io/_uploads/SkA5zLxoR.jpg" style="margin-right:10px" />
-7. 解壓縮完成後，應該會在資料夾中看到許多gpx檔案
-
-   <img width="200" src="https://hackmd.io/_uploads/BkgfmUgjR.jpg" style="margin-right:10px" />
-8. 回到搖桿改定位APP中，點選左上角☰漢堡按鈕，選擇GPX匯入/匯出選項
-9. 選擇匯入，點選左上角☰漢堡按鈕，選擇「下載」資料夾，再點選要匯入的GPX路徑檔
-10. 若選擇正確，會出現如下圖畫面
-
-	<img width="400" src="https://hackmd.io/_uploads/HywlSUejA.jpg" style="margin-right:10px" />
-11. 點選【航點】，點選右下角下載按鈕，再點選從【全部創建路線】
-
-	<img width="400" src="https://hackmd.io/_uploads/rJ9oSIloR.jpg" style="margin-right:10px" />
-12. 點選左上角的【保存路徑】按鈕
-
-	<img width="400" src="https://hackmd.io/_uploads/r1H-88giA.jpg" style="margin-right:10px" />
-13. 設定一個你喜歡的路徑名稱
-14. 恭喜匯入完成
 
 ### 啟動搖桿
 點右上角的圖示可切換模式選擇，可以選擇使用單一位置或是路徑移動
@@ -68,11 +35,8 @@
 <img width="200" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/JoystickStart2-1.jpg" style="margin-right:10px" /> <img width="200" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/JoystickStart2-2.jpg" style="margin-right:10px" />
 
 ### 搖桿快捷鍵功能介紹
-<img width="600" src="https://hackmd.io/_uploads/BJmLGwgoR.png" style="margin-right:10px" />
+<img width="600" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/Joystick.png" style="margin-right:10px" />
 
-- **三星系統Android 10以上在快捷欄中請不要按** <img width="30" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/JoystickMapIcon.jpg" alt="快捷圖示" />
-- 可能會導致搖桿崩潰，須重啟搖桿才能正常使用
-- 替代方法可查看[三星功能半殘替代方法](#三星功能半殘替代方法)
 
 ### 其他搖桿設定
 啟動搖桿改定位APP，點選左上角☰漢堡按鈕，設定
@@ -86,20 +50,16 @@
 
 ### 冷卻時間
 - 搖桿內地圖傳送時可察看冷卻剩餘時間
-- 三星安卓10以上，替代方法可查看[三星功能半殘替代方法](#三星功能半殘替代方法)
 
-### 三星功能半殘替代方法
-- **三星系統Android 10以上在快捷欄中請勿點擊** <img width="30" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/JoystickMapIcon.jpg" alt="快捷圖示" />
-- 可能會導致搖桿崩潰，須重啟搖桿才能正常使用
-- 替代方式如下
-	- 若要傳送位置
-		- 請使用傳送座標功能或是切回去APP內[操作](#啟動搖桿)
-	- 若要設定路徑
-		- 切回去APP內[操作](#啟動搖桿)
+其他冷卻說明，可參考下方[冷卻計算](#冷卻計算)
 
 # MHN Tools 說明
 目前有部分玩家使用此軟體被封禁，請謹慎使用，若怕被封禁建議不要使用
+
 ## 功能英文/中文翻譯
+
+<img width="500" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/MHNtools_Manuel_page.jpg" alt="MHN Tools 官方功能對照表" />
+
 英文 | 中文（台灣）
 ---|---
 Attack Multiply | 攻擊倍率：500000 |
@@ -135,7 +95,7 @@ Save Configurations | 儲存配置 |
 每一天，一張授權，Basic或Premium，只能支援，同一個時間，一台手機(一個Device)，每一天，可以轉MHN帳號三次，每次按「切換」/「更換」，以GMT 0，開始計算。
 
 GMT 0，即是北京/台灣時間，上午8時。
-### free (免費版)
+### Free（免費版）
 英文 | 中文（台灣）
 ---|---
 Attack Multiply - max 2 times | 攻擊倍率 - 最大 2 倍
@@ -150,7 +110,7 @@ Grab Resource Type Mine | 採集資源類型：礦石
 Grab Resource Type Bonepile | 採集資源類型：骨頭堆
 Grab Resource Type Plant | 採集資源類型：植物
 Stop By Stats Gathering Point | 停留在數據收集點
-### basic （基本版，需贊助）
+### Basic（基本版，需贊助）
 基本版功能包含免費版本內容
 英文 | 中文（台灣）
 ---|---
@@ -166,11 +126,11 @@ Enable Hide Entity On Map | 隱藏地圖上實體
 Enable Hide Road On Map | 隱藏地圖道路
 Kill Paintball Monsters | 消滅彩彈怪物
 Stop By Stats Small Monster | 停留在小型怪物數據收集點
-### premium （高級版，需贊助）
+### Premium（高級版，需贊助）
 所有功能都可以無限制地使用
 英文 | 中文（台灣）
 ---|---
-Attack Multiply | 攻擊倍率：可設置任何值，但須小於 1000，默認值為 50。 |
+Attack Multiply | 攻擊倍率：可設置任意值，但建議小於 1000，預設值為 50。 |
 Reduce Taken Damage (%) - max 100% | 減少受到的傷害 (%) - 最大 100% |
 Attack And Go | 攻擊後離開 |
 Tap To Teleport | 點擊傳送 |
@@ -178,16 +138,16 @@ Fast Tap To Teleport | 快速點擊傳送 |
 Dumb Monster | 怪物變笨 |
 Grab Resource And Go | 採集資源後離開 |
 Auto Grab Resource | 自動採集資源 |
-Auto Grab Resource Delay Time | 自動採集資源延遲時間（默認值 3000 毫秒，最大值 30000 毫秒） |
-Auto Defeat Large Monster  | 自動擊敗大型怪物 |
-Min Large Monster Grade | 最低大型怪物等級：默認值 0，最大值 10 |
+Auto Grab Resource Delay Time | 自動採集資源延遲時間（預設 3000 毫秒／3 秒，最大 30000 毫秒／30 秒） |
+Auto Defeat Large Monster 🚀 | 自動擊敗大型怪物 🚀 |
+Min Large Monster Grade | 最低大型怪物等級：預設值 0，最大值 10 |
 Auto Defeat Small Monster | 自動擊敗小型怪物 |
-Auto Defeat Monster Delay Time | 自動擊敗怪物延遲時間（默認值 3000 毫秒，最大值 30000 毫秒） |
+Auto Defeat Monster Delay Time | 自動擊敗怪物延遲時間（預設 3000 毫秒／3 秒，最大 30000 毫秒／30 秒） |
 Item Management | 物品管理 |
 Auto Claim Quest Rewards | 自動領取任務獎勵 |
 Enable Stats | 顯示數據 |
-Map Interaction Range | 地圖互動範圍：默認值 100，最大值 1000 |
-Palico Interaction Range | 隨從貓互動範圍：默認值 100，最大值 1000 | 
+Map Interaction Range | 地圖互動範圍：預設值 100，最大值 1000 |
+Palico Interaction Range 🚀 | 隨從貓互動範圍：預設值 100，最大值 1000 🚀 |
 Enable Hide Tutorial Dialog | 隱藏教學對話框 |
 Enable Hide Entity On Map | 隱藏地圖上實體 |
 Enable Hide Road On Map | 隱藏地圖道路 |
