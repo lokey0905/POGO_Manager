@@ -8,19 +8,19 @@
 - 須注意等待冷卻時間
 
 啟動順序如下:
-1. 打開[搖桿](#GPS-Joystick-搖桿改定位-)並[設定位置啟動搖桿](#啟動搖桿)
-3. 開始遊玩
-
+1. 打開[搖桿](#gps-joystick)並[設定位置啟動搖桿](#啟動搖桿)
+2. 開始遊玩
 
 ## 改定位+修改魔物獵人數值
 - **MHN Tools屬於注入式軟體，使用可能會有風險**
 - 須注意等待冷卻時間
 
 啟動順序如下:
-1. 打開[搖桿](#GPS-Joystick-搖桿改定位-)並[設定位置啟動搖桿](#啟動搖桿)
+1. 打開[搖桿](#gps-joystick)並[設定位置啟動搖桿](#啟動搖桿)
 2. 打開MHN Tools並點擊啟動按鈕
 3. 開始遊玩
 
+<a id="gps-joystick"></a>
 ## <img width="24" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/icon/gps_icon.png" alt="GPS Joystick 圖示" /> GPS Joystick 搖桿改定位
 可以讓你在遊戲中使用搖桿來移動你的位置，並且可以設定路徑移動與移動速度
 
