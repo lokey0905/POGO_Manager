@@ -235,8 +235,8 @@
 - Android的分割畫面只能同時開啟兩個畫面，除非有特殊需求，否則不建議安裝超過2個客戶端
 
 # 程式列表
-## GPS Joystick 搖桿改定位
-<img width="40" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/icon/gps_icon.png" alt="GPS Joystick 圖示" /> 可以讓你在遊戲中使用搖桿來移動你的位置，並且可以設定路徑移動與移動速度
+## <img width="24" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/icon/gps_icon.png" alt="GPS Joystick 圖示" /> GPS Joystick 搖桿改定位
+可以讓你在遊戲中使用搖桿來移動你的位置，並且可以設定路徑移動與移動速度
 
 ### 匯入GPX路徑檔案
 1. 至POGO管理器的捷徑頁面
@@ -298,8 +298,7 @@
 
 其他冷卻說明，可參考下方[冷卻計算](#冷卻計算)
 
-## GPS Joystick Wrapper
-<img width="40" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/icon/wrapper_icon.png" alt="GPS Joystick Wrapper 圖示" />
+## <img width="24" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/icon/wrapper_icon.png" alt="Data Hub 圖示" /> Data Hub
 可以快速尋找火箭隊的軟體
 
 ### 使用
@@ -309,8 +308,7 @@
 - 點擊【🔁】按鈕可重新整理資料
 - 若無傳送表示可能無資料，請擴大搜尋範圍尋找
 
-## Pokemod
-<img width="40" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/icon/pokemod_icon.png" alt="Pokemod 圖示" />
+## <img width="24" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/icon/pokemod_icon.png" alt="Pokemod 圖示" /> Pokemod
 可以用來顯示寶可夢IV三圍、提升捕捉操作便利性，以及補給站與背包相關的輔助功能
 
 - **本軟體屬於注入式輔助軟體，使用可能有風險，請自行評估後再使用**
@@ -354,8 +352,7 @@
 | vPGP³ | 強化型虛擬 GO Plus（自動抓、自動轉、自動重連） |
 
 
-## Polygon 暴力功 (目前僅提供付費使用)
-<img width="40" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/icon/polygon_icon.png" alt="Polygon 圖示" />
+## <img width="24" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/icon/polygon_icon.png" alt="Polygon 圖示" /> Polygon 暴力功 (目前僅提供付費使用)
 可以用來顯示寶可夢IV三圍、偵測色違；自動E球、點擊自動轉補給站、火箭隊直接勝利等功能
 
 - **本軟體不適用: 雙開版本(Miui應用雙開,island),三星版本寶可夢**
@@ -421,8 +418,7 @@
 > 1. 請確認啟動時有顯示【以授予 暴力功 超級使用者權限】
 > 2. [常見問題](#常見問題)
 
-## Pgtools 自動抓
-<img width="40" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/icon/pgtools_icon.png" alt="Pgtools 圖示" />
+## <img width="24" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/icon/pgtools_icon.png" alt="Pgtools 圖示" /> Pgtools 自動抓
 可以自動掛機抓寶可夢，並且可以自動轉補給站等功能
 
 **本軟體不適用: 雙開版本(小米應用雙開,island),三星版本寶可夢**
@@ -433,14 +429,14 @@
 - PoGo 近年持續增加限制與上限，建議先確認可接受風險，再決定是否使用與贊助。
 
 ### 使用
-開啟後，點選右上角國旗圖示🇬🇧，往下滑動找到台灣國旗🇹🇼及可設定繁體中文
+開啟後，點選右上角國旗圖示🇬🇧，往下滑動找到台灣國旗🇹🇼即可設定繁體中文
 
 - 若要啟動，點選中間下方的開始掛機按紐即可啟動
 
 - 若有功能問題，可以參考[常見問題](#常見問題)
 
 ### 模式與權限說明（官方）
-- 標示 <img width="14" src="images/icon/coin-icon.png" alt="贊助圖示" /> 的選項為**贊助者（Sponsor）限定**
+- 標示 <img width="14" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/icon/coin-icon.png" alt="贊助圖示" /> 的選項為**贊助者（Sponsor）限定**
 - PaG 與 PaS **沒有免費功能**，需贊助後才能使用
 
 贊助方式可參考官方 Discord 的 support-us 頻道。
@@ -451,8 +447,8 @@
 
 #### Catching Mode（捕捉模式）
 - Normal Mode：正常進入捕捉畫面後捕捉
-- Fast Mode <img width="14" src="images/icon/coin-icon.png" alt="贊助圖示" />：短暫進入捕捉畫面後快速處理
-- Ultimate Mode <img width="14" src="images/icon/coin-icon.png" alt="贊助圖示" />：不進入捕捉畫面，直接處理捕捉
+- Fast Mode <img width="14" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/icon/coin-icon.png" alt="贊助圖示" />：短暫進入捕捉畫面後快速處理
+- Ultimate Mode <img width="14" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/icon/coin-icon.png" alt="贊助圖示" />：不進入捕捉畫面，直接處理捕捉
 
 #### Pokéball Options（球種設定）
 - PokéBall Priority：設定球種使用優先順序（預設紅球）
@@ -461,7 +457,7 @@
 
 #### Transfer Options（傳送設定）
 - Transfer Filters：符合條件時自動傳送
-- Evolve Before Transfer <img width="14" src="images/icon/coin-icon.png" alt="贊助圖示" />：傳送前先進化
+- Evolve Before Transfer <img width="14" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/icon/coin-icon.png" alt="贊助圖示" />：傳送前先進化
 - 啟用先進化需有足夠糖果（至少可進化所需）
 
 #### Pokémon Inventory Options（寶可夢背包設定）
@@ -473,16 +469,16 @@
 - Items Warrior：保留指定數量，超過部分可自動使用
 - 物品數值設為 1000 可視為保留上限（官方描述為近似無上限）
 
-#### Egg Features <img width="14" src="images/icon/coin-icon.png" alt="贊助圖示" />
+#### Egg Features <img width="14" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/icon/coin-icon.png" alt="贊助圖示" />
 - Enable Auto Hatch：自動孵蛋
 - Hatch Settings：可依蛋種設定使用哪種孵化器
 
-#### Buddy Features <img width="14" src="images/icon/coin-icon.png" alt="贊助圖示" />
+#### Buddy Features <img width="14" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/icon/coin-icon.png" alt="贊助圖示" />
 - Enable Buddy Feature：自動餵食、互動與照顧夥伴
 - Feeding Type：可選夥伴餵食食物類型
 
 #### Quest Features（任務功能）
-- Automatically Claim Quest Rewards <img width="14" src="images/icon/coin-icon.png" alt="贊助圖示" />：自動領任務獎勵，並移除不可完成任務
+- Automatically Claim Quest Rewards <img width="14" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/icon/coin-icon.png" alt="贊助圖示" />：自動領任務獎勵，並移除不可完成任務
 - Automatically Catch Pokémon in Quest：自動捕捉任務寶可夢，避免堆疊上限
 
 #### Additional Options（其他設定）
@@ -552,8 +548,7 @@
 ### 補充
 - 部分功能會受遊戲版本、伺服器機制與帳號狀態影響，實際可用性以 PGTools 當前版本為準
 
-## PokeList 寶可夢列表
-<img width="40" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/icon/pokelist_icon.png" alt="PokeList 圖示" />
+## <img width="24" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/icon/pokelist_icon.png" alt="PokeList 圖示" /> PokeList 寶可夢列表
 可用來追蹤寶可夢
 
 ### 傳送方式
@@ -583,8 +578,7 @@
 
 自動點擊功能只有少數機型可以使用(可自行測試)，建議手動進行傳送
 
-## WeCatch 寶可夢地圖
-<img width="40" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/icon/wecatch_icon.png" alt="WeCatch 圖示" />
+## <img width="24" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/icon/wecatch_icon.png" alt="WeCatch 圖示" /> WeCatch 寶可夢地圖
 可用來尋找與追蹤寶可夢、補給站、道館等等
 
 ### 使用
