@@ -162,40 +162,40 @@
 - 須注意[等待冷卻時間](#冷卻計算)
 
 啟動順序如下:
-1. 打開[搖桿](#GPS-Joystick-搖桿改定位-)並[設定位置啟動搖桿](#啟動搖桿)
-2. 可搭配報寶貝與[WeCatch](#WeCatch-寶可夢地圖-)或是[Pokelist](#PokeList-寶可夢列表-)等其他雷達傳送座標尋找寶可夢
+1. 打開[搖桿](#gps-joystick)並[設定位置啟動搖桿](#啟動搖桿)
+2. 可搭配報寶貝與[WeCatch](#wecatch)或是[Pokelist](#pokelist)等其他雷達傳送座標尋找寶可夢
 3. 開始遊玩
 
 
 ## 單純改定位看iv
-- **[Pokemod](#Pokemod)屬於注入式軟體，使用可能會有風險**
-- **請先把帳號通過新手教學，再開啟使用[Pokemod](#Pokemod)，否則帳號可能會發生問題無法使用**
-- 使用[Pokemod](#Pokemod)的 IV 顯示與捕捉輔助功能
+- **[Pokemod](#pokemod)屬於注入式軟體，使用可能會有風險**
+- **請先把帳號通過新手教學，再開啟使用[Pokemod](#pokemod)，否則帳號可能會發生問題無法使用**
+- 使用[Pokemod](#pokemod)的 IV 顯示與捕捉輔助功能
 - 須注意[等待冷卻時間](#冷卻計算)
 
 啟動順序如下:
-1. 打開[搖桿](#GPS-Joystick-搖桿改定位-)並[設定位置啟動搖桿](#啟動搖桿)
-2. 打開[Pokemod](#Pokemod)並點擊啟動服務按鈕
-3. 可搭配報寶貝與[WeCatch](#WeCatch-寶可夢地圖-)或是[Pokelist](#PokeList-寶可夢列表-)等其他雷達傳送座標尋找寶可夢
+1. 打開[搖桿](#gps-joystick)並[設定位置啟動搖桿](#啟動搖桿)
+2. 打開[Pokemod](#pokemod)並點擊啟動服務按鈕
+3. 可搭配報寶貝與[WeCatch](#wecatch)或是[Pokelist](#pokelist)等其他雷達傳送座標尋找寶可夢
 4. 開始遊玩
 
 
 ## 單純掛機自動捕捉(PGTools PaG)
-- **[PGTools](#Pgtools-自動抓-)屬於注入式軟體，使用可能會有風險**
-- **請先把帳號通過新手教學，再開啟使用[PGTools](#Pgtools-自動抓-)，否則帳號可能會發生問題無法使用**
+- **[PGTools](#pgtools)屬於注入式軟體，使用可能會有風險**
+- **請先把帳號通過新手教學，再開啟使用[PGTools](#pgtools)，否則帳號可能會發生問題無法使用**
 - 可先使用 PaC 基礎功能；進階自動化選項多為贊助版本
 - 須注意[等待冷卻時間](#冷卻計算)
 - 須注意[掛機時間](#軟體鎖)以免被軟鎖
 
 啟動順序如下:
 1. 使用搖桿改定位[設定路線或是固定走路方向](#啟動搖桿)
-2. 打開[PGTools](#Pgtools-自動抓-)並自訂參數(若不會設定預設即可)
+2. 打開[PGTools](#pgtools)並自訂參數(若不會設定預設即可)
 3. 點擊最下方的開始掛機按鈕
 4. 開始掛機
 
 ## 掛機刷星辰(Pokemod Pro)
 - **2024/6月開始官方開始標記刷火箭隊玩家，目前不建議使用此功能**
-- **[Pokemod](#Pokemod)屬於注入式軟體，使用可能會有風險**
+- **[Pokemod](#pokemod)屬於注入式軟體，使用可能會有風險**
 - **此功能需使用 Pokemod Pro（付費贊助版本）**
 - **官方註記：Team Blastoff（火箭隊）功能目前暫時不可用**
 - 須注意[掛機時間](#軟體鎖)以免被軟鎖
@@ -204,39 +204,39 @@
 
 ## 掛機刷星辰(PGTools PaG 付費版本)
 - **2024/6月開始官方開始標記刷火箭隊玩家，目前不建議使用此功能**
-- **[PGTools](#Pgtools-自動抓-)屬於注入式軟體，使用可能會有風險**
-- **請先把帳號通過新手教學，再開啟使用[PGTools](#Pgtools-自動抓-)，否則帳號可能會發生問題無法使用**
-- 此為 [PGTools](#Pgtools-自動抓-) 的 PaG 模式，屬贊助付費功能
+- **[PGTools](#pgtools)屬於注入式軟體，使用可能會有風險**
+- **請先把帳號通過新手教學，再開啟使用[PGTools](#pgtools)，否則帳號可能會發生問題無法使用**
+- 此為 [PGTools](#pgtools) 的 PaG 模式，屬贊助付費功能
 - 須注意[掛機時間](#軟體鎖)以免被軟鎖
 
 啟動順序如下:
-1. 打開[PGTools](#Pgtools-自動抓-)並選擇PAG功能
-2. 點擊[PGTools](#Pgtools-自動抓-)最下方的開始掛機按鈕
+1. 打開[PGTools](#pgtools)並選擇PAG功能
+2. 點擊[PGTools](#pgtools)最下方的開始掛機按鈕
 3. 開始掛機
 
 ## 狙擊100iv與色違(PGTools PaS 付費版本)
 - **此功能需使用 PGTools PaS（贊助付費功能）**
-- **[PGTools](#Pgtools-自動抓-)屬於注入式軟體，使用可能會有風險**
+- **[PGTools](#pgtools)屬於注入式軟體，使用可能會有風險**
 - PaS 可依 IV 條件狙擊，並支援球種優先與延遲設定
 - 須注意[等待冷卻時間](#冷卻計算)與[掛機時間](#軟體鎖)
 
 啟動順序如下:
-1. 打開[PGTools](#Pgtools-自動抓-)並切換到 PaS 模式
+1. 打開[PGTools](#pgtools)並切換到 PaS 模式
 2. 設定 Last caught location / time 與 Delays
 3. 設定 Pokemon Filter List 與 Exclude list
 4. 啟動後觀察通知與捕捉結果，依狀況微調延遲與篩選條件
     
 ## 狙擊100iv與色違(Pokemod Pro)
 - **此功能需使用 Pokemod Pro（付費贊助版本）**
-- **[Pokemod](#Pokemod)屬於注入式軟體，使用可能會有風險**
-- **請先把帳號通過新手教學，再開啟使用[Pokemod](#Pokemod)，否則帳號可能會發生問題無法使用**
-- 使用[Pokelist](#PokeList-寶可夢列表-)的寶可夢雷達
-- 使用[Pokemod](#Pokemod) Pro 的 `Shiny Scanner` 進行附近色違／100IV 掃描與通知
+- **[Pokemod](#pokemod)屬於注入式軟體，使用可能會有風險**
+- **請先把帳號通過新手教學，再開啟使用[Pokemod](#pokemod)，否則帳號可能會發生問題無法使用**
+- 使用[Pokelist](#pokelist)的寶可夢雷達
+- 使用[Pokemod](#pokemod) Pro 的 `Shiny Scanner` 進行附近色違／100IV 掃描與通知
 - 須注意[掛機時間](#軟體鎖)以免被軟鎖
 
 啟動順序如下:
-1. 打開[Pokelist](#PokeList-寶可夢列表-)，點擊左邊上角的【啟動服務】按鈕或是【start service】啟動
-2. 打開[Pokemod](#Pokemod)並啟動服務，在設定中開啟 `Shiny Scanner` 通知
+1. 打開[Pokelist](#pokelist)，點擊左邊上角的【啟動服務】按鈕或是【start service】啟動
+2. 打開[Pokemod](#pokemod)並啟動服務，在設定中開啟 `Shiny Scanner` 通知
 3. 依通知或清單點擊目標進行傳送，再進場確認個體與是否色違
 
 ## 寶可夢雙開(以上)
@@ -245,6 +245,7 @@
 - Android的分割畫面只能同時開啟兩個畫面，除非有特殊需求，否則不建議安裝超過2個客戶端
 
 # 程式列表
+<a id="gps-joystick"></a>
 ## <img width="24" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/icon/gps_icon.png" alt="GPS Joystick 圖示" /> GPS Joystick 搖桿改定位
 可以讓你在遊戲中使用搖桿來移動你的位置，並且可以設定路徑移動與移動速度
 
@@ -308,16 +309,18 @@
 
 其他冷卻說明，可參考下方[冷卻計算](#冷卻計算)
 
+<a id="data-hub"></a>
 ## <img width="24" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/icon/wrapper_icon.png" alt="Data Hub 圖示" /> Data Hub
 可以快速尋找火箭隊的軟體
 
 ### 使用
-- 需搭配[GPS Joystick搖桿](GPS-Joystick-搖桿改定位-)使用，請先[啟動搖桿定位](#啟動搖桿)後使用
+- 需搭配[GPS Joystick搖桿](#gps-joystick)使用，請先[啟動搖桿定位](#啟動搖桿)後使用
 - 點擊左上角的【▶】按鈕即可開始傳送尋找火箭隊
 - 點擊【⏩】按鈕尋找下一個目標，【⏪】退回上一個位置
 - 點擊【🔁】按鈕可重新整理資料
 - 若無傳送表示可能無資料，請擴大搜尋範圍尋找
 
+<a id="pokemod"></a>
 ## <img width="24" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/icon/pokemod_icon.png" alt="Pokemod 圖示" /> Pokemod
 可以用來顯示寶可夢IV三圍、提升捕捉操作便利性，以及補給站與背包相關的輔助功能
 
@@ -367,6 +370,7 @@
 | vPGP³ | 強化型虛擬 GO Plus（自動抓、自動轉、自動重連） |
 
 
+<a id="polygon"></a>
 ## <img width="24" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/icon/polygon_icon.png" alt="Polygon 圖示" /> Polygon 暴力功 (目前僅提供付費使用)
 可以用來顯示寶可夢IV三圍、偵測色違；自動E球、點擊自動轉補給站、火箭隊直接勝利等功能
 
@@ -433,6 +437,7 @@
 > 1. 請確認啟動時有顯示【以授予 暴力功 超級使用者權限】
 > 2. [常見問題](#常見問題)
 
+<a id="pgtools"></a>
 ## <img width="24" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/icon/pgtools_icon.png" alt="Pgtools 圖示" /> Pgtools 自動抓
 可以自動掛機抓寶可夢，並且可以自動轉補給站等功能
 
@@ -561,8 +566,9 @@
 - Screen Options：Keep Screen On、PGTools Feature、Proximity Sensor
 
 ### 補充
-- 部分功能會受遊戲版本、伺服器機制與帳號狀態影響，實際可用性以 PGTools 當前版本為準
+- 部分功能會受遊戲版本、伺服器機制與帳號狀態影響，實際可用性以 PGTools 官方公告為準
 
+<a id="pokelist"></a>
 ## <img width="24" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/icon/pokelist_icon.png" alt="PokeList 圖示" /> PokeList 寶可夢列表
 可用來追蹤寶可夢
 
@@ -572,8 +578,8 @@
 | Tele | 直接傳送 |
 | Tele & Copy | 直接傳送與複製座標 |
 | Only Copy | 只複製座標 |
-- 若只使用[搖桿](#GPS-Joystick-搖桿改定位-)的定位服務，可以設定Tele
-- 若有使用[Aerilate 艾略特](#Aerilate-%E8%89%BE%E7%95%A5%E7%89%B9-)的定位服務，可以設定Only Copy，在傳送後貼上複製的座標
+- 若只使用[搖桿](#gps-joystick)的定位服務，可以設定Tele
+- 若有使用[Pokemod](#pokemod)的定位服務，可以設定Only Copy，在傳送後貼上複製的座標
 - 其他模擬GPS定位傳送設定，請點擊右上角三個點︙的模擬GPS定位設定進入設定
 
 ### 使用
@@ -593,6 +599,7 @@
 
 自動點擊功能只有少數機型可以使用(可自行測試)，建議手動進行傳送
 
+<a id="wecatch"></a>
 ## <img width="24" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/icon/wecatch_icon.png" alt="WeCatch 圖示" /> WeCatch 寶可夢地圖
 可用來尋找與追蹤寶可夢、補給站、道館等等
 
