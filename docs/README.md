@@ -122,6 +122,9 @@
 
 - 若更新檔案下載失敗，請先至Play商店更新寶可夢，並等待輔助軟體團隊更新支援
 
+### 初次安裝三星雙開版本
+
+
 
 # 建議玩法
 ## 單純改定位
@@ -248,7 +251,7 @@
 <img width="200" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/JoystickStart2-1.jpg" style="margin-right:10px" /> <img width="200" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/JoystickStart2-2.jpg" style="margin-right:10px" />
 
 ### 搖桿快捷鍵功能介紹
-<img width="600" src="https://hackmd.io/_uploads/BJmLGwgoR.png" style="margin-right:10px" />
+<img width="600" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/Joystick.png" style="margin-right:10px" />
 
 ### 其他搖桿設定
 啟動搖桿改定位APP，點選左上角☰漢堡按鈕，設定
@@ -515,10 +518,10 @@
 
 - 請依照下方順序操作測試
 1. 請先嘗試重開機
-2. 檢查手機是否有開啟定位功能
+2. 檢查手機是否有開啟定位功能，需開啟定位功能
 3. 需要啟動搖桿改定位
 4. 嘗試將搖桿停止再重新啟動
-5. 定位權限未設定正確
+5. 定位權限未設定正確，檢查步驟如下:
 	1. 打開pogo管理器的寶可夢/魔物獵人頁面
 	2. 點擊寶可夢/魔物獵人右邊的︙管理
 
@@ -534,7 +537,7 @@
 
 		<img width="500" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/settingsPokemonPermissionsLocation.png"/>
 
-6. 若重啟後還是一樣，請移除再重新安裝搖桿或寶可夢
+6. 若重啟後還是一樣，請移除再重新安裝寶可夢在重啟嘗試
 
 ## 寶可夢顯示: 無法偵測位置(12)
 表示可能偵測到模擬定位
