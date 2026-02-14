@@ -50,7 +50,7 @@
 
 - 進入網頁後往下滑一些，會有一個【DOWNLOAD APK】或是【下載 APK】的按鈕
 
-	<img width="300" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/downloadPage_pokemonAres.png" style="margin-right:10px" />
+	<img width="200" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/downloadPage_pokemonAres.png" style="margin-right:10px" />
 
 - 點擊按鈕後，若有顯示廣告，請按右上角或是左上角的X關閉
 
@@ -123,8 +123,28 @@
 - 若更新檔案下載失敗，請先至Play商店更新寶可夢，並等待輔助軟體團隊更新支援
 
 ### 初次安裝三星雙開版本
+- 如果是非三星裝置，可能會看到以下訊息
 
+	<img width="500" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/pogoManager_pokemonAresNotSupported.png" style="margin-right:10px" />
 
+- 請先至設定開啟**允許下載三星版本寶可夢**
+
+	<img width="500" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/pogoManager_pokemonAresAllowDownload.png" style="margin-right:10px" />
+
+- 允許後，回到寶可夢頁面，點選三星雙開版本的下載按鈕，會提示需要先安裝三星商店
+
+	<img width="500" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/pogoManager_pokemonAresDownload.png"  style="margin-right:10px" />
+
+- 進入網頁後往下滑一些，會有一個【DOWNLOAD APK】或是【下載 APK】的按鈕
+
+	<img width="200" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/downloadPage_samsungStore.png" style="margin-right:10px" />
+
+- 點擊按鈕後，若有顯示廣告，請按右上角或是左上角的X關閉
+
+	<img width="300" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/apkmirror_AD.jpg" style="margin-right:10px" />
+
+- 進入網頁後，下載更新檔安裝更新
+- 安裝完成後，返回pogo管理器寶可夢頁面，在依照[寶可夢更新教學(三星雙開版本)](#寶可夢更新教學三星雙開版本)操作下載安裝
 
 # 建議玩法
 ## 單純改定位
@@ -138,21 +158,22 @@
 
 
 ## 單純改定位看iv
-- **[Aerilate 艾略特](#Aerilate-艾略特-)屬於注入式軟體，使用可能會有風險**
-- **請先把帳號通過新手教學，再開啟使用[Aerilate 艾略特](#Aerilate-艾略特-)，否則帳號可能會發生問題無法使用**
-- 使用[Aerilate 艾略特](#Aerilate-艾略特-)的顯示三圍iv與偵測色違功能
+- **[Pokemod](#Pokemod)屬於注入式軟體，使用可能會有風險**
+- **請先把帳號通過新手教學，再開啟使用[Pokemod](#Pokemod)，否則帳號可能會發生問題無法使用**
+- 使用[Pokemod](#Pokemod)的 IV 顯示與捕捉輔助功能
 - 須注意[等待冷卻時間](#冷卻計算)
 
 啟動順序如下:
 1. 打開[搖桿](#GPS-Joystick-搖桿改定位-)並[設定位置啟動搖桿](#啟動搖桿)
-2. 打開[Aerilate 艾略特](#Aerilate-艾略特-)並點擊啟動按鈕
+2. 打開[Pokemod](#Pokemod)並點擊啟動服務按鈕
 3. 可搭配報寶貝與[WeCatch](#WeCatch-寶可夢地圖-)或是[Pokelist](#PokeList-寶可夢列表-)等其他雷達傳送座標尋找寶可夢
 4. 開始遊玩
 
 
-## 單純掛機自動捕捉
+## 單純掛機自動捕捉(PGTools PaG)
 - **[PGTools](#Pgtools-自動抓-)屬於注入式軟體，使用可能會有風險**
 - **請先把帳號通過新手教學，再開啟使用[PGTools](#Pgtools-自動抓-)，否則帳號可能會發生問題無法使用**
+- 可先使用 PaC 基礎功能；進階自動化選項多為贊助版本
 - 須注意[等待冷卻時間](#冷卻計算)
 - 須注意[掛機時間](#軟體鎖)以免被軟鎖
 
@@ -162,42 +183,51 @@
 3. 點擊最下方的開始掛機按鈕
 4. 開始掛機
 
-## 掛機刷星辰(Aerilate 艾略特免費版)
+## 掛機刷星辰(Pokemod Pro)
 - **2024/6月開始官方開始標記刷火箭隊玩家，目前不建議使用此功能**
-- **[Aerilate 艾略特](#Aerilate-艾略特-)與[PGTools](#Pgtools-自動抓-)屬於注入式軟體，使用可能會有風險**
-- **請先把帳號通過新手教學，再開啟使用[Aerilate 艾略特](#Aerilate-艾略特-)與[PGTools](#Pgtools-自動抓-)，否則帳號可能會發生問題無法使用**
-- 此為[Aerilate 艾略特](#Aerilate-艾略特-)免費版本，半自動刷星辰，需手動傳送與點擊火箭隊
+- **[Pokemod](#Pokemod)屬於注入式軟體，使用可能會有風險**
+- **此功能需使用 Pokemod Pro（付費贊助版本）**
+- **官方註記：Team Blastoff（火箭隊）功能目前暫時不可用**
 - 須注意[掛機時間](#軟體鎖)以免被軟鎖
 
-啟動順序如下:
-1. 打開[搖桿](#GPS-Joystick-搖桿改定位-)設定位置並啟動搖桿
-2. 打開[GPS Joystick Wrapper](#GPS-Joystick-Wrapper-)並點擊左上角的▶️按鈕啟動
-3. 打開[Aerilate 艾略特](#Aerilate-艾略特-)在一般設定內啟用火箭隊自動攻擊設定，並點擊啟動按鈕
-4. 點擊⏩按鈕可傳送至下個火箭隊
+目前官方標示暫時不可用，建議先以一般改定位玩法為主，避免依賴此功能掛機。
 
-## 掛機刷星辰(PGTools付費版本)
+## 掛機刷星辰(PGTools PaG 付費版本)
 - **2024/6月開始官方開始標記刷火箭隊玩家，目前不建議使用此功能**
-- **[Aerilate 艾略特](#Aerilate-艾略特-)與[PGTools](#Pgtools-自動抓-)屬於注入式軟體，使用可能會有風險**
-- **請先把帳號通過新手教學，再開啟使用[Aerilate 艾略特](#Aerilate-艾略特-)與[PGTools](#Pgtools-自動抓-)，否則帳號可能會發生問題無法使用**
-- 此為[PGTools](#Pgtools-自動抓-)付費版本，需另外購買，需月費，可全自動掛機
+- **[PGTools](#Pgtools-自動抓-)屬於注入式軟體，使用可能會有風險**
+- **請先把帳號通過新手教學，再開啟使用[PGTools](#Pgtools-自動抓-)，否則帳號可能會發生問題無法使用**
+- 此為 [PGTools](#Pgtools-自動抓-) 的 PaG 模式，屬贊助付費功能
 - 須注意[掛機時間](#軟體鎖)以免被軟鎖
 
 啟動順序如下:
 1. 打開[PGTools](#Pgtools-自動抓-)並選擇PAG功能
 2. 點擊[PGTools](#Pgtools-自動抓-)最下方的開始掛機按鈕
 3. 開始掛機
+
+## 狙擊100iv與色違(PGTools PaS 付費版本)
+- **此功能需使用 PGTools PaS（贊助付費功能）**
+- **[PGTools](#Pgtools-自動抓-)屬於注入式軟體，使用可能會有風險**
+- PaS 可依 IV 條件狙擊，並支援球種優先與延遲設定
+- 須注意[等待冷卻時間](#冷卻計算)與[掛機時間](#軟體鎖)
+
+啟動順序如下:
+1. 打開[PGTools](#Pgtools-自動抓-)並切換到 PaS 模式
+2. 設定 Last caught location / time 與 Delays
+3. 設定 Pokemon Filter List 與 Exclude list
+4. 啟動後觀察通知與捕捉結果，依狀況微調延遲與篩選條件
     
-## 狙擊100iv與色違
-- **[Aerilate 艾略特](#Aerilate-艾略特-)屬於注入式軟體，使用可能會有風險**
-- **請先把帳號通過新手教學，再開啟使用[Aerilate 艾略特](#Aerilate-艾略特-)，否則帳號可能會發生問題無法使用**
+## 狙擊100iv與色違(Pokemod Pro)
+- **此功能需使用 Pokemod Pro（付費贊助版本）**
+- **[Pokemod](#Pokemod)屬於注入式軟體，使用可能會有風險**
+- **請先把帳號通過新手教學，再開啟使用[Pokemod](#Pokemod)，否則帳號可能會發生問題無法使用**
 - 使用[Pokelist](#PokeList-寶可夢列表-)的寶可夢雷達
-- 使用[Aerilate 艾略特](#Aerilate-艾略特-)的顯示三圍iv與偵測色違功能
+- 使用[Pokemod](#Pokemod) Pro 的 `Shiny Scanner` 進行附近色違／100IV 掃描與通知
 - 須注意[掛機時間](#軟體鎖)以免被軟鎖
 
 啟動順序如下:
 1. 打開[Pokelist](#PokeList-寶可夢列表-)，點擊左邊上角的【啟動服務】按鈕或是【start service】啟動
-2. 打開[Aerilate 艾略特](#Aerilate-艾略特-)並點擊啟動按鈕
-3. 點擊[Pokelist](#PokeList-寶可夢列表-)列表中的寶可夢進行傳送，可以使用[Aerilate 艾略特](#Aerilate-艾略特-)顯示三圍iv與偵測色違
+2. 打開[Pokemod](#Pokemod)並啟動服務，在設定中開啟 `Shiny Scanner` 通知
+3. 依通知或清單點擊目標進行傳送，再進場確認個體與是否色違
 
 ## 寶可夢雙開(以上)
 - 雙開版本的寶可夢無法使用艾略特或Pgtools的功能，只能使用虛擬定位飛人，建議記憶體6~8G以上
@@ -206,7 +236,7 @@
 
 # 程式列表
 ## GPS Joystick 搖桿改定位
-<img width="50" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/icon/gps_icon.png" alt="GPS Joystick 圖示" /> 可以讓你在遊戲中使用搖桿來移動你的位置，並且可以設定路徑移動與移動速度
+<img width="40" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/icon/gps_icon.png" alt="GPS Joystick 圖示" /> 可以讓你在遊戲中使用搖桿來移動你的位置，並且可以設定路徑移動與移動速度
 
 ### 匯入GPX路徑檔案
 1. 至POGO管理器的捷徑頁面
@@ -269,7 +299,7 @@
 其他冷卻說明，可參考下方[冷卻計算](#冷卻計算)
 
 ## GPS Joystick Wrapper
-<img width="50" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/icon/Wrapper.jpg" alt="GPS Joystick Wrapper 圖示" />
+<img width="40" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/icon/wrapper_icon.png" alt="GPS Joystick Wrapper 圖示" />
 可以快速尋找火箭隊的軟體
 
 ### 使用
@@ -279,11 +309,55 @@
 - 點擊【🔁】按鈕可重新整理資料
 - 若無傳送表示可能無資料，請擴大搜尋範圍尋找
 
+## Pokemod
+<img width="40" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/icon/pokemod_icon.png" alt="Pokemod 圖示" />
+可以用來顯示寶可夢IV三圍、提升捕捉操作便利性，以及補給站與背包相關的輔助功能
+
+- **本軟體屬於注入式輔助軟體，使用可能有風險，請自行評估後再使用**
+- 建議先完成新手教學，再啟用各項功能
+
+### 功能模組（免費版本Lite）
+| 模組設定 | 功能說明 |
+| --- | --- |
+| Encounter Tweaks | 點擊寶可夢後可直接進入捕捉畫面 |
+| Encounter Stats | 捕捉時顯示寶可夢的 IV 與體型資訊 |
+| First Aid Kit | 略過多數對話與動畫（如進化、孵蛋、團體戰通知） |
+| Instant Spin | 點擊補給站可略過轉牌動畫，快速取得道具 |
+| Inventory Tweaks | 支援背包批量操作（如批量傳送；部分版本支援批量進化／淨化） |
+| Perfect Throw | 必Excellent球+曲球，多AR獎勵 |
+| Show IVs in Inventory | 在寶可夢背包中直接顯示 IV 資訊 |
+| Spawn Booster | 擴大地圖上野生寶可夢的顯示範圍 |
+| Swift Gift | 快速送禮，略過部分贈禮流程動畫 |
+
+### 功能模組（贊助版本 Pro）
+| 模組設定 | 功能說明 |
+| --- | --- |
+| Account Manager（進階） | Lite 最多儲存 2 個帳號；Pro 可儲存並快速切換多帳號（無上限） |
+| Berry Master | 捕捉時自動餵指定樹果 |
+| Cooldown Tracker | 自動記錄冷卻時間、顯示剩餘冷卻，並降低誤觸投球風險 |
+| Eggspresso | 自動孵蛋與補孵化器流程（依設定運作） |
+| Enhanced Radar Positioning | 雷達顯示更完整目標資訊（如幹部/手下類型、Kecleon） |
+| Incognito Mode | 在多數畫面以通用名稱/等級顯示，降低帳號識別性 |
+| Instant Loading | 加快地圖物件與寶可夢載入速度 |
+| Live Feed | 地圖即時資訊流、篩選條件與快速傳送輔助 |
+| Magic Bag | 自訂背包保留數量與自動整理規則 |
+| Mass Gift | 批次送禮、開禮與好友管理，略過多數送禮動畫 |
+| Performance Mode | 精簡特效與貼圖以降低卡頓、提升流暢度 |
+| PVP Metrics | 顯示 PvP 相關數據（捕捉畫面與寶可夢資訊頁） |
+| Quest Tweaks | 顯示隱藏獎勵、任務自動領取/處理等任務輔助 |
+| Raid Pack | 團戰流程加速、部分戰鬥流程自動化（依版本支援） |
+| Shiny Scanner | 掃描附近目標（色違/IV/體型等）並可通知、座標操作 |
+| Tamagotchi | 夥伴互動自動化（餵食、拍照、部分互動流程） |
+| Tap to Teleport | 點擊地圖快速傳送（需搭配搖桿設定） |
+| Team Blastoff | 火箭隊戰鬥加速/略過相關流程（官方註記：可能暫時不可用） |
+| Transfer on Catch | 捕捉後自動傳送（可依 IV／PvP／體型等條件過濾） |
+| vPGP³ | 強化型虛擬 GO Plus（自動抓、自動轉、自動重連） |
+
+
 ## Polygon 暴力功 (目前僅提供付費使用)
-<img width="50" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/icon/polygon_icon.png" alt="Polygon 圖示" />
+<img width="40" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/icon/polygon_icon.png" alt="Polygon 圖示" />
 可以用來顯示寶可夢IV三圍、偵測色違；自動E球、點擊自動轉補給站、火箭隊直接勝利等功能
 
-- 目前已將免費版本功能移至[Aerilate 艾略特](#Aerilate-%E8%89%BE%E7%95%A5%E7%89%B9-)，目前版本僅提供付費會員使用
 - **本軟體不適用: 雙開版本(Miui應用雙開,island),三星版本寶可夢**
 
 ### 使用
@@ -348,22 +422,138 @@
 > 2. [常見問題](#常見問題)
 
 ## Pgtools 自動抓
-<img width="50" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/icon/pgtools_icon.png" alt="Pgtools 圖示" />
+<img width="40" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/icon/pgtools_icon.png" alt="Pgtools 圖示" />
 可以自動掛機抓寶可夢，並且可以自動轉補給站等功能
 
 **本軟體不適用: 雙開版本(小米應用雙開,island),三星版本寶可夢**
 
-開啟後，點選右上角國旗圖示，可將語言切換成繁體中文(台灣)
+**風險提醒（使用前請先評估）**
+- 使用 PGTools 可能有機會收到黑函、7 天、30 天或永久封號，後續亦可能被追封。
+- A14 或以上刷機環境，常見嚴重閃退問題，建議優先使用較穩定的低版本刷機環境。
+- PoGo 近年持續增加限制與上限，建議先確認可接受風險，再決定是否使用與贊助。
 
 ### 使用
-第一次進入可能會顯示一個new script的對話框，這是更新腳本的功能，點下載按鈕即可
+開啟後，點選右上角國旗圖示🇬🇧，往下滑動找到台灣國旗🇹🇼及可設定繁體中文
 
 - 若要啟動，點選中間下方的開始掛機按紐即可啟動
 
 - 若有功能問題，可以參考[常見問題](#常見問題)
 
+### 模式與權限說明（官方）
+- 標示 <img width="14" src="images/icon/coin-icon.png" alt="贊助圖示" /> 的選項為**贊助者（Sponsor）限定**
+- PaG 與 PaS **沒有免費功能**，需贊助後才能使用
+
+贊助方式可參考官方 Discord 的 support-us 頻道。
+
+### PaC（自動捕捉）完整功能
+#### Catch Options / Pokéstop Spinning（捕捉選項／補給站轉牌）
+- Silent Spin：點補給站時不進入互動畫面，直接轉補給站
+
+#### Catching Mode（捕捉模式）
+- Normal Mode：正常進入捕捉畫面後捕捉
+- Fast Mode <img width="14" src="images/icon/coin-icon.png" alt="贊助圖示" />：短暫進入捕捉畫面後快速處理
+- Ultimate Mode <img width="14" src="images/icon/coin-icon.png" alt="贊助圖示" />：不進入捕捉畫面，直接處理捕捉
+
+#### Pokéball Options（球種設定）
+- PokéBall Priority：設定球種使用優先順序（預設紅球）
+- PokéBall Settings：設定球數 Min/Max
+- 官方建議（新帳）：Min 5 / Max 350
+
+#### Transfer Options（傳送設定）
+- Transfer Filters：符合條件時自動傳送
+- Evolve Before Transfer <img width="14" src="images/icon/coin-icon.png" alt="贊助圖示" />：傳送前先進化
+- 啟用先進化需有足夠糖果（至少可進化所需）
+
+#### Pokémon Inventory Options（寶可夢背包設定）
+- Mass Transfer：可批次處理色違、傳說、幻獸等
+- Show IV Instead of Name：以等級與 IV 顯示取代名稱
+
+#### Item Inventory Options（道具背包設定）
+- Items Management：保留指定數量，超過部分自動丟棄
+- Items Warrior：保留指定數量，超過部分可自動使用
+- 物品數值設為 1000 可視為保留上限（官方描述為近似無上限）
+
+#### Egg Features <img width="14" src="images/icon/coin-icon.png" alt="贊助圖示" />
+- Enable Auto Hatch：自動孵蛋
+- Hatch Settings：可依蛋種設定使用哪種孵化器
+
+#### Buddy Features <img width="14" src="images/icon/coin-icon.png" alt="贊助圖示" />
+- Enable Buddy Feature：自動餵食、互動與照顧夥伴
+- Feeding Type：可選夥伴餵食食物類型
+
+#### Quest Features（任務功能）
+- Automatically Claim Quest Rewards <img width="14" src="images/icon/coin-icon.png" alt="贊助圖示" />：自動領任務獎勵，並移除不可完成任務
+- Automatically Catch Pokémon in Quest：自動捕捉任務寶可夢，避免堆疊上限
+
+#### Additional Options（其他設定）
+- Discord Notify：達到上限可發送 Discord 通知（需先在 App 連接 Discord）
+- Performance Enhancement：降低渲染內容，減少卡頓與發熱
+- Touch N' Go：丟球進球或點補給站後快速回地圖（Ultimate 模式不受影響）
+- Screen Options：Keep Screen On、PGTools Feature、Proximity Sensor
+- Delay Injection Time：設定啟動延遲（毫秒）
+- Automatically Stop PaC：到達設定時間後自動停止（分鐘）
+
+### PaG（火箭隊）完整功能（需贊助）
+- **官方公告：PaG / PaG U 已下架（目前不可用）**
+- 下列內容保留為舊版功能參考。
+- PaG 無免費功能，需贊助後使用
+
+#### Attack / Catch Options（戰鬥／捕捉設定）
+- Decoy Scan：使用坂木雷達找假手下（需先在遊戲內手動啟用）
+- Grunt Catch Wait Time：設定捕捉前等待時間（可降低逃跑）
+- Grunt Attack Wait Time：設定下一場火箭隊前等待時間
+- Skip Catch Screen：略過捕捉畫面，提升速度
+- Catch Location：可傳送到指定座標捕捉
+- Catch by IV：符合指定 IV 才捕捉
+
+#### Base Scan Coordinates（掃描基準座標）
+- Default Scan：在兩組城市座標間循環掃描
+- Preset Coordinates：內建預設座標
+- Base Switcher：可排程與時區切換
+
+#### Transfer / Inventory / Utility（傳送／背包／工具）
+- Purify Before Transfer：傳送前先淨化
+- 色違、百 IV、傳說、幻獸預設不淨化
+- Mass Transfer：批次傳送
+- Items Management / Items Warrior：道具保留與自動處理
+- Egg Features：自動孵蛋與孵化器設定
+- Buddy Features：自動照顧夥伴
+- New Injector：嘗試新版注入器以降低閃退
+- Performance Enhancement：降低渲染減少負載
+- Delay Injection Time：啟動延遲設定（毫秒）
+- Tap to Teleport：點地圖即傳送
+- Built-in Location：使用 PGTools GPS（非外部搖桿）
+- Automatically Stop PaG：到時自動停止（分鐘）
+- Screen Options：Keep Screen On、PGTools Feature、Proximity Sensor
+
+### PaS（狙擊）完整功能（需贊助）
+- PaS 無免費功能，需贊助後使用
+
+#### Catch Options（捕捉選項）
+- Last caught location：若啟動前 2 小時內有遊玩，建議手動輸入最後捕捉座標
+- Last caught time：配合座標估算下一次可捕捉時間
+- Delays：檢查下一隻與執行捕捉的延遲（毫秒）
+
+#### Filter / Catch Settings（篩選／捕捉設定）
+- Pokémon Filter List：最多可解析 100 組自訂 IV 條件
+- Exclude list：排除不檢查的寶可夢
+- Throw & Catch modifiers：投擲與捕捉參數調整
+- Pokéball priority：球種優先順序（官方建議高階球優先）
+
+#### Additional Options（其他設定）
+- Performance Enhancement：減少道路、補給站、粒子渲染
+- Incognito Mode：變更顯示名稱與截圖捕捉地資訊
+- Friend Tweaks：批次送禮與開禮
+- Delay Injection Time：啟動延遲（毫秒）
+- Built-in Location：使用 PGTools GPS 資料
+- Automatically Stop PaS：到時自動停止（分鐘）
+- Screen Options：Keep Screen On、PGTools Feature、Proximity Sensor
+
+### 補充
+- 部分功能會受遊戲版本、伺服器機制與帳號狀態影響，實際可用性以 PGTools 當前版本為準
+
 ## PokeList 寶可夢列表
-<img width="50" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/icon/pokelist_icon.png" alt="PokeList 圖示" />
+<img width="40" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/icon/pokelist_icon.png" alt="PokeList 圖示" />
 可用來追蹤寶可夢
 
 ### 傳送方式
@@ -394,7 +584,7 @@
 自動點擊功能只有少數機型可以使用(可自行測試)，建議手動進行傳送
 
 ## WeCatch 寶可夢地圖
-<img width="50" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/icon/wecatch_icon.png" alt="WeCatch 圖示" />
+<img width="40" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/icon/wecatch_icon.png" alt="WeCatch 圖示" />
 可用來尋找與追蹤寶可夢、補給站、道館等等
 
 ### 使用
@@ -406,6 +596,7 @@
 4. 顯示道館與相關資訊
 5. 顯示篩館的寶可夢
 (需搭配右上角選項篩選)
+
 
 # 飛人基本常識
 有效動作：完成捕抓寶可夢動作（逃跑或成功捕獲）、丟球、攻塔 、佔塔、翻塔牌。在上述情形下皆算有效動作。
