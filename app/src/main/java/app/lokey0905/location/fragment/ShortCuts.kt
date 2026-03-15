@@ -2,6 +2,7 @@ package app.lokey0905.location.fragment
 
 import android.app.PendingIntent
 import android.appwidget.AppWidgetManager // don't touch this line, it's needed for widget
+import android.content.ActivityNotFoundException
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
@@ -38,6 +39,7 @@ import org.json.JSONObject
 import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.net.HttpURLConnection
+import java.net.URISyntaxException
 import java.net.URL
 
 class ShortCuts: Fragment() {
@@ -396,17 +398,7 @@ class ShortCuts: Fragment() {
                         (32 * resources.displayMetrics.density).toInt()
                     )
                     setOnClickListener {
-                        if (item.isIntent) {
-                            try {
-                                val intent = Intent.parseUri(item.url, Intent.URI_INTENT_SCHEME)
-                                startActivity(intent)
-                            } catch (e: Exception) {
-                                Toast.makeText(context, "無法啟動應用程式", Toast.LENGTH_SHORT).show()
-                                e.printStackTrace()
-                            }
-                        } else {
-                            downloadAPPWithCheck(item.url)
-                        }
+                        handleDownloadItemClick(item)
                     }
                 }
 
@@ -424,6 +416,159 @@ class ShortCuts: Fragment() {
                 gridLayout3?.addView(card)
             }
         }
+    }
+
+    private fun handleDownloadItemClick(item: DownloadItem) {
+        val target = item.url.trim()
+        if (target.isEmpty()) {
+            showAlertDialog(
+                resources.getString(R.string.dialogAdNotReadyTitle),
+                resources.getString(R.string.dialogAdNotReadyMessage)
+            )
+            return
+        }
+
+        if (!item.isIntent) {
+            downloadAPPWithCheck(target)
+            return
+        }
+
+        if (!tryLaunchIntentItem(target)) {
+            if (target.startsWith("http://", ignoreCase = true) ||
+                target.startsWith("https://", ignoreCase = true)
+            ) {
+                downloadAPPWithCheck(target)
+            } else {
+                Toast.makeText(context, "無法啟動應用程式", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private fun tryLaunchIntentItem(rawValue: String): Boolean {
+        val intent = parseIntentItem(rawValue) ?: return false
+
+        return try {
+            val packageManager = requireContext().packageManager
+            val resolvedActivity = intent.resolveActivity(packageManager)
+            if (resolvedActivity != null) {
+                startActivity(intent)
+                true
+            } else {
+                val browserFallbackUrl = intent.getStringExtra("browser_fallback_url")
+                if (!browserFallbackUrl.isNullOrBlank()) {
+                    downloadAPPWithCheck(browserFallbackUrl)
+                    true
+                } else {
+                    false
+                }
+            }
+        } catch (e: ActivityNotFoundException) {
+            Log.w("ShortCuts", "Activity not found for intent item: $rawValue", e)
+            false
+        } catch (e: Exception) {
+            Log.w("ShortCuts", "Failed to launch intent item: $rawValue", e)
+            false
+        }
+    }
+
+    private fun parseIntentItem(rawValue: String): Intent? {
+        val value = rawValue.trim()
+        if (value.isEmpty()) return null
+
+        return try {
+            when {
+                value.startsWith("intent:", ignoreCase = true) -> {
+                    try {
+                        Intent.parseUri(value, Intent.URI_INTENT_SCHEME)
+                    } catch (e: URISyntaxException) {
+                        // Some remote JSON uses legacy "intent:#Intent;...;end" format.
+                        parseLegacyHashIntentFormat(value)
+                    }
+                }
+
+                value.startsWith("http://", ignoreCase = true) ||
+                    value.startsWith("https://", ignoreCase = true) ->
+                    Intent(Intent.ACTION_VIEW, value.toUri())
+
+                value.contains("/") && !value.contains("://") -> {
+                    val parts = value.split("/", limit = 2)
+                    if (parts.size != 2 || parts[0].isBlank() || parts[1].isBlank()) {
+                        null
+                    } else {
+                        val packageName = parts[0]
+                        val className = if (parts[1].startsWith(".")) {
+                            packageName + parts[1]
+                        } else {
+                            parts[1]
+                        }
+                        Intent(Intent.ACTION_MAIN).setComponent(ComponentName(packageName, className))
+                    }
+                }
+
+                else -> Intent.parseUri(value, 0)
+            }
+        } catch (e: Exception) {
+            Log.w("ShortCuts", "Invalid intent item: $rawValue", e)
+            null
+        }
+    }
+
+    private fun parseLegacyHashIntentFormat(value: String): Intent? {
+        val normalized = value.trim()
+        if (!normalized.startsWith("intent:#Intent;", ignoreCase = true)) return null
+        if (!normalized.endsWith(";end", ignoreCase = true)) return null
+
+        val body = normalized.substringAfter("#Intent;", "").removeSuffix(";end")
+        if (body.isBlank()) return Intent()
+
+        val intent = Intent()
+        body.split(';').forEach { token ->
+            if (token.isBlank()) return@forEach
+
+            when {
+                token.startsWith("action=") -> {
+                    intent.action = token.substringAfter("action=", "")
+                }
+
+                token.startsWith("data=") -> {
+                    val dataValue = token.substringAfter("data=", "")
+                    if (dataValue.isNotBlank()) {
+                        intent.data = dataValue.toUri()
+                    }
+                }
+
+                token.startsWith("package=") -> {
+                    val packageName = token.substringAfter("package=", "")
+                    if (packageName.isNotBlank()) {
+                        intent.setPackage(packageName)
+                    }
+                }
+
+                token.startsWith("component=") -> {
+                    val componentValue = token.substringAfter("component=", "")
+                    val parts = componentValue.split('/', limit = 2)
+                    if (parts.size == 2 && parts[0].isNotBlank() && parts[1].isNotBlank()) {
+                        val packageName = parts[0]
+                        val className = if (parts[1].startsWith(".")) {
+                            packageName + parts[1]
+                        } else {
+                            parts[1]
+                        }
+                        intent.component = ComponentName(packageName, className)
+                    }
+                }
+
+                token.startsWith("S.") && token.contains("=") -> {
+                    val key = token.substringAfter("S.").substringBefore("=")
+                    val extraValue = token.substringAfter("=", "")
+                    if (key.isNotBlank()) {
+                        intent.putExtra(key, extraValue)
+                    }
+                }
+            }
+        }
+
+        return intent
     }
 
 
