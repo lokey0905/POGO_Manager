@@ -209,6 +209,18 @@ class AppsPoke : Fragment() {
                 updateOfficialLinkFromJson = true,
             ),
             AppsInfo(
+                "defit",
+                getString(R.string.packageName_defit),
+                R.id.download_defit,
+                R.id.remove_defit,
+                R.id.defit_more,
+                R.id.defit_new_version,
+                R.id.defit_install_version,
+                updateNewVersionFromJson = false,
+                updateDownloadLinkFromJson = true,
+                updateOfficialLinkFromJson = true,
+            ),
+            AppsInfo(
                 "pokemod",
                 getString(R.string.packageName_pokemod),
                 R.id.download_pokemod,
@@ -531,6 +543,28 @@ class AppsPoke : Fragment() {
                     }
                 } catch (e: Exception) {
                     Log.e("AppsPoke", "getPokemodVersion error", e)
+                }
+            }
+
+            lifecycleScope.launch(Dispatchers.IO) {
+                try {
+                    for (apps in appsInfo) {
+                        if (apps.appName == "defit") {
+                            val versionName = ApkPure().getDeFitLatestVersion()
+                            val versionNameText = versionName.replace(".", "-")
+                                .replace(" (", "-")
+                                .replace(")", "")
+
+                            apps.newVersion = versionName
+                            apps.downloadLink = String.format(
+                                getString(R.string.url_defit),
+                                versionNameText,
+                                versionNameText
+                            )
+                        }
+                    }
+                } catch (_: Exception) {
+                    Log.e("AppsPoke", "getDeFitLatestVersion error")
                 }
             }
 

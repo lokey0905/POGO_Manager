@@ -22,6 +22,11 @@ class ApkPure {
         return versions.firstOrNull()?.versionName ?: ""
     }
 
+    fun getDeFitLatestVersion(): String {
+        val versions = getVersionHistory("com.fitness.debugger")
+        return versions.firstOrNull()?.versionName ?: ""
+    }
+
     fun getVersionHistory(packageName: String): List<ApkPureVersion> {
         val versionList = mutableListOf<ApkPureVersion>()
 

@@ -94,6 +94,7 @@
     <string name="shortcuts_pokeInfo">報寶貝 雷達</string>
     <string name="shortcuts_pokeInfoMessage">報寶貝若顯示黑影 請重新整理網頁30次後即會恢復正常</string>
     <string name="shortcuts_pokeListWeb">PokeList雷達</string>
+    <string name="InjectionToolsDownloadWarning">輔助軟體下載 使用可能有風險</string>
 
     <string name="downloadOnGooglePlay">從play商店下載</string>
     <string name="downloadAPK">下載APK檔</string>
@@ -180,6 +181,8 @@
     <string name="appsPokePage_galaxyStoreAppName">三星應用商店</string>
     <string name="appsPokePage_APKMirrorInstallerTitle">APKMirror apkm安裝器</string>
     <string name="appsPokePage_APKMirrorInstallerAppName">APKMirror Installer</string>
+    <string name="appsPokePage_defitTitle">自動增加走路步數APP</string>
+    <string name="appsPokePage_defitAppName">DeFit</string>
 
     <string name="preferences_downloadSettings_Title">下載設定</string>
     <string name="preferences_locationSettings_Title">位置設定</string>

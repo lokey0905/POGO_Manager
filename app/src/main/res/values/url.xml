@@ -39,6 +39,7 @@
     <string name="url_integritycheck">https://play.google.com/store/apps/details?id=gr.nikolasspyr.integritycheck</string>
     <string name="url_appListDetector">https://github.com/byxiaorun/Ruru/releases/latest</string>
     <string name="url_apkMirrorInstaller">https://www.apkmirror.com/apk/apkmirror/apkmirror-installer-official/apkmirror-installer-official-%1$s-release/apkmirror-installer-official-%2$s-android-apk-download/</string>
+    <string name="url_defit">https://www.apkmirror.com/apk/defit–development–inc/defit-debugger-of-fitness-apps/defit-debugger-of-fitness-apps-%1$s-release/defit-%2$s-2-android-apk-download/</string>
 
     <!-->package name list<-->
     <string name="packageName_gms">com.google.android.gms</string>
@@ -62,4 +63,5 @@
     <string name="packageName_hylianer">com.hpkssgdxzuwyxtnoo</string>
     <string name="packageName_Aerilate">com.evermorelabs.aerilate</string>
     <string name="packageName_APKMirrorInstaller">com.apkmirror.helper.prod</string>
+    <string name="packageName_defit">com.fitness.debugger</string>
 </resources>

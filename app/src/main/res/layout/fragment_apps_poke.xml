@@ -484,6 +484,326 @@
                             <ImageView
                                 android:layout_width="50dp"
                                 android:layout_height="50dp"
+                                app:srcCompat="@drawable/pokelist_icon"
+                                android:importantForAccessibility="no"
+                                tools:layout_editor_absoluteX="100dp"
+                                tools:layout_editor_absoluteY="100dp" />
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="16dp"
+                                android:layout_weight="10"
+                                android:gravity="center|start"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/appsPokePage_PokeListTitle" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/appsPokePage_PokeListAppName" />
+                            </LinearLayout>
+
+                            <ImageButton
+                                android:id="@+id/pokelist_more"
+                                style="?attr/materialIconButtonStyle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="end"
+                                android:contentDescription="@string/more_options"
+                                android:background="?attr/selectableItemBackgroundBorderless"
+                                android:src="@drawable/ic_baseline_more_vert_24" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal"
+                            android:layout_marginTop="4dp"
+                            android:layout_marginBottom="4dp">
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center|start"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:id="@+id/pokelist_new_version"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/format_newerVersion" />
+
+                                <TextView
+                                    android:id="@+id/pokelist_install_version"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/format_installVersion" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="end"
+                            android:orientation="horizontal">
+
+                            <Button
+                                android:layout_weight="1"
+                                android:id="@+id/remove_pokelist"
+                                style="@style/Widget.Material3.Button.OutlinedButton"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="16dp"
+                                android:text="@string/remove" />
+
+                            <Button
+                                android:layout_weight="1"
+                                android:id="@+id/download_pokelist"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:text="@string/download" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="1.0"
+                        app:layout_constraintStart_toStartOf="parent">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                app:srcCompat="@drawable/wecatch_icon"
+                                android:importantForAccessibility="no"
+                                tools:layout_editor_absoluteX="100dp"
+                                tools:layout_editor_absoluteY="100dp" />
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="16dp"
+                                android:layout_weight="10"
+                                android:gravity="center|start"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/appsPokePage_WeCatchTitle" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/appsPokePage_WeCatchAppName" />
+
+                            </LinearLayout>
+
+                            <ImageButton
+                                android:id="@+id/wecatch_more"
+                                style="?attr/materialIconButtonStyle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="end"
+                                android:contentDescription="@string/more_options"
+                                android:background="?attr/selectableItemBackgroundBorderless"
+                                android:src="@drawable/ic_baseline_more_vert_24" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal"
+                            android:layout_marginTop="4dp"
+                            android:layout_marginBottom="4dp">
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center|start"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:id="@+id/wecatch_new_version"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/format_newerVersion" />
+
+                                <TextView
+                                    android:id="@+id/wecatch_install_version"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/format_installVersion" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="end"
+                            android:orientation="horizontal">
+
+                            <Button
+                                android:layout_weight="1"
+                                android:id="@+id/remove_wecatch"
+                                style="@style/Widget.Material3.Button.OutlinedButton"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="16dp"
+                                android:text="@string/remove" />
+
+                            <Button
+                                android:layout_weight="1"
+                                android:id="@+id/download_wecatch"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:text="@string/download" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="1.0"
+                        app:layout_constraintStart_toStartOf="parent">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:importantForAccessibility="no"
+                                app:srcCompat="@drawable/defit_icon"
+                                tools:layout_editor_absoluteX="50dp"
+                                tools:layout_editor_absoluteY="50dp" />
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="16dp"
+                                android:layout_weight="10"
+                                android:gravity="center|start"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/appsPokePage_defitTitle" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/appsPokePage_defitAppName" />
+
+                            </LinearLayout>
+
+                            <ImageButton
+                                android:id="@+id/defit_more"
+                                style="?attr/materialIconButtonStyle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="end"
+                                android:contentDescription="@string/more_options"
+                                android:background="?attr/selectableItemBackgroundBorderless"
+                                android:src="@drawable/ic_baseline_more_vert_24" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal"
+                            android:layout_marginTop="4dp"
+                            android:layout_marginBottom="4dp">
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center|start"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:id="@+id/defit_new_version"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/format_newerVersion" />
+
+                                <TextView
+                                    android:id="@+id/defit_install_version"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/format_installVersion" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="end"
+                            android:orientation="horizontal">
+
+                            <Button
+                                android:id="@+id/remove_defit"
+                                style="@style/Widget.Material3.Button.OutlinedButton"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="16dp"
+                                android:layout_weight="1"
+                                android:text="@string/remove" />
+
+                            <Button
+                                android:id="@+id/download_defit"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/download" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="1.0"
+                        app:layout_constraintStart_toStartOf="parent">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
                                 android:importantForAccessibility="no"
                                 app:srcCompat="@drawable/wrapper_icon"
                                 tools:layout_editor_absoluteX="50dp"
@@ -568,6 +888,125 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
+                                android:text="@string/download" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:textSize="16sp"
+                        android:textColor="?attr/colorPrimary"
+                        android:text="@string/InjectionToolsDownloadWarning" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="1.0"
+                        app:layout_constraintStart_toStartOf="parent">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:importantForAccessibility="no"
+                                app:srcCompat="@drawable/pgtools_icon"
+                                tools:layout_editor_absoluteX="50dp"
+                                tools:layout_editor_absoluteY="50dp" />
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="16dp"
+                                android:layout_weight="10"
+                                android:gravity="center|start"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/appsPokePage_PGToolsTitle" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/appsPokePage_PGToolsAppName" />
+
+                            </LinearLayout>
+
+                            <ImageButton
+                                android:id="@+id/pgtools_more"
+                                style="?attr/materialIconButtonStyle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="end"
+                                android:contentDescription="@string/more_options"
+                                android:background="?attr/selectableItemBackgroundBorderless"
+                                android:src="@drawable/ic_baseline_more_vert_24" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal"
+                            android:layout_marginTop="4dp"
+                            android:layout_marginBottom="4dp">
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_marginEnd="16dp"
+                                android:gravity="center|start"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:id="@+id/pgtools_new_version"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/format_newerVersion" />
+
+                                <TextView
+                                    android:id="@+id/pgtools_install_version"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/format_installVersion" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="end"
+                            android:orientation="horizontal">
+
+                            <Button
+                                android:layout_weight="1"
+                                android:id="@+id/remove_pgtools"
+                                style="@style/Widget.Material3.Button.OutlinedButton"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="16dp"
+                                android:text="@string/remove" />
+
+                            <Button
+                                android:layout_weight="1"
+                                android:id="@+id/download_pgtools"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
                                 android:text="@string/download" />
                         </LinearLayout>
                     </LinearLayout>
@@ -779,328 +1218,6 @@
                             <Button
                                 android:layout_weight="1"
                                 android:id="@+id/download_polygon"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:text="@string/download" />
-                        </LinearLayout>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:gravity="center"
-                        android:orientation="vertical"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="1.0"
-                        app:layout_constraintStart_toStartOf="parent">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:orientation="horizontal">
-
-                            <ImageView
-                                android:layout_width="50dp"
-                                android:layout_height="50dp"
-                                android:importantForAccessibility="no"
-                                app:srcCompat="@drawable/pgtools_icon"
-                                tools:layout_editor_absoluteX="50dp"
-                                tools:layout_editor_absoluteY="50dp" />
-
-                            <LinearLayout
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="16dp"
-                                android:layout_weight="10"
-                                android:gravity="center|start"
-                                android:orientation="vertical">
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="@string/appsPokePage_PGToolsTitle" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="@string/appsPokePage_PGToolsAppName" />
-
-                            </LinearLayout>
-
-                            <ImageButton
-                                android:id="@+id/pgtools_more"
-                                style="?attr/materialIconButtonStyle"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="end"
-                                android:contentDescription="@string/more_options"
-                                android:background="?attr/selectableItemBackgroundBorderless"
-                                android:src="@drawable/ic_baseline_more_vert_24" />
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:orientation="horizontal"
-                            android:layout_marginTop="4dp"
-                            android:layout_marginBottom="4dp">
-
-                            <LinearLayout
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:layout_marginEnd="16dp"
-                                android:gravity="center|start"
-                                android:orientation="vertical">
-
-                                <TextView
-                                    android:id="@+id/pgtools_new_version"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="@string/format_newerVersion" />
-
-                                <TextView
-                                    android:id="@+id/pgtools_install_version"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="@string/format_installVersion" />
-                            </LinearLayout>
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:gravity="end"
-                            android:orientation="horizontal">
-
-                            <Button
-                                android:layout_weight="1"
-                                android:id="@+id/remove_pgtools"
-                                style="@style/Widget.Material3.Button.OutlinedButton"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginEnd="16dp"
-                                android:text="@string/remove" />
-
-                            <Button
-                                android:layout_weight="1"
-                                android:id="@+id/download_pgtools"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:text="@string/download" />
-                        </LinearLayout>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:gravity="center"
-                        android:orientation="vertical"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="1.0"
-                        app:layout_constraintStart_toStartOf="parent">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:orientation="horizontal">
-
-                            <ImageView
-                                android:layout_width="50dp"
-                                android:layout_height="50dp"
-                                app:srcCompat="@drawable/pokelist_icon"
-                                android:importantForAccessibility="no"
-                                tools:layout_editor_absoluteX="100dp"
-                                tools:layout_editor_absoluteY="100dp" />
-
-                            <LinearLayout
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="16dp"
-                                android:layout_weight="10"
-                                android:gravity="center|start"
-                                android:orientation="vertical">
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="@string/appsPokePage_PokeListTitle" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="@string/appsPokePage_PokeListAppName" />
-                            </LinearLayout>
-
-                            <ImageButton
-                                android:id="@+id/pokelist_more"
-                                style="?attr/materialIconButtonStyle"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="end"
-                                android:contentDescription="@string/more_options"
-                                android:background="?attr/selectableItemBackgroundBorderless"
-                                android:src="@drawable/ic_baseline_more_vert_24" />
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:orientation="horizontal"
-                            android:layout_marginTop="4dp"
-                            android:layout_marginBottom="4dp">
-
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:gravity="center|start"
-                                android:orientation="vertical">
-
-                                <TextView
-                                    android:id="@+id/pokelist_new_version"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="@string/format_newerVersion" />
-
-                                <TextView
-                                    android:id="@+id/pokelist_install_version"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="@string/format_installVersion" />
-                            </LinearLayout>
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:gravity="end"
-                            android:orientation="horizontal">
-
-                            <Button
-                                android:layout_weight="1"
-                                android:id="@+id/remove_pokelist"
-                                style="@style/Widget.Material3.Button.OutlinedButton"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginEnd="16dp"
-                                android:text="@string/remove" />
-
-                            <Button
-                                android:layout_weight="1"
-                                android:id="@+id/download_pokelist"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:text="@string/download" />
-                        </LinearLayout>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:gravity="center"
-                        android:orientation="vertical"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="1.0"
-                        app:layout_constraintStart_toStartOf="parent">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:orientation="horizontal">
-
-                            <ImageView
-                                android:layout_width="50dp"
-                                android:layout_height="50dp"
-                                app:srcCompat="@drawable/wecatch_icon"
-                                android:importantForAccessibility="no"
-                                tools:layout_editor_absoluteX="100dp"
-                                tools:layout_editor_absoluteY="100dp" />
-
-                            <LinearLayout
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="16dp"
-                                android:layout_weight="10"
-                                android:gravity="center|start"
-                                android:orientation="vertical">
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="@string/appsPokePage_WeCatchTitle" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="@string/appsPokePage_WeCatchAppName" />
-
-                            </LinearLayout>
-
-                            <ImageButton
-                                android:id="@+id/wecatch_more"
-                                style="?attr/materialIconButtonStyle"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="end"
-                                android:contentDescription="@string/more_options"
-                                android:background="?attr/selectableItemBackgroundBorderless"
-                                android:src="@drawable/ic_baseline_more_vert_24" />
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:orientation="horizontal"
-                            android:layout_marginTop="4dp"
-                            android:layout_marginBottom="4dp">
-
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:gravity="center|start"
-                                android:orientation="vertical">
-
-                                <TextView
-                                    android:id="@+id/wecatch_new_version"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="@string/format_newerVersion" />
-
-                                <TextView
-                                    android:id="@+id/wecatch_install_version"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="@string/format_installVersion" />
-                            </LinearLayout>
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:gravity="end"
-                            android:orientation="horizontal">
-
-                            <Button
-                                android:layout_weight="1"
-                                android:id="@+id/remove_wecatch"
-                                style="@style/Widget.Material3.Button.OutlinedButton"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginEnd="16dp"
-                                android:text="@string/remove" />
-
-                            <Button
-                                android:layout_weight="1"
-                                android:id="@+id/download_wecatch"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:text="@string/download" />
