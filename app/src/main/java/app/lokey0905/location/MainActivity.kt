@@ -23,6 +23,7 @@ import androidx.core.os.bundleOf
 import androidx.core.view.WindowCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentContainerView
+import androidx.lifecycle.lifecycleScope
 import androidx.preference.PreferenceManager
 import app.lokey0905.location.databinding.ActivityMainBinding
 import app.lokey0905.location.fragment.AppsMHN
@@ -34,6 +35,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.color.DynamicColors
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
+import com.onesignal.OneSignal
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -303,6 +305,16 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
                 .show()
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            lifecycleScope.launch {
+                runCatching {
+                    OneSignal.Notifications.requestPermission(true)
+                }.onFailure { e ->
+                    Log.w(TAG, "OneSignal permission request failed", e)
+                }
+            }
         }
     }
 
