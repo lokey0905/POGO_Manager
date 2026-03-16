@@ -2,14 +2,15 @@ package app.lokey0905.location
 
 import android.app.Application
 import android.os.Build
+import android.util.Log
 import com.google.android.material.color.DynamicColors
 import com.onesignal.OneSignal
 import com.onesignal.debug.LogLevel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 class LocationApp : Application() {
+
+    private val tag = "LocationApp"
+
     override fun onCreate() {
         super.onCreate()
 
@@ -18,16 +19,18 @@ class LocationApp : Application() {
             DynamicColors.applyToActivitiesIfAvailable(this)
         }
 
-        // Verbose Logging set to help debug issues, remove before releasing your app.
-        OneSignal.Debug.logLevel = LogLevel.VERBOSE
+        // Isolated service process also creates Application; skip SDK init there.
+        if (Application.getProcessName() != packageName) {
+            Log.i(tag, "Skip OneSignal init in process: ${Application.getProcessName()}")
+            return
+        }
 
-        // OneSignal Initialization
-        OneSignal.initWithContext(this, "03f9b446-b22e-447c-8285-73d949ae118c")
-
-        // requestPermission will show the native Android notification permission prompt.
-        // NOTE: It's recommended to use a OneSignal In-App Message to prompt instead.
-        CoroutineScope(Dispatchers.IO).launch {
-            OneSignal.Notifications.requestPermission(true)
+        runCatching {
+            // Verbose logging helps triage OEM-specific startup crashes.
+            OneSignal.Debug.logLevel = LogLevel.VERBOSE
+            OneSignal.initWithContext(this, "03f9b446-b22e-447c-8285-73d949ae118c")
+        }.onFailure { e ->
+            Log.e(tag, "OneSignal init failed", e)
         }
     }
 }
