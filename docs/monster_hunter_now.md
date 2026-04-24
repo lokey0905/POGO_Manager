@@ -50,12 +50,14 @@
 - 如有跨國移動，或是忘記上次移動位置，建議直接等待2小時的冷卻時間，確保安全。
 
 ### 匯入GPX路徑檔案
-1. 至POGO管理器的捷徑頁面，店選按鈕下載路徑GPX檔案
+1. 至POGO管理器的捷徑頁面，點選按鈕下載路徑GPX檔案
 
-   <img width="300" src="https://hackmd.io/_uploads/SJ0xxLloA.jpg" style="margin-right:10px" />
+   <img width="300" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/pogoManager_shortCutsGPX.png" style="margin-right:10px" />
+
 2. 到搖桿改定位APP中，點選左上角☰漢堡按鈕，選擇GPX匯入/匯出選項
 
 3. 點選下載資料夾，選擇剛剛下載的GPX路徑檔案
+
     <img width="300" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/JoystickChoiseGPX1.png" />
 
     <img width="300" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/JoystickChoiseGPX2.png" />
@@ -63,6 +65,7 @@
 4. 選擇後會出現如下圖畫面
 
     <img width="400" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/JoystickChoiseGPX3.png" />
+    
 5. 點選【路徑】，點選右下角下載按鈕，再點選從【添加所有路由】
 
     <img width="400" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/JoystickChoiseGPX4.png" />
