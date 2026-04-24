@@ -87,10 +87,7 @@
     <string name="shortcuts_PGToolsRaids">PGTools雷達</string>
     <string name="shortcuts_island">island 創建雙開環境</string>
     <string name="shortcuts_pokeMod">下載PokeMod</string>
-    <string name="shortcuts_gpx1">下載GPX路徑檔1(中文)</string>
-    <string name="shortcuts_gpx2">下載GPX路徑檔2(英文)</string>
-    <string name="shortcuts_gpx3">下載GPX路徑檔3(英文)</string>
-    <string name="shortcuts_gpx4">下載GPX路徑檔4(英文)</string>
+    <string name="shortcuts_gpx1">全球AI整合GPX路徑檔</string>
     <string name="shortcuts_pokeInfo">報寶貝 雷達</string>
     <string name="shortcuts_pokeInfoMessage">報寶貝若顯示黑影 請重新整理網頁30次後即會恢復正常</string>
     <string name="shortcuts_pokeListWeb">PokeList雷達</string>

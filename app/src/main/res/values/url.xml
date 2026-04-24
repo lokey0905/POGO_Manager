@@ -30,9 +30,6 @@
     <string name="url_PGToolsRaids">https://pgtools.net/raids</string>
     <string name="url_PGToolsFile">https://www.mediafire.com/file/fecfev2pr5c8x6d/GilbertMike_100523_1.txt/file</string>
     <string name="url_gpx1">https://www.mediafire.com/file/xa0ml3uwz0l8uon/%25E7%2586%25B1%25E9%2596%2580%25E8%258A%25B1%25E5%258D%2580%25E9%25BB%259E_gpx.zip/file</string>
-    <string name="url_gpx2">https://drive.google.com/drive/folders/1c89gK9hburycF6htoZLD2Zi2B1aDfTZt</string>
-    <string name="url_gpx3">https://drive.google.com/drive/folders/1XIPcu0tIRT4CbWFtkYaEcjY8hH33u_M2</string>
-    <string name="url_gpx4">https://drive.google.com/drive/folders/1X0F0uBUTA8HDhY7uBukMLDPzdJi53-FO</string>
     <string name="url_coolDownCalculator">https://cool.android.ovh/</string>
     <string name="url_playintegritychecker_official">https://play.google.com/store/apps/details?id=com.henrikherzig.playintegritychecker</string>
     <string name="url_playintegritychecker_unofficial">https://github.com/herzhenr/spic-android/releases/latest</string>
