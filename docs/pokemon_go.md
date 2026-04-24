@@ -681,6 +681,16 @@
 - 僅適用小米/紅米/POCO 且搭載 MIUI 或 Hyper OS。
 - 正常情況下依一般更新流程即可自動更新。
 
+### 寶可夢降版本
+- 可以在支援版本列表左下方選擇要下載的版本
+
+	<img width="500" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/pogoManager_pokemonNewerVersion.png" style="margin-right:10px" />
+
+- 若選擇的版本低於安裝版本，則需要先移除才能繼續下載安裝
+
+	<img width="500" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/pogoManager_pokemonNeedDowngrade.png" style="margin-right:10px" />
+
+- 移除過高的版本後，請重新[下載支援版本寶可夢](#版本檢查與一般更新)
 
 ### 寶可夢版本過高&停用自動更新
 如果寶可夢版本過高，表示可能被Play商店自動更新了
@@ -693,7 +703,7 @@
 
 	- 若無顯示此選項，重新啟動裝置後即可關閉
 
-- 若Play商店內顯示未安裝，或是已經取消自動更新，請操作[寶可夢版本過高&停用自動更新](#寶可夢版本過高停用自動更新)
+- 若Play商店內顯示未安裝，或是已經取消自動更新，請操作[寶可夢降版本](#寶可夢降版本)
 
 ### 寶可夢版本強制更新
 - 可先至寶可夢頁面上查看: 目前可安裝版本、各輔助軟體的支援版本與寶可夢最低可登入版本
