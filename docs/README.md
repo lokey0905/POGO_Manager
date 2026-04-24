@@ -9,10 +9,10 @@
 
 | 使用項目 | 教學連結 |
 |---|---|
-| Pokémon GO 寶可夢 | [寶可夢使用說明](./pokemon_go.md) |
-| Monster Hunter Now 魔物獵人 | [魔物獵人使用說明](./monster_hunter_now.md) |
-| Pikmin Bloom 皮克敏 | [皮克敏使用說明](./pikmin_bloom.md) |
-| 單純修改定位 | [單純修改定位使用說明](./location_only.md) |
+| Pokémon GO 寶可夢 | [寶可夢使用說明](https://hackmd.io/@lokey0905/pokemongo) |
+| Monster Hunter Now 魔物獵人 | [魔物獵人使用說明](https://hackmd.io/@lokey0905/Mhntools) |
+| Pikmin Bloom 皮克敏 | [皮克敏使用說明](https://hackmd.io/@lokey0905/Pikmin) |
+| 單純修改定位 | [單純修改定位使用說明](https://hackmd.io/@lokey0905/GPSJoystick) |
 
 ---
 

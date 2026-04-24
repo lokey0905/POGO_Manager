@@ -1,6 +1,7 @@
-[← 返回使用說明總入口](./README.md)
+[← 返回使用說明總入口](https://hackmd.io/@lokey0905/POGOManager)
 
 # Pokémon GO 寶可夢使用說明
+[TOC]
 
 ---
 
