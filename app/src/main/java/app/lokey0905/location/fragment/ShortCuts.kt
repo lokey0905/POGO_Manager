@@ -325,18 +325,6 @@ class ShortCuts: Fragment() {
                 downloadAPPWithCheck(resources.getString(R.string.url_gpx1))
             }
 
-            view.findViewById<MaterialCardView>(R.id.download_gpx2)?.setOnClickListener {
-                downloadAPPWithCheck(resources.getString(R.string.url_gpx2))
-            }
-
-            view.findViewById<MaterialCardView>(R.id.download_gpx3)?.setOnClickListener {
-                downloadAPPWithCheck(resources.getString(R.string.url_gpx3))
-            }
-
-            view.findViewById<MaterialCardView>(R.id.download_gpx4)?.setOnClickListener {
-                downloadAPPWithCheck(resources.getString(R.string.url_gpx4))
-            }
-
             view.findViewById<MaterialCardView>(R.id.pgtoolsFile)?.setOnClickListener {
                 downloadAPPWithCheck(getString(R.string.url_PGToolsFile))
             }
