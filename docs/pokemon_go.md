@@ -115,7 +115,7 @@
 
 ### 啟動搖桿
 點右上角的圖示可切換模式選擇，可以選擇使用單一位置或是路徑移動
-- 單一位置: 點擊地圖上的位置或是輸入經位度，按下開始後移動到該位置
+- 單一位置: 點擊地圖上的位置或是輸入經緯度，按下開始後移動到該位置
 
 <img width="200" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/JoystickStart1-1.jpg" style="margin-right:10px" /> <img width="200" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/JoystickStart1-2.jpg" style="margin-right:10px" />
 
@@ -162,7 +162,7 @@
 
 	<img width="400" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/JoystickChoiseGPX3.png" />
     
-5. 點選【路徑】，點選右下角下載按鈕，再點選從【添加所有路由】
+5. 點選【路徑】，點選右下角下載按鈕，再點選【添加所有路由】
 
 	<img width="400" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/JoystickChoiseGPX4.png" />
 
@@ -238,7 +238,7 @@
 ### 使用
 開啟後，點選右上角國旗圖示🇬🇧，往下滑動找到台灣國旗🇹🇼即可設定繁體中文
 
-- 若要啟動，點選中間下方的開始掛機按紐即可啟動
+- 若要啟動，點選中間下方的開始掛機按鈕即可啟動
 
 - 若有功能問題，可以參考[常見問題](#常見問題)
 
@@ -586,7 +586,7 @@
 1. 檢查搖桿的設定，左上角︙設定內有一個間接模擬選項需要關閉
 
 	<img width="300" src="https://hackmd.io/_uploads/S1A89Dm2C.jpg"/>
-2. PoGo外掛管理器捷徑內有一個定位精確度也需要關閉
+2. POGO管理器捷徑內有一個定位精確度也需要關閉
 
 	<img width="300" src="https://hackmd.io/_uploads/SkACcw72A.jpg"/>
 
@@ -677,7 +677,7 @@
 - 若重開機後仍然顯示錯誤12，請依照[無法偵測位置12](#寶可夢顯示-無法偵測位置12)操作
 
 ### 小米雙開版本更新
-- 若要雙開，建議**優先使用三星雙開版本**，使用此方法會在系統創建一個新使用者，可能倒置部分軟體不相容或是影響設備性能。
+- 若要雙開，建議**優先使用三星雙開版本**，使用此方法會在系統創建一個新使用者，可能導致部分軟體不相容或是影響設備性能。
 - 僅適用小米/紅米/POCO 且搭載 MIUI 或 Hyper OS。
 - 正常情況下依一般更新流程即可自動更新。
 
@@ -706,7 +706,7 @@
 - 若Play商店內顯示未安裝，或是已經取消自動更新，請操作[寶可夢降版本](#寶可夢降版本)
 
 ### 寶可夢版本強制更新
-- 可先至寶可夢頁面上查看: 目前可安裝版本、各輔助軟體的支援版本與寶可夢最低可登入版本
+- 可先至寶可夢頁面上查看：目前可安裝版本、各輔助軟體的支援版本與寶可夢最低可登入版本
 - 如果支援版本**低於**寶可夢最低可登入版本，則須等待輔助軟體團隊支援新版本後才能繼續使用
 
 	<img width="500" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/pogoManager_pokemonNewerVersion.png" style="margin-right:10px" />
@@ -739,7 +739,7 @@
 
 
 ### 初次安裝小米雙開版本
-- 若要雙開，建議**優先使用三星雙開版本**，使用此方法會在系統創建一個新使用者，可能倒置部分軟體不相容或是影響設備性能。
+- 若要雙開，建議**優先使用三星雙開版本**，使用此方法會在系統創建一個新使用者，可能導致部分軟體不相容或是影響設備性能。
 - 僅適用小米/紅米/POCO 且搭載 MIUI 或 Hyper OS。
 1. 點選捷徑頁面按鈕
 

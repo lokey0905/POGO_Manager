@@ -21,7 +21,7 @@
 
 ### 啟動搖桿
 點右上角的圖示可切換模式選擇，可以選擇使用單一位置或是路徑移動
-- 單一位置: 點擊地圖上的位置或是輸入經位度，按下開始後移動到該位置
+- 單一位置: 點擊地圖上的位置或是輸入經緯度，按下開始後移動到該位置
 
 <img width="200" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/JoystickStart1-1.jpg" style="margin-right:10px" /> <img width="200" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/JoystickStart1-2.jpg" style="margin-right:10px" />
 
@@ -66,7 +66,7 @@
 
     <img width="400" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/JoystickChoiseGPX3.png" />
     
-5. 點選【路徑】，點選右下角下載按鈕，再點選從【添加所有路由】
+5. 點選【路徑】，點選右下角下載按鈕，再點選【添加所有路由】
 
     <img width="400" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/JoystickChoiseGPX4.png" />
 
@@ -93,7 +93,7 @@ Min Monster Grade | 調整怪物等級 |
 Attack Small Monster | 攻擊小魔物 |
 Auto Delay | 自動延遲 |
 Full Map | 開設全地圖 |
-Elemental Effective | 元素開放 = 全采集 |
+Elemental Effective | 元素開放 = 全採集 |
 Grab And Go | 採集直接離開 |
 Auto Discard | 自動丟棄物品 |
 Auto Grab | 自動採集 |
@@ -104,11 +104,11 @@ Grab Bonepile | 採集骨堆 |
 Grab Plant | 採集植物 |
 Auto Claim | 自動清任務 |
 Enable | 開啟打怪數量 |
-Reset stats | 重制怪物數量歸 0 |
+Reset stats | 重置怪物數量歸 0 |
 Tap To Teleport | 快速傳送 |
 Last Location | 最後地點 |
 Fast TTT | 快速傳送 |
-Hide Tutorial Dialog | 隱藏教程對話方塊/任務談話跳過 |
+Hide Tutorial Dialog | 隱藏教學對話方塊/任務談話跳過 |
 Hide Entity | 隱藏實體/隱藏人物和怪 |
 Hide Road | 隱藏道路 |
 Save Configurations | 儲存配置 |

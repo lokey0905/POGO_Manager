@@ -11,7 +11,7 @@
 
 ### 啟動搖桿
 點右上角的圖示可切換模式選擇，可以選擇使用單一位置或是路徑移動
-- 單一位置: 點擊地圖上的位置或是輸入經位度，按下開始後移動到該位置
+- 單一位置: 點擊地圖上的位置或是輸入經緯度，按下開始後移動到該位置
 
 <img width="200" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/JoystickStart1-1.jpg" style="margin-right:10px" /> <img width="200" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/JoystickStart1-2.jpg" style="margin-right:10px" />
 
@@ -56,7 +56,7 @@
 
     <img width="400" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/JoystickChoiseGPX3.png" />
     
-5. 點選【路徑】，點選右下角下載按鈕，再點選從【添加所有路由】
+5. 點選【路徑】，點選右下角下載按鈕，再點選【添加所有路由】
 
     <img width="400" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/JoystickChoiseGPX4.png" />
 
