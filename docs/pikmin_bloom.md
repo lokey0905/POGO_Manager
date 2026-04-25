@@ -11,7 +11,7 @@
 
 ### 啟動搖桿
 點右上角的圖示可切換模式選擇，可以選擇使用單一位置或是路徑移動
-- 單一位置: 點擊地圖上的位置或是輸入經位度，按下開始後移動到該位置
+- 單一位置: 點擊地圖上的位置或是輸入經緯度，按下開始後移動到該位置
 
 <img width="200" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/JoystickStart1-1.jpg" style="margin-right:10px" /> <img width="200" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/JoystickStart1-2.jpg" style="margin-right:10px" />
 
@@ -21,6 +21,7 @@
 <img width="200" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/JoystickStart2-1.jpg" style="margin-right:10px" /> <img width="200" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/JoystickStart2-2.jpg" style="margin-right:10px" />
 
 ### 搖桿快捷鍵功能介紹
+
 <img width="600" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/Joystick.png" style="margin-right:10px" />
 
 ### 其他搖桿設定
@@ -56,7 +57,7 @@
 
     <img width="400" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/JoystickChoiseGPX3.png" />
     
-5. 點選【路徑】，點選右下角下載按鈕，再點選從【添加所有路由】
+5. 點選【路徑】，點選右下角下載按鈕，再點選【添加所有路由】
 
     <img width="400" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/JoystickChoiseGPX4.png" />
 
@@ -70,19 +71,25 @@
 
 ### 初始設定
 1. 到Google Play商店下載Google Fit應用程式，並且登入Google帳號
+
     <img width="400" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/fit.png" />
+
 2. 啟動Fit應用程式，登入的Google帳號，並記住登入的帳號
-3. 到Fit應用程式客人資料頁面的設定按鈕，找到【讓Fit與「健康資料同步」平台保持同步】選項並啟用
+3. 到Fit應用程式個人資料頁面的設定按鈕，找到【讓Fit與「健康資料同步」平台保持同步】選項並啟用
+
     <img width="300" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/fit_settings1.png" />
     <img width="300" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/fit_settings2.png" />
     <img width="300" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/fit_settings3.png" />
     <img width="300" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/fit_settings4.png" />
+
 4. 啟動Defit應用程式，登入與Fit相同的Google帳號，並且授權Defit存取Fit的資料
 5. 勾選【同步模式】後，系統約5~15分鐘會自動同步步數資訊到Google Fit應用程式中
 
 ### 查詢步數
 - 可在Fit應用程式的首頁看到當天的步數資訊
+
     <img width="400" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/fit_steps.png" />
+
 - 若步數尚未更新，可嘗試在Defit開關同步模式進行強制同步，或是重新登入Defit應用程式。
 - 因同步需要一些時間，建議等待約5~15分鐘後查看。
 
@@ -95,7 +102,7 @@
 ## 常見問題
 
 ### 更新後無法修改位置
-- 如果有更新，裝置重開機候即可正常使用
+- 如果有更新，裝置重開機後即可正常使用
 
 ---
 
