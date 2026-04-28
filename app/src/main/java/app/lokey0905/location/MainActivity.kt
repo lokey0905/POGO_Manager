@@ -8,6 +8,8 @@ import android.content.Intent
 import android.content.ServiceConnection
 import android.content.pm.PackageManager
 import android.location.LocationManager
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -75,29 +77,29 @@ class MainActivity : AppCompatActivity() {
     @OptIn(DelicateCoroutinesApi::class)
     private fun checkForUpdate(
         githubUrl: String,
-        onUpdateAvailable: (Boolean, String, String) -> Unit
+        onUpdateAvailable: (Boolean, String, String, Boolean) -> Unit
     ) {
         GlobalScope.launch(Dispatchers.IO) {
             var updateAvailable = false
             var latestVersion = ""
             var latestVersionInformation = ""
+            var requestSuccess = true
 
             try {
                 val url = URL(githubUrl)
                 val connection: HttpURLConnection = url.openConnection() as HttpURLConnection
                 connection.requestMethod = "GET"
+                connection.connectTimeout = 10000
+                connection.readTimeout = 10000
 
-                val inputStream = connection.inputStream
-                val bufferedReader = BufferedReader(InputStreamReader(inputStream))
                 val response = StringBuilder()
-
-                var line: String? = bufferedReader.readLine()
-                while (line != null) {
-                    response.append(line)
-                    line = bufferedReader.readLine()
+                BufferedReader(InputStreamReader(connection.inputStream)).use { bufferedReader ->
+                    var line: String? = bufferedReader.readLine()
+                    while (line != null) {
+                        response.append(line)
+                        line = bufferedReader.readLine()
+                    }
                 }
-
-                bufferedReader.close()
 
                 val jsonObject = JSONObject(response.toString())
 
@@ -117,48 +119,17 @@ class MainActivity : AppCompatActivity() {
                 latestVersionInformation = jsonObject.getString("body")
 
             } catch (e: Exception) {
-                e.printStackTrace()
+                requestSuccess = false
+                Log.w(TAG, "checkForUpdate failed", e)
             }
 
             launch(Dispatchers.Main) {
-                onUpdateAvailable(updateAvailable, latestVersion, latestVersionInformation)
-            }
-        }
-    }
-
-    private fun checkUpdate() {
-        val githubUrl = getString(R.string.githubApi)
-        checkForUpdate(githubUrl) { updateAvailable, latestVersion, latestVersionInformation ->
-            if (updateAvailable) {
-                MaterialAlertDialogBuilder(this@MainActivity)
-                    .setTitle(getString(R.string.dialogUpdateAvailableTitle) + latestVersion)
-                    .setMessage(
-                        "${getString(R.string.dialogUpdateAvailableManagerMessage)}\n\n${
-                            getString(
-                                R.string.updateContent
-                            )
-                        }\n$latestVersionInformation"
-                    )
-                    .apply {
-                        setPositiveButton(R.string.ok) { _, _ ->
-                            downloadAPPSetup("https://github.com/lokey0905/POGO_Manager/releases/download/$latestVersion/app-debug.apk")
-                        }
-                        setNegativeButton(R.string.cancel) { _, _ ->
-                            Toast.makeText(
-                                context,
-                                getString(R.string.cancelOperation),
-                                Toast.LENGTH_SHORT
-                            )
-                                .show()
-                        }
-                    }
-                    .show()
-            } else {
-                Toast.makeText(
-                    this,
-                    getString(R.string.dialogIsLatestVersion) + BuildConfig.VERSION_NAME,
-                    Toast.LENGTH_SHORT
-                ).show()
+                onUpdateAvailable(
+                    updateAvailable,
+                    latestVersion,
+                    latestVersionInformation,
+                    requestSuccess
+                )
             }
         }
     }
@@ -357,6 +328,99 @@ class MainActivity : AppCompatActivity() {
         override fun onServiceDisconnected(componentName: ComponentName) {
             bServiceBound = false
             Log.d(TAG, "Service Unbound")
+        }
+    }
+
+    private fun isNetworkAvailable(): Boolean {
+        val connectivityManager =
+            getSystemService(CONNECTIVITY_SERVICE) as ConnectivityManager
+        val network = connectivityManager.activeNetwork ?: return false
+        val capabilities = connectivityManager.getNetworkCapabilities(network) ?: return false
+        return capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+    }
+
+    private fun compareVersions(current: String, latest: String): Int {
+        val currentParts = current.split(".")
+        val latestParts = latest.split(".")
+        val maxSize = maxOf(currentParts.size, latestParts.size)
+
+        for (i in 0 until maxSize) {
+            val currentValue = currentParts.getOrNull(i)?.toIntOrNull() ?: 0
+            val latestValue = latestParts.getOrNull(i)?.toIntOrNull() ?: 0
+            if (currentValue != latestValue) {
+                return currentValue.compareTo(latestValue)
+            }
+        }
+        return 0
+    }
+
+    private fun checkUpdate() {
+        if (!isNetworkAvailable()) {
+            Toast.makeText(
+                this,
+                getString(R.string.networkError),
+                Toast.LENGTH_SHORT
+            ).show()
+            return
+        }
+
+        val githubUrl = getString(R.string.githubApi)
+        checkForUpdate(githubUrl) { updateAvailable, latestVersion, latestVersionInformation, requestSuccess ->
+            if (!requestSuccess) {
+                Toast.makeText(
+                    this,
+                    getString(R.string.networkError),
+                    Toast.LENGTH_SHORT
+                ).show()
+                return@checkForUpdate
+            }
+
+            val versionCompare = compareVersions(BuildConfig.VERSION_NAME, latestVersion)
+            if (versionCompare > 0) {
+                Toast.makeText(
+                    this,
+                    getString(R.string.testVersion),
+                    Toast.LENGTH_SHORT
+                ).show()
+                return@checkForUpdate
+            }
+
+            if (updateAvailable) {
+                MaterialAlertDialogBuilder(this@MainActivity)
+                    .setTitle(
+                        getString(
+                            R.string.dialogUpdateDetectedVersion,
+                            BuildConfig.VERSION_NAME,
+                            latestVersion
+                        )
+                    )
+                    .setMessage("${getString(R.string.dialogUpdateAvailableManagerMessage)}\n\n${
+                        getString(
+                            R.string.updateContent
+                        )
+                    }\n$latestVersionInformation"
+                    )
+                    .apply {
+                        setPositiveButton(R.string.ok) { _, _ ->
+                            downloadAPPSetup("https://github.com/lokey0905/POGO_Manager/releases/download/$latestVersion/app-debug.apk")
+                        }
+                        setNegativeButton(R.string.cancel) { _, _ ->
+                            Toast.makeText(
+                                context,
+                                getString(R.string.cancelOperation),
+                                Toast.LENGTH_SHORT
+                            )
+                                .show()
+                        }
+                    }
+                    .show()
+            } else {
+                Toast.makeText(
+                    this,
+                    getString(R.string.dialogIsLatestVersion) + BuildConfig.VERSION_NAME,
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
         }
     }
 
