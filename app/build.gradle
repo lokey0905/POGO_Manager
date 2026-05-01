@@ -12,7 +12,7 @@ android {
         minSdk 28
         targetSdkVersion compileSdk
         versionCode 3
-        versionName "2.24"
+        versionName "2.25"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         externalNativeBuild {
@@ -21,7 +21,6 @@ android {
                 arguments "-DANDROID_SUPPORT_FLEXIBLE_PAGE_SIZES=ON"
             }
         }
-        proguardFiles
     }
 
     buildTypes {
@@ -36,6 +35,8 @@ android {
     }
     buildFeatures {
         buildConfig true
+        viewBinding true
+        aidl true
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_17
@@ -43,10 +44,6 @@ android {
     }
     kotlinOptions {
         jvmTarget = '17'
-    }
-    buildFeatures {
-        viewBinding true
-        aidl true
     }
     packagingOptions {
         resources {
@@ -81,20 +78,23 @@ protobuf {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+
     implementation 'androidx.appcompat:appcompat:1.7.1'
-    implementation 'androidx.browser:browser:1.9.0'
-    implementation 'androidx.core:core-ktx:1.17.0'
+    implementation 'androidx.browser:browser:1.10.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.2.1'
+    implementation 'androidx.core:core-ktx:1.18.0'
     implementation 'androidx.compose.material3:material3:1.4.0'
-    implementation 'androidx.navigation:navigation-fragment-ktx:2.9.6'
-    implementation 'androidx.navigation:navigation-ui-ktx:2.9.6'
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.9.8'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.9.8'
     implementation 'androidx.preference:preference-ktx:1.2.1'
-    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
-    implementation("com.onesignal:OneSignal:5.4.1")
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.2.0'
+
     implementation 'com.google.android.material:material:1.13.0'
-    implementation 'com.google.android.gms:play-services-ads:24.8.0'
+    implementation 'com.google.android.gms:play-services-ads:25.2.0'
     implementation 'com.google.android.gms:play-services-location:21.3.0'
-    implementation 'com.google.protobuf:protobuf-javalite:4.33.1'
-    implementation "com.hendraanggrian.material:collapsingtoolbarlayout-subtitle:1.5.0"
-    implementation 'com.squareup.okhttp3:okhttp:5.1.0'
+    implementation 'com.google.protobuf:protobuf-javalite:4.34.1'
+
+    implementation 'com.onesignal:OneSignal:5.7.7'
+    implementation 'com.hendraanggrian.material:collapsingtoolbarlayout-subtitle:1.5.0'
+    implementation 'com.squareup.okhttp3:okhttp:5.3.2'
 }
