@@ -1,7 +1,5 @@
 package app.lokey0905.location
 
-import android.Manifest
-import android.app.Application
 import android.content.ComponentName
 import android.content.ContentValues.TAG
 import android.content.Intent
@@ -10,7 +8,6 @@ import android.content.pm.PackageManager
 import android.location.LocationManager
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.IBinder
@@ -19,8 +16,6 @@ import android.system.Os
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.core.view.WindowCompat
 import androidx.fragment.app.Fragment
@@ -33,8 +28,10 @@ import app.lokey0905.location.fragment.AppsPoke
 import app.lokey0905.location.fragment.Home
 import app.lokey0905.location.fragment.Preferences
 import app.lokey0905.location.fragment.ShortCuts
+import com.google.android.gms.common.ConnectionResult
+import com.google.android.gms.common.GoogleApiAvailability
+import com.google.android.gms.location.LocationServices
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.android.material.color.DynamicColors
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.onesignal.OneSignal
@@ -49,6 +46,8 @@ import java.net.HttpURLConnection
 import java.net.URL
 import androidx.core.content.edit
 import androidx.core.net.toUri
+import android.content.SharedPreferences
+import android.provider.Settings
 
 
 
@@ -73,6 +72,8 @@ class MainActivity : AppCompatActivity() {
 
     //private var IIsolatedService = null
     var serviceBinder: IIsolatedService? = null
+    private val ACTION_LOCATION_SCANNING_SETTINGS =
+        "android.settings.LOCATION_SCANNING_SETTINGS"
 
     @OptIn(DelicateCoroutinesApi::class)
     private fun checkForUpdate(
@@ -228,56 +229,6 @@ class MainActivity : AppCompatActivity() {
         if (savedInstanceState == null)
             findViewById<BottomNavigationView>(R.id.navigation).selectedItemId = R.id.nav_home
 
-        val locationManager = getSystemService(LOCATION_SERVICE) as LocationManager
-        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
-        val checkLocationAccuracy = sharedPreferences.getBoolean("location_accuracy_check", false)
-
-        if (locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER) && !checkLocationAccuracy) {
-            MaterialAlertDialogBuilder(this@MainActivity)
-                .setTitle(getString(R.string.dialogCheckLocationAccuracyTitle))
-                .setMessage(getString(R.string.dialogCheckLocationAccuracyMessage))
-                .apply {
-                    setPositiveButton(resources.getString(R.string.ok)) { _, _ ->
-                        val location_accuracy_switch =
-                            sharedPreferences.getBoolean("location_accuracy_switch", false)
-                        if (location_accuracy_switch) {
-                            // open location settings page
-                            val intent = Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS)
-                            startActivity(intent)
-
-                        } else {
-                            val activityIntent = Intent()
-
-                            activityIntent.component =
-                                ComponentName(
-                                    getString(R.string.packageName_gms),
-                                    getString(R.string.packageName_gmsLocationAccuracy)
-                                )
-
-                            startActivity(activityIntent)
-                        }
-                    }
-                    setNeutralButton(resources.getString(R.string.cancel)) { _, _ ->
-                        Toast.makeText(
-                            context,
-                            getString(R.string.cancelOperation),
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
-                    setNegativeButton(resources.getString(R.string.doNotShowAgain)) { _, _ ->
-                        sharedPreferences.edit { putBoolean("location_accuracy_check", true) }
-                        Snackbar.make(
-                            findViewById(R.id.fragment_container_view),
-                            getString(R.string.doNotShowAgain),
-                            Snackbar.LENGTH_SHORT
-                        ).setAction(getString(R.string.cancel)) {
-                            sharedPreferences.edit { putBoolean("location_accuracy_check", false) }
-                        }.show()
-                    }
-                }
-                .show()
-        }
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             lifecycleScope.launch {
                 runCatching {
@@ -287,6 +238,14 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        val locationManager = getSystemService(LOCATION_SERVICE) as LocationManager
+        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
+        checkLocationAccuracy(locationManager, sharedPreferences)
     }
 
     override fun onStart() {
@@ -422,6 +381,210 @@ class MainActivity : AppCompatActivity() {
                 ).show()
             }
         }
+    }
+
+    private fun checkLocationAccuracy(
+        locationManager: LocationManager,
+        sharedPreferences: SharedPreferences
+    ) {
+        val checkLocationAccuracy = sharedPreferences.getBoolean("location_accuracy_check", false)
+        if (checkLocationAccuracy) {
+            return
+        }
+
+        val wifiScanEnabled = isWifiScanAlwaysEnabled()
+        val bleScanEnabled = isBleScanAlwaysEnabled()
+        Log.d(TAG, "Wi-Fi scan always enabled: $wifiScanEnabled, BLE scan always enabled: $bleScanEnabled")
+
+        if (isGooglePlayServicesAvailable()) {
+            val settingsClient = LocationServices.getSettingsClient(this)
+            settingsClient.isGoogleLocationAccuracyEnabled
+                .addOnSuccessListener { enabled ->
+                    val shouldShow = enabled || wifiScanEnabled || bleScanEnabled
+                    if (shouldShow) {
+                        showLocationAccuracyDialog(
+                            sharedPreferences,
+                            enabled,
+                            wifiScanEnabled,
+                            bleScanEnabled
+                        )
+                    }
+                }
+                .addOnFailureListener { e ->
+                    Log.w(TAG, "Google location accuracy check failed", e)
+                    val shouldShow =
+                        wifiScanEnabled || bleScanEnabled ||
+                            locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
+                    if (shouldShow) {
+                        showLocationAccuracyDialog(
+                            sharedPreferences,
+                            null,
+                            wifiScanEnabled,
+                            bleScanEnabled
+                        )
+                    }
+                }
+            return
+        } else {
+            Log.w(TAG, "Google Play Services not available")
+            val shouldShow =
+                wifiScanEnabled || bleScanEnabled ||
+                    locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
+            if (shouldShow) {
+                showLocationAccuracyDialog(
+                    sharedPreferences,
+                    null,
+                    wifiScanEnabled,
+                    bleScanEnabled
+                )
+            }
+        }
+    }
+
+    private fun showLocationAccuracyDialog(
+        sharedPreferences: SharedPreferences,
+        googleAccuracyEnabled: Boolean?,
+        wifiScanEnabled: Boolean,
+        bleScanEnabled: Boolean
+    ) {
+        val accuracyStatus = when (googleAccuracyEnabled) {
+            true -> getString(R.string.status_enabled)
+            false -> getString(R.string.status_disabled)
+            null -> getString(R.string.status_unknown)
+        }
+        val wifiStatus = if (wifiScanEnabled) {
+            getString(R.string.status_enabled)
+        } else {
+            getString(R.string.status_disabled)
+        }
+        val bleStatus = if (bleScanEnabled) {
+            getString(R.string.status_enabled)
+        } else {
+            getString(R.string.status_disabled)
+        }
+
+        val statusMessage = getString(
+            R.string.dialogCheckLocationAccuracyStatusMessage,
+            accuracyStatus,
+            wifiStatus,
+            bleStatus,
+            getString(R.string.dialogCheckLocationAccuracyMessage)
+        )
+
+        MaterialAlertDialogBuilder(this@MainActivity)
+            .setTitle(getString(R.string.dialogCheckLocationAccuracyTitle))
+            .setMessage(statusMessage)
+            .apply {
+                setPositiveButton(resources.getString(R.string.ok)) { _, _ ->
+                    openLocationAccuracyRelatedSettings(
+                        googleAccuracyEnabled,
+                        wifiScanEnabled,
+                        bleScanEnabled
+                    )
+                }
+                setNeutralButton(resources.getString(R.string.cancel)) { _, _ ->
+                    Toast.makeText(
+                        context,
+                        getString(R.string.cancelOperation),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                setNegativeButton(resources.getString(R.string.doNotShowAgain)) { _, _ ->
+                    sharedPreferences.edit { putBoolean("location_accuracy_check", true) }
+                    Snackbar.make(
+                        findViewById(R.id.fragment_container_view),
+                        getString(R.string.doNotShowAgain),
+                        Snackbar.LENGTH_SHORT
+                    ).setAction(getString(R.string.cancel)) {
+                        sharedPreferences.edit { putBoolean("location_accuracy_check", false) }
+                    }.show()
+                }
+            }
+            .show()
+    }
+
+    private fun isWifiScanAlwaysEnabled(): Boolean {
+        return try {
+            Settings.Global.getInt(
+                contentResolver,
+                "wifi_scan_always_enabled",
+                0
+            ) == 1
+        } catch (e: SecurityException) {
+            Log.w(TAG, "Wi-Fi scan setting not accessible", e)
+            false
+        }
+    }
+
+    private fun openLocationAccuracyRelatedSettings(
+        googleAccuracyEnabled: Boolean?,
+        wifiScanEnabled: Boolean,
+        bleScanEnabled: Boolean
+    ) {
+        when {
+            googleAccuracyEnabled == true -> {
+                val gmsAccuracyIntent = Intent().apply {
+                    component = ComponentName(
+                        getString(R.string.packageName_gms),
+                        getString(R.string.packageName_gmsLocationAccuracy)
+                    )
+                }
+
+                startActivitySafely(
+                    gmsAccuracyIntent,
+                    Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
+                )
+            }
+
+            wifiScanEnabled || bleScanEnabled -> {
+                startActivitySafely(
+                    Intent(ACTION_LOCATION_SCANNING_SETTINGS),
+                    Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
+                )
+            }
+
+            else -> {
+                startActivitySafely(
+                    Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
+                )
+            }
+        }
+    }
+
+    private fun isBleScanAlwaysEnabled(): Boolean {
+        return try {
+            Settings.Global.getInt(
+                contentResolver,
+                "ble_scan_always_enabled",
+                0
+            ) == 1
+        } catch (e: SecurityException) {
+            Log.w(TAG, "BLE scan setting not accessible", e)
+            false
+        }
+    }
+
+    private fun isGooglePlayServicesAvailable(): Boolean {
+        val googleApiAvailability = GoogleApiAvailability.getInstance()
+        val resultCode = googleApiAvailability.isGooglePlayServicesAvailable(this)
+        return resultCode == ConnectionResult.SUCCESS
+    }
+
+    private fun startActivitySafely(vararg intents: Intent) {
+        for (intent in intents) {
+            try {
+                startActivity(intent)
+                return
+            } catch (e: Exception) {
+                Log.w(TAG, "Failed to start intent: ${intent.action}, component=${intent.component}", e)
+            }
+        }
+
+        Toast.makeText(
+            this,
+            getString(R.string.status_startFailed),
+            Toast.LENGTH_SHORT
+        ).show()
     }
 
     override fun onRequestPermissionsResult(
