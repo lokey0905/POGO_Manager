@@ -6,40 +6,32 @@
 
     <LinearLayout
         android:id="@android:id/background"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center">
 
         <Button
             android:id="@+id/appwidget_button"
             style="@style/Widget.Location.AppWidget.InnerView"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_margin="1dp"
             android:layout_weight="2"
+            android:gravity="center"
             android:drawableTop="@android:drawable/ic_lock_power_off" />
 
         <TextView
+            android:id="@+id/appwidget_title"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.5"
             android:gravity="center"
             android:autoSizeTextType="uniform"
             android:autoSizeMinTextSize="8sp"
-            android:autoSizeMaxTextSize="100sp"
+            android:autoSizeMaxTextSize="18sp"
             android:autoSizeStepGranularity="1sp"
             android:text="@string/locationAccuracyActivity1" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.5"
-            android:gravity="center"
-            android:autoSizeTextType="uniform"
-            android:autoSizeMinTextSize="8sp"
-            android:autoSizeMaxTextSize="100sp"
-            android:autoSizeStepGranularity="1sp"
-            android:text="@string/locationAccuracyActivity2" />
     </LinearLayout>
 
 </LinearLayout>
