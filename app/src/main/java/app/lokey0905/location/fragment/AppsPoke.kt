@@ -111,12 +111,12 @@ class AppsPoke : Fragment() {
                 R.id.download_gps,
                 R.id.remove_gps,
                 R.id.gps_more,
-                0,
+                R.id.gps_new_version,
                 R.id.gps_install_version,
                 updateNewVersionFromJson = true,
                 updateDownloadLinkFromJson = true,
                 updateOfficialLinkFromJson = true,
-                updateNewVersionText = false,
+                updateNewVersionText = true,
             ),
             AppsInfo(
                 "polygon",
@@ -613,15 +613,13 @@ class AppsPoke : Fragment() {
                             continue
                         }
 
-                        val appName = apps.appName
                         val packageName = apps.packageName
                         val newVersion = apps.newVersion
                         val installVersion = appInstalledVersion(packageName)
                         val downloadButton = view.findViewById<Button>(apps.downloadButtonId)
 
                         if (installVersion != "未安裝") {
-                            if (compareVersions(newVersion, installVersion) > 0 &&
-                                appName != "joystick"
+                            if (compareVersions(newVersion, installVersion) > 0
                             ) {
                                 downloadButton.text = update
                                 needUpdateAppsAmount++
@@ -673,13 +671,6 @@ class AppsPoke : Fragment() {
                             formatInstallVersionOther,
                             appInstalledVersion(pokeAresPackageName),
                             "(${getString(R.string.unsupportedDevices)})"
-                        )
-                } else if (appName == "joystick") {
-                    installVersionTextView.text =
-                        String.format(
-                            formatInstallVersionOther,
-                            boolToInstalled(appInstalledOrNot(packageName)),
-                            ""
                         )
                 } else {
                     installVersionTextView.text =
