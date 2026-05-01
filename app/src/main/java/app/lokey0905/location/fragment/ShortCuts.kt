@@ -427,7 +427,7 @@ class ShortCuts: Fragment() {
             ) {
                 downloadAPPWithCheck(target)
             } else {
-                Toast.makeText(context, "無法啟動應用程式", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, getString(R.string.status_startFailed), Toast.LENGTH_SHORT).show()
             }
         }
     }

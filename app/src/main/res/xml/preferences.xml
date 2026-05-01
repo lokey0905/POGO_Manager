@@ -123,30 +123,30 @@
 
         <Preference
             android:key="shopee"
-            android:title="我的蝦皮賣場"
+            android:title="@string/preferences_about_shopee_title"
             android:icon="@drawable/ic_baseline_shopping_bag_24"
-            app:summary="歡迎購買賣場內刷機好的手機，也可幫忙代刷機" />
+            app:summary="@string/preferences_about_shopee_summary" />
 
         <Preference
             android:key="facebook"
-            android:title="我的FaceBook紛絲專頁"
+            android:title="@string/preferences_about_facebook_title"
             android:icon="@drawable/ic_baseline_email_24"
-            app:summary="方便的話，可以來幫我按個讚喔~" />
+            app:summary="@string/preferences_about_facebook_summary" />
 
         <Preference
             android:key="discord"
-            android:title="我的Discord群組"
+            android:title="@string/preferences_about_discord_title"
             android:icon="@drawable/ic_baseline_mark_unread_chat_alt_24"
-            app:summary="歡迎加入討論各式各樣的問題" />
+            app:summary="@string/preferences_about_discord_summary" />
 
         <Preference
             android:key="github"
-            android:title="Github開源程式碼"
+            android:title="@string/preferences_about_github_title"
             android:icon="@drawable/ic_baseline_code_24" />
 
         <Preference
             android:key="app"
-            android:title="APP版本"
+            android:title="@string/preferences_about_app_title"
             android:icon="@drawable/ic_baseline_info_24"
             app:summary="" />
     </PreferenceCategory>

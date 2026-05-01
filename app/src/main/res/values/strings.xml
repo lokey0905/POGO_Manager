@@ -211,4 +211,17 @@
     <string name="preferences_mhntools_testversion_Summary">使用mhntools測試版本連結, 可能導致使用不穩定</string>
     <string name="preferences_mhn_download_on_apkmirror_Title">從APKMirror下載魔物獵人</string>
     <string name="preferences_mhn_download_on_apkmirror_Summary">使用ApkMirror連結下載魔物獵人, 而不是使用mhntools連結</string>
+    <string name="preferences_about_shopee_title">Shopee 賣場</string>
+    <string name="preferences_about_shopee_summary">歡迎購買賣場內刷機手機，也可協助代刷機</string>
+    <string name="preferences_about_facebook_title">Facebook 粉絲專頁</string>
+    <string name="preferences_about_facebook_summary">方便的話，歡迎幫我按個讚</string>
+    <string name="preferences_about_discord_title">Discord 討論社群</string>
+    <string name="preferences_about_discord_summary">歡迎加入一起討論各式問題</string>
+    <string name="preferences_about_github_title">GitHub 開源程式碼</string>
+    <string name="preferences_about_app_title">App 版本</string>
+    <string name="status_enabled">已開啟</string>
+    <string name="status_disabled">已關閉</string>
+    <string name="status_unknown">無法檢測</string>
+    <string name="status_startFailed">啟動失敗</string>
+    <string name="dialogCheckLocationAccuracyStatusMessage">Google 定位精確度：%1$s\nWi-Fi 掃描：%2$s\n藍牙掃描：%3$s\n\n%4$s</string>
 </resources>
