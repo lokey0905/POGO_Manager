@@ -76,6 +76,10 @@ data class AppsInfo(
 )
 
 class AppsPoke : Fragment() {
+    private companion object {
+        const val DOWNLOAD_BUTTON_ACTION_OPEN_APP = "open_app"
+    }
+
     private var nowPogoVersionsList = ArrayList<PogoVersionInfo>()
     private var pgtoolsVersionsList = ArrayList<PogoVersionInfo>()
     private var pokemodVersionList = ArrayList<String>()
@@ -424,6 +428,11 @@ class AppsPoke : Fragment() {
 
             //set download button listener
             downloadButton?.setOnClickListener {
+                if (isOpenAppAction(downloadButton)) {
+                    openApp(packageName)
+                    return@setOnClickListener
+                }
+
                 when (appName) {
                     "joystick" -> {
                         downloadAPPWithCheck(mapping.downloadLink)
@@ -501,7 +510,6 @@ class AppsPoke : Fragment() {
         fun checkAppVersion() {
             var needUpdateAppsAmount = 0
             val download = getString(R.string.download)
-            val downloadAgain = getString(R.string.downloadAgain)
             val update = getString(R.string.update)
 
             val pgToolsInstalledVersion = appInstalledVersion(pgToolsPackageName)
@@ -621,13 +629,13 @@ class AppsPoke : Fragment() {
                         if (installVersion != "未安裝") {
                             if (compareVersions(newVersion, installVersion) > 0
                             ) {
-                                downloadButton.text = update
+                                setDownloadAction(downloadButton, update)
                                 needUpdateAppsAmount++
                             } else {
-                                downloadButton.text = downloadAgain
+                                setOpenAppAction(downloadButton)
                             }
                         } else {
-                            downloadButton.text = download
+                            setDownloadAction(downloadButton, download)
                         }
                     }
                 }
@@ -697,15 +705,15 @@ class AppsPoke : Fragment() {
                         )
                     pokeDownloadButton.isEnabled = false
                 } else if (versionComparison > 0) {
-                    pokeDownloadButton.text = update
+                    setDownloadAction(pokeDownloadButton, update)
                     pokeDownloadButton.isEnabled = true
                     needUpdateAppsAmount++
                 } else {
-                    pokeDownloadButton.text = downloadAgain
+                    setOpenAppAction(pokeDownloadButton)
                     pokeDownloadButton.isEnabled = true
                 }
             } else {
-                pokeDownloadButton.text = download
+                setDownloadAction(pokeDownloadButton, download)
                 pokeDownloadButton.isEnabled = true
             }
 
@@ -723,15 +731,15 @@ class AppsPoke : Fragment() {
                         )
                     pokeAresDownloadButton.isEnabled = false
                 } else if (versionComparison > 0) {
-                    pokeAresDownloadButton.text = update
+                    setDownloadAction(pokeAresDownloadButton, update)
                     pokeAresDownloadButton.isEnabled = true
                     needUpdateAppsAmount++
                 } else {
-                    pokeAresDownloadButton.text = downloadAgain
+                    setOpenAppAction(pokeAresDownloadButton)
                     pokeAresDownloadButton.isEnabled = true
                 }
             } else {
-                pokeAresDownloadButton.text = download
+                setDownloadAction(pokeAresDownloadButton, download)
                 pokeAresDownloadButton.isEnabled = true
             }
 
@@ -740,13 +748,13 @@ class AppsPoke : Fragment() {
                 val versionComparison = compareVersions(pgToolsVersion, pgToolsInstalledVersion)
 
                 if (versionComparison > 0) {
-                    pgToolsDownloadButton.text = update
+                    setDownloadAction(pgToolsDownloadButton, update)
                     needUpdateAppsAmount++
                 } else {
-                    pgToolsDownloadButton.text = downloadAgain
+                    setOpenAppAction(pgToolsDownloadButton)
                 }
             } else {
-                pgToolsDownloadButton.text = download
+                setDownloadAction(pgToolsDownloadButton, download)
             }
 
             toolbar_layout.subtitle = if (needUpdateAppsAmount > 0) {
@@ -788,19 +796,19 @@ class AppsPoke : Fragment() {
                 if (appInstalledOrNot(getString(R.string.packageName_polygonX))) {
                     when (result.status) {
                         app.lokey0905.location.api.PolygonXCheckResult.Status.SUCCESS -> {
-                            downloadButton.text = getString(R.string.downloadAgain)
+                            setOpenAppAction(downloadButton)
                         }
 
                         app.lokey0905.location.api.PolygonXCheckResult.Status.UPDATE_REQUIRED -> {
-                            downloadButton.text = getString(R.string.update)
+                            setDownloadAction(downloadButton, getString(R.string.update))
                         }
 
                         app.lokey0905.location.api.PolygonXCheckResult.Status.FAILURE -> {
-                            downloadButton.text = getString(R.string.download)
+                            setDownloadAction(downloadButton, getString(R.string.download))
                         }
                     }
                 } else {
-                    downloadButton.text = getString(R.string.download)
+                    setDownloadAction(downloadButton, getString(R.string.download))
                 }
 
                 checkAppVersion()
@@ -1207,6 +1215,48 @@ class AppsPoke : Fragment() {
         return if (show) View.VISIBLE else View.GONE // if true then show else hide
     }
 
+    private fun setDownloadAction(button: Button, text: String) {
+        button.text = text
+        button.tag = null
+    }
+
+    private fun setOpenAppAction(button: Button) {
+        button.text = getString(R.string.popup_menu_startApp)
+        button.tag = DOWNLOAD_BUTTON_ACTION_OPEN_APP
+    }
+
+    private fun isOpenAppAction(button: Button): Boolean {
+        return button.tag == DOWNLOAD_BUTTON_ACTION_OPEN_APP
+    }
+
+    private fun openApp(packageName: String) {
+        val intent = requireContext().packageManager.getLaunchIntentForPackage(packageName)
+
+        if (intent == null) {
+            Toast.makeText(
+                context,
+                getString(R.string.somethingWrong),
+                Toast.LENGTH_SHORT
+            ).show()
+            return
+        }
+
+        val resolveInfo = requireContext().packageManager.resolveActivity(
+            intent,
+            PackageManager.MATCH_DEFAULT_ONLY
+        )
+
+        if (resolveInfo != null) {
+            startActivity(intent)
+        } else {
+            Toast.makeText(
+                context,
+                getString(R.string.somethingWrong),
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+    }
+
     private fun popupMenu(view: View, id: Int, packageName: String) {
         if (appInstalledVersion(packageName) == "未安裝") {
             appUnInstall(packageName)
@@ -1217,25 +1267,7 @@ class AppsPoke : Fragment() {
             setOnMenuItemClickListener { item ->
                 when (item.itemId) {
                     R.id.open -> {
-                        val intent =
-                            requireContext().packageManager.getLaunchIntentForPackage(packageName)
-
-                        if (intent != null) {
-                            val resolveInfo = requireContext().packageManager.resolveActivity(
-                                intent,
-                                PackageManager.MATCH_DEFAULT_ONLY
-                            )
-
-                            if (resolveInfo != null) {
-                                startActivity(intent)
-                            } else {
-                                Toast.makeText(
-                                    context,
-                                    getString(R.string.somethingWrong),
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                            }
-                        }
+                        openApp(packageName)
                         true
                     }
 
