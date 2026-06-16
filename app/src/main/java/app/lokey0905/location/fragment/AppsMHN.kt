@@ -42,6 +42,10 @@ import androidx.core.net.toUri
 import androidx.fragment.app.setFragmentResultListener
 
 class AppsMHN : Fragment() {
+    private companion object {
+        const val DOWNLOAD_BUTTON_ACTION_OPEN_APP = "open_app"
+    }
+
     private val gameVersionsMap = mutableMapOf<String, String>()
     private var mhnToolsVersion: String = "未安裝"
     private var mhnToolsUrl: String = ""
@@ -112,18 +116,38 @@ class AppsMHN : Fragment() {
         view.findViewById<MaterialSwitch>(R.id.mhnTestVersion_switch)
 
         mhnDownloadButton.setOnClickListener {
+            if (isOpenAppAction(mhnDownloadButton)) {
+                openApp(resources.getString(R.string.packageName_MHNow))
+                return@setOnClickListener
+            }
+
             downloadAPPWithCheck(mhnUrl)
         }
 
         mhnToolsDownloadButton.setOnClickListener {
+            if (isOpenAppAction(mhnToolsDownloadButton)) {
+                openApp(resources.getString(R.string.packageName_mhnTools))
+                return@setOnClickListener
+            }
+
             downloadAPPWithCheck(mhnToolsUrl)
         }
 
         gpsDownloadButton.setOnClickListener {
+            if (isOpenAppAction(gpsDownloadButton)) {
+                openApp(resources.getString(R.string.packageName_gps64))
+                return@setOnClickListener
+            }
+
             downloadAPPWithCheck(url_joystick)
         }
 
         hylianerDownloadButton.setOnClickListener {
+            if (isOpenAppAction(hylianerDownloadButton)) {
+                openApp(resources.getString(R.string.packageName_hylianer))
+                return@setOnClickListener
+            }
+
             downloadAPPWithCheck("https://hylianer.net/")
         }
 
@@ -199,6 +223,8 @@ class AppsMHN : Fragment() {
 
             val mhnDownloadButton = view.findViewById<Button>(R.id.download_mhn)
             val mhnToolsDownloadButton = view.findViewById<Button>(R.id.download_mhnTools)
+            val gpsDownloadButton = view.findViewById<Button>(R.id.download_gps)
+            val hylianerDownloadButton = view.findViewById<Button>(R.id.download_hylianer)
 
             val download = resources.getString(R.string.download)
             val update = resources.getString(R.string.update)
@@ -235,10 +261,27 @@ class AppsMHN : Fragment() {
                     boolToInstalled(appInstalledOrNot(hylianerPackageName))
                 )
 
-            fun setDownloadButton(isUpdate: Boolean = false) {
-                mhnDownloadButton.text = if (isUpdate) update else download
+            fun setMhnDownloadButton(isUpdate: Boolean = false, isInstalled: Boolean = false) {
+                when {
+                    isUpdate -> setDownloadAction(mhnDownloadButton, update)
+                    isInstalled -> setOpenAppAction(mhnDownloadButton)
+                    else -> setDownloadAction(mhnDownloadButton, download)
+                }
+
                 if (!mhnDownloadButton.isEnabled)
                     mhnDownloadButton.isEnabled = true
+            }
+
+            if (appInstalledOrNot(gps64PackageName)) {
+                setOpenAppAction(gpsDownloadButton)
+            } else {
+                setDownloadAction(gpsDownloadButton, download)
+            }
+
+            if (appInstalledOrNot(hylianerPackageName)) {
+                setOpenAppAction(hylianerDownloadButton)
+            } else {
+                setDownloadAction(hylianerDownloadButton, download)
             }
 
             val mhnInstalledVersion = appInstalledVersion(mhnPackageName)
@@ -288,7 +331,7 @@ class AppsMHN : Fragment() {
                     }
 
                     needUpdate -> {
-                        setDownloadButton(true)
+                        setMhnDownloadButton(isUpdate = true)
                         needUpdateAppsAmount++
                         showAlertDialog(
                             resources.getString(R.string.dialogUpdateAvailableTitle),
@@ -297,11 +340,11 @@ class AppsMHN : Fragment() {
                     }
 
                     else -> {
-                        setDownloadButton()
+                        setMhnDownloadButton(isInstalled = true)
                     }
                 }
             } else {
-                setDownloadButton()
+                setMhnDownloadButton()
             }
 
             if (mhnToolsVersion != "未安裝" && mhnToolsInstalledVersion != "未安裝") {
@@ -320,13 +363,13 @@ class AppsMHN : Fragment() {
                 }
 
                 if (needUpdate) {
-                    mhnToolsDownloadButton.text = update
+                    setDownloadAction(mhnToolsDownloadButton, update)
                     needUpdateAppsAmount++
                 } else {
-                    mhnToolsDownloadButton.text = download
+                    setOpenAppAction(mhnToolsDownloadButton)
                 }
             } else {
-                mhnToolsDownloadButton.text = download
+                setDownloadAction(mhnToolsDownloadButton, download)
             }
 
             if (needUpdateAppsAmount > 0) {
@@ -646,6 +689,48 @@ class AppsMHN : Fragment() {
             .show()
     }
 
+    private fun setDownloadAction(button: Button, text: String) {
+        button.text = text
+        button.tag = null
+    }
+
+    private fun setOpenAppAction(button: Button) {
+        button.text = getString(R.string.popup_menu_startApp)
+        button.tag = DOWNLOAD_BUTTON_ACTION_OPEN_APP
+    }
+
+    private fun isOpenAppAction(button: Button): Boolean {
+        return button.tag == DOWNLOAD_BUTTON_ACTION_OPEN_APP
+    }
+
+    private fun openApp(packageName: String) {
+        val intent = requireContext().packageManager.getLaunchIntentForPackage(packageName)
+
+        if (intent == null) {
+            Toast.makeText(
+                context,
+                getString(R.string.somethingWrong),
+                Toast.LENGTH_SHORT
+            ).show()
+            return
+        }
+
+        val resolveInfo = requireContext().packageManager.resolveActivity(
+            intent,
+            PackageManager.MATCH_DEFAULT_ONLY
+        )
+
+        if (resolveInfo != null) {
+            startActivity(intent)
+        } else {
+            Toast.makeText(
+                context,
+                getString(R.string.somethingWrong),
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+    }
+
     private fun popupMenu(view: View, id: Int, packageName: String) {
         if (appInstalledVersion(packageName) == "未安裝") {
             appUnInstall(packageName)
@@ -656,27 +741,7 @@ class AppsMHN : Fragment() {
             setOnMenuItemClickListener { item ->
                 when (item.itemId) {
                     R.id.open -> {
-                        val intent =
-                            requireContext().packageManager.getLaunchIntentForPackage(packageName)
-
-                        if (intent != null) {
-
-                            val resolveInfo = requireContext().packageManager.resolveActivity(
-                                intent,
-                                PackageManager.MATCH_DEFAULT_ONLY
-                            )
-
-                            if (resolveInfo != null) {
-
-                                startActivity(intent)
-                            } else {
-                                Toast.makeText(
-                                    context,
-                                    getString(R.string.somethingWrong),
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                            }
-                        }
+                        openApp(packageName)
                         true
                     }
 
