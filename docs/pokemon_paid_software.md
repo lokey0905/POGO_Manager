@@ -184,7 +184,7 @@ Patreon 結帳時可能依所在地加上稅金或顯示換算後的當地幣別
 - 官方 Patreon：[https://www.patreon.com/evermorelabs](https://www.patreon.com/evermorelabs)
 - 目前可用的一般邀請：[https://discord.gg/Uebm3ebsjd](https://discord.gg/Uebm3ebsjd)
 
-上述 Discord 邀請目前有效，會進入 `PolygonX` 伺服器；邀請頁顯示由 `lokey0905` 分享，並不是 PolygonX 官方自訂短網址。
+上述分享連結目前有效，會進入 `PolygonX` 伺服器；這是一般分享連結，並不是 PolygonX 官方自訂短網址。
 
 ### Patreon 會員費用
 
