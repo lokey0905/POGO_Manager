@@ -187,20 +187,21 @@
 ### 功能模組（免費版本 Lite）
 | 模組設定 | 功能說明 |
 | --- | --- |
-| Encounter Tweaks | 點擊寶可夢後可直接進入捕捉畫面 |
-| Encounter Stats | 捕捉時顯示寶可夢的 IV 與體型資訊 |
-| First Aid Kit | 略過多數對話與動畫（如進化、孵蛋、團體戰通知） |
+| Account Manager | 快速儲存與切換 Pokémon GO 帳號；Lite 最多儲存 2 個帳號，Pro 無上限 |
+| Encounter Stats | 在捕捉畫面顯示寶可夢的 IV 與體型資訊 |
+| Encounter Tweaks | 點擊寶可夢後可直接進入捕捉畫面；可略過非色違寶可夢，或在捕捉成功後立即回到地圖 |
+| First Aid Kit | 略過多數對話與動畫（如進化、孵蛋、團體戰通知）；部分進階項目僅限 Pro |
+| Integrated Mock Location Patch | 內建錯誤 12 模擬定位修補，不需要另外使用 LSPosed 或 Smali Patcher |
 | Instant Spin | 點擊補給站可略過轉牌動畫，快速取得道具 |
-| Inventory Tweaks | 支援背包批量操作（如批量傳送；部分版本支援批量進化／淨化） |
-| Perfect Throw | 必Excellent球+曲球，多AR獎勵 |
-| Show IVs in Inventory | 在寶可夢背包中直接顯示 IV 資訊 |
+| Inventory Tweaks | Lite 可批次傳送；批次進化、超級進化、淨化及其他進階批次操作僅限 Pro |
+| Perfect Throw | 可隨機投出 Excellent 曲球、取回完全投失的球，並提供額外 AR+ 經驗值；Headshot（瞄準中心點）僅限 Pro |
+| Show IVs in Inventory | 在寶可夢列表中直接顯示 IV 資訊 |
 | Spawn Booster | 擴大地圖上野生寶可夢的顯示範圍 |
 | Swift Gift | 快速送禮，略過部分贈禮流程動畫 |
 
 ### 功能模組（贊助版本 Pro）
 | 模組設定 | 功能說明 |
 | --- | --- |
-| Account Manager（進階） | Lite 最多儲存 2 個帳號；Pro 可儲存並快速切換多帳號（無上限） |
 | Berry Master | 捕捉時自動餵指定樹果 |
 | Cooldown Tracker | 自動記錄冷卻時間、顯示剩餘冷卻，並降低誤觸投球風險 |
 | Eggspresso | 自動孵蛋與補孵化器流程（依設定運作） |
@@ -220,6 +221,8 @@
 | Team Blastoff | 火箭隊戰鬥加速/略過相關流程（官方註記：可能暫時不可用） |
 | Transfer on Catch | 捕捉後自動傳送（可依 IV／PvP／體型等條件過濾） |
 | vPGP³ | 強化型虛擬 GO Plus（自動抓、自動轉、自動重連） |
+
+> `vPGP³` 為 Pro 專屬功能。Lite 帳號可能仍會在 Pokemod App 設定頁看到啟用開關，但沒有 Pro 使用權限時不能使用。
 
 
 ---
