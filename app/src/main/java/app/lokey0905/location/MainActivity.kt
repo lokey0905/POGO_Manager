@@ -19,7 +19,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
 import androidx.core.view.WindowCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentContainerView
 import androidx.lifecycle.lifecycleScope
 import androidx.preference.PreferenceManager
 import app.lokey0905.location.databinding.ActivityMainBinding
@@ -187,10 +186,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         //setSupportActionBar(binding.toolbar)
-
-        val fragmentContainerView =
-            findViewById<FragmentContainerView>(R.id.fragment_container_view)
-        fragmentContainerView.removeAllViewsInLayout()
 
         findViewById<BottomNavigationView>(R.id.navigation).setOnItemSelectedListener { item ->
             val targetIndex = when (item.itemId) {
