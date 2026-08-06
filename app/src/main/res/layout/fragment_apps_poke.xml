@@ -55,88 +55,151 @@
                     tools:ignore="UselessParent">
 
                     <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/version_compatibility_card"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:checkable="true"
-                        android:clickable="true"
-                        android:focusable="true"
                         app:cardCornerRadius="16dp">
 
                         <LinearLayout
+                            android:id="@+id/version_compatibility_content"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_margin="20dp"
+                            android:animateLayoutChanges="true"
                             android:orientation="vertical">
 
                             <TextView
-                                android:id="@+id/supportVersion_pokemon"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="@string/appsPokePage_supportVersion_pokemon"
-                                android:textAppearance="?attr/textAppearanceBodyMedium" />
+                                android:text="@string/compatibility_title"
+                                android:textAppearance="?attr/textAppearanceTitleMedium"
+                                android:textStyle="bold" />
 
-                            <TextView
-                                android:id="@+id/supportVersion_PGTools"
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/textField"
+                                style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="@string/appsPokePage_supportVersion_PGTools"
-                                android:textAppearance="?attr/textAppearanceBodyMedium" />
+                                android:layout_marginTop="12dp"
+                                android:hint="@string/compatibility_target_version">
 
-                            <TextView
-                                android:id="@+id/supportVersion_NewPGTools"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="@string/appsPokePage_supportVersion_NewPGTools"
-                                android:textAppearance="?attr/textAppearanceBodyMedium" />
-
-                            <TextView
-                                android:id="@+id/supportVersion_polygon"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="@string/appsPokePage_supportVersion_polygon"
-                                android:visibility="gone"
-                                android:textAppearance="?attr/textAppearanceBodyMedium" />
-
-                            <TextView
-                                android:id="@+id/supportVersion_pokemod"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="@string/appsPokePage_supportVersion_Pokemod"
-                                android:textAppearance="?attr/textAppearanceBodyMedium" />
-
-                            <TextView
-                                android:id="@+id/supportVersion_pokemon_min"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="@string/appsPokePage_supportVersion_pokemon_min"
-                                android:textAppearance="?attr/textAppearanceBodyMedium" />
-
-                            <Space
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="16dp"/>
+                                <AutoCompleteTextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:hint="@string/compatibility_target_version"
+                                    android:inputType="none" />
+                            </com.google.android.material.textfield.TextInputLayout>
 
                             <LinearLayout
+                                android:id="@+id/compatibility_status_rows"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:orientation="horizontal"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintHorizontal_bias="1.0"
-                                app:layout_constraintStart_toStartOf="parent">
+                                android:layout_marginTop="12dp"
+                                android:orientation="vertical" />
 
-                                <com.google.android.material.textfield.TextInputLayout
-                                    android:id="@+id/textField"
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/toggle_all_supported_versions"
+                                style="@style/Widget.Material3.Button.TextButton"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="4dp"
+                                android:text="@string/compatibility_show_all_versions"
+                                app:icon="@drawable/baseline_expand_more_24"
+                                app:iconGravity="textEnd"
+                                app:iconTint="?attr/colorPrimary" />
+
+                            <LinearLayout
+                                android:id="@+id/all_supported_versions"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="4dp"
+                                android:orientation="vertical"
+                                android:visibility="gone"
+                                tools:visibility="visible">
+
+                                <View
                                     android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:hint="@string/appsPokePage_supportVersion_textfield"
-                                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+                                    android:layout_height="1dp"
+                                    android:layout_marginBottom="12dp"
+                                    android:background="?attr/colorOutlineVariant" />
 
-                                    <AutoCompleteTextView
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:inputType="none"/>
-                                </com.google.android.material.textfield.TextInputLayout>
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/compatibility_versions_pokemon_label"
+                                    android:textAppearance="?attr/textAppearanceTitleSmall"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/supportVersion_pokemon"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="2dp"
+                                    android:text="@string/compatibility_unknown"
+                                    android:textAppearance="?attr/textAppearanceBodyMedium" />
+
+                                <TextView
+                                    android:id="@+id/supportVersion_pokemon_min"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="2dp"
+                                    android:text="@string/appsPokePage_supportVersion_pokemon_min"
+                                    android:textAppearance="?attr/textAppearanceBodySmall" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="12dp"
+                                    android:text="@string/compatibility_tool_pgtools"
+                                    android:textAppearance="?attr/textAppearanceTitleSmall"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/supportVersion_PGTools"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="2dp"
+                                    android:text="@string/compatibility_unknown"
+                                    android:textAppearance="?attr/textAppearanceBodyMedium" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="12dp"
+                                    android:text="@string/compatibility_tool_new_pgtools"
+                                    android:textAppearance="?attr/textAppearanceTitleSmall"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/supportVersion_NewPGTools"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="2dp"
+                                    android:text="@string/compatibility_unknown"
+                                    android:textAppearance="?attr/textAppearanceBodyMedium" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="12dp"
+                                    android:text="@string/compatibility_tool_pokemod"
+                                    android:textAppearance="?attr/textAppearanceTitleSmall"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/supportVersion_pokemod"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="2dp"
+                                    android:text="@string/compatibility_unknown"
+                                    android:textAppearance="?attr/textAppearanceBodyMedium" />
+
+                                <TextView
+                                    android:id="@+id/supportVersion_polygon"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/appsPokePage_supportVersion_polygon"
+                                    android:visibility="gone" />
                             </LinearLayout>
                         </LinearLayout>
                     </com.google.android.material.card.MaterialCardView>
