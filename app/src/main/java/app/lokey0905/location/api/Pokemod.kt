@@ -1,33 +1,40 @@
 package app.lokey0905.location.api
 
 import android.util.Log
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.net.HttpURLConnection
 import java.net.URL
 
 class Pokemod {
-    suspend fun checkPokemod(url: String): Boolean {
+    suspend fun checkPokemod(url: String): Boolean? {
         return withContext(Dispatchers.IO) {
+            var connection: HttpURLConnection? = null
             try {
                 val urlObject = URL(url)
-                val connection: HttpURLConnection = urlObject.openConnection() as HttpURLConnection
-                connection.requestMethod = "GET"
+                val activeConnection = urlObject.openConnection() as HttpURLConnection
+                connection = activeConnection
+                activeConnection.requestMethod = "GET"
+                activeConnection.connectTimeout = 15000
+                activeConnection.readTimeout = 20000
 
-                val responseCode = connection.responseCode
-                val inputStream = if (responseCode >= HttpURLConnection.HTTP_BAD_REQUEST) {
-                    connection.errorStream
-                } else {
-                    connection.inputStream
+                val responseCode = activeConnection.responseCode
+                if (responseCode !in HttpURLConnection.HTTP_OK until HttpURLConnection.HTTP_MULT_CHOICE) {
+                    Log.w("Pokemod", "Version check failed with HTTP $responseCode: $url")
+                    return@withContext null
                 }
 
-                val response = inputStream?.bufferedReader()?.use { it.readText() } ?: ""
-                inputStream?.close()
+                val response = activeConnection.inputStream.bufferedReader().use { it.readText() }
 
                 response.contains("#GAME_VERSION@")
+            } catch (e: CancellationException) {
+                throw e
             } catch (e: Exception) {
-                e.printStackTrace()
-                false
+                Log.e("Pokemod", "Version check failed: $url", e)
+                null
+            } finally {
+                connection?.disconnect()
             }
         }
     }
@@ -46,6 +53,8 @@ class Pokemod {
                     connection.instanceFollowRedirects = false // 關閉自動重定向
                     connection.requestMethod = "GET"
                     connection.setRequestProperty("User-Agent", "Mozilla/5.0")
+                    connection.connectTimeout = 15000
+                    connection.readTimeout = 20000
 
                     try {
                         connection.connect()
@@ -96,11 +105,12 @@ class Pokemod {
                     version
                 } else {
                     Log.w("Pokemod", "無法從 URL 提取版本號: $currentUrl")
-                    "未知版本"
+                    "ERROR"
                 }
+            } catch (e: CancellationException) {
+                throw e
             } catch (e: Exception) {
                 Log.e("Pokemod", "getPokemodVersion 錯誤", e)
-                e.printStackTrace()
                 "ERROR"
             }
         }
