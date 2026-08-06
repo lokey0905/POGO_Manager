@@ -160,6 +160,7 @@
     <string name="appsPokePage_supportVersion_pokemon_min">Pokémon 最低版本: </string>
     <string name="appsPokePage_supportVersion_polygon">Polygon 支援版本: </string>
     <string name="appsPokePage_supportVersion_PGTools">PGTools 支援版本: </string>
+    <string name="appsPokePage_supportVersion_NewPGTools">New PGTools 支援版本: </string>
     <string name="appsPokePage_supportVersion_Pokemod">Pokemod 支援版本: </string>
     <string name="appsPokePage_PGToolsTestVersion">PGTools測試版</string>
     <string name="appsPokePage_PokeTitle">原版寶可夢客戶端</string>
@@ -174,6 +175,8 @@
     <string name="appsPokePage_PolygonAppName">PolygonX【暴力功】目前須付費使用</string>
     <string name="appsPokePage_PGToolsTitle">自動捕捉與旋轉補給站等功能</string>
     <string name="appsPokePage_PGToolsAppName">PGTools【自動抓】</string>
+    <string name="appsPokePage_NewPGToolsTitle">新版自動捕捉與旋轉補給站等功能</string>
+    <string name="appsPokePage_NewPGToolsAppName">New PGTools【自動抓】</string>
     <string name="appsPokePage_PokeListTitle">尋找附近IV100色違與火箭隊的座標</string>
     <string name="appsPokePage_PokeListAppName">PokeList【中文版】</string>
     <string name="appsPokePage_PokemodTitle">寶可夢輔助軟體</string>
