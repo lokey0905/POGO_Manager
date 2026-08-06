@@ -13,9 +13,12 @@
     <string name="url_pokeListWeb">https://moonani.com/PokeList/</string>
     <string name="url_PGToolsJson">https://assets.pgtools.net/auto-versions.json</string>
     <string name="url_PGToolsJsonTest">https://assets.pgtools.net/test-auto-versions.json</string>
+    <string name="url_NewPGToolsJson">https://assets-v2.pgtools.net/test-versions-v2.json</string>
     <string name="url_mhnJson">https://assets.mhntools.net/versions-v2.json</string>
     <string name="url_mhnJsonTest">https://assets.mhntools.net/test-versions-v2.json</string>
-    <string name="url_PokemodAPI">https://discovery.pokemod.dev/hal/modules/getAgentHash?game_version=%1$s</string>
+    <string name="url_PokemodAPI">https://discovery.pokemod.dev/hal/modules/getMyModules?game_version=%1$s</string>
+    <!-- Uses the same version-support response contract as the primary Pokemod API. -->
+    <string name="url_PokemodAPIBackup">https://discovery.pokemod.dev/hal/modules/getAgentHash?game_version=%1$s</string>
     <string name="url_PokemodDownload">https://discovery.pokemod.dev/dl/pkmd/public</string>
     <string name="url_PokemonCheckVersionAPI">https://pgorelease.nianticlabs.com/plfe/version</string>
     <string name="url_MHNowCheckVersionAPI">https://magellan-rel.nianticlabs.com/server-info/GET_CLIENT_VERSIONS</string>
@@ -45,6 +48,7 @@
     <string name="packageName_gps64">com.thejhijuqoqy.bdujvrwdcajvzin</string>
     <string name="packageName_polygonX">com.evermorelabs.polygonx</string>
     <string name="packageName_PGTools">net.pgtools.auto</string>
+    <string name="packageName_NewPGTools">net.pgtools.auto.v2</string>
     <string name="packageName_pokemod">com.pokemod.app.public</string>
     <string name="packageName_wrapper">net.pgtools.gps_wrapper</string>
     <string name="packageName_pok">com.nianticlabs.pokemongo</string>

@@ -661,7 +661,7 @@ class AppsMHN : Fragment() {
         if(!mhn_download_on_apkmirror) return "https://assets.mhntools.net/games/$gameVersionName-arm64.apkm"
 
         val normalizedVersion = gameVersionName.trim().replace('.', '-')
-        return "https://www.apkmirror.com/apk/niantic-inc/monster-hunter-now/" +
+        return "https://www.apkmirror.com/apk/scopely-explore-inc/monster-hunter-now/" +
             "monster-hunter-now-$normalizedVersion-release/" +
             "monster-hunter-now-$normalizedVersion-android-apk-download/"
     }

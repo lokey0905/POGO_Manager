@@ -4,10 +4,15 @@ import android.util.Log
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import org.json.JSONObject
 import java.net.HttpURLConnection
 import java.net.URL
 
 class Pokemod {
+    /**
+     * Returns true only when Pokemod explicitly marks the game version as unsupported,
+     * false when the version is supported, and null when the check itself fails.
+     */
     suspend fun checkPokemod(url: String): Boolean? {
         return withContext(Dispatchers.IO) {
             var connection: HttpURLConnection? = null
@@ -20,14 +25,40 @@ class Pokemod {
                 activeConnection.readTimeout = 20000
 
                 val responseCode = activeConnection.responseCode
+                val responseStream = if (responseCode >= HttpURLConnection.HTTP_BAD_REQUEST) {
+                    activeConnection.errorStream
+                } else {
+                    activeConnection.inputStream
+                }
+                val response = responseStream
+                    ?.bufferedReader()
+                    ?.use { it.readText() }
+                    .orEmpty()
+
+                // Pokemod's API wording is counterintuitive and must keep these meanings:
+                // "#GAME_VERSION@" means the game version is unsupported.
+                // HTTP 422 "Unsupported version" means the version is supported but has no token.
+                if (response.contains("#GAME_VERSION@")) {
+                    Log.i("Pokemod", "Game version is not supported: $url")
+                    return@withContext true
+                }
+
+                if (responseCode == 422) {
+                    val message = runCatching {
+                        JSONObject(response).optString("message").trim()
+                    }.getOrDefault("")
+                    if (message.equals("Unsupported version", ignoreCase = true)) {
+                        Log.i("Pokemod", "Game version is supported but has no token: $url")
+                        return@withContext false
+                    }
+                }
+
                 if (responseCode !in HttpURLConnection.HTTP_OK until HttpURLConnection.HTTP_MULT_CHOICE) {
                     Log.w("Pokemod", "Version check failed with HTTP $responseCode: $url")
                     return@withContext null
                 }
 
-                val response = activeConnection.inputStream.bufferedReader().use { it.readText() }
-
-                response.contains("#GAME_VERSION@")
+                false
             } catch (e: CancellationException) {
                 throw e
             } catch (e: Exception) {
