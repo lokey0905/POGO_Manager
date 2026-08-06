@@ -8,6 +8,7 @@
     <string name="ok">確定</string>
     <string name="copy">複製</string>
     <string name="error">錯誤</string>
+    <string name="retry">重試</string>
     <string name="cancel">取消</string>
     <string name="home">首頁</string>
     <string name="about">關於</string>
@@ -31,6 +32,10 @@
     <string name="notChecked">未檢查</string>
     <string name="nearbySharing">快速分享(鄰近分享)</string>
     <string name="networkError">網路可能異常，請稍後再試</string>
+    <string name="versionCheckFailed">版本資料取得失敗，請檢查網路後重試</string>
+    <string name="versionCheckFailedShort">取得失敗</string>
+    <string name="versionCheckPartialFailed">部分版本資料取得失敗</string>
+    <string name="versionCheckNoSupportedVersion">目前無支援版本</string>
     <string name="shareManager">分享管理器</string>
     <string name="cancelOperation">取消操作</string>
     <string name="thanksForWaiting">感謝您的耐心等候：）</string>
