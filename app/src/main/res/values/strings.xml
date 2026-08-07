@@ -163,7 +163,7 @@
     <string name="appsPokePage_supportVersion_pokemon_min">Pokémon 最低版本: </string>
     <string name="appsPokePage_supportVersion_polygon">Polygon 支援版本: </string>
     <string name="appsPokePage_supportVersion_PGTools">PGTools 支援版本: </string>
-    <string name="appsPokePage_supportVersion_NewPGTools">New PGTools 支援版本: </string>
+    <string name="appsPokePage_supportVersion_PGToolsTest">PGTools 測試版支援版本: </string>
     <string name="appsPokePage_supportVersion_Pokemod">Pokemod 支援版本: </string>
     <string name="compatibility_title">版本相容性</string>
     <string name="compatibility_target_version">目標 Pokémon GO 版本</string>
@@ -177,10 +177,9 @@
     <string name="compatibility_icon_unsupported">✕</string>
     <string name="compatibility_icon_unknown">△</string>
     <string name="compatibility_tool_pgtools">PGTools</string>
-    <string name="compatibility_tool_new_pgtools">New PGTools</string>
+    <string name="compatibility_tool_pgtools_test">PGTools 測試版</string>
     <string name="compatibility_tool_pokemod">Pokemod</string>
     <string name="compatibility_versions_pokemon_label">Pokémon GO</string>
-    <string name="appsPokePage_PGToolsTestVersion">PGTools測試版</string>
     <string name="appsPokePage_PokeTitle">原版寶可夢客戶端</string>
     <string name="appsPokePage_PokeAppName">Pokémon GO【寶可夢】</string>
     <string name="appsPokePage_PokeAreaTitle">原版寶可夢客戶端三星版本</string>
@@ -193,8 +192,6 @@
     <string name="appsPokePage_PolygonAppName">PolygonX【暴力功】目前須付費使用</string>
     <string name="appsPokePage_PGToolsTitle">自動捕捉與旋轉補給站等功能</string>
     <string name="appsPokePage_PGToolsAppName">PGTools【自動抓】</string>
-    <string name="appsPokePage_NewPGToolsTitle">新版自動捕捉與旋轉補給站等功能</string>
-    <string name="appsPokePage_NewPGToolsAppName">New PGTools【自動抓】</string>
     <string name="appsPokePage_PokeListTitle">尋找附近IV100色違與火箭隊的座標</string>
     <string name="appsPokePage_PokeListAppName">PokeList【中文版】</string>
     <string name="appsPokePage_PokemodTitle">寶可夢輔助軟體</string>
@@ -230,8 +227,8 @@
     <string name="preferences_pok_download_on_apkmirror_Summary">使用ApkMirror連結下載寶可夢, 而不是使用pgtools連結</string>
     <string name="preferences_allow_download_on_non_samsung_Title">允許下載三星版本寶可夢</string>
     <string name="preferences_allow_download_on_non_samsung_Summary">允許用戶在非三星(Samsung)裝置上下載三星版本寶可夢</string>
-    <string name="preferences_pgtools_testversion_Title">使用pgtools測試版本連結</string>
-    <string name="preferences_pgtools_testversion_Summary">使用pgtools測試版本連結, 可能導致使用不穩定</string>
+    <string name="preferences_pgtools_testversion_Title">使用 PGTools 測試版</string>
+    <string name="preferences_pgtools_testversion_Summary">開啟後，PGTools 卡片會改用測試版版本資訊與下載連結</string>
     <string name="preferences_disable_auto_update_mhn_Title">關閉Play 商店自動更新</string>
     <string name="preferences_disable_auto_update_mhn_Summary">點擊此處前往關閉</string>
     <string name="preferences_mhntools_testversion_Title">使用mhntools測試版本</string>
