@@ -75,6 +75,9 @@
     <string name="check_button">檢測定位與設備</string>
     <string name="check_devicesAPI">檢測設備完整性</string>
     <string name="check_appList">設備環境測試</string>
+    <string name="external_test_dialog_title">即將離開 APP</string>
+    <string name="external_test_dialog_message">即將開啟外部測試工具。測試結果僅供開發人員偵錯參考，不代表APP會使用相同檢測方式。</string>
+    <string name="external_test_dialog_continue">繼續前往</string>
     <string name="checkInfo_rootDetected">⚠️已發現root路徑</string>
     <string name="checkInfo_rootNotDetected">✅未發現root</string>
 
