@@ -322,13 +322,13 @@ class Home : Fragment() {
                 val launchIntent =
                     requireActivity().packageManager.getLaunchIntentForPackage(resources.getString(R.string.packageName_integritycheck))
                 if (launchIntent != null) {
-                    startActivity(launchIntent)
+                    showExternalTestConfirmationDialog(launchIntent)
                 }
             } else if (appInstalledOrNot(resources.getString(R.string.packageName_playintegritychecker))) {
                 val launchIntent =
                     requireActivity().packageManager.getLaunchIntentForPackage(resources.getString(R.string.packageName_playintegritychecker))
                 if (launchIntent != null) {
-                    startActivity(launchIntent)
+                    showExternalTestConfirmationDialog(launchIntent)
                 }
             } else {
                 MaterialAlertDialogBuilder(requireActivity())
@@ -355,7 +355,7 @@ class Home : Fragment() {
                 val launchIntent =
                     requireActivity().packageManager.getLaunchIntentForPackage(resources.getString(R.string.packageName_appListDetector))
                 if (launchIntent != null) {
-                    startActivity(launchIntent)
+                    showExternalTestConfirmationDialog(launchIntent)
                 }
             } else {
                 MaterialAlertDialogBuilder(requireActivity())
@@ -501,6 +501,17 @@ class Home : Fragment() {
         context?.let {
             startActivity(Intent(Intent.ACTION_VIEW, url.toUri()))
         }
+    }
+
+    private fun showExternalTestConfirmationDialog(launchIntent: Intent) {
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle(R.string.external_test_dialog_title)
+            .setMessage(R.string.external_test_dialog_message)
+            .setNegativeButton(R.string.cancel, null)
+            .setPositiveButton(R.string.external_test_dialog_continue) { _, _ ->
+                startActivity(launchIntent)
+            }
+            .show()
     }
 
     private fun appInstalledOrNot(packageName: String): Boolean {
