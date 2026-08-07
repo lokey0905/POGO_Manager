@@ -43,6 +43,21 @@ fun compareVersions(first: String, second: String): Int {
     return 0
 }
 
+fun filterVersionsAtOrAboveMinimum(
+    versions: List<String>,
+    minimumVersion: String?
+): List<String> {
+    val minimum = minimumVersion?.trim().takeUnless { it.isNullOrEmpty() }
+        ?: return versions
+    if (parseNumericVersion(minimum) == null) {
+        return versions
+    }
+
+    return versions.filter { version ->
+        parseNumericVersion(version) != null && compareVersions(version, minimum) >= 0
+    }
+}
+
 fun getCompatibilityStatus(
     selectedVersion: String?,
     supportedVersions: List<String>?

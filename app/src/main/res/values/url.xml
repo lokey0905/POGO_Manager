@@ -11,6 +11,7 @@
     <string name="url_appInfo">https://raw.githubusercontent.com/lokey0905/POGO_Manager_files/refs/heads/main/appInfo.json</string>
     <string name="url_files">https://raw.githubusercontent.com/lokey0905/POGO_Manager_files/refs/heads/main/files.json</string>
     <string name="url_pokeListWeb">https://moonani.com/PokeList/</string>
+    <string name="url_PGSharpRootAPI">https://api.pgsharp.com/pga/utils/version/pgsrtm/</string>
     <string name="url_PGToolsJson">https://assets-v2.pgtools.net/versions-v2.json</string>
     <string name="url_PGToolsTestJson">https://assets-v2.pgtools.net/test-versions-v2.json</string>
     <string name="url_mhnJson">https://assets.mhntools.net/versions-v2.json</string>
@@ -45,6 +46,7 @@
     <string name="packageName_gmsLocationAccuracy">com.google.android.gms.location.settings.LocationAccuracyNonwearableActivity</string>
     <string name="packageName_gps32">com.theyerbnosob.vxpdplqpbzmhzbw</string>
     <string name="packageName_gps64">com.thejhijuqoqy.bdujvrwdcajvzin</string>
+    <string name="packageName_PGSharpRoot">m.u.va.man</string>
     <string name="packageName_polygonX">com.evermorelabs.polygonx</string>
     <string name="packageName_PGTools">net.pgtools.auto</string>
     <string name="packageName_pokemod">com.pokemod.app.public</string>

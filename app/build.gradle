@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    compileSdk 36
+    compileSdk 37
 
     defaultConfig {
         applicationId "app.lokey0905.location"
@@ -99,4 +99,5 @@ dependencies {
     implementation 'com.squareup.okhttp3:okhttp:5.3.2'
 
     testImplementation 'junit:junit:4.13.2'
+    testImplementation 'org.json:json:20260719'
 }
