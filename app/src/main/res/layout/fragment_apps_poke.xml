@@ -166,12 +166,12 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="12dp"
-                                    android:text="@string/compatibility_tool_new_pgtools"
+                                    android:text="@string/compatibility_tool_pgtools_test"
                                     android:textAppearance="?attr/textAppearanceTitleSmall"
                                     android:textStyle="bold" />
 
                                 <TextView
-                                    android:id="@+id/supportVersion_NewPGTools"
+                                    android:id="@+id/supportVersion_PGToolsTest"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="2dp"
@@ -1078,115 +1078,6 @@
                                 android:id="@+id/download_pgtools"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:text="@string/download" />
-                        </LinearLayout>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:gravity="center"
-                        android:orientation="vertical"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="1.0"
-                        app:layout_constraintStart_toStartOf="parent">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:orientation="horizontal">
-
-                            <ImageView
-                                android:layout_width="50dp"
-                                android:layout_height="50dp"
-                                android:importantForAccessibility="no"
-                                app:srcCompat="@drawable/pgtools_icon" />
-
-                            <LinearLayout
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="16dp"
-                                android:layout_weight="10"
-                                android:gravity="center|start"
-                                android:orientation="vertical">
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="@string/appsPokePage_NewPGToolsTitle" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="@string/appsPokePage_NewPGToolsAppName" />
-
-                            </LinearLayout>
-
-                            <ImageButton
-                                android:id="@+id/new_pgtools_more"
-                                style="?attr/materialIconButtonStyle"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="end"
-                                android:background="?attr/selectableItemBackgroundBorderless"
-                                android:contentDescription="@string/more_options"
-                                android:src="@drawable/ic_baseline_more_vert_24" />
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_marginTop="4dp"
-                            android:layout_marginBottom="4dp"
-                            android:baselineAligned="false"
-                            android:orientation="horizontal">
-
-                            <LinearLayout
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginEnd="16dp"
-                                android:layout_weight="1"
-                                android:gravity="center|start"
-                                android:orientation="vertical">
-
-                                <TextView
-                                    android:id="@+id/new_pgtools_new_version"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="@string/format_newerVersion" />
-
-                                <TextView
-                                    android:id="@+id/new_pgtools_install_version"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="@string/format_installVersion" />
-                            </LinearLayout>
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:gravity="end"
-                            android:orientation="horizontal"
-                            tools:ignore="ButtonStyle">
-
-                            <Button
-                                android:id="@+id/remove_new_pgtools"
-                                style="@style/Widget.Material3.Button.OutlinedButton"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginEnd="16dp"
-                                android:layout_weight="1"
-                                android:text="@string/remove" />
-
-                            <Button
-                                android:id="@+id/download_new_pgtools"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
                                 android:text="@string/download" />
                         </LinearLayout>
                     </LinearLayout>
