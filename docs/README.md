@@ -10,9 +10,9 @@
 | 使用項目 | 教學連結 |
 |---|---|
 | Pokémon GO 寶可夢 | [寶可夢輔助功能使用說明](https://hackmd.io/@lokey0905/pokemongo) |
-| 寶可夢付費軟體 | [付費／贊助版本購買說明](pokemon_paid_software.md) |
+| 寶可夢付費軟體 | [付費／贊助版本購買說明](https://hackmd.io/@lokey0905/pokemon_paid) |
 | Monster Hunter Now 魔物獵人 | [魔物獵人輔助功能使用說明](https://hackmd.io/@lokey0905/Mhntools) |
-| 魔物獵人付費輔助軟體 | [MHNTools 與 HyliMods 購買說明](mhn_paid_software.md) |
+| 魔物獵人付費輔助軟體 | [MHNTools 與 HyliMods 購買說明](https://hackmd.io/@lokey0905/mhn_paid) |
 | Pikmin Bloom 皮克敏 | [皮克敏輔助功能使用說明](https://hackmd.io/@lokey0905/Pikmin) |
 | 單純修改定位 | [單純修改定位功能使用說明](https://hackmd.io/@lokey0905/GPSJoystick) |
 
