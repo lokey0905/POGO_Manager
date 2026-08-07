@@ -162,6 +162,7 @@
     <string name="appsPokePage_supportVersion_pokemon">Pokémon GO 版本: </string>
     <string name="appsPokePage_supportVersion_pokemon_min">Pokémon 最低版本: </string>
     <string name="appsPokePage_supportVersion_polygon">Polygon 支援版本: </string>
+    <string name="appsPokePage_supportVersion_PGSharpRoot">PGSharp Root 支援版本: </string>
     <string name="appsPokePage_supportVersion_PGTools">PGTools 支援版本: </string>
     <string name="appsPokePage_supportVersion_PGToolsTest">PGTools 測試版支援版本: </string>
     <string name="appsPokePage_supportVersion_Pokemod">Pokemod 支援版本: </string>
@@ -176,6 +177,7 @@
     <string name="compatibility_icon_supported">✓</string>
     <string name="compatibility_icon_unsupported">✕</string>
     <string name="compatibility_icon_unknown">△</string>
+    <string name="compatibility_tool_pgsharp_root">PGSharp Root</string>
     <string name="compatibility_tool_pgtools">PGTools</string>
     <string name="compatibility_tool_pgtools_test">PGTools 測試版</string>
     <string name="compatibility_tool_pokemod">Pokemod</string>
@@ -188,6 +190,8 @@
     <string name="appsPokePage_GpsAppName">GPS JoyStick【搖桿改定位✅老K刷機】</string>
     <string name="appsPokePage_wrapperTitle">快速尋找火箭隊</string>
     <string name="appsPokePage_wrapperAppName">Data Hub</string>
+    <string name="appsPokePage_PGSharpRootTitle">Root 版 Pokémon GO 輔助工具</string>
+    <string name="appsPokePage_PGSharpRootAppName">PGSharp Root</string>
     <string name="appsPokePage_PolygonTitle">自動打道館、火箭隊等功能</string>
     <string name="appsPokePage_PolygonAppName">PolygonX【暴力功】目前須付費使用</string>
     <string name="appsPokePage_PGToolsTitle">自動捕捉與旋轉補給站等功能</string>

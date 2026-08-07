@@ -6,6 +6,37 @@ import org.junit.Test
 
 class VersionCompatibilityTest {
     @Test
+    fun minimumVersionFilterExcludesOlderVersionsAndPreservesOrder() {
+        assertEquals(
+            listOf("0.423.1", "0.421.1"),
+            filterVersionsAtOrAboveMinimum(
+                listOf("0.423.1", "0.417.6", "0.421.1"),
+                "0.421.1"
+            )
+        )
+    }
+
+    @Test
+    fun minimumVersionFilterUsesNumericComparison() {
+        assertEquals(
+            listOf("0.10", "0.11"),
+            filterVersionsAtOrAboveMinimum(
+                listOf("0.9", "0.10", "0.11"),
+                "0.10"
+            )
+        )
+    }
+
+    @Test
+    fun unavailableMinimumVersionLeavesSourceListUnchanged() {
+        val versions = listOf("0.423.1", "invalid", "0.417.6")
+
+        assertEquals(versions, filterVersionsAtOrAboveMinimum(versions, ""))
+        assertEquals(versions, filterVersionsAtOrAboveMinimum(versions, "ERROR"))
+        assertEquals(versions, filterVersionsAtOrAboveMinimum(versions, null))
+    }
+
+    @Test
     fun numericComparisonDoesNotUseLexicographicOrdering() {
         assertTrue(compareVersions("0.9", "0.10") < 0)
         assertTrue(compareVersions("0.423.10", "0.423.2") > 0)
