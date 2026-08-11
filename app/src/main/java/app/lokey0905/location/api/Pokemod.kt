@@ -8,6 +8,23 @@ import org.json.JSONObject
 import java.net.HttpURLConnection
 import java.net.URL
 
+private val currentPokemodVersionRegex = Regex(
+    """(?:Pokemod|PokemodPublic)-v(\d+)\.(\d+)\.(\d+)(?:r\d+)?(?:\.apk)?(?=[?#]|$)""",
+    RegexOption.IGNORE_CASE
+)
+private val legacyPokemodVersionRegex = Regex(
+    """Pokemod_Public_v(\d+)_(\d+)_(\d+)(?:r\d*)?(?:\.apk)?(?=[?#]|$)""",
+    RegexOption.IGNORE_CASE
+)
+
+internal fun parsePokemodVersion(url: String): String? {
+    val matchResult = currentPokemodVersionRegex.find(url)
+        ?: legacyPokemodVersionRegex.find(url)
+        ?: return null
+    val (major, minor, patch) = matchResult.destructured
+    return "$major.$minor.$patch"
+}
+
 class Pokemod {
     /**
      * Returns true only when Pokemod explicitly marks the game version as unsupported,
@@ -121,17 +138,10 @@ class Pokemod {
 
                 Log.i("Pokemod", "最終 URL: $currentUrl")
 
-                // 從 URL 中提取版本號 - 支援多種格式
-                // 格式1: PokemodPublic-v11.1.2r1112 (新格式)
-                // 格式2: Pokemod_Public_v1_2_3r (舊格式)
-                val newFormatRegex = Regex("""PokemodPublic-v(\d+)\.(\d+)\.(\d+)r""", RegexOption.IGNORE_CASE)
-                val oldFormatRegex = Regex("""Pokemod_Public_v(\d+)_(\d+)_(\d+)r""", RegexOption.IGNORE_CASE)
-
-                val matchResult = newFormatRegex.find(currentUrl) ?: oldFormatRegex.find(currentUrl)
-
-                if (matchResult != null) {
-                    val (major, minor, patch) = matchResult.destructured
-                    val version = "$major.$minor.$patch"
+                // Current: Pokemod-v13.0.0.apk
+                // Previous: PokemodPublic-v11.1.2r1112 or Pokemod_Public_v1_2_3r
+                val version = parsePokemodVersion(currentUrl)
+                if (version != null) {
                     Log.i("Pokemod", "提取版本號: $version")
                     version
                 } else {
