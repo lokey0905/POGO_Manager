@@ -1684,7 +1684,7 @@ class AppsPoke : Fragment() {
                             pogoVersion = version.versionName,
                             pogoVersionNumber = version.versionCode.toLongOrNull() ?: 0L,
                             pogoARM64URLPGTools = String.format(
-                                "https://assets.pgtools.net/games/%1\$s-arm64.apkm",
+                                "https://assets-v2.pgtools.net/games/%1\$s-arm64.apkm",
                                 version.versionName
                             ),
                             pogoARM64URLAPKMirror = String.format(
