@@ -76,22 +76,46 @@
 
     <img width="400" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/fit.png" />
 
-2. 啟動Fit應用程式，登入的Google帳號，並記住登入的帳號
-3. 到Fit應用程式個人資料頁面的設定按鈕，找到【讓Fit與「健康資料同步」平台保持同步】選項並啟用
+2. 如果系統是Android 13以下，需要另外下載Health Connect應用程式
+
+    <img width="400" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/HealthConnect.png" />
+
+3. 啟動Fit應用程式，登入的Google帳號，並記住登入的帳號
+4. 到Fit應用程式個人資料頁面的設定按鈕，找到【讓Fit與「健康資料同步」平台保持同步】選項並啟用
 
     <img width="300" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/fit_settings1.png" />
     <img width="300" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/fit_settings2.png" />
     <img width="300" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/fit_settings3.png" />
     <img width="300" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/fit_settings4.png" />
 
-4. 啟動Defit應用程式，登入與Fit相同的Google帳號，並且授權Defit存取Fit的資料
-5. 勾選【同步模式】後，系統約5~15分鐘會自動同步步數資訊到Google Fit應用程式中
+5. 啟動Defit應用程式，登入與Fit相同的Google帳號，並且授權Defit存取Fit的資料
+6. 勾選【同步模式】後，系統約5~15分鐘會自動同步步數資訊到Google Fit應用程式中
 
     <img width="400" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/defit.png" />
 
-6. 皮克敏設定中，將步數設定設定成使用【使用之前的追蹤方式(Google Fit)】
+7. 皮克敏設定中，將步數設定設定成使用【Health Connect】
 
     <img width="400" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/pikmin_steps.png" />
+
+8. 點選Health Connect右邊的【>】進入設定指南，再點選【打開設定】
+
+    <img width="400" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/HealthConnectSetting1.png" />
+
+9. 找到pikmin bloom點選右邊的【+】
+
+    <img width="400" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/HealthConnectSetting2.png" />
+
+10. 點選【全部允許】授予權限，啟用後再點擊下方的【查看應用程式資料】
+
+    <img width="400" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/HealthConnectSetting3.png" />
+
+11. 啟用【在背景存取資料】
+
+    <img width="400" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/HealthConnectSetting4.png" />
+
+12. 返回Pikmin Bloom應用程式，確認顯示設定完成即可
+
+    <img width="400" src="https://raw.githubusercontent.com/lokey0905/POGO_Manager/master/docs/images/HealthConnectSetting5.png" />
 
 ### 模式說明
 
@@ -148,7 +172,7 @@
 2. 再開啟遊戲確認是否有讀取到資料
 3. 如果遊戲沒有立即更新，可等待一段時間後重新開啟遊戲
 4. 若長時間無法同步，可嘗試重新登入 Google Fit 與 Defit
-5. 確認 Google Fit、健康資料同步平台、Defit 使用的是同一個 Google 帳號
+5. 確認 DeFit 與 Google Fit 使用相同 Google 帳號，並確認 Google Fit 已啟用與 Health Connect 同步。
 6. 不建議將速度或步數設定過高，避免同步異常或資料不自然
 
 > 注意：Defit 只是將健身資料同步到 Google Fit，遊戲是否採計仍取決於遊戲本身的冒險同步機制。
