@@ -14,6 +14,8 @@
     <string name="url_PGSharpRootAPI">https://api.pgsharp.com/pga/utils/version/pgsrtm/</string>
     <string name="url_PGToolsJson">https://assets-v2.pgtools.net/versions-v2.json</string>
     <string name="url_PGToolsTestJson">https://assets-v2.pgtools.net/test-versions-v2.json</string>
+    <string name="url_DataHubJson">https://assets-v2.pgtools.net/data-hub-versions.json</string>
+    <string name="url_DataHubDownload">https://assets-v2.pgtools.net/data-hub-%1$s.apk</string>
     <string name="url_mhnJson">https://assets.mhntools.net/versions-v2.json</string>
     <string name="url_mhnJsonTest">https://assets.mhntools.net/test-versions-v2.json</string>
     <string name="url_PokemodAPI">https://discovery.pokemod.dev/hal/modules/getMyModules?game_version=%1$s</string>
