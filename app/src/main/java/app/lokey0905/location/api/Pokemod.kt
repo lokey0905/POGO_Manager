@@ -9,7 +9,7 @@ import java.net.HttpURLConnection
 import java.net.URL
 
 private val currentPokemodVersionRegex = Regex(
-    """(?:Pokemod|PokemodPublic)-v(\d+)\.(\d+)\.(\d+)(?:r\d+)?(?:\.apk)?(?=[?#]|$)""",
+    """(?:Pokemod|PokemodPublic)-v(\d+)[._](\d+)[._](\d+)(?:r\d+)?(?:\.apk)?(?=[?#]|$)""",
     RegexOption.IGNORE_CASE
 )
 private val legacyPokemodVersionRegex = Regex(
@@ -138,7 +138,7 @@ class Pokemod {
 
                 Log.i("Pokemod", "最終 URL: $currentUrl")
 
-                // Current: Pokemod-v13.0.0.apk
+                // Current filenames use dots or underscores: Pokemod-v13.0.0.apk / Pokemod-v13_0_0.apk
                 // Previous: PokemodPublic-v11.1.2r1112 or Pokemod_Public_v1_2_3r
                 val version = parsePokemodVersion(currentUrl)
                 if (version != null) {
