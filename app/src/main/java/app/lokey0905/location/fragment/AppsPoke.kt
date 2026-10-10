@@ -28,6 +28,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.preference.PreferenceManager
 import app.lokey0905.location.R
 import app.lokey0905.location.api.ApkPure
+import app.lokey0905.location.api.DataHubApi
 import app.lokey0905.location.api.PgSharpRootApi
 import app.lokey0905.location.api.Pokemod
 import app.lokey0905.location.api.Pokemon
@@ -124,6 +125,7 @@ class AppsPoke : Fragment() {
     private var pgToolsTestUrl = ""
     private var pgToolsTestVersionCheckFailed = false
     private var pgSharpRootVersionCheckFailed = false
+    private var dataHubVersionCheckFailed = false
 
     private var pgToolsTestVersion = false
     private var pokAresNoSupportDevices = false
@@ -135,6 +137,7 @@ class AppsPoke : Fragment() {
     private var pgToolsTestCheckDone = false
     private var pokemodCheckDone = false
     private var appListCheckDone = false
+    private var dataHubCheckDone = false
     private var pgSharpRootSupportDataLoaded = false
     private var pgToolsSupportDataLoaded = false
     private var pgToolsTestSupportDataLoaded = false
@@ -280,9 +283,11 @@ class AppsPoke : Fragment() {
                 R.id.wrapper_more,
                 R.id.wrapper_new_version,
                 R.id.wrapper_install_version,
-                updateNewVersionFromJson = true,
-                updateDownloadLinkFromJson = true,
+                updateNewVersionFromJson = false,
+                updateDownloadLinkFromJson = false,
                 updateOfficialLinkFromJson = true,
+                updateNewVersionText = false,
+                checkNeedUpdateAppsAmount = false,
             ),
             AppsInfo(
                 "defit",
@@ -746,6 +751,16 @@ class AppsPoke : Fragment() {
         pgToolsTestUrl = ""
         pgToolsTestVersionCheckFailed = false
         pgSharpRootVersionCheckFailed = false
+        dataHubVersionCheckFailed = false
+        dataHubCheckDone = false
+        appsInfo.find { it.appName == "wrapper" }?.apply {
+            newVersion = ""
+            downloadLink = ""
+        }
+        view.findViewById<TextView>(R.id.wrapper_new_version).text = getString(
+            R.string.format_newerVersion,
+            getString(R.string.notChecked)
+        )
         appsInfo.find { it.appName == "pgSharpRoot" }?.apply {
             newVersion = getString(R.string.notInstalled)
             downloadLink = ""
@@ -780,6 +795,7 @@ class AppsPoke : Fragment() {
         val pokeAresPackageName = getString(R.string.packageName_pokAres)
         val pgSharpRootPackageName = getString(R.string.packageName_PGSharpRoot)
         val pgToolsPackageName = getString(R.string.packageName_PGTools)
+        val dataHubPackageName = getString(R.string.packageName_wrapper)
 
         val pokeSupportVersion = view.findViewById<TextView>(R.id.pok_new_version)
         val pokeAresSupportVersion = view.findViewById<TextView>(R.id.pokAres_new_version)
@@ -789,6 +805,7 @@ class AppsPoke : Fragment() {
         val pokeAresDownloadButton = view.findViewById<Button>(R.id.download_pokAres)
         val pgSharpRootDownloadButton = view.findViewById<Button>(R.id.download_pgsharp_root)
         val pgToolsDownloadButton = view.findViewById<Button>(R.id.download_pgtools)
+        val dataHubDownloadButton = view.findViewById<Button>(R.id.download_wrapper)
         val toolbarLayout =
             view.findViewById<SubtitleCollapsingToolbarLayout>(R.id.toolbar_layout)
         val swipeRefreshLayout =
@@ -798,6 +815,7 @@ class AppsPoke : Fragment() {
         val autoCompleteTextView = textInputLayout.editText as? AutoCompleteTextView
 
         var hasVersionCheckError = false
+        var dataHubNeedsUpdate = false
 
         fun retryVersionCheck() {
             swipeRefreshLayout.isRefreshing = true
@@ -826,11 +844,12 @@ class AppsPoke : Fragment() {
         }
 
         fun updateToolbarSubtitle(needUpdateAppsAmount: Int) {
+            val totalUpdates = needUpdateAppsAmount + if (dataHubNeedsUpdate) 1 else 0
             toolbarLayout.subtitle = when {
                 hasVersionCheckError -> getString(R.string.versionCheckPartialFailed)
-                needUpdateAppsAmount > 0 -> String.format(
+                totalUpdates > 0 -> String.format(
                     getString(R.string.format_installApps),
-                    needUpdateAppsAmount
+                    totalUpdates
                 )
                 else -> getString(R.string.appsAllUpdated)
             }
@@ -948,13 +967,14 @@ class AppsPoke : Fragment() {
 
         fun appAllCheckDone() {
             if (pgSharpRootCheckDone && pgToolsCheckDone && pgToolsTestCheckDone &&
-                appListCheckDone &&
+                appListCheckDone && dataHubCheckDone &&
                 pokemonCheckDone && pokemodCheckDone
             ) {
                 pgSharpRootCheckDone = false
                 pgToolsCheckDone = false
                 pgToolsTestCheckDone = false
                 appListCheckDone = false
+                dataHubCheckDone = false
                 pokemonCheckDone = false
                 pokemodCheckDone = false
                 Log.i("AppsPoke", "AllCheckDone!!!")
@@ -1293,7 +1313,62 @@ class AppsPoke : Fragment() {
                 setDownloadAction(pgToolsDownloadButton, download)
             }
 
+            val dataHubInfo = appsInfo.find { it.appName == "wrapper" }
+            val dataHubInstalledVersion = appInstalledVersion(dataHubPackageName)
+            val dataHubInstalled = dataHubInstalledVersion != getString(R.string.notInstalled)
+            dataHubNeedsUpdate = false
+            when {
+                dataHubVersionCheckFailed -> {
+                    setDownloadActionForVersionError(dataHubDownloadButton, dataHubPackageName)
+                }
+                dataHubInfo == null || dataHubInfo.downloadLink.isBlank() -> {
+                    if (dataHubInstalled) {
+                        setOpenAppAction(dataHubDownloadButton)
+                    } else {
+                        setDownloadAction(dataHubDownloadButton, download)
+                        dataHubDownloadButton.isEnabled = false
+                    }
+                }
+                !dataHubInstalled -> setDownloadAction(dataHubDownloadButton, download)
+                compareVersions(dataHubInfo.newVersion, dataHubInstalledVersion) > 0 -> {
+                    dataHubNeedsUpdate = true
+                    setDownloadAction(dataHubDownloadButton, update)
+                }
+                else -> setOpenAppAction(dataHubDownloadButton)
+            }
+
             updateToolbarSubtitle(needUpdateAppsAmount)
+        }
+
+        fun getDataHubVersion() {
+            checkScope.launch {
+                val versionInfo = DataHubApi().getVersionInfo(
+                    getString(R.string.url_DataHubJson),
+                    getString(R.string.url_DataHubDownload)
+                )
+                currentCoroutineContext().ensureActive()
+                val apps = appsInfo.find { it.appName == "wrapper" }
+                val newVersionText = view.findViewById<TextView>(R.id.wrapper_new_version)
+
+                if (versionInfo == null || apps == null) {
+                    dataHubVersionCheckFailed = true
+                    apps?.apply {
+                        newVersion = ""
+                        downloadLink = ""
+                    }
+                    setNewVersionError(newVersionText)
+                    markVersionCheckFailed()
+                } else {
+                    dataHubVersionCheckFailed = false
+                    apps.newVersion = versionInfo.appVersion
+                    apps.downloadLink = versionInfo.downloadUrl
+                    newVersionText.text = String.format(formatNewerVersion, versionInfo.appVersion)
+                }
+
+                checkAppVersion()
+                dataHubCheckDone = true
+                appAllCheckDone()
+            }
         }
 
         fun getPolygonXSupportedVersion() {
@@ -1825,6 +1900,7 @@ class AppsPoke : Fragment() {
         }
 
         checkAppVersion(fetchRemoteVersions = true)
+        getDataHubVersion()
         getPGSharpRootVersion()
         getPolygonXSupportedVersion()
         getPGToolsTestVersion()
