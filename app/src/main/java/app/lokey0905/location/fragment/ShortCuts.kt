@@ -34,6 +34,8 @@ import com.google.android.material.snackbar.Snackbar
 import androidx.core.net.toUri
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import org.json.JSONObject
 import java.io.BufferedReader
@@ -344,6 +346,9 @@ class ShortCuts: Fragment() {
         val isIntent: Boolean
     )
 
+    private var needsFilesRefresh = true
+    private var filesRefreshJob: Job? = null
+
     override fun onStart() {
         super.onStart()
 
@@ -361,7 +366,14 @@ class ShortCuts: Fragment() {
             gridLayout3?.columnCount = 2
         }
 
-        extractFilsUrlFromJson(getString(R.string.url_files)) { items ->
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (isHidden || !needsFilesRefresh || filesRefreshJob?.isActive == true) return
+        needsFilesRefresh = false
+        val gridLayout3 = requireView().findViewById<GridLayout>(R.id.gridLayout3)
+        filesRefreshJob = extractFilsUrlFromJson(getString(R.string.url_files)) { items ->
             gridLayout3?.removeAllViews()
             items.forEach { item ->
                 val card = MaterialCardView(requireContext()).apply {
@@ -404,6 +416,18 @@ class ShortCuts: Fragment() {
                 gridLayout3?.addView(card)
             }
         }
+    }
+
+    override fun onStop() {
+        needsFilesRefresh = true
+        super.onStop()
+    }
+
+    override fun onDestroyView() {
+        filesRefreshJob?.cancel()
+        filesRefreshJob = null
+        needsFilesRefresh = true
+        super.onDestroyView()
     }
 
     private fun handleDownloadItemClick(item: DownloadItem) {
@@ -560,8 +584,8 @@ class ShortCuts: Fragment() {
     }
 
 
-    private fun extractFilsUrlFromJson(url: String, onItemsReady: (List<DownloadItem>) -> Unit) {
-        lifecycleScope.launch(Dispatchers.IO) {
+    private fun extractFilsUrlFromJson(url: String, onItemsReady: (List<DownloadItem>) -> Unit): Job {
+        return viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
             val items = mutableListOf<DownloadItem>()
             try {
                 val urlObject = URL(url)
@@ -594,10 +618,13 @@ class ShortCuts: Fragment() {
                 launch(Dispatchers.Main) {
                     onItemsReady(items)
                 }
+            } catch (e: CancellationException) {
+                throw e
             } catch (e: Exception) {
                 e.printStackTrace()
                 // 即使出錯也要調用回調，防止UI阻塞
                 launch(Dispatchers.Main) {
+                    needsFilesRefresh = true
                     onItemsReady(emptyList())
                 }
             }

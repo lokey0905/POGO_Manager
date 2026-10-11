@@ -24,7 +24,6 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.setFragmentResultListener
 import androidx.lifecycle.lifecycleScope
 import androidx.preference.PreferenceManager
 import app.lokey0905.location.R
@@ -384,14 +383,13 @@ class AppsPoke : Fragment() {
         )
     }
 
-    override fun onResume() {
-        super.onResume()
-        val view: View = requireView()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         pgToolsTestVersion = PreferenceManager.getDefaultSharedPreferences(requireContext())
             .getBoolean("pgtools_testversion", false)
 
         fun setFragmentResultListener() {
-            setFragmentResultListener("pokAresNoSupportDevices") { _, bundle ->
+            parentFragmentManager.setFragmentResultListener("pokAresNoSupportDevices", viewLifecycleOwner) { _, bundle ->
                 pokAresNoSupportDevices = bundle.getBoolean("bundleKey")
 
                 val pokeAresLayout = view.findViewById<LinearLayout>(R.id.linearLayout_pokAres)
@@ -403,17 +401,18 @@ class AppsPoke : Fragment() {
                 }
             }
 
-            setFragmentResultListener("pok_download_on_apkmirror") { _, bundle ->
+            parentFragmentManager.setFragmentResultListener("pok_download_on_apkmirror", viewLifecycleOwner) { _, bundle ->
                 pok_download_on_apkmirror = bundle.getBoolean("bundleKey")
             }
 
-            setFragmentResultListener("pgtools_testversion") { _, bundle ->
+            parentFragmentManager.setFragmentResultListener("pgtools_testversion", viewLifecycleOwner) { _, bundle ->
                 val selectedTestVersion = bundle.getBoolean("bundleKey")
                 if (pgToolsTestVersion == selectedTestVersion) {
                     return@setFragmentResultListener
                 }
 
                 pgToolsTestVersion = selectedTestVersion
+                if (isHidden || !isResumed) return@setFragmentResultListener
                 Toast.makeText(
                     context,
                     if (pgToolsTestVersion) "已切換至 PGTools 測試版" else "已切換至 PGTools 正式版",
@@ -423,13 +422,14 @@ class AppsPoke : Fragment() {
             }
         }
 
-        if (!isHidden) refreshVersionInfoIfNeeded(view)
         setFragmentResultListener()
     }
 
-    override fun onHiddenChanged(hidden: Boolean) {
-        super.onHiddenChanged(hidden)
-        if (!hidden && isResumed) view?.let(::refreshVersionInfoIfNeeded)
+    override fun onResume() {
+        super.onResume()
+        pgToolsTestVersion = PreferenceManager.getDefaultSharedPreferences(requireContext())
+            .getBoolean("pgtools_testversion", false)
+        if (!isHidden) refreshVersionInfoIfNeeded(requireView())
     }
 
     private fun refreshVersionInfoIfNeeded(view: View) {

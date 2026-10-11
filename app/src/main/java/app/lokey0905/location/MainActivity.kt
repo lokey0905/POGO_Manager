@@ -16,10 +16,12 @@ import android.system.Os
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.activity.OnBackPressedCallback
 import androidx.core.os.bundleOf
 import androidx.core.view.WindowCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.Lifecycle
 import androidx.preference.PreferenceManager
 import app.lokey0905.location.databinding.ActivityMainBinding
 import app.lokey0905.location.fragment.AppsMHN
@@ -27,10 +29,11 @@ import app.lokey0905.location.fragment.AppsPoke
 import app.lokey0905.location.fragment.Home
 import app.lokey0905.location.fragment.Preferences
 import app.lokey0905.location.fragment.ShortCuts
+import app.lokey0905.location.navigation.MainTab
+import app.lokey0905.location.navigation.TabNavigationState
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
 import com.google.android.gms.location.LocationServices
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.onesignal.OneSignal
@@ -54,18 +57,21 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
-    private var home: Home = Home()
-    private var appsPoke: AppsPoke = AppsPoke()
-    private var appsMhn: AppsMHN = AppsMHN()
-    private var shortcuts: ShortCuts = ShortCuts()
-    private var preferenceFragmentCompat: Preferences = Preferences()
-    private val navigationOrder = listOf(
-        R.id.nav_mhn,
-        R.id.nav_home,
-        R.id.nav_shortcuts,
-        R.id.nav_setting
-    )
-    private var currentNavIndex = 0
+    private companion object {
+        const val STATE_TAB_HISTORY = "main_tab_history"
+    }
+
+    private val tabFragments = mutableMapOf<MainTab, Fragment>()
+    private lateinit var tabNavigation: TabNavigationState
+    private val tabBackCallback = object : OnBackPressedCallback(false) {
+        override fun handleOnBackPressed() {
+            val previous = tabNavigation.previous ?: return
+            if (showTab(previous)) {
+                tabNavigation.goBack()
+                syncNavigationSelection()
+            }
+        }
+    }
 
     var bServiceBound = false
 
@@ -154,28 +160,111 @@ class MainActivity : AppCompatActivity() {
             .show()
     }
 
-    private fun replaceFragment(fragment: Fragment, targetIndex: Int) {
-        supportFragmentManager.executePendingTransactions()
+    private fun MainTab.menuId(): Int = when (this) {
+        MainTab.POKEMON -> R.id.nav_poke
+        MainTab.MONSTER_HUNTER -> R.id.nav_mhn
+        MainTab.HOME -> R.id.nav_home
+        MainTab.SHORTCUTS -> R.id.nav_shortcuts
+        MainTab.SETTINGS -> R.id.nav_setting
+    }
 
-        val (enterAnim, exitAnim) = if (targetIndex > currentNavIndex) {
-            R.anim.fragment_slide_in_right to R.anim.fragment_slide_out_left
-        } else {
-            R.anim.fragment_slide_in_left to R.anim.fragment_slide_out_right
+    private fun tabOf(fragment: Fragment): MainTab? = when (fragment) {
+        is AppsPoke -> MainTab.POKEMON
+        is AppsMHN -> MainTab.MONSTER_HUNTER
+        is Home -> MainTab.HOME
+        is ShortCuts -> MainTab.SHORTCUTS
+        is Preferences -> MainTab.SETTINGS
+        else -> null
+    }
+
+    private fun createTab(tab: MainTab): Fragment = when (tab) {
+        MainTab.POKEMON -> AppsPoke()
+        MainTab.MONSTER_HUNTER -> AppsMHN()
+        MainTab.HOME -> Home()
+        MainTab.SHORTCUTS -> ShortCuts()
+        MainTab.SETTINGS -> Preferences()
+    }
+
+    private fun tabTag(tab: MainTab): String = "main_tab_${tab.name}"
+
+    private fun restoreNavigation(savedInstanceState: Bundle?) {
+        val restored = supportFragmentManager.fragments.filter {
+            it.id == R.id.fragment_container_view && tabOf(it) != null
         }
+        MainTab.entries.forEach { tab ->
+            // Adopt old, untagged instances too; never create another copy on rotation.
+            val fragment = supportFragmentManager.findFragmentByTag(tabTag(tab))
+                ?: restored.firstOrNull { tabOf(it) == tab && !it.isHidden }
+                ?: restored.firstOrNull { tabOf(it) == tab }
+            if (fragment != null) tabFragments[tab] = fragment
+        }
+        val visibleTab = restored.firstOrNull { !it.isHidden }?.let(::tabOf)
+        tabNavigation = TabNavigationState.restore(
+            savedInstanceState?.getStringArrayList(STATE_TAB_HISTORY),
+            visibleTab ?: MainTab.HOME
+        )
+        showTab(tabNavigation.current, animate = false)
+        syncNavigationSelection()
+        onBackPressedDispatcher.addCallback(this, tabBackCallback)
 
-        supportFragmentManager.beginTransaction().apply {
-            setCustomAnimations(enterAnim, exitAnim)
+        binding.navigation.setOnItemSelectedListener { item ->
+            val tab = MainTab.entries.firstOrNull { it.menuId() == item.itemId }
+                ?: return@setOnItemSelectedListener false
+            if (tab == tabNavigation.current) return@setOnItemSelectedListener true
+            if (!showTab(tab)) return@setOnItemSelectedListener false
+            tabNavigation.select(tab)
+            syncNavigationSelection()
+            true
+        }
+        binding.navigation.setOnItemReselectedListener {
+            // Reselecting the current tab is deliberately a no-op, not a refresh.
+        }
+    }
+
+    private fun syncNavigationSelection() {
+        // Checking the menu item does not call the selection listener or append history.
+        binding.navigation.menu.findItem(tabNavigation.current.menuId()).isChecked = true
+        tabBackCallback.isEnabled = tabNavigation.canGoBack
+    }
+
+    private fun showTab(tab: MainTab, animate: Boolean = true): Boolean {
+        val manager = supportFragmentManager
+        if (manager.isStateSaved || manager.isDestroyed) return false
+        val fragment = tabFragments.getOrPut(tab) { createTab(tab) }
+        manager.beginTransaction().apply {
+            setReorderingAllowed(true)
+            if (animate) setCustomAnimations(R.anim.fragment_fade_in, R.anim.fragment_fade_out)
             if (!fragment.isAdded) {
-                add(R.id.fragment_container_view, fragment)
+                add(R.id.fragment_container_view, fragment, tabTag(tab))
             }
-            supportFragmentManager.fragments.forEach {
-                if (it != fragment && it.isAdded) {
-                    hide(it)
+            manager.fragments.forEach { other ->
+                val otherTab = tabOf(other)
+                if (other.id == R.id.fragment_container_view && otherTab != null && other != fragment) {
+                    if (tabFragments[otherTab] !== other) {
+                        // Clean up duplicates restored from the old untagged navigation.
+                        remove(other)
+                    } else {
+                        hide(other)
+                        setMaxLifecycle(other, Lifecycle.State.STARTED)
+                    }
                 }
             }
             show(fragment)
+            setMaxLifecycle(fragment, Lifecycle.State.RESUMED)
+            setPrimaryNavigationFragment(fragment)
         }.commitNow()
-        currentNavIndex = targetIndex
+        Log.d("MainNavigation", "Selected $tab; retainedTabs=${tabFragments.size}")
+        return true
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        outState.putStringArrayList(STATE_TAB_HISTORY, tabNavigation.save())
+        super.onSaveInstanceState(outState)
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        syncNavigationSelection()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -187,42 +276,7 @@ class MainActivity : AppCompatActivity() {
 
         //setSupportActionBar(binding.toolbar)
 
-        findViewById<BottomNavigationView>(R.id.navigation).setOnItemSelectedListener { item ->
-            val targetIndex = when (item.itemId) {
-                R.id.nav_poke -> -1
-                else -> navigationOrder.indexOf(item.itemId)
-            }
-            when (item.itemId) {
-                R.id.nav_poke -> {
-                    replaceFragment(appsPoke, -1)
-                    return@setOnItemSelectedListener true
-                }
-
-                R.id.nav_mhn -> {
-                    replaceFragment(appsMhn, targetIndex)
-                    return@setOnItemSelectedListener true
-                }
-
-                R.id.nav_home -> {
-                    replaceFragment(home, targetIndex)
-                    return@setOnItemSelectedListener true
-                }
-
-                R.id.nav_shortcuts -> {
-                    replaceFragment(shortcuts, targetIndex)
-                    return@setOnItemSelectedListener true
-                }
-
-                R.id.nav_setting -> {
-                    replaceFragment(preferenceFragmentCompat, targetIndex)
-                    return@setOnItemSelectedListener true
-                }
-            }
-            false
-        }
-
-        if (savedInstanceState == null)
-            findViewById<BottomNavigationView>(R.id.navigation).selectedItemId = R.id.nav_home
+        restoreNavigation(savedInstanceState)
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             lifecycleScope.launch {
