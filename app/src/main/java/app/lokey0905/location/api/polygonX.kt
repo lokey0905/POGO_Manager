@@ -2,9 +2,11 @@ package app.lokey0905.location.api
 
 import tessellate.PolygonXHello
 import android.util.Log
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.currentCoroutineContext
+import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.withContext
-import java.io.OutputStream
 import java.net.HttpURLConnection
 import java.net.URL
 
@@ -23,7 +25,9 @@ class polygonX {
     suspend fun checkPolygonXUpdate(
         polygonXVersionNumber: Int
     ): PolygonXCheckResult = withContext(Dispatchers.IO) {
+        var connection: HttpURLConnection? = null
         try {
+            currentCoroutineContext().ensureActive()
             Log.i("PolygonX", "Checking PolygonX version $polygonXVersionNumber")
 
             val request = PolygonXHello.PolygonXHelloAPIRequest.newBuilder()
@@ -34,18 +38,21 @@ class polygonX {
 
             val url = URL("https://v1.api.polygonx.evermorelabs.io/PolygonX/Hello")
             val conn = url.openConnection() as HttpURLConnection
+            connection = conn
             conn.requestMethod = "POST"
+            conn.connectTimeout = 15000
+            conn.readTimeout = 20000
             conn.setRequestProperty("Content-Type", "application/x-protobuf")
             conn.setRequestProperty("Accept", "application/x-protobuf")
             conn.doOutput = true
 
-            val outputStream: OutputStream = conn.outputStream
-            request.writeTo(outputStream)
-            outputStream.close()
+            conn.outputStream.use { request.writeTo(it) }
 
-            if (conn.responseCode == HttpURLConnection.HTTP_OK) {
-                val responseBin = conn.inputStream.readBytes()
-                conn.inputStream.close()
+            val responseCode = conn.responseCode
+            currentCoroutineContext().ensureActive()
+            if (responseCode == HttpURLConnection.HTTP_OK) {
+                val responseBin = conn.inputStream.use { it.readBytes() }
+                currentCoroutineContext().ensureActive()
                 try {
                     val resp = PolygonXHello.PolygonXHelloAPIResponse.parseFrom(responseBin)
                     //Log.d("PolygonX", "Response for version $polygonXVersionNumber: $resp")
@@ -76,12 +83,17 @@ class polygonX {
                     return@withContext PolygonXCheckResult(PolygonXCheckResult.Status.FAILURE)
                 }
             } else {
-                Log.e("PolygonX", "Error for version $polygonXVersionNumber: ${conn.responseCode} ${conn.responseMessage}")
+                Log.e("PolygonX", "Error for version $polygonXVersionNumber: $responseCode ${conn.responseMessage}")
                 return@withContext PolygonXCheckResult(PolygonXCheckResult.Status.FAILURE)
             }
+        } catch (e: CancellationException) {
+            throw e
         } catch (e: Exception) {
+            currentCoroutineContext().ensureActive()
             Log.e("PolygonX", "Exception in checkPolygonXUpdate for version $polygonXVersionNumber", e)
             return@withContext PolygonXCheckResult(PolygonXCheckResult.Status.FAILURE)
+        } finally {
+            connection?.disconnect()
         }
     }
 }

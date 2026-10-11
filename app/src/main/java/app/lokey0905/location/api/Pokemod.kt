@@ -3,6 +3,8 @@ package app.lokey0905.location.api
 import android.util.Log
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.currentCoroutineContext
+import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.withContext
 import org.json.JSONObject
 import java.net.HttpURLConnection
@@ -34,6 +36,7 @@ class Pokemod {
         return withContext(Dispatchers.IO) {
             var connection: HttpURLConnection? = null
             try {
+                currentCoroutineContext().ensureActive()
                 val urlObject = URL(url)
                 val activeConnection = urlObject.openConnection() as HttpURLConnection
                 connection = activeConnection
@@ -96,6 +99,7 @@ class Pokemod {
 
                 // 手動處理重定向
                 while (redirectCount < maxRedirects) {
+                    currentCoroutineContext().ensureActive()
                     val urlObject = URL(currentUrl)
                     val connection: HttpURLConnection = urlObject.openConnection() as HttpURLConnection
                     connection.instanceFollowRedirects = false // 關閉自動重定向

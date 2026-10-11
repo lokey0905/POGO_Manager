@@ -29,11 +29,13 @@ class ApkPure {
 
     fun getVersionHistory(packageName: String): List<ApkPureVersion> {
         val versionList = mutableListOf<ApkPureVersion>()
+        var connectionToClose: HttpURLConnection? = null
 
         try {
             // 使用 GET 方法，將參數放在 URL 中
             val url = URL("https://tapi.pureapk.com/v3/get_app_his_version?package_name=$packageName&hl=tw")
             val connection = url.openConnection() as HttpURLConnection
+            connectionToClose = connection
 
             // 設置連接屬性
             connection.requestMethod = "GET"
@@ -76,15 +78,14 @@ class ApkPure {
             Log.d("ApkPure", "回應代碼: $responseCode")
 
             if (responseCode == HttpURLConnection.HTTP_OK) {
-                val inputStream = if (connection.contentEncoding == "gzip") {
-                    java.util.zip.GZIPInputStream(connection.inputStream)
-                } else {
-                    connection.inputStream
+                val response = connection.inputStream.use { inputStream ->
+                    val responseStream = if (connection.contentEncoding == "gzip") {
+                        java.util.zip.GZIPInputStream(inputStream)
+                    } else {
+                        inputStream
+                    }
+                    BufferedReader(InputStreamReader(responseStream, Charsets.UTF_8)).use { it.readText() }
                 }
-
-                val reader = BufferedReader(InputStreamReader(inputStream, Charsets.UTF_8))
-                val response = reader.readText()
-                reader.close()
 
                 //Log.d("ApkPure", "API 回應: $response")
 
@@ -119,9 +120,9 @@ class ApkPure {
                 // 讀取錯誤回應
                 val errorStream = connection.errorStream
                 if (errorStream != null) {
-                    val errorReader = BufferedReader(InputStreamReader(errorStream, Charsets.UTF_8))
-                    val errorResponse = errorReader.readText()
-                    errorReader.close()
+                    val errorResponse = errorStream.use { stream ->
+                        BufferedReader(InputStreamReader(stream, Charsets.UTF_8)).use { it.readText() }
+                    }
                     Log.e("ApkPure", "HTTP 錯誤 $responseCode: $errorResponse")
                 } else {
                     Log.e("ApkPure", "HTTP 錯誤 $responseCode: ${connection.responseMessage}")
@@ -130,6 +131,8 @@ class ApkPure {
         } catch (e: Exception) {
             Log.e("ApkPure", "獲取版本歷史失敗", e)
             e.printStackTrace()
+        } finally {
+            connectionToClose?.disconnect()
         }
 
         return versionList
