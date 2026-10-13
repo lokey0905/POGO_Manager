@@ -23,6 +23,7 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.GridLayout
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
@@ -33,6 +34,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
 import app.lokey0905.location.BuildConfig
 import app.lokey0905.location.R
+import app.lokey0905.location.ui.layout.responsiveGridColumnCount
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdView
 import com.google.android.gms.ads.MobileAds
@@ -62,6 +64,7 @@ class Home : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?,
     ): View {
         val view: View = inflater.inflate(R.layout.fragment_home, container, false)
+        setupResponsiveGrid(view)
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
 
@@ -383,6 +386,67 @@ class Home : Fragment() {
         mAdView.loadAd(adRequest)
 
         return view
+    }
+
+    private fun setupResponsiveGrid(view: View) {
+        val grid = view.findViewById<GridLayout>(R.id.gridLayout)
+        val deviceCard = view.findViewById<View>(R.id.home_device_information)
+        val checkCard = view.findViewById<View>(R.id.check)
+        val banner = view.findViewById<View>(R.id.ad_banner)
+        val children = listOf(deviceCard, checkCard, banner)
+        var appliedColumns = 0
+
+        fun updateColumns() {
+            val contentWidth = grid.width - grid.paddingLeft - grid.paddingRight
+            if (contentWidth <= 0) return
+            val density = resources.displayMetrics.density
+            val columns = responsiveGridColumnCount(
+                availableWidthDp = contentWidth / density,
+                minimumCardWidthDp = resources.getDimension(R.dimen.home_card_min_width) / density,
+                cardHorizontalMarginDp = resources.getDimension(R.dimen.home_card_margin) / density,
+                fontScale = resources.configuration.fontScale,
+                maxColumns = 2
+            )
+            if (columns == appliedColumns) return
+
+            // Clear old spans before reducing columnCount; a two-column banner cannot
+            // remain attached with its previous span while switching to one column.
+            children.forEach { child ->
+                child.layoutParams = (child.layoutParams as GridLayout.LayoutParams).apply {
+                    rowSpec = GridLayout.spec(GridLayout.UNDEFINED)
+                    columnSpec = GridLayout.spec(GridLayout.UNDEFINED)
+                }
+            }
+            grid.columnCount = columns
+
+            fun place(child: View, row: Int, column: Int, span: Int = 1) {
+                child.layoutParams = (child.layoutParams as GridLayout.LayoutParams).apply {
+                    height = ViewGroup.LayoutParams.WRAP_CONTENT
+                    rowSpec = GridLayout.spec(row, GridLayout.TOP)
+                    columnSpec = if (child === banner) {
+                        width = ViewGroup.LayoutParams.WRAP_CONTENT
+                        GridLayout.spec(column, span, GridLayout.CENTER)
+                    } else {
+                        width = 0
+                        GridLayout.spec(column, span, GridLayout.FILL, 1f)
+                    }
+                }
+            }
+
+            place(deviceCard, row = 0, column = 0)
+            if (columns == 1) {
+                place(banner, row = 1, column = 0)
+                place(checkCard, row = 2, column = 0)
+            } else {
+                place(checkCard, row = 0, column = 1)
+                place(banner, row = 1, column = 0, span = columns)
+            }
+            appliedColumns = columns
+        }
+
+        // Measure the content area after the activity's rail and insets are applied,
+        // including resizes which do not recreate this Fragment's view.
+        grid.addOnLayoutChangeListener { _, _, _, _, _, _, _, _, _ -> updateColumns() }
     }
 
     @Deprecated("Deprecated in Java")
