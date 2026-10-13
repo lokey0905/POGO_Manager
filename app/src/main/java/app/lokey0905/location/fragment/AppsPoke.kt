@@ -44,6 +44,7 @@ import app.lokey0905.location.version.VersionCheckSummary
 import app.lokey0905.location.version.RemoteVersionPresentation
 import app.lokey0905.location.version.getVersionCheckSummary
 import app.lokey0905.location.version.getRemoteVersionPresentation
+import app.lokey0905.location.version.getPendingVersionCheckCount
 import app.lokey0905.location.version.prioritizeVersions
 import app.lokey0905.location.version.getProbedCompatibilityStatus
 import app.lokey0905.location.version.selectTargetVersion
@@ -838,6 +839,7 @@ class AppsPoke : Fragment() {
         var pokemonListResolved = false
         var noEligiblePokemonVersions = false
         var displayedUpdateCount = 0
+        var polygonRequestInFlight = false
 
         fun retryVersionCheck() {
             swipeRefreshLayout.isRefreshing = true
@@ -862,7 +864,10 @@ class AppsPoke : Fragment() {
         fun updateToolbarSubtitle(needUpdateAppsAmount: Int = displayedUpdateCount) {
             displayedUpdateCount = needUpdateAppsAmount
             val summary = getVersionCheckSummary(
-                progress.pending.size,
+                getPendingVersionCheckCount(
+                    progress.pending,
+                    if (polygonRequestInFlight) setOf(VersionCheckSource.POLYGON) else emptySet()
+                ),
                 failedSources.size,
                 needUpdateAppsAmount + if (dataHubNeedsUpdate) 1 else 0
             )
@@ -1373,10 +1378,10 @@ class AppsPoke : Fragment() {
             }
         }
 
-        var polygonRequestInFlight = false
         fun getPolygonXVersion() {
             if (polygonRequestInFlight) return
             polygonRequestInFlight = true
+            updateToolbarSubtitle()
             launchCheck(VersionCheckSource.POLYGON) {
                 try {
                     val installedCode = appInstalledVersionCode(getString(R.string.packageName_polygonX)).toInt()
@@ -1392,12 +1397,15 @@ class AppsPoke : Fragment() {
                         apps.newVersion = result.latestVersionCode
                         apps.downloadLink =
                             "https://polygonx.dl.assets.evermorelabs.io/apk/com.evermorelabs.polygonx-${result.latestVersionCode}.apk"
+                        // A successful follow-up is current data, not the previous failed result.
+                        failedSources.remove(VersionCheckSource.POLYGON)
                         loadedAppVersions.add(apps.appName)
                         unavailableAppVersions.remove(apps.appName)
                     }
                     checkAppVersion()
                 } finally {
                     polygonRequestInFlight = false
+                    if (checkJob.isActive && versionCheckJob === checkJob) updateToolbarSubtitle()
                 }
             }
         }

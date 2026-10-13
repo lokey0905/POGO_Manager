@@ -4,6 +4,26 @@ import org.junit.Assert.assertEquals
 import org.junit.Test
 
 class VersionCheckPresentationTest {
+    @Test fun activeSourceAlreadyPendingIsNotCountedTwice() {
+        assertEquals(2, getPendingVersionCheckCount(
+            setOf(VersionCheckSource.POLYGON, VersionCheckSource.PGTOOLS),
+            setOf(VersionCheckSource.POLYGON)
+        ))
+    }
+
+    @Test fun followUpAfterCompletionIsCountedWithoutResettingProgress() {
+        val progress = VersionCheckProgress(setOf(VersionCheckSource.POLYGON))
+        progress.complete(VersionCheckSource.POLYGON)
+        val count = getPendingVersionCheckCount(progress.pending, setOf(VersionCheckSource.POLYGON))
+        assertEquals(VersionCheckSummary.Loading(1, 0), getVersionCheckSummary(count, 0, 0))
+        assertEquals(emptySet<VersionCheckSource>(), progress.pending)
+    }
+
+    @Test fun finishedFollowUpReturnsToTheCompletedSummary() {
+        val count = getPendingVersionCheckCount(emptySet(), emptySet())
+        assertEquals(VersionCheckSummary.Complete, getVersionCheckSummary(count, 0, 0))
+    }
+
     @Test fun pendingChecksNeverClaimEverythingIsCurrent() {
         assertEquals(VersionCheckSummary.Loading(12, 0), getVersionCheckSummary(12, 0, 0))
     }

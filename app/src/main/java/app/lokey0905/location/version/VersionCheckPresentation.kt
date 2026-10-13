@@ -1,5 +1,11 @@
 package app.lokey0905.location.version
 
+/** Include follow-up work without resetting terminal results from the original refresh. */
+fun getPendingVersionCheckCount(
+    pending: Set<VersionCheckSource>,
+    additionallyActive: Set<VersionCheckSource>
+): Int = (pending + additionallyActive).size
+
 /** Presentation only: never controls refresh scheduling or download actions. */
 sealed interface VersionCheckSummary {
     data class Loading(val pendingCount: Int, val failedCount: Int) : VersionCheckSummary
