@@ -1,0 +1,4 @@
+<resources>
+    <!-- The subtitle library draws two lines itself; reserve font-scaled collapse space. -->
+    <dimen name="game_toolbar_height">64sp</dimen>
+</resources>

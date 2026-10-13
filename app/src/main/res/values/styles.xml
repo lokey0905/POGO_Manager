@@ -1,7 +1,32 @@
 <resources>
 
-    <!-- Portrait keeps the active theme's existing large header unchanged. -->
-    <style name="ThemeOverlay.Location.GameHeader" parent="" />
+    <!-- Keep the large/medium Material hierarchy, with readable two-line status text. -->
+    <style name="ThemeOverlay.Location.GameHeader" parent="">
+        <item name="collapsingToolbarLayoutLargeStyle">@style/Widget.Location.GameHeader.Large</item>
+        <item name="actionBarSize">@dimen/game_toolbar_height</item>
+    </style>
+
+    <style name="Widget.Location.GameHeader.Large" parent="Widget.Material3.CollapsingToolbar.Large">
+        <item name="collapsedTitleTextAppearance">@style/TextAppearance.Material3.TitleMedium</item>
+        <item name="collapsedSubtitleTextAppearance">@style/TextAppearance.Material3.BodySmall</item>
+        <item name="expandedTitleTextAppearance">@style/TextAppearance.Material3.HeadlineSmall</item>
+        <item name="expandedSubtitleTextAppearance">@style/TextAppearance.Material3.BodyMedium</item>
+        <item name="titleMaxLines">2</item>
+        <item name="subtitleMaxLines">2</item>
+        <item name="titleExtraMultilineHeightEnabled">true</item>
+        <item name="subtitleExtraMultilineHeightEnabled">true</item>
+    </style>
+
+    <style name="Widget.Location.GameHeader.Medium" parent="Widget.Material3.CollapsingToolbar.Medium">
+        <item name="collapsedTitleTextAppearance">@style/TextAppearance.Material3.TitleMedium</item>
+        <item name="collapsedSubtitleTextAppearance">@style/TextAppearance.Material3.BodySmall</item>
+        <item name="expandedTitleTextAppearance">@style/TextAppearance.Material3.HeadlineSmall</item>
+        <item name="expandedSubtitleTextAppearance">@style/TextAppearance.Material3.BodyMedium</item>
+        <item name="titleMaxLines">2</item>
+        <item name="subtitleMaxLines">2</item>
+        <item name="titleExtraMultilineHeightEnabled">true</item>
+        <item name="subtitleExtraMultilineHeightEnabled">true</item>
+    </style>
 
     <style name="Widget.Location.AppWidget.Container" parent="android:Widget">
         <item name="android:id">@android:id/background</item>

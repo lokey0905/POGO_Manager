@@ -1,7 +1,8 @@
 <resources>
     <!-- Keep the existing collapsing title and live status subtitle in less height. -->
     <style name="ThemeOverlay.Location.GameHeader" parent="">
-        <item name="collapsingToolbarLayoutLargeStyle">?attr/collapsingToolbarLayoutMediumStyle</item>
+        <item name="collapsingToolbarLayoutLargeStyle">@style/Widget.Location.GameHeader.Medium</item>
         <item name="collapsingToolbarLayoutLargeSize">?attr/collapsingToolbarLayoutMediumSize</item>
+        <item name="actionBarSize">@dimen/game_toolbar_height</item>
     </style>
 </resources>
