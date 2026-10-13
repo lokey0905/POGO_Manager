@@ -9,16 +9,17 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.pm.ShortcutInfo
 import android.content.pm.ShortcutManager
-import android.content.res.Configuration
 import android.graphics.drawable.Icon
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
 import android.util.Log
 import android.util.TypedValue
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import android.widget.GridLayout
 import android.widget.ImageView
 import android.widget.Toast
@@ -26,6 +27,7 @@ import androidx.browser.customtabs.CustomTabsIntent
 import androidx.fragment.app.Fragment
 import androidx.preference.PreferenceManager
 import app.lokey0905.location.R
+import app.lokey0905.location.ui.layout.responsiveGridColumnCount
 import app.lokey0905.location.widget.LocationAccuracyActivity
 import com.google.android.gms.ads.rewarded.RewardedAd
 import com.google.android.material.card.MaterialCardView
@@ -53,6 +55,7 @@ class ShortCuts: Fragment() {
         savedInstanceState: Bundle?,
     ): View {
         val view: View = inflater.inflate(R.layout.fragment_shortcuts, container, false)
+        setupResponsiveGrids(view)
 
         fun setButton() {
             view.findViewById<MaterialCardView>(R.id.manual)?.setOnClickListener {
@@ -349,23 +352,50 @@ class ShortCuts: Fragment() {
     private var needsFilesRefresh = true
     private var filesRefreshJob: Job? = null
 
-    override fun onStart() {
-        super.onStart()
+    private fun setupResponsiveGrids(view: View) {
+        listOf(R.id.gridLayout1, R.id.gridLayout2, R.id.gridLayout3).forEach { gridId ->
+            val grid = view.findViewById<GridLayout>(gridId)
+            var appliedColumns = 0
+            var appliedChildCount = -1
 
-        val gridLayout1 = view?.findViewById<GridLayout>(R.id.gridLayout1)
-        val gridLayout2 = view?.findViewById<GridLayout>(R.id.gridLayout2)
-        val gridLayout3 = view?.findViewById<GridLayout>(R.id.gridLayout3)
+            fun updateColumns() {
+                val contentWidth = grid.width - grid.paddingLeft - grid.paddingRight
+                if (contentWidth <= 0) return
+                val density = resources.displayMetrics.density
+                val columns = responsiveGridColumnCount(
+                    availableWidthDp = contentWidth / density,
+                    minimumCardWidthDp = resources.getDimension(R.dimen.shortcut_card_min_width) / density,
+                    cardHorizontalMarginDp = resources.getDimension(R.dimen.shortcut_card_margin) / density,
+                    fontScale = resources.configuration.fontScale,
+                    maxColumns = 4
+                )
+                if (columns == appliedColumns && grid.childCount == appliedChildCount) return
 
-        if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            gridLayout1?.columnCount = 4
-            gridLayout2?.columnCount = 4
-            gridLayout3?.columnCount = 4
-        } else {
-            gridLayout1?.columnCount = 2
-            gridLayout2?.columnCount = 2
-            gridLayout3?.columnCount = 2
+                // Reset both axes before shrinking the grid. Existing views and all
+                // click/long-click listeners remain attached to the same cards.
+                for (index in 0 until grid.childCount) {
+                    val child = grid.getChildAt(index)
+                    child.layoutParams = (child.layoutParams as GridLayout.LayoutParams).apply {
+                        rowSpec = GridLayout.spec(GridLayout.UNDEFINED)
+                        columnSpec = GridLayout.spec(GridLayout.UNDEFINED)
+                    }
+                }
+                grid.columnCount = columns
+                for (index in 0 until grid.childCount) {
+                    val child = grid.getChildAt(index)
+                    child.layoutParams = (child.layoutParams as GridLayout.LayoutParams).apply {
+                        width = 0
+                        height = ViewGroup.LayoutParams.WRAP_CONTENT
+                        rowSpec = GridLayout.spec(index / columns, GridLayout.TOP)
+                        columnSpec = GridLayout.spec(index % columns, GridLayout.FILL, 1f)
+                    }
+                }
+                appliedColumns = columns
+                appliedChildCount = grid.childCount
+            }
+
+            grid.addOnLayoutChangeListener { _, _, _, _, _, _, _, _, _ -> updateColumns() }
         }
-
     }
 
     override fun onResume() {
@@ -375,28 +405,23 @@ class ShortCuts: Fragment() {
         val gridLayout3 = requireView().findViewById<GridLayout>(R.id.gridLayout3)
         filesRefreshJob = extractFilsUrlFromJson(getString(R.string.url_files)) { items ->
             gridLayout3?.removeAllViews()
-            items.forEach { item ->
+            val cardMargin = resources.getDimensionPixelSize(R.dimen.shortcut_card_margin)
+            val cardPadding = resources.getDimensionPixelSize(R.dimen.shortcut_card_content_padding)
+            items.forEachIndexed { index, item ->
                 val card = MaterialCardView(requireContext()).apply {
                     layoutParams = GridLayout.LayoutParams().apply {
                         width = 0
-                        height = (160 * resources.displayMetrics.density).toInt()
-                        columnSpec = GridLayout.spec(GridLayout.UNDEFINED, 1f)
-                        setMargins(
-                            (16 * resources.displayMetrics.density).toInt(),
-                            (16 * resources.displayMetrics.density).toInt(),
-                            (16 * resources.displayMetrics.density).toInt(),
-                            (16 * resources.displayMetrics.density).toInt()
-                        )
+                        height = ViewGroup.LayoutParams.WRAP_CONTENT
+                        val columns = gridLayout3.columnCount
+                        rowSpec = GridLayout.spec(index / columns, GridLayout.TOP)
+                        columnSpec = GridLayout.spec(index % columns, GridLayout.FILL, 1f)
+                        setMargins(cardMargin, cardMargin, cardMargin, cardMargin)
                     }
+                    minimumHeight = resources.getDimensionPixelSize(R.dimen.shortcut_card_min_height)
                     isClickable = true
                     isFocusable = true
                     isCheckable = true
-                    setPadding(
-                        (32 * resources.displayMetrics.density).toInt(),
-                        (32 * resources.displayMetrics.density).toInt(),
-                        (32 * resources.displayMetrics.density).toInt(),
-                        (32 * resources.displayMetrics.density).toInt()
-                    )
+                    setContentPadding(cardPadding, cardPadding, cardPadding, cardPadding)
                     setOnClickListener {
                         handleDownloadItemClick(item)
                     }
@@ -404,11 +429,12 @@ class ShortCuts: Fragment() {
 
                 val textView = android.widget.TextView(requireContext()).apply {
                     text = item.title
-                    gravity = android.view.Gravity.CENTER
+                    gravity = Gravity.CENTER
                     setTextSize(TypedValue.COMPLEX_UNIT_SP, 16f) // 使用 sp 單位，支援螢幕縮放
-                    layoutParams = ViewGroup.LayoutParams(
+                    layoutParams = FrameLayout.LayoutParams(
                         ViewGroup.LayoutParams.MATCH_PARENT,
-                        ViewGroup.LayoutParams.MATCH_PARENT
+                        ViewGroup.LayoutParams.WRAP_CONTENT,
+                        Gravity.CENTER
                     )
                 }
 

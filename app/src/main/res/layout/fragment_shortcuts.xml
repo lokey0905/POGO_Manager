@@ -65,22 +65,22 @@
                     android:id="@+id/gridLayout1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:columnCount="2"
-                    android:rowCount="2">
+                    android:columnCount="2">
 
                     <com.google.android.material.card.MaterialCardView
                         android:id="@+id/coolDownCalculator"
                         android:layout_width="0dp"
-                        android:layout_height="160dp"
-                        android:layout_margin="16dp"
+                        android:layout_height="wrap_content"
+                        android:minHeight="@dimen/shortcut_card_min_height"
+                        android:layout_margin="@dimen/shortcut_card_margin"
                         android:layout_columnWeight="1"
                         android:checkable="true"
                         android:clickable="true"
                         android:focusable="true"
-                        app:contentPadding="32dp">
+                        app:contentPadding="@dimen/shortcut_card_content_padding">
 
                         <LinearLayout
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
                             android:layout_gravity="center">
@@ -93,7 +93,7 @@
                                 app:srcCompat="@drawable/baseline_calculate_24" />
 
                             <TextView
-                                android:layout_width="wrap_content"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 android:gravity="center"
@@ -105,16 +105,17 @@
                     <com.google.android.material.card.MaterialCardView
                         android:id="@+id/developerMode"
                         android:layout_width="0dp"
-                        android:layout_height="160dp"
-                        android:layout_margin="16dp"
+                        android:layout_height="wrap_content"
+                        android:minHeight="@dimen/shortcut_card_min_height"
+                        android:layout_margin="@dimen/shortcut_card_margin"
                         android:layout_columnWeight="1"
                         android:checkable="true"
                         android:clickable="true"
                         android:focusable="true"
-                        app:contentPadding="32dp">
+                        app:contentPadding="@dimen/shortcut_card_content_padding">
 
                         <LinearLayout
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
                             android:layout_gravity="center">
@@ -127,7 +128,7 @@
                                 app:srcCompat="@drawable/baseline_developer_mode_24" />
 
                             <TextView
-                                android:layout_width="wrap_content"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 android:gravity="center"
@@ -139,16 +140,17 @@
                     <com.google.android.material.card.MaterialCardView
                         android:id="@+id/location_settings"
                         android:layout_width="0dp"
-                        android:layout_height="160dp"
-                        android:layout_margin="16dp"
+                        android:layout_height="wrap_content"
+                        android:minHeight="@dimen/shortcut_card_min_height"
+                        android:layout_margin="@dimen/shortcut_card_margin"
                         android:layout_columnWeight="1"
                         android:checkable="true"
                         android:clickable="true"
                         android:focusable="true"
-                        app:contentPadding="32dp">
+                        app:contentPadding="@dimen/shortcut_card_content_padding">
 
                         <LinearLayout
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
                             android:layout_gravity="center">
@@ -161,7 +163,7 @@
                                 app:srcCompat="@drawable/baseline_settings_24" />
 
                             <TextView
-                                android:layout_width="wrap_content"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 android:gravity="center"
@@ -174,16 +176,17 @@
                     <com.google.android.material.card.MaterialCardView
                         android:id="@+id/LocationAccuracyActivity"
                         android:layout_width="0dp"
-                        android:layout_height="160dp"
-                        android:layout_margin="16dp"
+                        android:layout_height="wrap_content"
+                        android:minHeight="@dimen/shortcut_card_min_height"
+                        android:layout_margin="@dimen/shortcut_card_margin"
                         android:layout_columnWeight="1"
                         android:checkable="true"
                         android:clickable="true"
                         android:focusable="true"
-                        app:contentPadding="32dp">
+                        app:contentPadding="@dimen/shortcut_card_content_padding">
 
                         <LinearLayout
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
                             android:layout_gravity="center">
@@ -196,7 +199,7 @@
                                 app:srcCompat="@drawable/ic_baseline_share_location_24" />
 
                             <TextView
-                                android:layout_width="wrap_content"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 android:gravity="center"
@@ -208,16 +211,17 @@
                     <com.google.android.material.card.MaterialCardView
                         android:id="@+id/accountSettings"
                         android:layout_width="0dp"
-                        android:layout_height="160dp"
-                        android:layout_margin="16dp"
+                        android:layout_height="wrap_content"
+                        android:minHeight="@dimen/shortcut_card_min_height"
+                        android:layout_margin="@dimen/shortcut_card_margin"
                         android:layout_columnWeight="1"
                         android:checkable="true"
                         android:clickable="true"
                         android:focusable="true"
-                        app:contentPadding="32dp">
+                        app:contentPadding="@dimen/shortcut_card_content_padding">
 
                         <LinearLayout
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
                             android:layout_gravity="center">
@@ -230,7 +234,7 @@
                                 app:srcCompat="@drawable/outline_switch_account_24" />
 
                             <TextView
-                                android:layout_width="wrap_content"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 android:gravity="center"
@@ -242,16 +246,17 @@
                     <com.google.android.material.card.MaterialCardView
                         android:id="@+id/action_nearbySharing"
                         android:layout_width="0dp"
-                        android:layout_height="160dp"
-                        android:layout_margin="16dp"
+                        android:layout_height="wrap_content"
+                        android:minHeight="@dimen/shortcut_card_min_height"
+                        android:layout_margin="@dimen/shortcut_card_margin"
                         android:layout_columnWeight="1"
                         android:checkable="true"
                         android:clickable="true"
                         android:focusable="true"
-                        app:contentPadding="32dp">
+                        app:contentPadding="@dimen/shortcut_card_content_padding">
 
                         <LinearLayout
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
                             android:layout_gravity="center">
@@ -264,7 +269,7 @@
                                 app:srcCompat="@drawable/baseline_share_24" />
 
                             <TextView
-                                android:layout_width="wrap_content"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 android:gravity="center"
@@ -276,16 +281,17 @@
                     <com.google.android.material.card.MaterialCardView
                         android:id="@+id/MiuiXSpace"
                         android:layout_width="0dp"
-                        android:layout_height="160dp"
-                        android:layout_margin="16dp"
+                        android:layout_height="wrap_content"
+                        android:minHeight="@dimen/shortcut_card_min_height"
+                        android:layout_margin="@dimen/shortcut_card_margin"
                         android:layout_columnWeight="1"
                         android:checkable="true"
                         android:clickable="true"
                         android:focusable="true"
-                        app:contentPadding="32dp">
+                        app:contentPadding="@dimen/shortcut_card_content_padding">
 
                         <LinearLayout
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
                             android:layout_gravity="center">
@@ -298,7 +304,7 @@
                                 app:srcCompat="@drawable/baseline_call_split_24" />
 
                             <TextView
-                                android:layout_width="wrap_content"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 android:gravity="center"
@@ -323,23 +329,23 @@
                     android:id="@+id/gridLayout2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:columnCount="2"
-                    android:rowCount="2">
+                    android:columnCount="2">
 
 
                     <com.google.android.material.card.MaterialCardView
                         android:id="@+id/manual"
                         android:layout_width="0dp"
-                        android:layout_height="160dp"
-                        android:layout_margin="16dp"
+                        android:layout_height="wrap_content"
+                        android:minHeight="@dimen/shortcut_card_min_height"
+                        android:layout_margin="@dimen/shortcut_card_margin"
                         android:layout_columnWeight="1"
                         android:checkable="true"
                         android:clickable="true"
                         android:focusable="true"
-                        app:contentPadding="32dp">
+                        app:contentPadding="@dimen/shortcut_card_content_padding">
 
                         <LinearLayout
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
                             android:layout_gravity="center">
@@ -352,7 +358,7 @@
                                 app:srcCompat="@drawable/baseline_menu_book_24" />
 
                             <TextView
-                                android:layout_width="wrap_content"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 android:gravity="center"
@@ -364,16 +370,17 @@
                     <com.google.android.material.card.MaterialCardView
                         android:id="@+id/pokeInfo"
                         android:layout_width="0dp"
-                        android:layout_height="160dp"
-                        android:layout_margin="16dp"
+                        android:layout_height="wrap_content"
+                        android:minHeight="@dimen/shortcut_card_min_height"
+                        android:layout_margin="@dimen/shortcut_card_margin"
                         android:layout_columnWeight="1"
                         android:checkable="true"
                         android:clickable="true"
                         android:focusable="true"
-                        app:contentPadding="32dp">
+                        app:contentPadding="@dimen/shortcut_card_content_padding">
 
                         <LinearLayout
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:orientation="vertical">
@@ -386,7 +393,7 @@
                                 app:srcCompat="@drawable/ic_baseline_catching_pokemon_24" />
 
                             <TextView
-                                android:layout_width="wrap_content"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 android:gravity="center"
@@ -398,16 +405,17 @@
                     <com.google.android.material.card.MaterialCardView
                         android:id="@+id/pokeList_web"
                         android:layout_width="0dp"
-                        android:layout_height="160dp"
-                        android:layout_margin="16dp"
+                        android:layout_height="wrap_content"
+                        android:minHeight="@dimen/shortcut_card_min_height"
+                        android:layout_margin="@dimen/shortcut_card_margin"
                         android:layout_columnWeight="1"
                         android:checkable="true"
                         android:clickable="true"
                         android:focusable="true"
-                        app:contentPadding="32dp">
+                        app:contentPadding="@dimen/shortcut_card_content_padding">
 
                         <LinearLayout
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:orientation="vertical">
@@ -420,7 +428,7 @@
                                 app:srcCompat="@drawable/baseline_radar_24" />
 
                             <TextView
-                                android:layout_width="wrap_content"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 android:gravity="center"
@@ -432,16 +440,17 @@
                     <com.google.android.material.card.MaterialCardView
                         android:id="@+id/PGTools_raids"
                         android:layout_width="0dp"
-                        android:layout_height="160dp"
-                        android:layout_margin="16dp"
+                        android:layout_height="wrap_content"
+                        android:minHeight="@dimen/shortcut_card_min_height"
+                        android:layout_margin="@dimen/shortcut_card_margin"
                         android:layout_columnWeight="1"
                         android:checkable="true"
                         android:clickable="true"
                         android:focusable="true"
-                        app:contentPadding="32dp">
+                        app:contentPadding="@dimen/shortcut_card_content_padding">
 
                         <LinearLayout
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:orientation="vertical">
@@ -454,7 +463,7 @@
                                 app:srcCompat="@drawable/baseline_radar_24" />
 
                             <TextView
-                                android:layout_width="wrap_content"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 android:gravity="center"
@@ -466,16 +475,17 @@
                     <com.google.android.material.card.MaterialCardView
                         android:id="@+id/download_gpx1"
                         android:layout_width="0dp"
-                        android:layout_height="160dp"
-                        android:layout_margin="16dp"
+                        android:layout_height="wrap_content"
+                        android:minHeight="@dimen/shortcut_card_min_height"
+                        android:layout_margin="@dimen/shortcut_card_margin"
                         android:layout_columnWeight="1"
                         android:checkable="true"
                         android:clickable="true"
                         android:focusable="true"
-                        app:contentPadding="32dp">
+                        app:contentPadding="@dimen/shortcut_card_content_padding">
 
                         <LinearLayout
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
                             android:layout_gravity="center">
@@ -488,7 +498,7 @@
                                 app:srcCompat="@drawable/baseline_map_24" />
 
                             <TextView
-                                android:layout_width="wrap_content"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 android:gravity="center"
@@ -500,16 +510,17 @@
                     <com.google.android.material.card.MaterialCardView
                         android:id="@+id/pgtoolsFile"
                         android:layout_width="0dp"
-                        android:layout_height="160dp"
-                        android:layout_margin="16dp"
+                        android:layout_height="wrap_content"
+                        android:minHeight="@dimen/shortcut_card_min_height"
+                        android:layout_margin="@dimen/shortcut_card_margin"
                         android:layout_columnWeight="1"
                         android:checkable="true"
                         android:clickable="true"
                         android:focusable="true"
-                        app:contentPadding="32dp">
+                        app:contentPadding="@dimen/shortcut_card_content_padding">
 
                         <LinearLayout
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:orientation="vertical">
@@ -522,7 +533,7 @@
                                 app:srcCompat="@drawable/baseline_insert_drive_file_24" />
 
                             <TextView
-                                android:layout_width="wrap_content"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 android:gravity="center"
@@ -548,8 +559,7 @@
                     android:id="@+id/gridLayout3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:columnCount="2"
-                    android:rowCount="2">
+                    android:columnCount="2">
 
 
                 </GridLayout>

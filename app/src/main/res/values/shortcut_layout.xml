@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="shortcut_card_min_width">148dp</dimen>
+    <dimen name="shortcut_card_margin">16dp</dimen>
+    <dimen name="shortcut_card_min_height">160dp</dimen>
+    <dimen name="shortcut_card_content_padding">16dp</dimen>
+</resources>
