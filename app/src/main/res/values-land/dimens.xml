@@ -1,1 +1,3 @@
-<resources></resources>
+<resources>
+    <dimen name="pokemon_content_max_width">840dp</dimen>
+</resources>

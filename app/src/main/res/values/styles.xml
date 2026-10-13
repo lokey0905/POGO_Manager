@@ -1,5 +1,8 @@
 <resources>
 
+    <!-- Portrait keeps the active theme's existing large header unchanged. -->
+    <style name="ThemeOverlay.Location.GameHeader" parent="" />
+
     <style name="Widget.Location.AppWidget.Container" parent="android:Widget">
         <item name="android:id">@android:id/background</item>
         <item name="android:background">?android:attr/colorBackground</item>
