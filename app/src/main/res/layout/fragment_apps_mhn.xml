@@ -89,34 +89,27 @@
                                 android:layout_height="wrap_content"
                                 android:text="@string/appsMHNPage_supportVersion_MHNTools" />
 
-                            <Space
+                            <com.google.android.material.textfield.TextInputLayout
+                                style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="16dp"/>
+                                android:layout_marginTop="16dp"
+                                android:hint="@string/mhn_target_version">
 
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:orientation="horizontal"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintHorizontal_bias="1.0"
-                                app:layout_constraintStart_toStartOf="parent">
-
-                                <Spinner
+                                <com.google.android.material.textfield.MaterialAutoCompleteTextView
                                     android:id="@+id/mhn_spinner"
-                                    android:layout_width="0dp"
-                                    android:layout_height="match_parent"
-                                    android:layout_weight="1">
-                                </Spinner>
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:inputType="none"
+                                    android:saveEnabled="false" />
+                            </com.google.android.material.textfield.TextInputLayout>
 
-                                <com.google.android.material.materialswitch.MaterialSwitch
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="match_parent"
-                                    android:id="@+id/mhnTestVersion_switch"
-                                    android:text="@string/testVersion">
-                                </com.google.android.material.materialswitch.MaterialSwitch>
-                            </LinearLayout>
+                            <com.google.android.material.materialswitch.MaterialSwitch
+                                android:id="@+id/mhnTestVersion_switch"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="8dp"
+                                android:text="@string/testVersion" />
                         </LinearLayout>
                     </com.google.android.material.card.MaterialCardView>
 

@@ -11,14 +11,12 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.PopupMenu
-import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -27,12 +25,14 @@ import androidx.preference.PreferenceManager
 import app.lokey0905.location.R
 import app.lokey0905.location.version.VersionCheckSummary
 import app.lokey0905.location.version.getVersionCheckSummary
+import app.lokey0905.location.version.selectMhnTargetVersion
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdView
 import com.google.android.gms.ads.MobileAds
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.materialswitch.MaterialSwitch
 import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.textfield.MaterialAutoCompleteTextView
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ensureActive
@@ -255,7 +255,11 @@ class AppsMHN : Fragment() {
         val mhnToolsSupportVersion = view.findViewById<TextView>(R.id.mhnTools_new_version)
         val hylianerSupportVersion = view.findViewById<TextView>(R.id.hylianer_new_version)
 
-        val spinner = view.findViewById<Spinner>(R.id.mhn_spinner)
+        val versionSelector = view.findViewById<MaterialAutoCompleteTextView>(R.id.mhn_spinner)
+        versionSelector.setText(
+            mhnVersion.takeIf { it.isNotBlank() && it != getString(R.string.notInstalled) }.orEmpty(),
+            false
+        )
         var displayedUpdateCount = 0
 
         fun remoteVersionValue(version: String): String =
@@ -498,16 +502,14 @@ class AppsMHN : Fragment() {
 
                 val adapter: ArrayAdapter<String> = ArrayAdapter(
                     view.context,
-                    android.R.layout.simple_spinner_item,
+                    android.R.layout.simple_list_item_1,
                     versionsList
                 )
 
-                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                val selectedIndex = versionsList.indexOf(mhnVersion).coerceAtLeast(0)
-                mhnVersion = versionsList.getOrNull(selectedIndex) ?: latestMhnVersion
+                mhnVersion = selectMhnTargetVersion(versionsList, mhnVersion, latestMhnVersion)
                 mhnUrl = gameVersionsMap[mhnVersion].orEmpty()
-                spinner.adapter = adapter
-                spinner.setSelection(selectedIndex)
+                versionSelector.setAdapter(adapter)
+                versionSelector.setText(mhnVersion.takeIf { versionsList.isNotEmpty() }.orEmpty(), false)
 
                 mhnSupportVersion.text = String.format(
                     formatTargetVersionOther,
@@ -561,34 +563,25 @@ class AppsMHN : Fragment() {
                 getMHNToolsVersion()
             }
 
-            spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(
-                    parent: AdapterView<*>,
-                    view: View?,
-                    position: Int,
-                    id: Long,
-                ) {
-                    val version = parent.getItemAtPosition(position).toString()
-                    val arm64Url = gameVersionsMap[version]
+            versionSelector.setOnItemClickListener { parent, _, position, _ ->
+                val version = parent.getItemAtPosition(position).toString()
+                val arm64Url = gameVersionsMap[version]
 
-                    if (arm64Url != null) {
-                        mhnUrl = arm64Url
-                        mhnVersion = version
-                        mhnSupportVersion.text = String.format(
-                            formatTargetVersionOther,
-                            version,
-                            if (mhnTestVersion)
-                                "(${getText(R.string.testVersion)})"
-                            else
-                                ""
-                        )
-                    }
-
-                    val visible = isResumed && !isHidden
-                    checkAppVersion(fetchRemoteVersions = visible, showDialogs = visible)
+                if (arm64Url != null) {
+                    mhnUrl = arm64Url
+                    mhnVersion = version
+                    mhnSupportVersion.text = String.format(
+                        formatTargetVersionOther,
+                        version,
+                        if (mhnTestVersion)
+                            "(${getText(R.string.testVersion)})"
+                        else
+                            ""
+                    )
                 }
 
-                override fun onNothingSelected(parent: AdapterView<*>?) {}
+                val visible = isResumed && !isHidden
+                checkAppVersion(fetchRemoteVersions = visible, showDialogs = visible)
             }
         }
 
