@@ -19,6 +19,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.activity.OnBackPressedCallback
 import androidx.core.os.bundleOf
 import androidx.core.view.WindowCompat
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.Lifecycle
@@ -35,6 +38,7 @@ import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
 import com.google.android.gms.location.LocationServices
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.navigationrail.NavigationRailView
 import com.google.android.material.snackbar.Snackbar
 import com.onesignal.OneSignal
 import kotlinx.coroutines.DelicateCoroutinesApi
@@ -227,6 +231,26 @@ class MainActivity : AppCompatActivity() {
         tabBackCallback.isEnabled = tabNavigation.canGoBack
     }
 
+    private fun applyNavigationInsets() {
+        if (binding.navigation !is NavigationRailView) return
+
+        // With no bottom bar, the shell must protect both the content and rail.
+        // Each page still handles its own status-bar inset via its AppBarLayout.
+        // The rail handles only the top inset; its start/bottom flags are disabled in XML.
+        ViewCompat.setOnApplyWindowInsetsListener(binding.container) { view, insets ->
+            val safeArea = insets.getInsets(
+                WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.displayCutout()
+            )
+            view.updatePadding(
+                left = safeArea.left,
+                right = safeArea.right,
+                bottom = safeArea.bottom
+            )
+            insets
+        }
+        ViewCompat.requestApplyInsets(binding.container)
+    }
+
     private fun showTab(tab: MainTab, animate: Boolean = true): Boolean {
         val manager = supportFragmentManager
         if (manager.isStateSaved || manager.isDestroyed) return false
@@ -273,6 +297,7 @@ class MainActivity : AppCompatActivity() {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        applyNavigationInsets()
 
         //setSupportActionBar(binding.toolbar)
 

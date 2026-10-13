@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Keep phones and narrow windows on the default bottom-navigation layout. -->
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false">
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/fragment_container_view"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:fitsSystemWindows="false"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/navigation"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.navigationrail.NavigationRailView
+            android:id="@+id/navigation"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:background="?attr/colorSurface"
+            android:elevation="8dp"
+            app:itemMaxLines="2"
+            app:itemRippleColor="?attr/colorSecondaryContainer"
+            app:labelVisibilityMode="labeled"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:menu="@menu/nav"
+            app:menuGravity="top"
+            app:paddingBottomSystemWindowInsets="false"
+            app:paddingStartSystemWindowInsets="false"
+            app:paddingTopSystemWindowInsets="true"
+            app:scrollingEnabled="true"
+            tools:viewBindingType="com.google.android.material.navigation.NavigationBarView" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
