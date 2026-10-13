@@ -9,7 +9,6 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.pm.ShortcutInfo
 import android.content.pm.ShortcutManager
-import android.graphics.drawable.Icon
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
@@ -27,6 +26,7 @@ import androidx.browser.customtabs.CustomTabsIntent
 import androidx.fragment.app.Fragment
 import androidx.preference.PreferenceManager
 import app.lokey0905.location.R
+import app.lokey0905.location.shortcut.createPinnedShortcutIcon
 import app.lokey0905.location.ui.layout.responsiveGridColumnCount
 import app.lokey0905.location.widget.LocationAccuracyActivity
 import com.google.android.gms.ads.rewarded.RewardedAd
@@ -701,7 +701,7 @@ class ShortCuts: Fragment() {
                 // Create the shortcut with the appropriate intent
                 val shortcut = ShortcutInfo.Builder(context, id)
                     .setShortLabel(label)
-                    .setIcon(Icon.createWithResource(context, icon))
+                    .setIcon(createPinnedShortcutIcon(requireContext(), icon, shortcutManager))
                     .setIntent(shortcutIntent)
                     .build()
 
