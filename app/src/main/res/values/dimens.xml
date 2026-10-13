@@ -14,4 +14,5 @@ http://developer.android.com/guide/topics/appwidgets/index.html#CreatingLayout
 
     <!-- ConstraintLayout uses zero as an unrestricted match-constraint maximum. -->
     <dimen name="pokemon_content_max_width">0dp</dimen>
+    <dimen name="mhn_content_max_width">0dp</dimen>
 </resources>

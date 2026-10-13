@@ -1,3 +1,5 @@
 <resources>
     <dimen name="pokemon_content_max_width">840dp</dimen>
+    <!-- MHN cards already have 16dp margins on both sides. -->
+    <dimen name="mhn_content_max_width">872dp</dimen>
 </resources>
