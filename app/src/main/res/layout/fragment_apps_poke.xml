@@ -309,14 +309,14 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginEnd="16dp"
                                     android:layout_weight="0"
-                                    android:text="@string/format_newerVersion" />
+                                    android:text="@string/version_label_target_pending" />
 
                                 <TextView
                                     android:id="@+id/pok_install_version"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="0"
-                                    android:text="@string/format_installVersion" />
+                                    android:text="@string/version_label_installed_pending" />
                             </LinearLayout>
                         </LinearLayout>
 
@@ -417,13 +417,13 @@
                                     android:id="@+id/pokAres_new_version"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="@string/format_newerVersion" />
+                                    android:text="@string/version_label_target_pending" />
 
                                 <TextView
                                     android:id="@+id/pokAres_install_version"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="@string/format_installVersion" />
+                                    android:text="@string/version_label_installed_pending" />
                             </LinearLayout>
                         </LinearLayout>
 
@@ -524,13 +524,13 @@
                                     android:id="@+id/gps_new_version"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="@string/format_newerVersion" />
+                                    android:text="@string/version_label_latest_pending" />
 
                                 <TextView
                                     android:id="@+id/gps_install_version"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="@string/format_installVersion" />
+                                    android:text="@string/version_label_installed_pending" />
                             </LinearLayout>
                         </LinearLayout>
 
@@ -630,13 +630,13 @@
                                     android:id="@+id/pokelist_new_version"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="@string/format_newerVersion" />
+                                    android:text="@string/version_label_latest_pending" />
 
                                 <TextView
                                     android:id="@+id/pokelist_install_version"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="@string/format_installVersion" />
+                                    android:text="@string/version_label_installed_pending" />
                             </LinearLayout>
                         </LinearLayout>
 
@@ -737,13 +737,13 @@
                                     android:id="@+id/wecatch_new_version"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="@string/format_newerVersion" />
+                                    android:text="@string/version_label_latest_pending" />
 
                                 <TextView
                                     android:id="@+id/wecatch_install_version"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="@string/format_installVersion" />
+                                    android:text="@string/version_label_installed_pending" />
                             </LinearLayout>
                         </LinearLayout>
 
@@ -844,13 +844,13 @@
                                     android:id="@+id/defit_new_version"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="@string/format_newerVersion" />
+                                    android:text="@string/version_label_latest_pending" />
 
                                 <TextView
                                     android:id="@+id/defit_install_version"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="@string/format_installVersion" />
+                                    android:text="@string/version_label_installed_pending" />
                             </LinearLayout>
                         </LinearLayout>
 
@@ -951,13 +951,13 @@
                                     android:id="@+id/wrapper_new_version"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="@string/format_newerVersion" />
+                                    android:text="@string/version_label_latest_pending" />
 
                                 <TextView
                                     android:id="@+id/wrapper_install_version"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="@string/format_installVersion" />
+                                    android:text="@string/version_label_installed_pending" />
                             </LinearLayout>
                         </LinearLayout>
 
@@ -1070,13 +1070,13 @@
                                     android:id="@+id/pgtools_new_version"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="@string/format_newerVersion" />
+                                    android:text="@string/version_label_latest_pending" />
 
                                 <TextView
                                     android:id="@+id/pgtools_install_version"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="@string/format_installVersion" />
+                                    android:text="@string/version_label_installed_pending" />
                             </LinearLayout>
                         </LinearLayout>
 
@@ -1177,13 +1177,13 @@
                                     android:id="@+id/pokemod_new_version"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="@string/format_newerVersion" />
+                                    android:text="@string/version_label_latest_pending" />
 
                                 <TextView
                                     android:id="@+id/pokemod_install_version"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="@string/format_installVersion" />
+                                    android:text="@string/version_label_installed_pending" />
                             </LinearLayout>
                         </LinearLayout>
 
@@ -1283,13 +1283,13 @@
                                     android:id="@+id/pgsharp_root_new_version"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="@string/format_newerVersion" />
+                                    android:text="@string/version_label_latest_pending" />
 
                                 <TextView
                                     android:id="@+id/pgsharp_root_install_version"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="@string/format_installVersion" />
+                                    android:text="@string/version_label_installed_pending" />
                             </LinearLayout>
                         </LinearLayout>
 
@@ -1389,13 +1389,13 @@
                                     android:id="@+id/polygon_new_version"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="@string/format_newerVersion" />
+                                    android:text="@string/version_label_latest_pending" />
 
                                 <TextView
                                     android:id="@+id/polygon_install_version"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="@string/format_installVersion" />
+                                    android:text="@string/version_label_installed_pending" />
                             </LinearLayout>
                         </LinearLayout>
 
@@ -1506,13 +1506,13 @@
                                     android:id="@+id/galaxyStore_new_version"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="@string/format_newerVersion" />
+                                    android:text="@string/version_label_latest_pending" />
 
                                 <TextView
                                     android:id="@+id/galaxyStore_install_version"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="@string/format_installVersion" />
+                                    android:text="@string/version_label_installed_pending" />
                             </LinearLayout>
                         </LinearLayout>
 
@@ -1613,13 +1613,13 @@
                                     android:id="@+id/APKMirrorInstaller_new_version"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="@string/format_newerVersion" />
+                                    android:text="@string/version_label_latest_pending" />
 
                                 <TextView
                                     android:id="@+id/APKMirrorInstaller_install_version"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="@string/format_installVersion" />
+                                    android:text="@string/version_label_installed_pending" />
                             </LinearLayout>
                         </LinearLayout>
 

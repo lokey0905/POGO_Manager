@@ -1,0 +1,21 @@
+<resources>
+    <string name="version_label_installed">已安裝版本：%1$s</string>
+    <string name="version_label_installed_other">已安裝版本：%1$s %2$s</string>
+    <string name="version_label_latest">APP 最新版本：%1$s</string>
+    <string name="version_label_latest_other">APP 最新版本：%1$s %2$s</string>
+    <string name="version_label_target">目標下載版本：%1$s</string>
+    <string name="version_label_target_other">目標下載版本：%1$s %2$s</string>
+    <string name="version_label_installed_pending">已安裝版本：確認中</string>
+    <string name="version_label_latest_pending">APP 最新版本：查詢中</string>
+    <string name="version_label_latest_unknown">APP 最新版本：尚未確認</string>
+    <string name="version_label_target_pending">目標下載版本：查詢中</string>
+    <string name="version_description_gps64">版本說明：已修改無廣告版本（64 位元）</string>
+    <string name="version_value_loading">查詢中</string>
+    <string name="version_value_unknown">尚未確認</string>
+    <string name="version_value_failed">取得失敗</string>
+    <string name="version_value_stale">%1$s（查詢失敗，可能為上次成功結果）</string>
+    <string name="version_summary_loading">版本查詢中（剩餘 %1$d 項）</string>
+    <string name="version_summary_loading_with_failures">查詢中（剩餘 %1$d 項，部分失敗）</string>
+    <string name="version_summary_partial_failure">部分查詢失敗，請下拉重試</string>
+    <string name="version_summary_complete">查詢完成，未發現可更新的 APP</string>
+</resources>

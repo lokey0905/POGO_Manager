@@ -205,14 +205,14 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginEnd="16dp"
                                     android:layout_weight="0"
-                                    android:text="@string/format_newerVersion" />
+                                    android:text="@string/version_label_target_pending" />
 
                                 <TextView
                                     android:id="@+id/mhn_install_version"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="0"
-                                    android:text="@string/format_installVersion" />
+                                    android:text="@string/version_label_installed_pending" />
                             </LinearLayout>
 
                         </LinearLayout>
@@ -320,14 +320,14 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginEnd="16dp"
                                     android:layout_weight="0"
-                                    android:text="@string/format_newerVersion_Gps64" />
+                                    android:text="@string/version_description_gps64" />
 
                                 <TextView
                                     android:id="@+id/gps_install_version"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="0"
-                                    android:text="@string/format_installVersion" />
+                                    android:text="@string/version_label_installed_pending" />
 
                             </LinearLayout>
 
@@ -448,14 +448,14 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginEnd="16dp"
                                     android:layout_weight="0"
-                                    android:text="@string/format_newerVersion" />
+                                    android:text="@string/version_label_latest_pending" />
 
                                 <TextView
                                     android:id="@+id/mhnTools_install_version"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="0"
-                                    android:text="@string/format_installVersion" />
+                                    android:text="@string/version_label_installed_pending" />
 
                             </LinearLayout>
 
@@ -567,14 +567,14 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginEnd="16dp"
                                     android:layout_weight="0"
-                                    android:text="@string/format_newerVersion" />
+                                    android:text="@string/version_label_latest_unknown" />
 
                                 <TextView
                                     android:id="@+id/hylianer_install_version"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="0"
-                                    android:text="@string/format_installVersion" />
+                                    android:text="@string/version_label_installed_pending" />
 
                             </LinearLayout>
 

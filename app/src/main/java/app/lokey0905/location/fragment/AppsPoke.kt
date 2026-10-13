@@ -40,6 +40,10 @@ import app.lokey0905.location.version.getCompatibilityStatus
 import app.lokey0905.location.version.VersionCheckProgress
 import app.lokey0905.location.version.VersionCheckSource
 import app.lokey0905.location.version.VersionRefreshPolicy
+import app.lokey0905.location.version.VersionCheckSummary
+import app.lokey0905.location.version.RemoteVersionPresentation
+import app.lokey0905.location.version.getVersionCheckSummary
+import app.lokey0905.location.version.getRemoteVersionPresentation
 import app.lokey0905.location.version.prioritizeVersions
 import app.lokey0905.location.version.getProbedCompatibilityStatus
 import app.lokey0905.location.version.selectTargetVersion
@@ -798,12 +802,12 @@ class AppsPoke : Fragment() {
                 (choosePogoVersion.isNotBlank() && choosePogoVersion != getString(R.string.notInstalled))
         updateCompatibilitySummary(view)
 
-        val formatInstallVersion: String = getString(R.string.format_installVersion)
+        val formatInstallVersion: String = getString(R.string.version_label_installed)
         val formatInstallVersionOther: String =
-            getString(R.string.format_installVersion_other)
-        val formatNewerVersion: String = getString(R.string.format_newerVersion)
+            getString(R.string.version_label_installed_other)
+        val formatNewerVersion: String = getString(R.string.version_label_latest)
         val formatNewerVersionOther: String =
-            getString(R.string.format_newerVersion_other)
+            getString(R.string.version_label_latest_other)
 
         val pokePackageName = getString(R.string.packageName_pok)
         val pokeAresPackageName = getString(R.string.packageName_pokAres)
@@ -833,6 +837,7 @@ class AppsPoke : Fragment() {
         var dataHubNeedsUpdate = false
         var pokemonListResolved = false
         var noEligiblePokemonVersions = false
+        var displayedUpdateCount = 0
 
         fun retryVersionCheck() {
             swipeRefreshLayout.isRefreshing = true
@@ -854,22 +859,44 @@ class AppsPoke : Fragment() {
             versionCheckSnackbar?.show()
         }
 
+        fun updateToolbarSubtitle(needUpdateAppsAmount: Int = displayedUpdateCount) {
+            displayedUpdateCount = needUpdateAppsAmount
+            val summary = getVersionCheckSummary(
+                progress.pending.size,
+                failedSources.size,
+                needUpdateAppsAmount + if (dataHubNeedsUpdate) 1 else 0
+            )
+            toolbarLayout.subtitle = when (summary) {
+                is VersionCheckSummary.Loading -> getString(
+                    if (summary.failedCount > 0) R.string.version_summary_loading_with_failures
+                    else R.string.version_summary_loading,
+                    summary.pendingCount
+                )
+                is VersionCheckSummary.PartialFailure -> getString(R.string.version_summary_partial_failure)
+                is VersionCheckSummary.UpdatesAvailable -> getString(R.string.format_installApps, summary.count)
+                VersionCheckSummary.Complete -> getString(R.string.version_summary_complete)
+            }
+        }
+
         fun markVersionCheckFailed(source: VersionCheckSource) {
             failedSources.add(source)
             hasVersionCheckError = true
-            toolbarLayout.subtitle = getString(R.string.versionCheckPartialFailed)
+            updateToolbarSubtitle()
             showRetrySnackbar()
         }
 
-        fun updateToolbarSubtitle(needUpdateAppsAmount: Int) {
-            val totalUpdates = needUpdateAppsAmount + if (dataHubNeedsUpdate) 1 else 0
-            toolbarLayout.subtitle = when {
-                hasVersionCheckError -> getString(R.string.versionCheckPartialFailed)
-                totalUpdates > 0 -> String.format(
-                    getString(R.string.format_installApps),
-                    totalUpdates
-                )
-                else -> getString(R.string.appsAllUpdated)
+        fun remoteVersionValue(version: String?, source: VersionCheckSource): String {
+            return when (val presentation = getRemoteVersionPresentation(
+                version,
+                getString(R.string.notInstalled),
+                loading = source in progress.pending,
+                failed = source in failedSources
+            )) {
+                RemoteVersionPresentation.Loading -> getString(R.string.version_value_loading)
+                RemoteVersionPresentation.Unknown -> getString(R.string.version_value_unknown)
+                RemoteVersionPresentation.Failed -> getString(R.string.version_value_failed)
+                is RemoteVersionPresentation.Available -> presentation.version
+                is RemoteVersionPresentation.Stale -> getString(R.string.version_value_stale, presentation.version)
             }
         }
 
@@ -938,9 +965,12 @@ class AppsPoke : Fragment() {
         }
 
         fun setNewVersionError(textView: TextView?) {
-            textView?.text = String.format(
-                formatNewerVersion,
-                getString(R.string.versionCheckFailedShort)
+            val format = if (textView?.id == R.id.pok_new_version || textView?.id == R.id.pokAres_new_version) {
+                R.string.version_label_target
+            } else R.string.version_label_latest
+            textView?.text = getString(
+                format,
+                getString(R.string.version_value_failed)
             )
         }
 
@@ -950,25 +980,42 @@ class AppsPoke : Fragment() {
             } else {
                 pgToolsProductionAppVersion
             }
-            val selectedCheckFailed = if (pgToolsTestVersion) {
-                pgToolsTestVersionCheckFailed
-            } else {
-                pgToolsProductionVersionCheckFailed
-            }
-
-            if (selectedCheckFailed) {
-                setNewVersionError(pgToolSupportVersion)
-                return
-            }
-
             pgToolSupportVersion.text = String.format(
                 formatNewerVersionOther,
-                selectedVersion,
+                remoteVersionValue(
+                    selectedVersion,
+                    if (pgToolsTestVersion) VersionCheckSource.PGTOOLS_TEST else VersionCheckSource.PGTOOLS
+                ),
                 if (pgToolsTestVersion) " (${getString(R.string.testVersion)})" else ""
             )
         }
 
         updateSelectedPgToolsVersionText()
+
+        fun renderRemoteVersionLabels() {
+            updateSelectedPgToolsVersionText()
+            for (apps in appsInfo) {
+                if (apps.appName in setOf("pok", "pokAres", "PGTools")) continue
+                val source = when (apps.appName) {
+                    "pgSharpRoot" -> VersionCheckSource.PGSHARP
+                    "wrapper" -> VersionCheckSource.DATA_HUB
+                    "polygon" -> VersionCheckSource.POLYGON
+                    "pokemod" -> VersionCheckSource.POKEMOD_APP
+                    "defit" -> VersionCheckSource.DEFIT
+                    "APKMirrorInstaller" -> VersionCheckSource.APKMIRROR
+                    else -> VersionCheckSource.APP_INFO
+                }
+                val hasResult = when (apps.appName) {
+                    "pgSharpRoot" -> pgSharpRootSupportDataLoaded
+                    "wrapper" -> apps.downloadLink.isNotBlank()
+                    else -> apps.appName in loadedAppVersions
+                }
+                view.findViewById<TextView>(apps.newVersionTextId)?.text = getString(
+                    R.string.version_label_latest,
+                    remoteVersionValue(apps.newVersion.takeIf { hasResult }, source)
+                )
+            }
+        }
 
         fun setDownloadActionForVersionError(button: Button, packageName: String) {
             if (appInstalledOrNot(packageName)) {
@@ -990,6 +1037,9 @@ class AppsPoke : Fragment() {
                 Log.i("AppsPoke", "AllCheckDone!!! elapsedMs=${SystemClock.elapsedRealtime() - startedAt} failed=$failedSources")
                 swipeRefreshLayout.isRefreshing = false
             }
+            // Rendering only: completion must not trigger a new request or action recomputation.
+            renderRemoteVersionLabels()
+            updateToolbarSubtitle()
         }
 
         fun launchCheck(source: VersionCheckSource, block: suspend () -> Unit) {
@@ -1296,6 +1346,7 @@ class AppsPoke : Fragment() {
                 }
             }
             if (noEligiblePokemonVersions) setPokemonDownloadActionsForVersionError()
+            renderRemoteVersionLabels()
             updateToolbarSubtitle(needUpdateAppsAmount)
         }
 
@@ -1454,8 +1505,8 @@ class AppsPoke : Fragment() {
                 pokemodVersionList.clear()
                 pokemodSupportDataLoaded = false
                 val noVersions = getString(R.string.versionCheckNoSupportedVersion)
-                pokeSupportVersion.text = String.format(formatNewerVersion, noVersions)
-                pokeAresSupportVersion.text = String.format(formatNewerVersion, noVersions)
+                pokeSupportVersion.text = getString(R.string.version_label_target, noVersions)
+                pokeAresSupportVersion.text = getString(R.string.version_label_target, noVersions)
                 setSupportVersionStatus(R.id.supportVersion_pokemod, getString(R.string.compatibility_unknown))
                 setPokemonDownloadActionsForVersionError()
             }
@@ -1620,7 +1671,7 @@ class AppsPoke : Fragment() {
 
     private fun updatePogoVersionSelection(version: String, view: View) {
         val formatNewerVersionOther: String =
-            getString(R.string.format_newerVersion_other)
+            getString(R.string.version_label_target_other)
         val pokeSupportVersion = view.findViewById<TextView>(R.id.pok_new_version)
         val pokeAresSupportVersion = view.findViewById<TextView>(R.id.pokAres_new_version)
 

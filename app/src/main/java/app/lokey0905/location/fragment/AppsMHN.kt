@@ -25,6 +25,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.preference.PreferenceManager
 import app.lokey0905.location.R
+import app.lokey0905.location.version.VersionCheckSummary
+import app.lokey0905.location.version.getVersionCheckSummary
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdView
 import com.google.android.gms.ads.MobileAds
@@ -244,15 +246,39 @@ class AppsMHN : Fragment() {
 
     @SuppressLint("SetTextI18n")
     private fun setupAppVersionInfo(view: View) {
-        val formatInstallVersion = resources.getString(R.string.format_installVersion)
-        val formatNewerVersionOther = resources.getString(R.string.format_newerVersion_other)
-        val formatNewerVersion = resources.getString(R.string.format_newerVersion)
+        val formatInstallVersion = resources.getString(R.string.version_label_installed)
+        val formatNewerVersionOther = resources.getString(R.string.version_label_latest_other)
+        val formatTargetVersionOther = resources.getString(R.string.version_label_target_other)
+        val formatNewerVersion = resources.getString(R.string.version_label_latest)
 
         val mhnSupportVersion = view.findViewById<TextView>(R.id.mhn_new_version)
         val mhnToolsSupportVersion = view.findViewById<TextView>(R.id.mhnTools_new_version)
         val hylianerSupportVersion = view.findViewById<TextView>(R.id.hylianer_new_version)
 
         val spinner = view.findViewById<Spinner>(R.id.mhn_spinner)
+        var displayedUpdateCount = 0
+
+        fun remoteVersionValue(version: String): String =
+            version.takeIf { it.isNotBlank() && it != getString(R.string.notInstalled) }
+                ?: getString(R.string.version_value_unknown)
+
+        fun updateToolbarSubtitle() {
+            val pendingCount = (if (appListCheckDone) 0 else 1) + (if (mhnToolsCheckDone) 0 else 1)
+            val subtitle = when (val summary = getVersionCheckSummary(pendingCount, 0, displayedUpdateCount)) {
+                is VersionCheckSummary.Loading -> getString(R.string.version_summary_loading, summary.pendingCount)
+                is VersionCheckSummary.UpdatesAvailable -> getString(R.string.format_installApps, summary.count)
+                is VersionCheckSummary.PartialFailure -> getString(R.string.version_summary_partial_failure)
+                VersionCheckSummary.Complete -> getString(R.string.version_summary_complete)
+            }
+            view.findViewById<com.google.android.material.appbar.SubtitleCollapsingToolbarLayout>(
+                R.id.toolbar_layout
+            ).subtitle = subtitle
+        }
+
+        // These are display values only; comparison and download sentinels stay unchanged.
+        mhnSupportVersion.text = getString(R.string.version_label_target, remoteVersionValue(mhnVersion))
+        mhnToolsSupportVersion.text = getString(R.string.version_label_latest, remoteVersionValue(mhnToolsVersion))
+        hylianerSupportVersion.text = getString(R.string.version_label_latest, getString(R.string.version_value_unknown))
 
         fun checkAppVersion(fetchRemoteVersions: Boolean = true, showDialogs: Boolean = true) {
             var needUpdateAppsAmount = 0
@@ -294,6 +320,7 @@ class AppsMHN : Fragment() {
                 val url = resources.getString(R.string.url_appInfo)
                 extractAppVersionsFromJson(url) {
                     appListCheckDone = true
+                    updateToolbarSubtitle()
                     if (mhnToolsCheckDone)
                         view.findViewById<androidx.swiperefreshlayout.widget.SwipeRefreshLayout>(R.id.swipeRefreshLayout).isRefreshing =
                             false
@@ -307,12 +334,12 @@ class AppsMHN : Fragment() {
             gpsInstallVersion.text =
                 String.format(
                     formatInstallVersion,
-                    boolToInstalled(appInstalledOrNot(gps64PackageName))
+                    appInstalledVersion(gps64PackageName)
                 )
             hylianerInstallVersion.text =
                 String.format(
                     formatInstallVersion,
-                    boolToInstalled(appInstalledOrNot(hylianerPackageName))
+                    appInstalledVersion(hylianerPackageName)
                 )
 
             fun setMhnDownloadButton(isUpdate: Boolean = false, isInstalled: Boolean = false) {
@@ -428,22 +455,13 @@ class AppsMHN : Fragment() {
                 setDownloadAction(mhnToolsDownloadButton, download)
             }
 
-            if (needUpdateAppsAmount > 0) {
-                view.findViewById<com.google.android.material.appbar.SubtitleCollapsingToolbarLayout>(
-                    R.id.toolbar_layout
-                ).subtitle = String.format(
-                    resources.getString(R.string.format_installApps),
-                    needUpdateAppsAmount
-                )
-            } else {
-                view.findViewById<com.google.android.material.appbar.SubtitleCollapsingToolbarLayout>(
-                    R.id.toolbar_layout
-                ).subtitle = getString(R.string.appsAllUpdated)
-            }
+            displayedUpdateCount = needUpdateAppsAmount
+            updateToolbarSubtitle()
         }
 
         fun getMHNToolsVersion() {
             mhnToolsCheckDone = false
+            updateToolbarSubtitle()
             var url = resources.getString(R.string.url_mhnJson)
             if (mhnTestVersion)
                 url = resources.getString(R.string.url_mhnJsonTest)
@@ -492,22 +510,23 @@ class AppsMHN : Fragment() {
                 spinner.setSelection(selectedIndex)
 
                 mhnSupportVersion.text = String.format(
-                    formatNewerVersionOther,
-                    mhnVersion,
+                    formatTargetVersionOther,
+                    remoteVersionValue(mhnVersion),
                     versionType
                 )
                 mhnToolsSupportVersion.text = String.format(
                     formatNewerVersionOther,
-                    mhnToolsVersion,
+                    remoteVersionValue(mhnToolsVersion),
                     versionType
                 )
                 hylianerSupportVersion.text = String.format(
                     formatNewerVersion,
-                    "未知",
+                    getString(R.string.version_value_unknown),
                 )
                 checkAppVersion(fetchRemoteVersions = false, showDialogs = false)
 
                 mhnToolsCheckDone = true
+                updateToolbarSubtitle()
                 if (appListCheckDone)
                     view.findViewById<androidx.swiperefreshlayout.widget.SwipeRefreshLayout>(R.id.swipeRefreshLayout).isRefreshing =
                         false
@@ -556,7 +575,7 @@ class AppsMHN : Fragment() {
                         mhnUrl = arm64Url
                         mhnVersion = version
                         mhnSupportVersion.text = String.format(
-                            formatNewerVersionOther,
+                            formatTargetVersionOther,
                             version,
                             if (mhnTestVersion)
                                 "(${getText(R.string.testVersion)})"
