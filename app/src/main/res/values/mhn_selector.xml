@@ -1,3 +1,6 @@
 <resources>
     <string name="mhn_target_version">目標 MH Now 版本</string>
+    <string name="compatibility_tool_mhntools">MHNTools</string>
+    <string name="compatibility_tool_mhntools_test">MHNTools 測試版</string>
+    <string name="mhn_supported_versions_empty">目前沒有支援版本</string>
 </resources>

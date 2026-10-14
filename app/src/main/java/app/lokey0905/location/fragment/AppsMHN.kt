@@ -23,23 +23,32 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.preference.PreferenceManager
 import app.lokey0905.location.R
+import app.lokey0905.location.api.MhnToolsChannel
+import app.lokey0905.location.api.MhnToolsVersionInfo
+import app.lokey0905.location.api.parseMhnToolsVersionInfo
+import app.lokey0905.location.api.mergeMhnSupportedVersions
+import app.lokey0905.location.version.CompatibilityStatus
+import app.lokey0905.location.version.getCompatibilityStatus
 import app.lokey0905.location.version.VersionCheckSummary
 import app.lokey0905.location.version.getVersionCheckSummary
-import app.lokey0905.location.version.selectMhnTargetVersion
+import app.lokey0905.location.version.selectMhnTargetVersionDuringRefresh
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdView
 import com.google.android.gms.ads.MobileAds
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.android.material.materialswitch.MaterialSwitch
+import com.google.android.material.button.MaterialButton
+import com.google.android.material.color.MaterialColors
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.MaterialAutoCompleteTextView
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.withContext
 import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.launch
 import org.json.JSONObject
-import java.io.BufferedReader
-import java.io.InputStreamReader
 import java.net.HttpURLConnection
 import java.net.URL
 import androidx.core.net.toUri
@@ -49,25 +58,29 @@ class AppsMHN : Fragment() {
         const val DOWNLOAD_BUTTON_ACTION_OPEN_APP = "open_app"
         const val STATE_SELECTED_MHN_VERSION = "selected_mhn_version"
         const val STATE_MHN_TEST_VERSION = "mhn_test_version"
+        const val STATE_SUPPORTED_VERSIONS_EXPANDED = "mhn_supported_versions_expanded"
     }
 
     private val gameVersionsMap = mutableMapOf<String, String>()
     private var mhnToolsVersion: String = "未安裝"
     private var mhnToolsUrl: String = ""
-    private var mhnToolsHash = ""
     private var mhnUrl: String = ""
     private var mhnVersion: String = "未安裝"
 
     private var mhn_download_on_apkmirror = false
     private var mhnTestVersion = false
+    private var allSupportedVersionsExpanded = false
+    private val mhnToolsResults = mutableMapOf<MhnToolsChannel, MhnToolsVersionInfo>()
+    private val pendingMhnTools = mutableSetOf<MhnToolsChannel>()
+    private val failedMhnTools = mutableSetOf<MhnToolsChannel>()
+    private var versionCheckJob: Job? = null
 
     private var url_joystick = ""
 
-    private var mhnToolsCheckDone = false
+    private var appListCheckFailed = false
     private var appListCheckDone = false
     private var needsRemoteRefresh = true
     private var refreshLocalAppState: (() -> Unit)? = null
-    private var updatingVersionControls = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -82,9 +95,12 @@ class AppsMHN : Fragment() {
         savedInstanceState?.getString(STATE_SELECTED_MHN_VERSION)
             ?.takeIf { it.isNotBlank() }
             ?.let { mhnVersion = it }
+        allSupportedVersionsExpanded = savedInstanceState?.getBoolean(
+            STATE_SUPPORTED_VERSIONS_EXPANDED, allSupportedVersionsExpanded
+        ) ?: allSupportedVersionsExpanded
         mhn_download_on_apkmirror = sharedPreferences.getBoolean("mhn_download_on_apkmirror", false)
 
-        view.findViewById<MaterialSwitch>(R.id.mhnTestVersion_switch).isChecked = mhnTestVersion
+        setupCompatibilityCard(view)
         setupListeners(view)
 
         MobileAds.initialize(requireActivity())
@@ -114,11 +130,7 @@ class AppsMHN : Fragment() {
             val useTestVersion = bundle.getBoolean("bundleKey")
             if (mhnTestVersion != useTestVersion) {
                 mhnTestVersion = useTestVersion
-                updatingVersionControls = true
-                view.findViewById<MaterialSwitch>(R.id.mhnTestVersion_switch).isChecked = useTestVersion
-                updatingVersionControls = false
-                needsRemoteRefresh = true
-                refreshVersionInfoIfNeeded()
+                if (isResumed && !isHidden) refreshLocalAppState?.invoke()
             }
         }
     }
@@ -127,10 +139,13 @@ class AppsMHN : Fragment() {
         super.onSaveInstanceState(outState)
         outState.putString(STATE_SELECTED_MHN_VERSION, mhnVersion)
         outState.putBoolean(STATE_MHN_TEST_VERSION, mhnTestVersion)
+        outState.putBoolean(STATE_SUPPORTED_VERSIONS_EXPANDED, allSupportedVersionsExpanded)
     }
 
     override fun onResume() {
         super.onResume()
+        mhnTestVersion = PreferenceManager.getDefaultSharedPreferences(requireContext())
+            .getBoolean("mhntools_testversion", false)
         refreshVersionInfoIfNeeded()
     }
 
@@ -141,9 +156,10 @@ class AppsMHN : Fragment() {
     }
 
     override fun onDestroyView() {
+        versionCheckJob?.cancel()
+        versionCheckJob = null
         refreshLocalAppState = null
         needsRemoteRefresh = true
-        updatingVersionControls = false
         super.onDestroyView()
     }
 
@@ -167,7 +183,6 @@ class AppsMHN : Fragment() {
         val gpsRemoveButton = view.findViewById<Button>(R.id.remove_gps)
         val hylianerDownloadButton = view.findViewById<Button>(R.id.download_hylianer)
         val hylianerRemoveButton = view.findViewById<Button>(R.id.remove_hylianer)
-        view.findViewById<MaterialSwitch>(R.id.mhnTestVersion_switch)
 
         mhnDownloadButton.setOnClickListener {
             if (isOpenAppAction(mhnDownloadButton)) {
@@ -244,18 +259,101 @@ class AppsMHN : Fragment() {
             }
     }
 
+    private fun setupCompatibilityCard(view: View) {
+        view.findViewById<MaterialButton>(R.id.mhn_toggle_all_supported_versions)
+            .setOnClickListener {
+                allSupportedVersionsExpanded = !allSupportedVersionsExpanded
+                applySupportedVersionsVisibility(view)
+            }
+        applySupportedVersionsVisibility(view)
+        updateCompatibilitySummary(view)
+    }
+
+    private fun applySupportedVersionsVisibility(view: View) {
+        view.findViewById<LinearLayout>(R.id.mhn_all_supported_versions).visibility =
+            if (allSupportedVersionsExpanded) View.VISIBLE else View.GONE
+        view.findViewById<MaterialButton>(R.id.mhn_toggle_all_supported_versions).apply {
+            setText(if (allSupportedVersionsExpanded) R.string.compatibility_collapse_all_versions
+                else R.string.compatibility_show_all_versions)
+            setIconResource(if (allSupportedVersionsExpanded) R.drawable.baseline_expand_less_24
+                else R.drawable.baseline_expand_more_24)
+        }
+    }
+
+    private fun updateCompatibilitySummary(view: View) {
+        val rows = view.findViewById<LinearLayout>(R.id.mhn_compatibility_status_rows)
+        MhnToolsChannel.entries.forEachIndexed { index, channel ->
+            val row = rows.getChildAt(index)
+            val icon = row.findViewById<TextView>(R.id.compatibility_status_icon)
+            val statusText = row.findViewById<TextView>(R.id.compatibility_status_text)
+            row.findViewById<TextView>(R.id.compatibility_tool_name).setText(
+                if (channel == MhnToolsChannel.TEST) R.string.compatibility_tool_mhntools_test
+                else R.string.compatibility_tool_mhntools
+            )
+            val versions = mhnToolsResults[channel]?.supportedVersions
+            val (iconRes, label, colorAttr) = when (
+                val status = getCompatibilityStatus(mhnVersion, versions)
+            ) {
+                CompatibilityStatus.Supported -> Triple(
+                    R.string.compatibility_icon_supported, getString(R.string.compatibility_supported),
+                    androidx.appcompat.R.attr.colorPrimary
+                )
+                CompatibilityStatus.Unsupported -> Triple(
+                    R.string.compatibility_icon_unsupported, getString(R.string.compatibility_unsupported),
+                    androidx.appcompat.R.attr.colorError
+                )
+                is CompatibilityStatus.UnsupportedWithLatestSupportedVersion -> Triple(
+                    R.string.compatibility_icon_unsupported,
+                    getString(R.string.compatibility_latest_supported, status.version),
+                    androidx.appcompat.R.attr.colorError
+                )
+                CompatibilityStatus.Unknown -> Triple(
+                    R.string.compatibility_icon_unknown, getString(R.string.compatibility_unknown),
+                    com.google.android.material.R.attr.colorTertiary
+                )
+            }
+            val color = MaterialColors.getColor(row, colorAttr)
+            icon.setText(iconRes)
+            icon.setTextColor(color)
+            statusText.text = label
+            statusText.setTextColor(color)
+            val versionsText = versions?.let {
+                if (it.isEmpty()) getString(R.string.mhn_supported_versions_empty)
+                else it.joinToString("、")
+            } ?: getString(R.string.compatibility_unknown)
+            view.findViewById<TextView>(
+                if (channel == MhnToolsChannel.TEST) R.id.supportVersion_MHNTools_test
+                else R.id.supportVersion_MHNTools
+            ).text = versionsText
+        }
+    }
+
     @SuppressLint("SetTextI18n")
     private fun setupAppVersionInfo(view: View) {
+        versionCheckJob?.cancel()
+        val checkJob = SupervisorJob(viewLifecycleOwner.lifecycleScope.coroutineContext[Job])
+        versionCheckJob = checkJob
+        val checkScope = CoroutineScope(viewLifecycleOwner.lifecycleScope.coroutineContext + checkJob)
+        fun isCurrentCheck() = checkJob.isActive && versionCheckJob === checkJob
+        mhnToolsResults.clear()
+        pendingMhnTools.clear()
+        pendingMhnTools.addAll(MhnToolsChannel.entries)
+        failedMhnTools.clear()
+        appListCheckDone = false
+        appListCheckFailed = false
+        gameVersionsMap.clear()
+        mhnUrl = ""
         val formatInstallVersion = resources.getString(R.string.version_label_installed)
-        val formatNewerVersionOther = resources.getString(R.string.version_label_latest_other)
-        val formatTargetVersionOther = resources.getString(R.string.version_label_target_other)
-        val formatNewerVersion = resources.getString(R.string.version_label_latest)
 
         val mhnSupportVersion = view.findViewById<TextView>(R.id.mhn_new_version)
         val mhnToolsSupportVersion = view.findViewById<TextView>(R.id.mhnTools_new_version)
         val hylianerSupportVersion = view.findViewById<TextView>(R.id.hylianer_new_version)
 
         val versionSelector = view.findViewById<MaterialAutoCompleteTextView>(R.id.mhn_spinner)
+        // A previous round's popup must not select a version missing from the new URL map.
+        versionSelector.dismissDropDown()
+        versionSelector.setAdapter(ArrayAdapter<String>(view.context, android.R.layout.simple_list_item_1, emptyList()))
+        versionSelector.isEnabled = false
         versionSelector.setText(
             mhnVersion.takeIf { it.isNotBlank() && it != getString(R.string.notInstalled) }.orEmpty(),
             false
@@ -267,9 +365,16 @@ class AppsMHN : Fragment() {
                 ?: getString(R.string.version_value_unknown)
 
         fun updateToolbarSubtitle() {
-            val pendingCount = (if (appListCheckDone) 0 else 1) + (if (mhnToolsCheckDone) 0 else 1)
-            val subtitle = when (val summary = getVersionCheckSummary(pendingCount, 0, displayedUpdateCount)) {
-                is VersionCheckSummary.Loading -> getString(R.string.version_summary_loading, summary.pendingCount)
+            val pendingCount = (if (appListCheckDone) 0 else 1) + pendingMhnTools.size
+            val failedCount = failedMhnTools.size + if (appListCheckFailed) 1 else 0
+            view.findViewById<androidx.swiperefreshlayout.widget.SwipeRefreshLayout>(
+                R.id.swipeRefreshLayout
+            ).isRefreshing = pendingCount > 0
+            val subtitle = when (val summary = getVersionCheckSummary(pendingCount, failedCount, displayedUpdateCount)) {
+                is VersionCheckSummary.Loading -> getString(
+                    if (summary.failedCount > 0) R.string.version_summary_loading_with_failures
+                    else R.string.version_summary_loading, summary.pendingCount
+                )
                 is VersionCheckSummary.UpdatesAvailable -> getString(R.string.format_installApps, summary.count)
                 is VersionCheckSummary.PartialFailure -> getString(R.string.version_summary_partial_failure)
                 VersionCheckSummary.Complete -> getString(R.string.version_summary_complete)
@@ -284,7 +389,21 @@ class AppsMHN : Fragment() {
         mhnToolsSupportVersion.text = getString(R.string.version_label_latest, remoteVersionValue(mhnToolsVersion))
         hylianerSupportVersion.text = getString(R.string.version_label_latest, getString(R.string.version_value_unknown))
 
-        fun checkAppVersion(fetchRemoteVersions: Boolean = true, showDialogs: Boolean = true) {
+        fun checkAppVersion(showDialogs: Boolean = true) {
+            val selectedChannel = if (mhnTestVersion) MhnToolsChannel.TEST else MhnToolsChannel.RELEASE
+            val selectedInfo = mhnToolsResults[selectedChannel]
+            mhnToolsVersion = selectedInfo?.appVersion ?: getString(R.string.notInstalled)
+            mhnToolsUrl = selectedInfo?.downloadUrl.orEmpty()
+            val remoteToolVersion = when {
+                selectedChannel in pendingMhnTools -> getString(R.string.version_value_loading)
+                selectedChannel in failedMhnTools -> getString(R.string.version_value_failed)
+                else -> remoteVersionValue(mhnToolsVersion)
+            }
+            mhnToolsSupportVersion.text = getString(
+                R.string.version_label_latest_other, remoteToolVersion,
+                if (mhnTestVersion) " (${getString(R.string.testVersion)})" else ""
+            )
+            mhnSupportVersion.text = getString(R.string.version_label_target, remoteVersionValue(mhnVersion))
             var needUpdateAppsAmount = 0
 
             val mhnPackageName = resources.getString(R.string.packageName_MHNow)
@@ -319,17 +438,11 @@ class AppsMHN : Fragment() {
             hylianerRemoveButton.visibility =
                 if (appInstalledVersion(hylianerPackageName) == "未安裝") View.GONE else View.VISIBLE
 
-            if (fetchRemoteVersions) {
-                appListCheckDone = false
-                val url = resources.getString(R.string.url_appInfo)
-                extractAppVersionsFromJson(url) {
-                    appListCheckDone = true
-                    updateToolbarSubtitle()
-                    if (mhnToolsCheckDone)
-                        view.findViewById<androidx.swiperefreshlayout.widget.SwipeRefreshLayout>(R.id.swipeRefreshLayout).isRefreshing =
-                            false
-                }
-            }
+            // Keep overflow actions consistent with the same local installation check.
+            view.findViewById<ImageButton>(R.id.mhn_more).visibility = mhnRemoveButton.visibility
+            view.findViewById<ImageButton>(R.id.mhnTools_more).visibility = mhnToolsRemoveButton.visibility
+            view.findViewById<ImageButton>(R.id.gps_more).visibility = gpsRemoveButton.visibility
+            view.findViewById<ImageButton>(R.id.hylianer_more).visibility = hylianerRemoveButton.visibility
 
             mhnInstallVersion.text =
                 String.format(formatInstallVersion, appInstalledVersion(mhnPackageName))
@@ -371,7 +484,6 @@ class AppsMHN : Fragment() {
 
             val mhnInstalledVersion = appInstalledVersion(mhnPackageName)
             val mhnToolsInstalledVersion = appInstalledVersion(mhnToolsPackageName)
-            val mhnTestVersionSwitch = view.findViewById<MaterialSwitch>(R.id.mhnTestVersion_switch)
 
             if (mhnVersion != "未安裝" && mhnInstalledVersion != "未安裝") {
                 val mhnVersionInt: List<String> = mhnVersion.split(".")
@@ -410,7 +522,10 @@ class AppsMHN : Fragment() {
                                 )
                             }
                             .setPositiveButton("使用測試版") { _, _ ->
-                                mhnTestVersionSwitch.isChecked = true
+                                PreferenceManager.getDefaultSharedPreferences(requireContext())
+                                    .edit().putBoolean("mhntools_testversion", true).apply()
+                                mhnTestVersion = true
+                                refreshLocalAppState?.invoke()
                             }
                             .show()
                     }
@@ -455,114 +570,43 @@ class AppsMHN : Fragment() {
                 } else {
                     setOpenAppAction(mhnToolsDownloadButton)
                 }
+            } else if (mhnToolsInstalledVersion != getString(R.string.notInstalled)) {
+                // Remote metadata can be pending or unavailable without blocking an installed app.
+                setOpenAppAction(mhnToolsDownloadButton)
             } else {
                 setDownloadAction(mhnToolsDownloadButton, download)
             }
 
+            mhnToolsDownloadButton.isEnabled =
+                isOpenAppAction(mhnToolsDownloadButton) || mhnToolsUrl.isNotBlank()
+            if (!isOpenAppAction(mhnDownloadButton) && mhnUrl.isBlank()) {
+                mhnDownloadButton.isEnabled = false
+            }
             displayedUpdateCount = needUpdateAppsAmount
+            updateCompatibilitySummary(view)
             updateToolbarSubtitle()
         }
 
-        fun getMHNToolsVersion() {
-            mhnToolsCheckDone = false
-            updateToolbarSubtitle()
-            var url = resources.getString(R.string.url_mhnJson)
-            if (mhnTestVersion)
-                url = resources.getString(R.string.url_mhnJsonTest)
-            val versionType =
-                if (mhnTestVersion) " (${resources.getString(R.string.testVersion)})" else ""
-
-            extractMHNToolsFromJson(url) { latestMhnVersion, mhnToolsVersion, gameVersionsMap ->
-                val versionsList = ArrayList<String>()
-                var mhnVersionList =
-                    resources.getString(R.string.appsMHNPage_supportVersion_MHNTools)
-
-                for ((version, _) in gameVersionsMap) {
-                    versionsList.add(version)
-                    Log.i(
-                        "mhnTools",
-                        "MHN支援版本: $version\n"
-                    )
-                    mhnVersionList += " $version,"
-                }
-
-                mhnVersionList = if (mhnTestVersion) {
-                    mhnVersionList.substring(
-                        0,
-                        mhnVersionList.length - 1
-                    ) + " (${getText(R.string.testVersion)})"
-
-                } else {
-                    mhnVersionList.substring(0, mhnVersionList.length - 1)
-                }
-
-                view.findViewById<TextView>(R.id.supportVersion_MHNTools).text = mhnVersionList
-
-                //versionsList.reverse() //do not need reverse again
-
-                val adapter: ArrayAdapter<String> = ArrayAdapter(
-                    view.context,
-                    android.R.layout.simple_list_item_1,
-                    versionsList
-                )
-
-                mhnVersion = selectMhnTargetVersion(versionsList, mhnVersion, latestMhnVersion)
-                mhnUrl = gameVersionsMap[mhnVersion].orEmpty()
-                versionSelector.setAdapter(adapter)
-                versionSelector.setText(mhnVersion.takeIf { versionsList.isNotEmpty() }.orEmpty(), false)
-
-                mhnSupportVersion.text = String.format(
-                    formatTargetVersionOther,
-                    remoteVersionValue(mhnVersion),
-                    versionType
-                )
-                mhnToolsSupportVersion.text = String.format(
-                    formatNewerVersionOther,
-                    remoteVersionValue(mhnToolsVersion),
-                    versionType
-                )
-                hylianerSupportVersion.text = String.format(
-                    formatNewerVersion,
-                    getString(R.string.version_value_unknown),
-                )
-                checkAppVersion(fetchRemoteVersions = false, showDialogs = false)
-
-                mhnToolsCheckDone = true
-                updateToolbarSubtitle()
-                if (appListCheckDone)
-                    view.findViewById<androidx.swiperefreshlayout.widget.SwipeRefreshLayout>(R.id.swipeRefreshLayout).isRefreshing =
-                        false
-            }
+        fun updateGameVersionChoices() {
+            // Build the union once per source result, never while rendering individual rows.
+            val versionsList = mergeMhnSupportedVersions(
+                mhnToolsResults[MhnToolsChannel.RELEASE]?.supportedVersions,
+                mhnToolsResults[MhnToolsChannel.TEST]?.supportedVersions
+            )
+            gameVersionsMap.clear()
+            versionsList.forEach { version -> gameVersionsMap[version] = buildMHNDownloadUrl(version) }
+            mhnVersion = selectMhnTargetVersionDuringRefresh(
+                versionsList, mhnVersion, pendingMhnTools.isEmpty()
+            )
+            mhnUrl = gameVersionsMap[mhnVersion].orEmpty()
+            versionSelector.setAdapter(ArrayAdapter(view.context, android.R.layout.simple_list_item_1, versionsList))
+            versionSelector.isEnabled = versionsList.isNotEmpty()
+            versionSelector.setText(
+                mhnVersion.takeIf { it != getString(R.string.notInstalled) }.orEmpty(), false
+            )
         }
 
-        fun setOnCheckedChangeListener() {
-            val mhnTestVersionSwitch = view.findViewById<MaterialSwitch>(R.id.mhnTestVersion_switch)
-
-            mhnTestVersionSwitch.setOnCheckedChangeListener { _, isChecked ->
-                if (updatingVersionControls) return@setOnCheckedChangeListener
-                if (isHidden || !isResumed) {
-                    mhnTestVersion = isChecked
-                    needsRemoteRefresh = true
-                    return@setOnCheckedChangeListener
-                }
-                if (isChecked) {
-                    mhnTestVersion = true
-                    Snackbar.make(
-                        view,
-                        "已切換至測試版",
-                        Snackbar.LENGTH_LONG
-                    ).setAction("Action", null).show()
-                } else {
-                    mhnTestVersion = false
-                    Snackbar.make(
-                        view,
-                        "已切換至正式版",
-                        Snackbar.LENGTH_LONG
-                    ).setAction("Action", null).show()
-                }
-                getMHNToolsVersion()
-            }
-
+        fun setupVersionSelectionListener() {
             versionSelector.setOnItemClickListener { parent, _, position, _ ->
                 val version = parent.getItemAtPosition(position).toString()
                 val arm64Url = gameVersionsMap[version]
@@ -570,174 +614,72 @@ class AppsMHN : Fragment() {
                 if (arm64Url != null) {
                     mhnUrl = arm64Url
                     mhnVersion = version
-                    mhnSupportVersion.text = String.format(
-                        formatTargetVersionOther,
-                        version,
-                        if (mhnTestVersion)
-                            "(${getText(R.string.testVersion)})"
-                        else
-                            ""
-                    )
+                    mhnSupportVersion.text = getString(R.string.version_label_target, version)
                 }
 
+                updateCompatibilitySummary(view)
                 val visible = isResumed && !isHidden
-                checkAppVersion(fetchRemoteVersions = visible, showDialogs = visible)
+                checkAppVersion(showDialogs = visible)
             }
         }
 
         refreshLocalAppState = {
-            checkAppVersion(fetchRemoteVersions = false, showDialogs = false)
+            checkAppVersion(showDialogs = false)
         }
         checkAppVersion()
-        getMHNToolsVersion()
-        setOnCheckedChangeListener()
-    }
+        setupVersionSelectionListener()
 
-    private fun extractAppVersionsFromJson(url: String, onAppVersionsExtracted: () -> Unit) {
-        viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
-
-            try {
-                val urlObject = URL(url)
-                val connection: HttpURLConnection = urlObject.openConnection() as HttpURLConnection
-                connection.requestMethod = "GET"
-
-                val inputStream = connection.inputStream
-                val bufferedReader = BufferedReader(InputStreamReader(inputStream))
-                val response = StringBuilder()
-
-                var line: String? = bufferedReader.readLine()
-                while (line != null) {
-                    response.append(line)
-                    line = bufferedReader.readLine()
+        MhnToolsChannel.entries.forEach { channel ->
+            val url = getString(
+                if (channel == MhnToolsChannel.TEST) R.string.url_mhnJsonTest else R.string.url_mhnJson
+            )
+            checkScope.launch {
+                Log.d("mhnTools", "Checking $channel versions")
+                val result = try {
+                    Result.success(parseMhnToolsVersionInfo(readVersionJson(url), channel))
+                } catch (error: CancellationException) {
+                    throw error
+                } catch (error: Exception) {
+                    Log.w("mhnTools", "Version check failed for $channel", error)
+                    Result.failure(error)
                 }
-
-                bufferedReader.close()
-                coroutineContext.ensureActive()
-
-                val jsonObject = JSONObject(response.toString())
-
-                val mhn = jsonObject.getJSONObject("mhn")
-                val joystick = mhn.getJSONObject("joystick")
-
-
-                url_joystick = joystick.getString("url")
-
-                launch(Dispatchers.Main) {
-                    onAppVersionsExtracted()
-                }
-            } catch (e: CancellationException) {
-                throw e
-            } catch (e: Exception) {
-                e.printStackTrace()
+                if (!isCurrentCheck()) return@launch
+                pendingMhnTools.remove(channel)
+                result.onSuccess { mhnToolsResults[channel] = it }
+                    .onFailure { failedMhnTools.add(channel) }
+                updateGameVersionChoices()
+                checkAppVersion(showDialogs = false)
             }
+        }
+        checkScope.launch {
+            val result = try {
+                val json = JSONObject(readVersionJson(getString(R.string.url_appInfo)))
+                Result.success(json.getJSONObject("mhn").getJSONObject("joystick").getString("url"))
+            } catch (error: CancellationException) {
+                throw error
+            } catch (error: Exception) {
+                Log.w("mhnTools", "App list check failed", error)
+                Result.failure(error)
+            }
+            if (!isCurrentCheck()) return@launch
+            appListCheckDone = true
+            appListCheckFailed = result.isFailure
+            result.onSuccess { url_joystick = it }
+            checkAppVersion(showDialogs = false)
         }
     }
 
-    private fun extractMHNToolsFromJson(
-        url: String,
-        onPogoVersionExtracted: (String, String, MutableMap<String, String>) -> Unit,
-    ) {
-        viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
-
-            try {
-                val urlObject = URL(url)
-                val connection: HttpURLConnection = urlObject.openConnection() as HttpURLConnection
-                connection.requestMethod = "GET"
-
-                val inputStream = connection.inputStream
-                val bufferedReader = BufferedReader(InputStreamReader(inputStream))
-                val response = StringBuilder()
-
-                var line: String? = bufferedReader.readLine()
-                while (line != null) {
-                    response.append(line)
-                    line = bufferedReader.readLine()
-                }
-
-                bufferedReader.close()
+    private suspend fun readVersionJson(url: String): String = withContext(Dispatchers.IO) {
+        val connection = URL(url).openConnection() as HttpURLConnection
+        try {
+            connection.requestMethod = "GET"
+            connection.connectTimeout = 12_000
+            connection.readTimeout = 15_000
+            connection.inputStream.bufferedReader().use { it.readText() }.also {
                 coroutineContext.ensureActive()
-
-                val jsonObject = JSONObject(response.toString())
-                val supportedVersions = jsonObject.optJSONObject("supportedVersions")
-
-                if (supportedVersions == null) {
-                    Log.e("mhnTools", "supportedVersions not found in response")
-                    launch(Dispatchers.Main) {
-                        onPogoVersionExtracted(mhnVersion, mhnToolsVersion, gameVersionsMap)
-                    }
-                    return@launch
-                }
-
-                val versionKeys = mutableListOf<String>()
-                val iterator = supportedVersions.keys()
-                while (iterator.hasNext()) {
-                    versionKeys.add(iterator.next())
-                }
-
-                if (versionKeys.isEmpty()) {
-                    Log.e("mhnTools", "No version entries inside supportedVersions")
-                    launch(Dispatchers.Main) {
-                        onPogoVersionExtracted(mhnVersion, mhnToolsVersion, gameVersionsMap)
-                    }
-                    return@launch
-                }
-
-                versionKeys.sortWith { first, second -> compareVersions(second, first) }
-
-                gameVersionsMap.clear()
-                var latestAppVersionCode = -1
-                var latestAppVersionName = ""
-                var latestAppVersionHash = ""
-
-                versionKeys.forEach { versionKey ->
-                    val versionObject = supportedVersions.optJSONObject(versionKey) ?: return@forEach
-                    val gameObject = versionObject.optJSONObject("game")
-                    val gameVersionName = gameObject?.optString("gameVersionName", versionKey) ?: versionKey
-                    val downloadUrl = buildMHNDownloadUrl(gameVersionName)
-                    gameVersionsMap[gameVersionName] = downloadUrl
-
-                    val appObject = versionObject.optJSONObject("app")
-                    val appVersionCode = appObject?.optInt("appVersionCode", -1) ?: -1
-                    val appVersionName = appObject?.optString("appVersionName").orEmpty()
-                    val appVersionHash = appObject?.optString("appVersionHash").orEmpty()
-
-                    if (appVersionCode > latestAppVersionCode) {
-                        latestAppVersionCode = appVersionCode
-                        latestAppVersionName = appVersionName
-                        latestAppVersionHash = appVersionHash
-                    }
-                }
-
-                val latestGameKey = versionKeys.first()
-                val latestGameObject = supportedVersions.optJSONObject(latestGameKey)
-                val latestGameVersionName = latestGameObject?.optJSONObject("game")
-                    ?.optString("gameVersionName", latestGameKey) ?: latestGameKey
-
-                mhnToolsVersion = if (latestAppVersionName.isNotBlank()) latestAppVersionName else "未安裝"
-                mhnToolsHash = latestAppVersionHash
-                mhnToolsUrl = if (mhnToolsVersion != "未安裝" && latestAppVersionHash.isNotBlank()) {
-                    if (mhnTestVersion) {
-                        "https://assets.mhntools.net/test-mhntools-$mhnToolsVersion-$mhnToolsHash.apk?"
-                    } else {
-                        "https://assets.mhntools.net/mhntools-$mhnToolsVersion-$mhnToolsHash.apk?"
-                    }
-                } else {
-                    ""
-                }
-
-                versionKeys.forEach { versionKey ->
-                    val urlForLog = gameVersionsMap[versionKey] ?: gameVersionsMap[latestGameVersionName]
-                    Log.i("mhnTools", "mhnVersion: $versionKey\nmhnUrl: ${urlForLog ?: ""}\n")
-                }
-
-                launch(Dispatchers.Main) {
-                    onPogoVersionExtracted(latestGameVersionName, mhnToolsVersion, gameVersionsMap)
-                }
-            } catch (e: CancellationException) {
-                throw e
-            } catch (e: Exception) {
-                e.printStackTrace()
             }
+        } finally {
+            connection.disconnect()
         }
     }
 
@@ -749,21 +691,6 @@ class AppsMHN : Fragment() {
         return "https://www.apkmirror.com/apk/scopely-explore-inc/monster-hunter-now/" +
             "monster-hunter-now-$normalizedVersion-release/" +
             "monster-hunter-now-$normalizedVersion-android-apk-download/"
-    }
-
-    private fun compareVersions(v1: String, v2: String): Int {
-        val numericV1 = v1.split(" ")[0].split("-")[0]
-        val numericV2 = v2.split(" ")[0].split("-")[0]
-
-        val parts1 = numericV1.split(".")
-        val parts2 = numericV2.split(".")
-        val length = maxOf(parts1.size, parts2.size)
-        for (i in 0 until length) {
-            val p1 = parts1.getOrNull(i)?.toIntOrNull() ?: 0
-            val p2 = parts2.getOrNull(i)?.toIntOrNull() ?: 0
-            if (p1 != p2) return p1 - p2
-        }
-        return 0
     }
 
     private fun showAlertDialog(title: String, message: String) {

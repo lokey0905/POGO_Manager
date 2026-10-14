@@ -71,29 +71,20 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="16dp"
-                        android:layout_columnWeight="1"
-                        android:checkable="true"
-                        android:clickable="true"
-                        android:focusable="true"
-                        tools:layout_editor_absoluteX="32dp">
+                        app:cardCornerRadius="16dp">
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_margin="20dp"
+                            android:animateLayoutChanges="true"
                             android:orientation="vertical">
-
-                            <TextView
-                                android:id="@+id/supportVersion_MHNTools"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="@string/appsMHNPage_supportVersion_MHNTools" />
 
                             <com.google.android.material.textfield.TextInputLayout
                                 style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="16dp"
+                                android:layout_marginTop="12dp"
                                 android:hint="@string/mhn_target_version">
 
                                 <com.google.android.material.textfield.MaterialAutoCompleteTextView
@@ -104,12 +95,74 @@
                                     android:saveEnabled="false" />
                             </com.google.android.material.textfield.TextInputLayout>
 
-                            <com.google.android.material.materialswitch.MaterialSwitch
-                                android:id="@+id/mhnTestVersion_switch"
+                            <LinearLayout
+                                android:id="@+id/mhn_compatibility_status_rows"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="8dp"
-                                android:text="@string/testVersion" />
+                                android:layout_marginTop="12dp"
+                                android:orientation="vertical">
+
+                                <include layout="@layout/item_pogo_compatibility_status" />
+                                <include layout="@layout/item_pogo_compatibility_status" />
+                            </LinearLayout>
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/mhn_toggle_all_supported_versions"
+                                style="@style/Widget.Material3.Button.TextButton"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="4dp"
+                                android:text="@string/compatibility_show_all_versions"
+                                app:icon="@drawable/baseline_expand_more_24"
+                                app:iconGravity="textEnd"
+                                app:iconTint="?attr/colorPrimary" />
+
+                            <LinearLayout
+                                android:id="@+id/mhn_all_supported_versions"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="4dp"
+                                android:orientation="vertical"
+                                android:visibility="gone"
+                                tools:visibility="visible">
+
+                                <View
+                                    android:layout_width="match_parent"
+                                    android:layout_height="1dp"
+                                    android:layout_marginBottom="12dp"
+                                    android:background="?attr/colorOutlineVariant" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/compatibility_tool_mhntools"
+                                    android:textAppearance="?attr/textAppearanceTitleSmall"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/supportVersion_MHNTools"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="2dp"
+                                    android:text="@string/compatibility_unknown"
+                                    android:textAppearance="?attr/textAppearanceBodyMedium" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="12dp"
+                                    android:text="@string/compatibility_tool_mhntools_test"
+                                    android:textAppearance="?attr/textAppearanceTitleSmall"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/supportVersion_MHNTools_test"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="2dp"
+                                    android:text="@string/compatibility_unknown"
+                                    android:textAppearance="?attr/textAppearanceBodyMedium" />
+                            </LinearLayout>
                         </LinearLayout>
                     </com.google.android.material.card.MaterialCardView>
 
@@ -171,6 +224,7 @@
 
                             <ImageButton
                                 android:id="@+id/mhn_more"
+                                android:visibility="gone"
                                 style="?attr/materialIconButtonStyle"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
@@ -287,6 +341,7 @@
 
                             <ImageButton
                                 android:id="@+id/gps_more"
+                                android:visibility="gone"
                                 style="?attr/materialIconButtonStyle"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
@@ -414,6 +469,7 @@
 
                             <ImageButton
                                 android:id="@+id/mhnTools_more"
+                                android:visibility="gone"
                                 style="?attr/materialIconButtonStyle"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
@@ -533,6 +589,7 @@
 
                             <ImageButton
                                 android:id="@+id/hylianer_more"
+                                android:visibility="gone"
                                 style="?attr/materialIconButtonStyle"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
