@@ -28,6 +28,7 @@
             app:titleCollapseMode="scale">
 
             <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:layout_collapseMode="pin"/>
@@ -313,6 +314,7 @@
                                 android:layout_height="50dp"
                                 android:importantForAccessibility="no"
                                 app:srcCompat="@drawable/gps_icon"
+                                android:id="@+id/gps_icon"
                                 tools:layout_editor_absoluteX="50dp"
                                 tools:layout_editor_absoluteY="50dp" />
 
@@ -655,6 +657,12 @@
                         </LinearLayout>
 
                     </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/mhn_installer_cards"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical" />
 
                 </LinearLayout>
 

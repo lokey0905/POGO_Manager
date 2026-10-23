@@ -55,6 +55,7 @@ class ShortCuts: Fragment() {
         savedInstanceState: Bundle?,
     ): View {
         val view: View = inflater.inflate(R.layout.fragment_shortcuts, container, false)
+        (requireActivity() as app.lokey0905.location.MainActivity).bindSettingsToolbar(view)
         setupResponsiveGrids(view)
 
         fun setButton() {

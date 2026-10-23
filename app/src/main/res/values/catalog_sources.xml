@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="catalog_package_pikmin" translatable="false">com.nianticlabs.pikmin</string>
+    <string name="catalog_package_fitness" translatable="false">com.lokey0905.FitnessHooks</string>
+    <string name="catalog_package_google_fit" translatable="false">com.google.android.apps.fitness</string>
+    <string name="catalog_package_health_connect" translatable="false">com.google.android.apps.healthdata</string>
+
+    <string name="catalog_url_pikmin_download" translatable="false">https://www.apkmirror.com/apk/scopely-explore-inc/pikmin-bloom/</string>
+    <string name="catalog_url_fitness_api" translatable="false">https://api.github.com/repos/lokey0905/Fitness-Hooks/releases/latest</string>
+    <string name="catalog_url_fitness_releases" translatable="false">https://github.com/lokey0905/Fitness-Hooks/releases</string>
+    <string name="catalog_url_google_fit" translatable="false">https://play.google.com/store/apps/details?id=com.google.android.apps.fitness</string>
+    <string name="catalog_url_health_connect" translatable="false">https://play.google.com/store/apps/details?id=com.google.android.apps.healthdata</string>
+    <string name="catalog_url_defit_fallback" translatable="false">https://play.google.com/store/apps/details?id=com.fitness.debugger</string>
+    <string name="catalog_url_installer_fallback" translatable="false">https://play.google.com/store/apps/details?id=com.apkmirror.helper.prod</string>
+    <!-- Official help, not the Play APK (which has a different package from this project's joystick). -->
+    <string name="catalog_url_joystick_fallback" translatable="false">https://theappninjas.com/docs/faq/</string>
+</resources>

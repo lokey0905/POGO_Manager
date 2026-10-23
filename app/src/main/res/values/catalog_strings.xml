@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="catalog_pikmin_page_title">皮克敏 APP 列表</string>
+    <string name="catalog_title_pikmin">Pikmin Bloom</string>
+    <string name="catalog_title_joystick">GPS JoyStick</string>
+    <string name="catalog_title_defit">DeFit</string>
+    <string name="catalog_title_fitness">Fitness Hooks</string>
+    <string name="catalog_title_google_fit">Google Fit</string>
+    <string name="catalog_title_health_connect">Health Connect</string>
+    <string name="catalog_title_installer">APKMirror Installer</string>
+    <string name="catalog_category_game">原版皮克敏客戶端</string>
+    <string name="catalog_category_location">可修改手機定位</string>
+    <string name="catalog_category_fitness">步數增加工具</string>
+    <string name="catalog_category_google_fit">健身資料記錄與同步</string>
+    <string name="catalog_category_integration">健康資料整合</string>
+    <string name="catalog_category_installer">安裝工具</string>
+    <string name="catalog_section_health">健康資料</string>
+    <string name="catalog_source_failed">版本查詢失敗，可下拉重試或開啟下載頁面。</string>
+    <string name="catalog_source_loading">版本查詢中</string>
+    <string name="catalog_source_stale">%1$s（上次成功結果，本次查詢失敗）</string>
+    <string name="catalog_unavailable">此裝置無法開啟</string>
+    <string name="catalog_open_settings">開啟設定</string>
+    <string name="catalog_app_details">APP 資訊</string>
+    <string name="catalog_download_page">下載頁面</string>
+    <string name="catalog_more_description">%1$s 的更多選項</string>
+    <string name="catalog_launch_failed">找不到可開啟此項目的 APP</string>
+    <string name="catalog_not_installed">未安裝</string>
+    <string name="catalog_system_component">Android 系統元件</string>
+    <string name="catalog_summary_complete">版本查詢完成</string>
+    <string name="catalog_store_title">即將開啟 Google Play</string>
+    <string name="catalog_store_message">請在 Play 商店確認此 APP 的安裝或更新資訊。</string>
+</resources>

@@ -14,6 +14,7 @@ import android.os.IBinder
 import android.os.RemoteException
 import android.system.Os
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.activity.OnBackPressedCallback
@@ -31,6 +32,7 @@ import androidx.preference.PreferenceManager
 import app.lokey0905.location.databinding.ActivityMainBinding
 import app.lokey0905.location.fragment.AppsMHN
 import app.lokey0905.location.fragment.AppsPoke
+import app.lokey0905.location.fragment.AppsPikmin
 import app.lokey0905.location.fragment.Home
 import app.lokey0905.location.fragment.Preferences
 import app.lokey0905.location.fragment.ShortCuts
@@ -41,6 +43,7 @@ import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
 import com.google.android.gms.location.LocationServices
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.navigation.NavigationBarView
 import com.google.android.material.navigationrail.NavigationRailView
 import com.google.android.material.snackbar.Snackbar
@@ -168,17 +171,19 @@ class MainActivity : AppCompatActivity() {
             .show()
     }
 
-    private fun MainTab.menuId(): Int = when (this) {
+    private fun MainTab.menuId(): Int? = when (this) {
         MainTab.POKEMON -> R.id.nav_poke
         MainTab.MONSTER_HUNTER -> R.id.nav_mhn
         MainTab.HOME -> R.id.nav_home
         MainTab.SHORTCUTS -> R.id.nav_shortcuts
-        MainTab.SETTINGS -> R.id.nav_setting
+        MainTab.SETTINGS -> null
+        MainTab.PIKMIN -> R.id.nav_pikmin
     }
 
     private fun tabOf(fragment: Fragment): MainTab? = when (fragment) {
         is AppsPoke -> MainTab.POKEMON
         is AppsMHN -> MainTab.MONSTER_HUNTER
+        is AppsPikmin -> MainTab.PIKMIN
         is Home -> MainTab.HOME
         is ShortCuts -> MainTab.SHORTCUTS
         is Preferences -> MainTab.SETTINGS
@@ -188,6 +193,7 @@ class MainActivity : AppCompatActivity() {
     private fun createTab(tab: MainTab): Fragment = when (tab) {
         MainTab.POKEMON -> AppsPoke()
         MainTab.MONSTER_HUNTER -> AppsMHN()
+        MainTab.PIKMIN -> AppsPikmin()
         MainTab.HOME -> Home()
         MainTab.SHORTCUTS -> ShortCuts()
         MainTab.SETTINGS -> Preferences()
@@ -218,20 +224,47 @@ class MainActivity : AppCompatActivity() {
         binding.navigation.setOnItemSelectedListener { item ->
             val tab = MainTab.entries.firstOrNull { it.menuId() == item.itemId }
                 ?: return@setOnItemSelectedListener false
-            if (tab == tabNavigation.current) return@setOnItemSelectedListener true
-            if (!showTab(tab)) return@setOnItemSelectedListener false
-            tabNavigation.select(tab)
-            syncNavigationSelection()
-            true
+            navigateTo(tab)
         }
-        binding.navigation.setOnItemReselectedListener {
-            // Reselecting the current tab is deliberately a no-op, not a refresh.
+        binding.navigation.setOnItemReselectedListener { item ->
+            // Settings retains its source tab's highlight. Reselecting that tab
+            // must return to it; only reselecting the actual current page is a no-op.
+            MainTab.entries.firstOrNull { it.menuId() == item.itemId }?.let(::navigateTo)
+        }
+    }
+
+    private fun navigateTo(tab: MainTab): Boolean {
+        if (tab == tabNavigation.current) return true
+        if (!showTab(tab)) return false
+        tabNavigation.select(tab)
+        syncNavigationSelection()
+        return true
+    }
+
+    fun openSettings(): Boolean = navigateTo(MainTab.SETTINGS)
+
+    fun closeSettings() {
+        if (tabNavigation.current == MainTab.SETTINGS && tabNavigation.canGoBack) {
+            tabBackCallback.handleOnBackPressed()
+        }
+    }
+
+    /** Bind a page-owned toolbar without replacing Home's existing ActionBar. */
+    fun bindSettingsToolbar(root: View) {
+        val toolbar = root.findViewById<MaterialToolbar>(R.id.toolbar) ?: return
+        if (toolbar.menu.findItem(R.id.action_settings) == null) {
+            toolbar.inflateMenu(R.menu.menu_settings)
+        }
+        toolbar.setOnMenuItemClickListener { item ->
+            item.itemId == R.id.action_settings && openSettings()
         }
     }
 
     private fun syncNavigationSelection() {
         // Checking the menu item does not call the selection listener or append history.
-        binding.navigation.menu.findItem(tabNavigation.current.menuId()).isChecked = true
+        tabNavigation.selectedPrimaryTab.menuId()?.let { menuId ->
+            binding.navigation.menu.findItem(menuId)?.isChecked = true
+        }
         tabBackCallback.isEnabled = tabNavigation.canGoBack
     }
 

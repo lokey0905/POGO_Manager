@@ -3,6 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="app.lokey0905.location.MainActivity">
 
+    <item android:id="@+id/action_settings"
+        android:icon="@drawable/ic_baseline_settings_24"
+        android:title="@string/setting"
+        app:showAsAction="always" />
+
     <item android:id="@+id/action_download"
         android:icon="@drawable/ic_baseline_download_24"
         android:title="@string/download"

@@ -23,6 +23,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.preference.PreferenceManager
 import app.lokey0905.location.R
+import app.lokey0905.location.catalog.CatalogApp
+import app.lokey0905.location.catalog.CatalogCardsController
 import app.lokey0905.location.api.MhnToolsChannel
 import app.lokey0905.location.api.MhnToolsVersionInfo
 import app.lokey0905.location.api.parseMhnToolsVersionInfo
@@ -81,12 +83,14 @@ class AppsMHN : Fragment() {
     private var appListCheckDone = false
     private var needsRemoteRefresh = true
     private var refreshLocalAppState: (() -> Unit)? = null
+    private var installerCard: CatalogCardsController? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
         val view: View = inflater.inflate(R.layout.fragment_apps_mhn, container, false)
+        (requireActivity() as app.lokey0905.location.MainActivity).bindSettingsToolbar(view)
 
         val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
         val preferredTestVersion = sharedPreferences.getBoolean("mhntools_testversion", false)
@@ -113,6 +117,10 @@ class AppsMHN : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        installerCard = CatalogCardsController(
+            this, view.findViewById(R.id.mhn_installer_cards),
+            listOf(CatalogApp.APKMIRROR_INSTALLER)
+        )
         parentFragmentManager.setFragmentResultListener(
             "mhn_download_on_apkmirror", viewLifecycleOwner
         ) { _, bundle ->
@@ -147,6 +155,7 @@ class AppsMHN : Fragment() {
         mhnTestVersion = PreferenceManager.getDefaultSharedPreferences(requireContext())
             .getBoolean("mhntools_testversion", false)
         refreshVersionInfoIfNeeded()
+        installerCard?.refresh()
     }
 
     override fun onStop() {
@@ -159,6 +168,7 @@ class AppsMHN : Fragment() {
         versionCheckJob?.cancel()
         versionCheckJob = null
         refreshLocalAppState = null
+        installerCard = null
         needsRemoteRefresh = true
         super.onDestroyView()
     }
@@ -256,6 +266,7 @@ class AppsMHN : Fragment() {
             .setOnRefreshListener {
                 Toast.makeText(context, getString(R.string.refreshing), Toast.LENGTH_SHORT).show()
                 setupAppVersionInfo(view)
+                installerCard?.refresh(force = true)
             }
     }
 

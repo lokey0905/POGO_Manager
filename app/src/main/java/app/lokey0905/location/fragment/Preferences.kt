@@ -7,6 +7,9 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.view.View
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import android.widget.FrameLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.browser.customtabs.CustomTabsIntent
@@ -17,12 +20,28 @@ import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceManager
 import app.lokey0905.location.BuildConfig
 import app.lokey0905.location.R
+import app.lokey0905.location.MainActivity
+import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import androidx.core.net.toUri
 
 
 class Preferences : PreferenceFragmentCompat() {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        val root = inflater.inflate(R.layout.fragment_preferences, container, false)
+        val preferencesContent = root.findViewById<FrameLayout>(R.id.preferences_content)
+        preferencesContent.addView(super.onCreateView(inflater, preferencesContent, savedInstanceState))
+        root.findViewById<MaterialToolbar>(R.id.settings_toolbar).setNavigationOnClickListener {
+            (requireActivity() as MainActivity).closeSettings()
+        }
+        return root
+    }
+
     private var allow_download_on_non_arm64: Boolean = false
     private var location_check_A12: Boolean = false
     private var location_accuracy_check: Boolean = false

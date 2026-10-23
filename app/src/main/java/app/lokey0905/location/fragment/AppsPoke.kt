@@ -169,6 +169,7 @@ class AppsPoke : Fragment() {
         savedInstanceState: Bundle?,
     ): View {
         val view: View = inflater.inflate(R.layout.fragment_apps_poke, container, false)
+        (requireActivity() as app.lokey0905.location.MainActivity).bindSettingsToolbar(view)
 
         savedInstanceState?.getString(STATE_SELECTED_POGO_VERSION)
             ?.takeIf { it.isNotBlank() }

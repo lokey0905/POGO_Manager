@@ -32,8 +32,8 @@ class TabNavigationStateTest {
             listOf("", "REMOVED_TAB", "home"), MainTab.SETTINGS
         )
 
-        assertEquals(listOf("SETTINGS"), state.save())
-        assertFalse(state.canGoBack)
+        assertEquals(listOf("HOME", "SETTINGS"), state.save())
+        assertTrue(state.canGoBack)
     }
 
     @Test
@@ -42,19 +42,26 @@ class TabNavigationStateTest {
             val state = TabNavigationState.restore(null, tab)
 
             assertEquals(tab, state.current)
-            assertEquals(listOf(tab.name), state.save())
-            assertFalse(state.goBack())
+            if (tab == MainTab.SETTINGS) {
+                assertEquals(listOf("HOME", "SETTINGS"), state.save())
+                assertTrue(state.goBack())
+                assertEquals(MainTab.HOME, state.current)
+            } else {
+                assertEquals(listOf(tab.name), state.save())
+                assertFalse(state.goBack())
+            }
         }
     }
 
     @Test
-    fun allFiveDestinationsAreSelectable() {
+    fun allFivePrimaryDestinationsAndSettingsAreSelectable() {
         val state = TabNavigationState.restore(null)
         val destinations = listOf(
             MainTab.POKEMON,
             MainTab.MONSTER_HUNTER,
             MainTab.HOME,
             MainTab.SHORTCUTS,
+            MainTab.PIKMIN,
             MainTab.SETTINGS
         )
 
@@ -85,13 +92,13 @@ class TabNavigationStateTest {
         val state = TabNavigationState.restore(null)
 
         state.select(MainTab.POKEMON)
-        state.select(MainTab.SETTINGS)
+        state.select(MainTab.PIKMIN)
         state.select(MainTab.POKEMON)
 
-        assertEquals(listOf("HOME", "POKEMON", "SETTINGS", "POKEMON"), state.save())
-        assertEquals(MainTab.SETTINGS, state.previous)
+        assertEquals(listOf("HOME", "POKEMON", "PIKMIN", "POKEMON"), state.save())
+        assertEquals(MainTab.PIKMIN, state.previous)
         assertTrue(state.goBack())
-        assertEquals(MainTab.SETTINGS, state.current)
+        assertEquals(MainTab.PIKMIN, state.current)
         assertEquals(MainTab.POKEMON, state.previous)
     }
 
@@ -246,5 +253,78 @@ class TabNavigationStateTest {
         assertEquals(listOf("HOME", "POKEMON"), state.save())
         assertEquals(MainTab.POKEMON, state.current)
         assertEquals(MainTab.HOME, state.previous)
+    }
+
+    @Test
+    fun exactlyFivePrimaryDestinationsExcludeSettings() {
+        assertEquals(5, MainTab.entries.count { it.isPrimaryDestination })
+        assertFalse(MainTab.SETTINGS.isPrimaryDestination)
+        assertTrue(MainTab.PIKMIN.isPrimaryDestination)
+    }
+
+    @Test
+    fun openingSettingsKeepsSourceHighlightAndBackReturnsToEveryPrimaryPage() {
+        MainTab.entries.filter { it.isPrimaryDestination }.forEach { source ->
+            val state = TabNavigationState.restore(listOf(source.name))
+            assertTrue(state.select(MainTab.SETTINGS))
+            assertEquals(MainTab.SETTINGS, state.current)
+            assertEquals(source, state.selectedPrimaryTab)
+            repeat(3) { assertFalse(state.select(MainTab.SETTINGS)) }
+            assertEquals(listOf(source.name, "SETTINGS"), state.save())
+            assertTrue(state.goBack())
+            assertEquals(source, state.current)
+            assertFalse(state.canGoBack)
+        }
+    }
+
+    @Test
+    fun settingsAndItsSourceSurviveSaveAndRestore() {
+        val original = TabNavigationState.restore(listOf("HOME", "PIKMIN"))
+        original.select(MainTab.SETTINGS)
+
+        val restored = TabNavigationState.restore(original.save())
+
+        assertEquals(MainTab.SETTINGS, restored.current)
+        assertEquals(MainTab.PIKMIN, restored.selectedPrimaryTab)
+        assertTrue(restored.goBack())
+        assertEquals(MainTab.PIKMIN, restored.current)
+        assertEquals(MainTab.HOME, restored.previous)
+    }
+
+    @Test
+    fun selectingHighlightedTabFromSettingsDismissesItWithoutAddingHistory() {
+        val state = TabNavigationState.restore(listOf("HOME", "PIKMIN", "SETTINGS"))
+
+        assertTrue(state.select(MainTab.PIKMIN))
+
+        assertEquals(listOf("HOME", "PIKMIN"), state.save())
+        assertEquals(MainTab.PIKMIN, state.current)
+        assertEquals(MainTab.PIKMIN, state.selectedPrimaryTab)
+        assertFalse(state.select(MainTab.PIKMIN))
+        assertTrue(state.goBack())
+        assertEquals(MainTab.HOME, state.current)
+    }
+
+    @Test
+    fun selectingDifferentTabFromSettingsDismissesSettingsBeforeNavigating() {
+        val state = TabNavigationState.restore(listOf("HOME", "POKEMON", "SETTINGS"))
+
+        assertTrue(state.select(MainTab.PIKMIN))
+
+        assertEquals(listOf("HOME", "POKEMON", "PIKMIN"), state.save())
+        assertTrue(state.goBack())
+        assertEquals(MainTab.POKEMON, state.current)
+    }
+
+    @Test
+    fun legacySettingsOnlyStateHasHomeForBothHighlightAndBack() {
+        val state = TabNavigationState.restore(listOf("SETTINGS"))
+
+        assertEquals(listOf("HOME", "SETTINGS"), state.save())
+        assertEquals(MainTab.SETTINGS, state.current)
+        assertEquals(MainTab.HOME, state.selectedPrimaryTab)
+        assertTrue(state.goBack())
+        assertEquals(MainTab.HOME, state.current)
+        assertFalse(state.canGoBack)
     }
 }

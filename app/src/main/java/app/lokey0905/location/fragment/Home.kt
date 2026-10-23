@@ -467,6 +467,8 @@ class Home : Fragment() {
     @Deprecated("Deprecated in Java")
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
+            R.id.action_settings -> (requireActivity() as app.lokey0905.location.MainActivity).openSettings()
+
             R.id.action_download -> {
                 MaterialAlertDialogBuilder(requireContext())
                     .setTitle(getString(R.string.download))
