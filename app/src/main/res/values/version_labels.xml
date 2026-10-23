@@ -1,11 +1,11 @@
 <resources>
-    <string name="version_label_installed">已安裝版本：%1$s</string>
-    <string name="version_label_installed_other">已安裝版本：%1$s %2$s</string>
+    <string name="version_label_installed">目前安裝版本：%1$s</string>
+    <string name="version_label_installed_other">目前安裝版本：%1$s %2$s</string>
     <string name="version_label_latest">APP 最新版本：%1$s</string>
     <string name="version_label_latest_other">APP 最新版本：%1$s %2$s</string>
     <string name="version_label_target">目標下載版本：%1$s</string>
     <string name="version_label_target_other">目標下載版本：%1$s %2$s</string>
-    <string name="version_label_installed_pending">已安裝版本：確認中</string>
+    <string name="version_label_installed_pending">目前安裝版本：確認中</string>
     <string name="version_label_latest_pending">APP 最新版本：查詢中</string>
     <string name="version_label_latest_unknown">APP 最新版本：尚未確認</string>
     <string name="version_label_target_pending">目標下載版本：查詢中</string>

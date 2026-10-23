@@ -8,6 +8,32 @@ class ResponsiveGridPolicyTest {
         responsiveGridColumnCount(width, 280f, 8f, fontScale, 2)
 
     @Test
+    fun singleColumnPortraitRestoresOriginalCardWidth() {
+        val columns = homeColumns(381f)
+        assertEquals(0, homeCardMarginPx(columns, isLandscape = false, spacedMarginPx = 21))
+    }
+
+    @Test
+    fun widePortraitRetainsSpacingBetweenCardsAndTheSameColumnThreshold() {
+        assertEquals(1, homeColumns(591f))
+        assertEquals(2, homeColumns(592f))
+        assertEquals(21, homeCardMarginPx(homeColumns(592f), isLandscape = false, spacedMarginPx = 21))
+    }
+
+    @Test
+    fun landscapeRetainsOriginalMarginsEvenWhenLargeFontsRequireOneColumn() {
+        assertEquals(21, homeCardMarginPx(1, isLandscape = true, spacedMarginPx = 21))
+        assertEquals(21, homeCardMarginPx(2, isLandscape = true, spacedMarginPx = 21))
+    }
+
+    @Test
+    fun marginsFollowResizesAndOrientationChangesWithoutRememberingOldColumns() {
+        assertEquals(21, homeCardMarginPx(2, isLandscape = false, spacedMarginPx = 21))
+        assertEquals(0, homeCardMarginPx(1, isLandscape = false, spacedMarginPx = 21))
+        assertEquals(21, homeCardMarginPx(1, isLandscape = true, spacedMarginPx = 21))
+    }
+
+    @Test
     fun narrowContentUsesOneColumn() {
         assertEquals(1, homeColumns(280f))
         assertEquals(1, homeColumns(381f))

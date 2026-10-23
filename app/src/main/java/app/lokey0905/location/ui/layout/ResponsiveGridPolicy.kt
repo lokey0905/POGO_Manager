@@ -1,5 +1,12 @@
 package app.lokey0905.location.ui.layout
 
+/** Restore Home's original portrait width without removing landscape or two-column spacing. */
+fun homeCardMarginPx(columns: Int, isLandscape: Boolean, spacedMarginPx: Int): Int {
+    require(columns >= 1)
+    require(spacedMarginPx >= 0)
+    return if (columns == 1 && !isLandscape) 0 else spacedMarginPx
+}
+
 /**
  * Chooses columns from the measured content width, already excluding parent padding
  * and navigation. Card margins are per side. Larger fonts reserve more card width;

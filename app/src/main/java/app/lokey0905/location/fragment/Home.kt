@@ -35,6 +35,7 @@ import androidx.fragment.app.setFragmentResultListener
 import app.lokey0905.location.BuildConfig
 import app.lokey0905.location.R
 import app.lokey0905.location.ui.layout.responsiveGridColumnCount
+import app.lokey0905.location.ui.layout.homeCardMarginPx
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdView
 import com.google.android.gms.ads.MobileAds
@@ -395,6 +396,7 @@ class Home : Fragment() {
         val banner = view.findViewById<View>(R.id.ad_banner)
         val children = listOf(deviceCard, checkCard, banner)
         var appliedColumns = 0
+        var appliedCardMargin = -1
 
         fun updateColumns() {
             val contentWidth = grid.width - grid.paddingLeft - grid.paddingRight
@@ -407,7 +409,12 @@ class Home : Fragment() {
                 fontScale = resources.configuration.fontScale,
                 maxColumns = 2
             )
-            if (columns == appliedColumns) return
+            val cardMargin = homeCardMarginPx(
+                columns = columns,
+                isLandscape = resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE,
+                spacedMarginPx = resources.getDimensionPixelSize(R.dimen.home_card_margin)
+            )
+            if (columns == appliedColumns && cardMargin == appliedCardMargin) return
 
             // Clear old spans before reducing columnCount; a two-column banner cannot
             // remain attached with its previous span while switching to one column.
@@ -428,6 +435,7 @@ class Home : Fragment() {
                         GridLayout.spec(column, span, GridLayout.CENTER)
                     } else {
                         width = 0
+                        setMargins(cardMargin, cardMargin, cardMargin, cardMargin)
                         GridLayout.spec(column, span, GridLayout.FILL, 1f)
                     }
                 }
@@ -442,6 +450,7 @@ class Home : Fragment() {
                 place(banner, row = 1, column = 0, span = columns)
             }
             appliedColumns = columns
+            appliedCardMargin = cardMargin
         }
 
         // Measure the content area after the activity's rail and insets are applied,

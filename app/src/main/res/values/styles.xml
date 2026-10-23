@@ -7,10 +7,10 @@
     </style>
 
     <style name="Widget.Location.GameHeader.Large" parent="Widget.Material3.CollapsingToolbar.Large">
-        <item name="collapsedTitleTextAppearance">@style/TextAppearance.Material3.TitleMedium</item>
-        <item name="collapsedSubtitleTextAppearance">@style/TextAppearance.Material3.BodySmall</item>
-        <item name="expandedTitleTextAppearance">@style/TextAppearance.Material3.HeadlineSmall</item>
-        <item name="expandedSubtitleTextAppearance">@style/TextAppearance.Material3.BodyMedium</item>
+        <item name="collapsedTitleTextAppearance">@style/TextAppearance.Material3.TitleLarge</item>
+        <item name="collapsedSubtitleTextAppearance">@style/TextAppearance.Material3.TitleMedium</item>
+        <item name="expandedTitleTextAppearance">@style/TextAppearance.Material3.HeadlineMedium</item>
+        <item name="expandedSubtitleTextAppearance">@style/TextAppearance.Material3.HeadlineSmall</item>
         <item name="titleMaxLines">2</item>
         <item name="subtitleMaxLines">2</item>
         <item name="titleExtraMultilineHeightEnabled">true</item>
@@ -18,10 +18,10 @@
     </style>
 
     <style name="Widget.Location.GameHeader.Medium" parent="Widget.Material3.CollapsingToolbar.Medium">
-        <item name="collapsedTitleTextAppearance">@style/TextAppearance.Material3.TitleMedium</item>
-        <item name="collapsedSubtitleTextAppearance">@style/TextAppearance.Material3.BodySmall</item>
+        <item name="collapsedTitleTextAppearance">@style/TextAppearance.Material3.TitleLarge</item>
+        <item name="collapsedSubtitleTextAppearance">@style/TextAppearance.Material3.TitleMedium</item>
         <item name="expandedTitleTextAppearance">@style/TextAppearance.Material3.HeadlineSmall</item>
-        <item name="expandedSubtitleTextAppearance">@style/TextAppearance.Material3.BodyMedium</item>
+        <item name="expandedSubtitleTextAppearance">@style/TextAppearance.Material3.TitleLarge</item>
         <item name="titleMaxLines">2</item>
         <item name="subtitleMaxLines">2</item>
         <item name="titleExtraMultilineHeightEnabled">true</item>
