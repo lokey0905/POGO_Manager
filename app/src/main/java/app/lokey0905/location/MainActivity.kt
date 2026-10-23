@@ -21,6 +21,8 @@ import androidx.core.os.bundleOf
 import androidx.core.view.WindowCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.children
+import androidx.core.view.doOnNextLayout
 import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
@@ -34,10 +36,12 @@ import app.lokey0905.location.fragment.Preferences
 import app.lokey0905.location.fragment.ShortCuts
 import app.lokey0905.location.navigation.MainTab
 import app.lokey0905.location.navigation.TabNavigationState
+import app.lokey0905.location.ui.layout.navigationRailItemMinimumHeight
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
 import com.google.android.gms.location.LocationServices
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.navigation.NavigationBarView
 import com.google.android.material.navigationrail.NavigationRailView
 import com.google.android.material.snackbar.Snackbar
 import com.onesignal.OneSignal
@@ -232,7 +236,23 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun applyNavigationInsets() {
-        if (binding.navigation !is NavigationRailView) return
+        val rail = binding.navigation as? NavigationRailView ?: return
+        val originalItemMinimumHeight = rail.itemMinimumHeight
+        rail.itemGravity = NavigationBarView.ITEM_GRAVITY_CENTER
+
+        fun updateRailItemHeight() {
+            val availableHeight = rail.height - rail.paddingTop - rail.paddingBottom
+            val visibleItems = rail.menu.children.count { it.isVisible }
+            if (availableHeight <= 0 || rail.width <= 0 || visibleItems == 0) return
+
+            // Material's default minimum is the rail width. Keep that baseline rather
+            // than the previous stretched height so shrinking windows can shrink items.
+            val minimumHeight = originalItemMinimumHeight.takeIf { it > 0 } ?: rail.width
+            val itemHeight = navigationRailItemMinimumHeight(availableHeight, visibleItems, minimumHeight)
+            if (rail.itemMinimumHeight != itemHeight) rail.itemMinimumHeight = itemHeight
+        }
+
+        rail.addOnLayoutChangeListener { _, _, _, _, _, _, _, _, _ -> updateRailItemHeight() }
 
         // With no bottom bar, the shell must protect both the content and rail.
         // Each page still handles its own status-bar inset via its AppBarLayout.
@@ -246,6 +266,9 @@ class MainActivity : AppCompatActivity() {
                 right = safeArea.right,
                 bottom = safeArea.bottom
             )
+            // Wait for Material to apply the rail's own top inset. Padding can change
+            // without changing the rail's bounds, so a size listener alone is not enough.
+            rail.doOnNextLayout { updateRailItemHeight() }
             insets
         }
         ViewCompat.requestApplyInsets(binding.container)
