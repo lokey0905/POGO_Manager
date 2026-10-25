@@ -1,135 +1,104 @@
-# Pogo管理器
-這個是我第一個自學編寫的 Android APP，大部分使用 Google 搜尋與 vibe coding
+# POGO Manager
 
-## 關於這個APP
+繁體中文 | [English](README.en.md)
 
-Pogo管理器是一款專為 Pokémon GO、Monster Hunter Now 和 Pikmin Bloom 玩家設計的多功能管理工具，整合了應用程式管理、更新檢測、設備檢測等實用功能，讓玩家能更便捷地管理遊戲相關軟體。
+POGO Manager 是管理 Pokémon GO、Monster Hunter Now 與 Pikmin Bloom 相關應用程式的 Android 工具，提供版本查詢、支援版本比對、下載連結及裝置檢測。介面與使用文件以繁體中文為主。
 
-### 主要功能
+## 功能
 
-#### 📱 應用程式管理
-- **Pokémon GO 相關軟體**
-  - 整合多個相關工具的下載連結
-  - 自動檢測各項軟體支援版本
-    - [x] 自動檢測 Pokémon GO 版本
-    - [x] 自動檢測 PGTools 支援版本
-    - [x] 自動檢測 Pokemod 支援版本
-    - [x] 自動檢測 PolygonX 最新版本
-  - 提供部分中文化版本APP下載
+- 應用程式管理：查詢安裝版本與可取得的最新版本，提供下載、開啟、設定及解除安裝入口。
+- 版本相容性：依選定的遊戲版本比對輔助工具支援情況；PGTools 與 MHNTools 可切換正式版、測試版通道。
+- 裝置檢測：顯示系統資訊、定位狀態及 root／Magisk 跡象，並提供外部完整性與環境檢測工具入口。
+- 實用工具：使用教學、冷卻計算器、桌面捷徑與定位設定小工具。
+- 介面：支援深色模式、動態色彩及手機、平板布局。
 
-- **Monster Hunter Now 相關軟體**
-  - 整合魔物獵人相關工具
-  - 版本更新自動檢測
-    - [x] 自動檢測 MHN Tools 支援版本
-  - 快速下載與安裝管理
+## 支援遊戲
 
-#### 🔍 設備檢測功能
-- **設備安全性檢測**
-  - Root SU 路徑偵測
-  - GPS 定位服務狀態檢查
-  - Mock Location 偵測
+| 遊戲 | 整合內容 |
+| --- | --- |
+| Pokémon GO | 遊戲版本選擇、PGTools／Pokemod／PGSharp Root 支援版本比對，以及相關工具的版本查詢與下載 |
+| Monster Hunter Now | 遊戲版本選擇、MHNTools 正式版與測試版支援版本比對，以及相關工具下載 |
+| Pikmin Bloom | 遊戲、定位與步數工具、Google Fit、Health Connect 及安裝工具清單 |
 
-#### 🎨 使用者介面
-- **Material Design 3**
-  - 動態色彩主題支援
-  - 深色模式支援
+版本查詢與相容性比對的支援範圍依工具而異。完整清單及限制請參閱[整合與使用指南](docs/app-guide.md)。
 
+## 系統需求
 
-## APK檔案下載
-- [Github 最新下載](https://github.com/lokey0905/POGO_Manager/releases)
-- [Mediafire 備份連結](https://www.mediafire.com/file/5mdun6u78jr96rw/app-debug.apk/file)
+- Android 9（API 28）以上。
+- 版本查詢與下載需連線至網際網路。
+- 多數遊戲及工具的下載預設限制為 `arm64-v8a` 裝置；略過檢查不會改變 APK 的架構需求。
+- 一般版本查詢無須 root。個別第三方工具可能另有 root、LSPosed 或 Android 版本需求。
+- 定位檢測需授予位置權限並啟用定位服務。
 
-## 使用說明
-- [教學總入口](docs/README.md)
+本應用程式整合 Google Mobile Ads 廣告、OneSignal 推播及 Google Play services 定位服務。
 
-## 截圖
-### 首頁
-<img width="250" src="https://github.com/lokey0905/POGO_Manager/blob/master/docs/images/root/Screenshot_1.jpg?raw=true" />
+## 下載與安裝
 
-### 寶可夢頁面
-<img width="250" src="https://github.com/lokey0905/POGO_Manager/blob/master/docs/images/root/Screenshot_2_1.jpg?raw=true" style="margin-right:10px" /> <img width="250" src="https://github.com/lokey0905/POGO_Manager/blob/master/docs/images/root/Screenshot_2_2.jpg?raw=true" style="margin-right:10px" /> <img width="250" src="https://github.com/lokey0905/POGO_Manager/blob/master/docs/images/root/Screenshot_2_3.jpg?raw=true" style="margin-right:10px" />
+請至 [GitHub Releases](https://github.com/lokey0905/POGO_Manager/releases) 下載 APK，依 Android 系統提示安裝。本文件對應目前原始碼，發布版本的功能與變更以各版 Release 說明為準。
 
-### 魔物獵人頁面
-<img width="250" src="https://github.com/lokey0905/POGO_Manager/blob/master/docs/images/root/Screenshot_3_1.jpg?raw=true" style="margin-right:10px" /> <img width="250" src="https://github.com/lokey0905/POGO_Manager/blob/master/docs/images/root/Screenshot_3_2.jpg?raw=true" style="margin-right:10px" />
+自行建置與發布版的簽章可能不同，安裝前請確認能否覆蓋既有版本。安裝步驟、權限及歷史備份資訊見[安裝指南](docs/app-guide.md#安裝)。
 
-### 捷徑頁面
-<img width="250" src="https://github.com/lokey0905/POGO_Manager/blob/master/docs/images/root/Screenshot_4_1.jpg?raw=true" style="margin-right:10px" /> <img width="250" src="https://github.com/lokey0905/POGO_Manager/blob/master/docs/images/root/Screenshot_4_2.jpg?raw=true" style="margin-right:10px" />
+## 畫面截圖
 
-### 設定頁面
-<img width="250" src="https://github.com/lokey0905/POGO_Manager/blob/master/docs/images/root/Screenshot_5_1.jpg?raw=true" style="margin-right:10px" /> <img width="250" src="https://github.com/lokey0905/POGO_Manager/blob/master/docs/images/root/Screenshot_5_2.jpg?raw=true" style="margin-right:10px" />
+<details>
+<summary>舊版畫面</summary>
 
+以下截圖取自歷史版本，與目前介面有所差異。
 
-## 參考資源與使用的開源專案
+<img src="docs/images/root/Screenshot_1.jpg" alt="舊版首頁" width="240" />
+<img src="docs/images/root/Screenshot_2_1.jpg" alt="舊版寶可夢頁面" width="240" />
+<img src="docs/images/root/Screenshot_3_1.jpg" alt="舊版魔物獵人頁面" width="240" />
 
-### APK反編譯工具
-- [Apktool](https://github.com/iBotPeaches/Apktool)
-- [jadx](https://github.com/skylot/jadx)
+</details>
 
-### 應用布局參考
-- [LSPosed Manager](https://github.com/LSPosed/LSPosed)
+## 開發與建置
 
-### Root檢測相關
-- [DetectMagiskHide](https://github.com/darvincisec/DetectMagiskHide) - Magisk檢測方式
-- [Simple Play Integrity Checker](https://github.com/herzhenr/spic-android) - 檢查設備完整性
-- [ApplistDetector](https://github.com/Dr-TSNG/ApplistDetector) - 應用列表檢測
-- [Ruru](https://github.com/byxiaorun/Ruru)
+專案以 Kotlin、Java 開發，介面採用 AndroidX Fragment、XML Layout、View Binding 與 Material Components。網路及非同步處理使用 OkHttp、Coroutines 與 Protocol Buffers；部分裝置檢測透過 C／JNI 及隔離服務實作，使用 CMake 建置。
 
-### 其他工具
-- [Discord-User-API](https://github.com/netgian/Discord-User-API) - Discord Bot
+建置環境需安裝 Git、JDK 21、Android SDK、NDK 與 CMake。工具鏈版本及 SDK 路徑設定請參閱 [Gradle 設定](app/build.gradle)與[開發文件](docs/development.md)。首次建置需下載工具鏈及相依套件。
 
+在專案根目錄執行：
+
+Windows PowerShell：
+
+```powershell
+.\gradlew.bat :app:assembleDebug :app:testDebugUnitTest
+```
+
+Linux／macOS：
+
+```sh
+chmod +x gradlew
+./gradlew :app:assembleDebug :app:testDebugUnitTest
+```
+
+Debug APK 輸出至 `app/build/outputs/apk/debug/app-debug.apk`。簽章、記憶體設定與測試說明見[建置文件](docs/development.md#從原始碼建置)。
+
+## 維護
+
+維護工作包括 Android 版本適配、上游版本解析與下載來源更新、相依套件升級、崩潰修復及介面調整。上游服務變更可能影響版本查詢或下載功能；已知待辦與測試結果分別記錄於 [TODO.md](TODO.md) 和[驗證紀錄](docs/development.md#維護內容)。
+
+## 貢獻
+
+問題回報與功能建議請提交至 [Issues](https://github.com/lokey0905/POGO_Manager/issues)。提交 pull request 前，請參閱 [CONTRIBUTING.md](CONTRIBUTING.md)，附上修改說明及測試結果。涉及較大範圍的功能或架構變更，請先開啟 issue 討論。
+
+## 文件
+
+- [使用說明](docs/README.md)
+- [寶可夢](docs/pokemon_go.md) · [魔物獵人](docs/monster_hunter_now.md) · [皮克敏](docs/pikmin_bloom.md) · [定位工具](docs/location_only.md)
+- [整合與相容性限制](docs/app-guide.md)
+- [開發與建置](docs/development.md)
+
+## 第三方軟體
+
+第三方程式碼、素材與相依套件的來源及授權聲明記錄於 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)。開發過程使用的參考專案及外部工具另見[參考資料](docs/references.md)。
 
 ## 免責聲明
 
-本免責聲明適用於本應用程式與其相關文件（以下合稱「本應用程式」）。使用本應用程式即表示你理解並同意以下條款。
+本專案為非官方社群專案，與相關遊戲公司及權利人無隸屬或背書關係。第三方商標與圖示歸原權利人所有。裝置檢測與版本資訊僅供參考，不構成裝置安全或帳號使用保證；使用者應遵守適用法律及服務條款。完整聲明見 [DISCLAIMER.md](DISCLAIMER.md)。
 
-### 中文
-1. 關聯與標示
-- 本應用程式與寶可夢、魔物獵人、皮克敏及其任何官方品牌、版權持有者或相關公司（如 Game Freak、The Pokemon Company、任天堂、CAPCOM、Niantic 等）均無關聯。
+## 授權
 
-2. 版權與商標
-- 本應用程式不包含任何官方遊戲資源，亦不主張擁有任何第三方商標或版權。任何未經授權的使用或侵權行為應由使用者自行負責。
+本專案目前尚未設定專案層級授權。
 
-3. 無保證
-- 本應用程式以「現狀」與「可用為基礎」提供，不提供任何明示或默示保證，包括但不限於適售性、特定目的適用性與不侵權。
-
-4. 責任限制
-- 在任何情況下，本應用程式之提供者不對任何直接、間接、附帶、特殊或衍生性損害負責，包含但不限於資料遺失、商譽損失或服務中斷。
-
-5. 外部連結
-- 本應用程式可能包含第三方網站或資源連結。該等內容由第三方負責，本應用程式不保證其正確性、合法性或可用性，亦不負任何責任。
-
-6. 使用者責任與法規遵循
-- 使用者應自行確保使用本應用程式符合所在地之法律與相關規範，並自行承擔使用風險與後果。
-
-7. 更新與變更
-- 本應用程式可能不定期更新或變更內容，亦可能停止部分功能或全部服務，恕不另行通知。
-
-8. 商業與第三方平台聲明
-- 本應用程式內可能出現公司名稱、品牌識別或對外連結（如蝦皮賣場、Facebook 粉絲專頁、Discord 社群）僅作為開發者/營運者識別與資訊提供用途，不代表與任何遊戲官方或平台方存在授權、背書或合作關係。
-- 交易、付款、退款、平台規則、帳號處分與內容審核等事項，依各第三方平台之條款與機制辦理；使用者應自行閱讀並遵循相關規範。
-
-### English
-1. Affiliation and Branding
-- This application is not affiliated with Pokemon, Monster Hunter, Pikmin, or any official brand owners or related companies (e.g., Game Freak, The Pokemon Company, Nintendo, CAPCOM, Niantic).
-
-2. Copyrights and Trademarks
-- This application does not include any official game assets and does not claim ownership of any third-party trademarks or copyrights. Any unauthorized use or infringement is the user's sole responsibility.
-
-3. No Warranty
-- This application is provided "as is" and "as available" without any warranties, express or implied, including but not limited to merchantability, fitness for a particular purpose, or non-infringement.
-
-4. Limitation of Liability
-- Under no circumstances shall the provider of this application be liable for any direct, indirect, incidental, special, or consequential damages, including but not limited to data loss, loss of goodwill, or service interruption.
-
-5. External Links
-- This application may contain links to third-party websites or resources. Such content is provided by third parties, and this application does not guarantee its accuracy, legality, or availability, nor assume any responsibility.
-
-6. User Responsibility and Legal Compliance
-- Users are responsible for ensuring compliance with local laws and regulations and for all risks and consequences arising from use.
-
-7. Updates and Changes
-- This application may be updated or modified from time to time, and features or services may be changed or discontinued without notice.
-
-8. Commercial and Third-Party Platform Statement
-- Company names, brand identifiers, and external links in this application (such as Shopee stores, Facebook pages, and Discord communities) are provided only for developer/operator identification and informational purposes, and do not imply authorization, endorsement, or partnership with any official game publisher or platform.
-- Transactions, payments, refunds, platform rules, account actions, and content moderation are governed by each third-party platform's own terms and mechanisms; users are responsible for reviewing and complying with those rules.
+第三方內容依各自授權條款使用。相關範圍及待確認事項見 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)。
