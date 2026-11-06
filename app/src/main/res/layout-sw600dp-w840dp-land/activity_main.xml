@@ -23,6 +23,7 @@
             app:layout_constraintStart_toEndOf="@id/navigation"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <!-- Keep destinations at their natural Material height, grouped at the top. -->
         <com.google.android.material.navigationrail.NavigationRailView
             android:id="@+id/navigation"
             android:layout_width="wrap_content"
