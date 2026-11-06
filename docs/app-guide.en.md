@@ -31,7 +31,7 @@ This page preserves the detailed workflows, integration differences, and downloa
 | Monster Hunter Now | Game downloads, MHNTools, Hylianer, GPS JoyStick, and APKMirror Installer | Target-game compatibility for MHNTools stable/test. Hylianer has a download/open entry, not an automatic latest-version check. |
 | Pikmin Bloom | Pikmin Bloom, GPS JoyStick, DeFit, Fitness Hooks, Google Fit, Health Connect, and APKMirror Installer | App-version and download catalog, not a Pikmin compatibility matrix. Google Fit and Health Connect use store/system actions rather than remote version checks. |
 
-Pikmin downloads open APKMirror; Google Fit and Health Connect download links open Google Play. On applicable Android versions, Health Connect opens as a system component. GPS JoyStick detection uses the package names configured by this project, so differently packaged installations may not be recognized.
+Pikmin downloads open APKMirror; Google Fit and Health Connect download links open Google Play. Health Connect shows the standalone APK's actual installation state. Android 14 and later also provide a separate system-component settings button without replacing the APK download entry. Installation availability on Google Play still depends on device compatibility. GPS JoyStick detection uses the package names configured by this project, so differently packaged installations may not be recognized.
 
 ## Requirements and compatibility
 

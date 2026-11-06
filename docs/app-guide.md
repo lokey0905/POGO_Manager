@@ -31,7 +31,7 @@
 | Monster Hunter Now | 遊戲下載、MHNTools、Hylianer、GPS JoyStick、APKMirror Installer | MHNTools 正式／測試版可查詢目標遊戲版本相容性。Hylianer 提供下載／開啟入口，沒有自動最新版檢查。 |
 | Pikmin Bloom | Pikmin Bloom、GPS JoyStick、DeFit、Fitness Hooks、Google Fit、Health Connect、APKMirror Installer | 提供 APP 版本資訊與下載清單，沒有皮克敏遊戲相容性對照表。Google Fit 與 Health Connect 使用商店／系統入口，不查詢遠端版本。 |
 
-皮克敏下載會開啟 APKMirror；Google Fit 與 Health Connect 的下載連結會開啟 Google Play。在適用的 Android 版本上，Health Connect 以系統元件方式開啟。GPS JoyStick 依本專案設定的套件名稱辨識，其他套件名稱的安裝版本可能無法被識別。
+皮克敏下載會開啟 APKMirror；Google Fit 與 Health Connect 的下載連結會開啟 Google Play。Health Connect 的 APK 版依實際套件顯示安裝狀態；Android 14 以上另外提供「系統元件設定」，不以系統內建元件取代 APK 版的下載入口。商店能否提供安裝仍依裝置相容性決定。GPS JoyStick 依本專案設定的套件名稱辨識，其他套件名稱的安裝版本可能無法被識別。
 
 ## 系統需求與相容性限制
 

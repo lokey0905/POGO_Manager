@@ -93,6 +93,11 @@ class CatalogCardsController(
                 if (policy(app).showRemove) launchExternal(Intent(Intent.ACTION_DELETE, "package:${packageName(app)}".toUri()))
             }
             card.findViewById<MaterialButton>(R.id.catalog_action).setOnClickListener { performPrimaryAction(app) }
+            card.findViewById<MaterialButton>(R.id.catalog_system_settings).setOnClickListener {
+                if (policy(app).showSystemSettings) {
+                    launchExternal(Intent("android.health.connect.action.HEALTH_HOME_SETTINGS"))
+                }
+            }
         }
         owner.lifecycle.addObserver(object : DefaultLifecycleObserver {
             override fun onDestroy(owner: LifecycleOwner) {
@@ -152,17 +157,13 @@ class CatalogCardsController(
     fun refreshInstalled() {
         if (!viewIsAlive()) return
         entries.forEach { app ->
-            installed[app] = if (isSystemHealthConnect(app)) {
-                InstalledState(true, null)
-            } else {
-                try {
-                    val info = context.packageManager.getPackageInfo(packageName(app), 0)
-                    InstalledState(true, info.versionName)
-                } catch (_: PackageManager.NameNotFoundException) {
-                    InstalledState(false, null)
-                } catch (_: SecurityException) {
-                    InstalledState(false, null)
-                }
+            installed[app] = try {
+                val info = context.packageManager.getPackageInfo(packageName(app), 0)
+                InstalledState(true, info.versionName)
+            } catch (_: PackageManager.NameNotFoundException) {
+                InstalledState(false, null)
+            } catch (_: SecurityException) {
+                InstalledState(false, null)
             }
             render(app)
         }
@@ -173,12 +174,15 @@ class CatalogCardsController(
         val local = installed[app] ?: InstalledState(false, null)
         val source = sources[app]
         val versionText = when {
-            isSystemHealthConnect(app) -> context.getString(R.string.catalog_system_component)
             !local.installed -> context.getString(R.string.catalog_not_installed)
             else -> local.version ?: context.getString(R.string.version_value_unknown)
         }
         card.findViewById<TextView>(R.id.catalog_installed).text =
-            context.getString(R.string.version_label_installed, versionText)
+            context.getString(
+                if (app == CatalogApp.HEALTH_CONNECT) R.string.catalog_apk_installed
+                else R.string.version_label_installed,
+                versionText
+            )
         card.findViewById<TextView>(R.id.catalog_latest).apply {
             visibility = if (source == null) View.GONE else View.VISIBLE
             if (source != null) {
@@ -195,28 +199,30 @@ class CatalogCardsController(
         card.findViewById<ImageButton>(R.id.catalog_more).visibility = if (actions.showMore) View.VISIBLE else View.GONE
         card.findViewById<MaterialButton>(R.id.catalog_remove).visibility = if (actions.showRemove) View.VISIBLE else View.GONE
         card.findViewById<MaterialButton>(R.id.catalog_action).apply {
-            isEnabled = !isSystemHealthConnect(app) || canOpenSystemHealthConnect()
-            setText(if (!isEnabled) R.string.catalog_unavailable else when (actions.primaryAction) {
+            setText(when (actions.primaryAction) {
                 CatalogPrimaryAction.DOWNLOAD -> R.string.download
                 CatalogPrimaryAction.UPDATE -> R.string.update
-                CatalogPrimaryAction.OPEN -> if (app == CatalogApp.HEALTH_CONNECT) R.string.catalog_open_settings else R.string.popup_menu_startApp
-                CatalogPrimaryAction.OPEN_SETTINGS -> R.string.catalog_open_settings
+                CatalogPrimaryAction.OPEN -> if (app == CatalogApp.HEALTH_CONNECT) R.string.catalog_open_apk_settings else R.string.popup_menu_startApp
             })
+        }
+        card.findViewById<MaterialButton>(R.id.catalog_system_settings).apply {
+            visibility = if (actions.showSystemSettings) View.VISIBLE else View.GONE
+            isEnabled = actions.showSystemSettings && canOpenSystemHealthConnect()
         }
     }
 
     private fun policy(app: CatalogApp): CatalogActionPolicy {
         val local = installed[app] ?: InstalledState(false, null)
-        return getCatalogActionPolicy(local.installed, local.version, sources[app]?.release?.versionName, isSystemHealthConnect(app))
+        return getCatalogActionPolicy(
+            local.installed, local.version, sources[app]?.release?.versionName,
+            hasSystemSettings = hasSystemHealthConnectSettings(app, Build.VERSION.SDK_INT)
+        )
     }
 
     private fun performPrimaryAction(app: CatalogApp) {
         refreshInstalled()
         when (policy(app).primaryAction) {
             CatalogPrimaryAction.DOWNLOAD, CatalogPrimaryAction.UPDATE -> confirmDownload(app)
-            CatalogPrimaryAction.OPEN_SETTINGS -> if (canOpenSystemHealthConnect()) {
-                launchExternal(Intent("android.health.connect.action.HEALTH_HOME_SETTINGS"))
-            }
             CatalogPrimaryAction.OPEN -> openInstalledApp(app)
         }
     }
@@ -291,9 +297,6 @@ class CatalogCardsController(
     }
 
     private fun viewIsAlive(): Boolean = owner.lifecycle.currentState != Lifecycle.State.DESTROYED
-
-    private fun isSystemHealthConnect(app: CatalogApp): Boolean =
-        app == CatalogApp.HEALTH_CONNECT && Build.VERSION.SDK_INT >= 34
 
     private fun canOpenSystemHealthConnect(): Boolean = runCatching {
         Intent("android.health.connect.action.HEALTH_HOME_SETTINGS").resolveActivity(context.packageManager) != null

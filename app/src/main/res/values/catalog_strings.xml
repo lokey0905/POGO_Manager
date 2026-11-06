@@ -20,6 +20,9 @@
     <string name="catalog_source_stale">%1$s（上次成功結果，本次查詢失敗）</string>
     <string name="catalog_unavailable">此裝置無法開啟</string>
     <string name="catalog_open_settings">開啟設定</string>
+    <string name="catalog_open_apk_settings">開啟 APK 版設定</string>
+    <string name="catalog_system_settings">系統元件設定</string>
+    <string name="catalog_apk_installed">APK 版已安裝版本：%1$s</string>
     <string name="catalog_app_details">APP 資訊</string>
     <string name="catalog_download_page">下載頁面</string>
     <string name="catalog_more_description">%1$s 的更多選項</string>

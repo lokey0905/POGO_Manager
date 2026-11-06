@@ -43,12 +43,55 @@ class CatalogActionPolicyTest {
         assertEquals(CatalogPrimaryAction.OPEN, getCatalogActionPolicy(true, "2.2.0", "ERROR").primaryAction)
     }
 
-    @Test fun systemHealthConnectOpensSettingsEvenWithoutSeparateInstalledPackage() {
+    @Test fun systemSettingsDoNotReplaceStandaloneApkDownload() {
+        val policy = getCatalogActionPolicy(false, null, null, hasSystemSettings = true)
+        assertEquals(CatalogPrimaryAction.DOWNLOAD, policy.primaryAction)
+        assertFalse(policy.showMore)
+        assertFalse(policy.showRemove)
+        assertTrue(policy.showSystemSettings)
+    }
+
+    @Test fun installedStandaloneApkKeepsItsOwnActionsAlongsideSystemSettings() {
+        listOf("1.0.0", null).forEach { version ->
+            val policy = getCatalogActionPolicy(true, version, null, hasSystemSettings = true)
+            assertEquals(CatalogPrimaryAction.OPEN, policy.primaryAction)
+            assertTrue(policy.showMore)
+            assertTrue(policy.showRemove)
+            assertTrue(policy.showSystemSettings)
+        }
+    }
+
+    @Test fun uninstallingStandaloneApkRestoresDownloadButKeepsSystemSettings() {
+        val before = getCatalogActionPolicy(true, "1.0.0", null, hasSystemSettings = true)
+        val after = getCatalogActionPolicy(false, null, null, hasSystemSettings = true)
+        assertEquals(CatalogPrimaryAction.OPEN, before.primaryAction)
+        assertEquals(CatalogPrimaryAction.DOWNLOAD, after.primaryAction)
+        assertTrue(after.showSystemSettings)
+        assertFalse(after.showRemove)
+    }
+
+    @Test fun systemSettingsAreOnlyOfferedForHealthConnectOnAndroid14AndAbove() {
+        listOf(28, 32, 33).forEach { api ->
+            assertFalse(hasSystemHealthConnectSettings(CatalogApp.HEALTH_CONNECT, api))
+        }
+        listOf(34, 35, 36, 37).forEach { api ->
+            assertTrue(hasSystemHealthConnectSettings(CatalogApp.HEALTH_CONNECT, api))
+        }
+        CatalogApp.entries.filter { it != CatalogApp.HEALTH_CONNECT }.forEach { app ->
+            assertFalse(hasSystemHealthConnectSettings(app, 34))
+        }
+    }
+
+    @Test fun android13HealthConnectKeepsApkOnlyActions() {
         listOf(true, false).forEach { installed ->
-            val policy = getCatalogActionPolicy(installed, null, null, systemManaged = true)
-            assertEquals(CatalogPrimaryAction.OPEN_SETTINGS, policy.primaryAction)
-            assertFalse(policy.showMore)
-            assertFalse(policy.showRemove)
+            val policy = getCatalogActionPolicy(
+                installed, null, null,
+                hasSystemSettings = hasSystemHealthConnectSettings(CatalogApp.HEALTH_CONNECT, 33)
+            )
+            assertEquals(if (installed) CatalogPrimaryAction.OPEN else CatalogPrimaryAction.DOWNLOAD, policy.primaryAction)
+            assertFalse(policy.showSystemSettings)
+            assertEquals(installed, policy.showMore)
+            assertEquals(installed, policy.showRemove)
         }
     }
 
