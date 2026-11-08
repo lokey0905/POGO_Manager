@@ -42,7 +42,7 @@
 - 開啟 POGO Manager 或查詢版本並不一律需要 root；個別輔助工具可能需要 root 或 LSPosed，使用前請閱讀其文件。
 - APP 整合 Google Mobile Ads 廣告與 OneSignal 推播，定位功能使用 Google Play services；並非純離線或無廣告的應用程式。
 
-不同廠商的系統行為可能不同。桌面捷徑圖示修正仍有[待辦清單](../TODO.md)記錄的特定裝置驗收項目，不代表已確認所有 MIUI 設備皆正常。
+不同廠商的系統行為可能不同。桌面捷徑圖示修正僅在部分裝置完成驗證，不代表已確認所有 MIUI 設備皆正常。
 
 ## 安裝
 
@@ -50,7 +50,7 @@
 2. 使用 Android 套件安裝程式開啟 APK。若系統要求，請確認來源後，允許所用瀏覽器或檔案管理器安裝應用程式。
 3. 開啟 POGO Manager，依使用的功能授予所需權限。
 
-保留既有 [MediaFire 備份下載](https://www.mediafire.com/file/5mdun6u78jr96rw/app-debug.apk/file)作為替代入口，但不保證與最新 GitHub Release 一致。儲存庫中 `app/release/` 的 APK 是舊版建置，不建議將它當成最新版下載。
+保留既有 [MediaFire 備份下載](https://www.mediafire.com/file/5mdun6u78jr96rw/app-debug.apk/file)作為替代入口，但不保證與最新 GitHub Release 一致。發布版 APK 請從 GitHub Releases 取得；本機 `app/release/` 產物不納入版本控制。
 
 自行建置請參閱[從原始碼建置](development.md#從原始碼建置)。若本地建置與已發布 APK 的簽章不同，可能無法覆蓋安裝；不能假設可直接替換並沿用既有 APP 資料。
 

@@ -19,7 +19,7 @@ Key locations:
 | [`app/src/main/res/`](../app/src/main/res/) | XML layouts, strings, themes, icons, and endpoint resources |
 | [`app/src/main/c/`](../app/src/main/c/) | Native device-check code |
 | [`app/src/test/`](../app/src/test/) | JVM unit tests |
-| [`docs/`](../docs/README.md) | User guides, images, and scoped validation reports |
+| [`docs/`](../docs/README.md) | User guides, images, and development documentation |
 
 ## Building from source
 
@@ -71,7 +71,7 @@ The existing [Android CI workflow](../.github/workflows/android.yml) runs `./gra
 
 The Git history and [release notes](https://github.com/lokey0905/POGO_Manager/releases) record Android SDK/dependency updates, upstream version-parser and download-source fixes, crash fixes, and UI changes. Ongoing maintenance includes keeping those integrations working as Android and upstream apps change; an integration can stop working without a POGO Manager release.
 
-The repository also contains [layout and shortcut validation notes](../docs/ui-cd-validation.md), [Pikmin/navigation validation](../docs/pikmin-navigation-validation.md), and [navigation-rail validation](../docs/navigation-rail-spacing-validation.md). These record specific checks and remaining limitations, not a guarantee for all devices. [TODO.md](../TODO.md) tracks pending work and should not be read as a list of available features.
+Items awaiting validation should not be read as confirmed supported features. Historical validation reports remain available in Git history. Results from specific devices are not a guarantee for all devices.
 
 ## Suggested CI follow-up (workflow unchanged)
 

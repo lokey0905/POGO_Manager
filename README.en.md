@@ -76,7 +76,7 @@ The debug APK is written to `app/build/outputs/apk/debug/app-debug.apk`. See the
 
 ## Maintenance
 
-Maintenance covers Android compatibility, upstream version parsing and download sources, dependency updates, crash fixes, and UI changes. Upstream service changes may affect version checks or downloads. Pending work is tracked in [TODO.md](TODO.md); test results are listed in the [validation notes](docs/development.en.md#maintenance).
+Maintenance covers Android compatibility, upstream version parsing and download sources, dependency updates, crash fixes, and UI changes. Upstream service changes may affect version checks or downloads. See the [maintenance guide](docs/development.en.md#maintenance) for maintenance information and validation limitations.
 
 ## Contributing
 

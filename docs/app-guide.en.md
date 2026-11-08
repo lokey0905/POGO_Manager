@@ -42,7 +42,7 @@ Pikmin downloads open APKMirror; Google Fit and Health Connect download links op
 - Root access is not a blanket prerequisite for opening POGO Manager or checking versions. Individual companion workflows may require root or LSPosed; consult their documentation before use.
 - The app includes Google Mobile Ads and OneSignal push-notification integration, and uses Google Play services for location. It is not an offline-only or ad-free application.
 
-OEM behavior can differ. In particular, the launcher-icon workaround still needs the device-specific verification recorded in [the task list](../TODO.md); it is not a claim of universal MIUI compatibility.
+OEM behavior can differ. In particular, the launcher-icon workaround has only been verified on selected devices; it is not a claim of universal MIUI compatibility.
 
 ## Installation
 
@@ -50,7 +50,7 @@ OEM behavior can differ. In particular, the launcher-icon workaround still needs
 2. Open the APK using Android's package installer. If prompted, allow installation from the browser or file manager you used, after verifying the source.
 3. Open POGO Manager and grant permissions as needed for the features you use.
 
-The existing [MediaFire backup](https://www.mediafire.com/file/5mdun6u78jr96rw/app-debug.apk/file) is retained as an alternative link; it is not guaranteed to match the latest GitHub release. The APK checked into `app/release/` is an older build, not the recommended latest download.
+The existing [MediaFire backup](https://www.mediafire.com/file/5mdun6u78jr96rw/app-debug.apk/file) is retained as an alternative link; it is not guaranteed to match the latest GitHub release. Download published APKs from GitHub Releases; local `app/release/` artifacts are not tracked in version control.
 
 To build a development APK, see [Building from source](development.en.md#building-from-source). A locally signed build may not install over a published APK if their signing certificates differ; do not assume an in-place replacement will preserve access to existing app data.
 

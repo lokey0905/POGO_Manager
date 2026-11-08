@@ -19,7 +19,7 @@
 | [app/src/main/res/](../app/src/main/res/) | XML 布局、字串、主題、圖示與端點資源 |
 | [app/src/main/c/](../app/src/main/c/) | 原生設備檢測程式碼 |
 | [app/src/test/](../app/src/test/) | JVM 單元測試 |
-| [docs/](../docs/README.md) | 使用教學、圖片與各項驗證紀錄 |
+| [docs/](../docs/README.md) | 使用教學、圖片與開發說明 |
 
 ## 從原始碼建置
 
@@ -71,7 +71,7 @@ Release 建置已啟用程式碼縮減，但儲存庫未提供 Release 簽章設
 
 Git history 與 [Release 說明](https://github.com/lokey0905/POGO_Manager/releases)記錄了 Android SDK／相依套件更新、上游版本解析與下載來源修正、崩潰修復及 UI 調整。這些整合需要隨 Android 與上游 APP 的變化持續維護；即使 POGO Manager 本身沒有更新，上游變更仍可能使功能失效。
 
-儲存庫另有[布局與捷徑驗證紀錄](../docs/ui-cd-validation.md)、[皮克敏／導航驗證](../docs/pikmin-navigation-validation.md)及[側邊導航間距驗證](../docs/navigation-rail-spacing-validation.md)。這些文件記錄特定測試與限制，不代表對所有裝置的保證。[TODO.md](../TODO.md) 追蹤待辦事項，未完成項目不應視為現有功能。
+未完成驗收的項目不應視為已確認支援的功能。歷史驗證紀錄可從 Git 歷史查閱；特定裝置的測試結果不代表對所有裝置的保證。
 
 ## CI 後續建議（本次未修改 workflow）
 

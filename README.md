@@ -76,7 +76,7 @@ Debug APK 輸出至 `app/build/outputs/apk/debug/app-debug.apk`。簽章、記�
 
 ## 維護
 
-維護工作包括 Android 版本適配、上游版本解析與下載來源更新、相依套件升級、崩潰修復及介面調整。上游服務變更可能影響版本查詢或下載功能；已知待辦與測試結果分別記錄於 [TODO.md](TODO.md) 和[驗證紀錄](docs/development.md#維護內容)。
+維護工作包括 Android 版本適配、上游版本解析與下載來源更新、相依套件升級、崩潰修復及介面調整。上游服務變更可能影響版本查詢或下載功能；維護資訊與驗證限制見[維護說明](docs/development.md#維護內容)。
 
 ## 貢獻
 
