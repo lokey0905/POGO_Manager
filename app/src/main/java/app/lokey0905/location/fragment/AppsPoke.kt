@@ -39,6 +39,8 @@ import app.lokey0905.location.version.filterVersionsAtOrAboveMinimum
 import app.lokey0905.location.version.getCompatibilityStatus
 import app.lokey0905.location.version.VersionCheckProgress
 import app.lokey0905.location.version.VersionCheckSource
+import app.lokey0905.location.version.VersionCheckFailureAction
+import app.lokey0905.location.version.getVersionCheckFailureAction
 import app.lokey0905.location.version.VersionRefreshPolicy
 import app.lokey0905.location.version.VersionCheckSummary
 import app.lokey0905.location.version.RemoteVersionPresentation
@@ -100,6 +102,7 @@ data class AppsInfo(
     var downloadLink: String = "",
     var officialLink: String = "",
     var haveNewVersionTag: Boolean = false,
+    val downloadRequiresVersion: Boolean = true,
 )
 
 data class AppsInfoUpdate(
@@ -323,8 +326,10 @@ class AppsPoke : Fragment() {
                 R.id.pokemod_new_version,
                 R.id.pokemod_install_version,
                 updateNewVersionFromJson = false,
-                updateDownloadLinkFromJson = true,
+                updateDownloadLinkFromJson = false,
                 updateOfficialLinkFromJson = true,
+                downloadLink = getString(R.string.url_PokemodDownload),
+                downloadRequiresVersion = false,
             ),
             AppsInfo(
                 "samsungStore",
@@ -1023,11 +1028,17 @@ class AppsPoke : Fragment() {
             }
         }
 
-        fun setDownloadActionForVersionError(button: Button, packageName: String) {
-            if (appInstalledOrNot(packageName)) {
-                setOpenAppAction(button)
-            } else {
-                setVersionCheckFailedAction(button)
+        fun setDownloadActionForVersionError(
+            button: Button,
+            packageName: String,
+            versionIndependentDownloadUrl: String? = null
+        ) {
+            when (getVersionCheckFailureAction(
+                appInstalledOrNot(packageName), versionIndependentDownloadUrl
+            )) {
+                VersionCheckFailureAction.DOWNLOAD -> setDownloadAction(button, getString(R.string.download))
+                VersionCheckFailureAction.OPEN -> setOpenAppAction(button)
+                VersionCheckFailureAction.UNAVAILABLE -> setVersionCheckFailedAction(button)
             }
         }
 
@@ -1097,6 +1108,8 @@ class AppsPoke : Fragment() {
                     val version = Pokemod().getPokemodVersion(getString(R.string.url_PokemodDownload))
                     currentCoroutineContext().ensureActive()
                     if (version.isBlank() || version == "ERROR") {
+                        // A stale version must not hide the latest-download action after a failed refresh.
+                        loadedAppVersions.remove(apps.appName)
                         unavailableAppVersions.add(apps.appName)
                         markVersionCheckFailed(VersionCheckSource.POKEMOD_APP)
                     } else {
@@ -1343,12 +1356,16 @@ class AppsPoke : Fragment() {
                         else -> setOpenAppAction(button)
                     }
                     if (!isOpenAppAction(button) && apps.downloadLink.isBlank()) {
-                        // Version and download metadata can arrive independently (e.g. Pokemod).
+                        // Version and download metadata can arrive independently.
                         if (installed) setOpenAppAction(button) else button.isEnabled = false
                     }
                 } else if (apps.appName in unavailableAppVersions) {
                     setNewVersionError(text)
-                    setDownloadActionForVersionError(button, apps.packageName)
+                    setDownloadActionForVersionError(
+                        button,
+                        apps.packageName,
+                        apps.downloadLink.takeIf { !apps.downloadRequiresVersion }
+                    )
                 }
             }
             if (noEligiblePokemonVersions) setPokemonDownloadActionsForVersionError()
