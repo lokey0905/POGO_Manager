@@ -6,6 +6,26 @@ import org.junit.Test
 
 class PokemodVersionFormatTest {
     @Test
+    fun parsesStorageDownloadWithUnderscorePrefixAndIdentifier() {
+        assertEquals(
+            "14.0.0",
+            parsePokemodVersion("https://storage.pokemod.dev/Pokemod_v14_0_0-uc2gQVflVgHR.apk")
+        )
+    }
+
+    @Test
+    fun acceptsStorageFileNameVariations() {
+        listOf(
+            "Pokemod_v14_0_0.apk",
+            "Pokemod_v14.0.0-Ab9.apk?download=1#apk",
+            "Pokemod-v14_0_0-Ab9.apk",
+            "POKEMOD_v14_0_0-Ab9.APK"
+        ).forEach { fileName ->
+            assertEquals(fileName, "14.0.0", parsePokemodVersion("https://example.com/$fileName"))
+        }
+    }
+
+    @Test
     fun normalizesUnderscoresInCurrentDownloadFileName() {
         assertEquals(
             "13.8.0",
@@ -50,7 +70,11 @@ class PokemodVersionFormatTest {
             "another-app-v13_8_0.apk",
             "Pokemod-v13_8.apk",
             "Pokemod-v13_x_0.apk",
-            "Pokemod-v13_8_0.apk.bak"
+            "Pokemod-v13_8_0.apk.bak",
+            "Pokemod_v14_0-Ab9.apk",
+            "Pokemod_v14_0_0-.apk",
+            "Pokemod_v14_0_0-Ab9.apk.bak",
+            "Pokemod_v14_0_0_1-Ab9.apk"
         ).forEach { fileName ->
             assertNull(fileName, parsePokemodVersion("https://example.com/$fileName"))
         }

@@ -10,8 +10,9 @@ import org.json.JSONObject
 import java.net.HttpURLConnection
 import java.net.URL
 
+// Storage filenames use "_v" and may append an identifier; neither changes the app version.
 private val currentPokemodVersionRegex = Regex(
-    """(?:Pokemod|PokemodPublic)-v(\d+)[._](\d+)[._](\d+)(?:r\d+)?(?:\.apk)?(?=[?#]|$)""",
+    """(?:Pokemod|PokemodPublic)[-_]v(\d+)[._](\d+)[._](\d+)(?:r\d+)?(?:-[A-Za-z0-9]+)?(?:\.apk)?(?=[?#]|$)""",
     RegexOption.IGNORE_CASE
 )
 private val legacyPokemodVersionRegex = Regex(
@@ -142,7 +143,7 @@ class Pokemod {
 
                 Log.i("Pokemod", "最終 URL: $currentUrl")
 
-                // Current filenames use dots or underscores: Pokemod-v13.0.0.apk / Pokemod-v13_0_0.apk
+                // Current: Pokemod_v14_0_0-uc2gQVflVgHR.apk; also accepts Pokemod-v13.0.0.apk.
                 // Previous: PokemodPublic-v11.1.2r1112 or Pokemod_Public_v1_2_3r
                 val version = parsePokemodVersion(currentUrl)
                 if (version != null) {
