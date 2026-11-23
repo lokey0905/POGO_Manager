@@ -1,6 +1,7 @@
 package app.lokey0905.location.shortcut
 
 import android.content.Context
+import android.content.pm.PackageManager
 import android.content.pm.ShortcutManager
 import android.content.res.Resources
 import android.graphics.Bitmap
@@ -13,17 +14,20 @@ import androidx.core.graphics.drawable.DrawableCompat
 import com.google.android.material.color.MaterialColors
 
 /**
- * Renders the app's monochrome shortcut drawables before passing them to the launcher.
- * Some MIUI launchers draw resource vectors without bounds, producing a blank icon.
- * An opaque themed bitmap avoids that path and does not depend on the launcher's theme.
+ * Use the pre-rendered bitmap workaround on MIUI for resource vectors without bounds.
+ * Other launchers receive the original resource, without a baked-in theme or extra inset.
  *
- * Invalid resources throw [Resources.NotFoundException] rather than pinning a blank icon.
+ * MIUI rendering throws [Resources.NotFoundException] for invalid resources instead of pinning a blank icon.
  */
 fun createPinnedShortcutIcon(
     context: Context,
     @DrawableRes iconResource: Int,
     shortcutManager: ShortcutManager
 ): Icon {
+    if (!hasMiuiSecurityCore(context)) {
+        return Icon.createWithResource(context, iconResource)
+    }
+
     val drawable = AppCompatResources.getDrawable(context, iconResource)?.mutate()
         ?: throw Resources.NotFoundException("Shortcut icon resource $iconResource was not found")
     val geometry = shortcutIconGeometry(
@@ -51,4 +55,12 @@ fun createPinnedShortcutIcon(
     drawable.draw(canvas)
 
     return Icon.createWithBitmap(bitmap)
+}
+
+/** Same package-presence check used by the MIUI dual-apps shortcut. */
+internal fun hasMiuiSecurityCore(context: Context): Boolean = try {
+    context.packageManager.getPackageInfo("com.miui.securitycore", 0)
+    true
+} catch (_: PackageManager.NameNotFoundException) {
+    false
 }

@@ -27,6 +27,8 @@ import androidx.fragment.app.Fragment
 import androidx.preference.PreferenceManager
 import app.lokey0905.location.R
 import app.lokey0905.location.shortcut.createPinnedShortcutIcon
+import app.lokey0905.location.shortcut.hasMiuiSecurityCore
+import app.lokey0905.location.shortcut.pinnedShortcutIconResource
 import app.lokey0905.location.ui.layout.responsiveGridColumnCount
 import app.lokey0905.location.widget.LocationAccuracyActivity
 import com.google.android.gms.ads.rewarded.RewardedAd
@@ -67,7 +69,6 @@ class ShortCuts: Fragment() {
                 createShortcut(
                     "manual",
                     getString(R.string.manual),
-                    R.drawable.baseline_menu_book_24,
                     url = getString(R.string.github_manual),
                 )
                 true
@@ -81,7 +82,6 @@ class ShortCuts: Fragment() {
                 createShortcut(
                     "coolDownCalculator",
                     getString(R.string.shortcuts_coolDownCalculator),
-                    R.drawable.baseline_calculate_24,
                     url = getString(R.string.url_coolDownCalculator)
                 )
                 true
@@ -134,7 +134,6 @@ class ShortCuts: Fragment() {
                 createShortcut(
                     "pokeInfo",
                     getString(R.string.shortcuts_pokeInfo),
-                    R.drawable.ic_baseline_catching_pokemon_24,
                     url = getString(R.string.url_pokeInfo)
                 )
                 true
@@ -148,7 +147,6 @@ class ShortCuts: Fragment() {
                 createShortcut(
                     "pokeList_web",
                     getString(R.string.shortcuts_pokeListWeb),
-                    R.drawable.baseline_radar_24,
                     url = getString(R.string.url_pokeListWeb)
                 )
                 true
@@ -162,7 +160,6 @@ class ShortCuts: Fragment() {
                 createShortcut(
                     "PGTools_raids",
                     getString(R.string.shortcuts_PGToolsRaids),
-                    R.drawable.baseline_radar_24,
                     url = getString(R.string.url_PGToolsRaids)
                 )
                 true
@@ -189,7 +186,6 @@ class ShortCuts: Fragment() {
                 createShortcut(
                     "action_nearbySharing",
                     getString(R.string.nearbySharing),
-                    R.drawable.baseline_share_24,
                     intent = Intent(Intent.ACTION_MAIN).setComponent(
                         if (appInstalledOrNot("com.samsung.android.app.sharelive")) {
                             ComponentName(
@@ -209,7 +205,7 @@ class ShortCuts: Fragment() {
             }
 
             view.findViewById<MaterialCardView>(R.id.MiuiXSpace)?.setOnClickListener {
-                if (appInstalledOrNot("com.miui.securitycore")) {
+                if (hasMiuiSecurityCore(requireContext())) {
                     val activityIntent = Intent()
                     activityIntent.component =
                         ComponentName(
@@ -228,11 +224,10 @@ class ShortCuts: Fragment() {
             }
 
             view.findViewById<MaterialCardView>(R.id.MiuiXSpace)?.setOnLongClickListener {
-                if (appInstalledOrNot("com.miui.securitycore")) {
+                if (hasMiuiSecurityCore(requireContext())) {
                     createShortcut(
                         "MiuiXSpace",
                         getString(R.string.shortcuts_MiuiXSpace),
-                        R.drawable.baseline_call_split_24,
                         intent = Intent(Intent.ACTION_MAIN).setComponent(
                             ComponentName(
                                 "com.miui.securitycore",
@@ -261,7 +256,6 @@ class ShortCuts: Fragment() {
                 createShortcut(
                     "location_settings",
                     getString(R.string.shortcuts_locationSettings),
-                    R.drawable.baseline_edit_location_24,
                     intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
                 )
                 true
@@ -297,7 +291,6 @@ class ShortCuts: Fragment() {
                     createShortcut(
                         "developerMode",
                         getString(R.string.shortcuts_developerMode),
-                        R.drawable.baseline_developer_mode_24,
                         intent = Intent(Settings.ACTION_APPLICATION_DEVELOPMENT_SETTINGS)
                     )
                 } else {
@@ -319,7 +312,6 @@ class ShortCuts: Fragment() {
                 createShortcut(
                     "accountSettings",
                     getString(R.string.shortcuts_accountSettings),
-                    R.drawable.outline_switch_account_24,
                     intent = Intent(Settings.ACTION_SYNC_SETTINGS)
                 )
                 true
@@ -686,10 +678,10 @@ class ShortCuts: Fragment() {
     private fun createShortcut(
         id: String,
         label: String,
-        icon: Int,
         intent: Intent? = null,
         url: String? = null
     ) {
+        val icon = pinnedShortcutIconResource(id) ?: return
         val shortcutManager = context?.getSystemService(ShortcutManager::class.java)
         if (shortcutManager != null) {
             if (shortcutManager.isRequestPinShortcutSupported) {

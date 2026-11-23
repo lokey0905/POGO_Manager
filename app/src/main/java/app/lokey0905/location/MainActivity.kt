@@ -64,6 +64,7 @@ import app.lokey0905.location.fragment.Preferences
 import app.lokey0905.location.fragment.ShortCuts
 import app.lokey0905.location.navigation.MainTab
 import app.lokey0905.location.navigation.TabNavigationState
+import app.lokey0905.location.shortcut.migratePinnedShortcutIcons
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
 import com.google.android.gms.location.LocationServices
@@ -387,6 +388,9 @@ class MainActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
+        lifecycleScope.launch {
+            migratePinnedShortcutIcons(applicationContext)
+        }
         checkUpdate()
 
         val intent = Intent(this, IsolatedService::class.java)
