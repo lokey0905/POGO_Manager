@@ -7,6 +7,38 @@ class ResponsiveGridPolicyTest {
     private fun homeColumns(width: Float, fontScale: Float = 1f) =
         responsiveGridColumnCount(width, 280f, 8f, fontScale, 2)
 
+    private fun shortcutColumns(width: Float, fontScale: Float = 1f) =
+        responsiveGridColumnCount(width, 148f, 8f, fontScale, 4)
+
+    @Test
+    fun shortcutPhonesKeepTwoColumnsWithModeratelyLargerFonts() {
+        assertEquals(2, shortcutColumns(384f, fontScale = 1.1f))
+        assertEquals(2, shortcutColumns(360f, fontScale = 1.1f))
+        assertEquals(2, shortcutColumns(384f, fontScale = 1.15f))
+    }
+
+    @Test
+    fun shortcutsStillUseOneColumnForNarrowWindowsOrLargeFonts() {
+        assertEquals(1, shortcutColumns(384f, fontScale = 1.3f))
+        assertEquals(1, shortcutColumns(320f))
+    }
+
+    @Test
+    fun shortcutTwoColumnBoundariesIncludeBothHorizontalMargins() {
+        assertEquals(1, shortcutColumns(327f))
+        assertEquals(2, shortcutColumns(328f))
+        assertEquals(1, shortcutColumns(357f, fontScale = 1.1f))
+        assertEquals(2, shortcutColumns(358f, fontScale = 1.1f))
+    }
+
+    @Test
+    fun shortcutTabletsKeepAdaptiveColumnsAndTheFourColumnLimit() {
+        assertEquals(3, shortcutColumns(600f))
+        assertEquals(4, shortcutColumns(720f))
+        assertEquals(4, shortcutColumns(2_000f))
+        assertEquals(2, shortcutColumns(720f, fontScale = 2f))
+    }
+
     @Test
     fun singleColumnPortraitRestoresOriginalCardWidth() {
         val columns = homeColumns(381f)

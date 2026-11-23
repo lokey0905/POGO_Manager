@@ -366,7 +366,7 @@ class ShortCuts: Fragment() {
                 val columns = responsiveGridColumnCount(
                     availableWidthDp = contentWidth / density,
                     minimumCardWidthDp = resources.getDimension(R.dimen.shortcut_card_min_width) / density,
-                    cardHorizontalMarginDp = resources.getDimension(R.dimen.shortcut_card_margin) / density,
+                    cardHorizontalMarginDp = resources.getDimension(R.dimen.shortcut_card_horizontal_margin) / density,
                     fontScale = resources.configuration.fontScale,
                     maxColumns = 4
                 )
@@ -407,6 +407,7 @@ class ShortCuts: Fragment() {
         filesRefreshJob = extractFilsUrlFromJson(getString(R.string.url_files)) { items ->
             gridLayout3?.removeAllViews()
             val cardMargin = resources.getDimensionPixelSize(R.dimen.shortcut_card_margin)
+            val cardHorizontalMargin = resources.getDimensionPixelSize(R.dimen.shortcut_card_horizontal_margin)
             val cardPadding = resources.getDimensionPixelSize(R.dimen.shortcut_card_content_padding)
             items.forEachIndexed { index, item ->
                 val card = MaterialCardView(requireContext()).apply {
@@ -416,7 +417,7 @@ class ShortCuts: Fragment() {
                         val columns = gridLayout3.columnCount
                         rowSpec = GridLayout.spec(index / columns, GridLayout.TOP)
                         columnSpec = GridLayout.spec(index % columns, GridLayout.FILL, 1f)
-                        setMargins(cardMargin, cardMargin, cardMargin, cardMargin)
+                        setMargins(cardHorizontalMargin, cardMargin, cardHorizontalMargin, cardMargin)
                     }
                     minimumHeight = resources.getDimensionPixelSize(R.dimen.shortcut_card_min_height)
                     isClickable = true
