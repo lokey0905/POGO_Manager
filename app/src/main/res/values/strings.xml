@@ -252,4 +252,13 @@
     <string name="status_unknown">無法檢測</string>
     <string name="status_startFailed">啟動失敗</string>
     <string name="dialogCheckLocationAccuracyStatusMessage">Google 定位精確度：%1$s\nWi-Fi 掃描：%2$s\n藍牙掃描：%3$s\n\n%4$s</string>
+    <string name="manager_update_offline">尚未連上網路，無法檢查管理器更新。</string>
+    <string name="manager_update_rate_limited">GitHub API 查詢已達頻率上限，請於 %1$s 後再試，或查看發布頁。</string>
+    <string name="manager_update_http_error">管理器更新查詢失敗（HTTP %1$d），請稍後再試或查看發布頁。</string>
+    <string name="manager_update_invalid_response">無法解析 GitHub 版本資料，尚未確認管理器是否有更新。</string>
+    <string name="manager_update_dns_error">無法解析 GitHub 網址，請確認網路或 DNS 設定。</string>
+    <string name="manager_update_timeout">連線至 GitHub 逾時，請稍後再試。</string>
+    <string name="manager_update_tls_error">無法建立與 GitHub 的安全連線，請確認裝置時間與網路環境。</string>
+    <string name="manager_update_connection_error">無法連線至 GitHub，尚未確認管理器是否有更新。</string>
+    <string name="manager_update_release_page">查看發布頁</string>
 </resources>

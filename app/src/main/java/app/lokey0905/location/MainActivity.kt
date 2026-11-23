@@ -65,6 +65,11 @@ import app.lokey0905.location.fragment.ShortCuts
 import app.lokey0905.location.navigation.MainTab
 import app.lokey0905.location.navigation.TabNavigationState
 import app.lokey0905.location.shortcut.migratePinnedShortcutIcons
+import app.lokey0905.location.update.ManagerUpdateCheck
+import app.lokey0905.location.update.ManagerUpdateRepository
+import app.lokey0905.location.update.ManagerUpdateResult
+import app.lokey0905.location.update.UpdateNetworkFailure
+import app.lokey0905.location.version.compareVersions
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
 import com.google.android.gms.location.LocationServices
@@ -74,15 +79,10 @@ import com.google.android.material.navigation.NavigationBarView
 import com.google.android.material.navigationrail.NavigationRailView
 import com.google.android.material.snackbar.Snackbar
 import com.onesignal.OneSignal
-import kotlinx.coroutines.DelicateCoroutinesApi
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import org.json.JSONObject
-import java.io.BufferedReader
-import java.io.InputStreamReader
-import java.net.HttpURLConnection
-import java.net.URL
+import java.text.DateFormat
+import java.util.Date
 import androidx.core.content.edit
 import androidx.core.net.toUri
 import android.content.SharedPreferences
@@ -93,6 +93,8 @@ import android.provider.Settings
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+    private var managerUpdateJob: Job? = null
+    private var lastManagerUpdateFailure: ManagerUpdateResult? = null
 
     private companion object {
         const val STATE_TAB_HISTORY = "main_tab_history"
@@ -116,66 +118,6 @@ class MainActivity : AppCompatActivity() {
     var serviceBinder: IIsolatedService? = null
     private val ACTION_LOCATION_SCANNING_SETTINGS =
         "android.settings.LOCATION_SCANNING_SETTINGS"
-
-    @OptIn(DelicateCoroutinesApi::class)
-    private fun checkForUpdate(
-        githubUrl: String,
-        onUpdateAvailable: (Boolean, String, String, Boolean) -> Unit
-    ) {
-        GlobalScope.launch(Dispatchers.IO) {
-            var updateAvailable = false
-            var latestVersion = ""
-            var latestVersionInformation = ""
-            var requestSuccess = true
-
-            try {
-                val url = URL(githubUrl)
-                val connection: HttpURLConnection = url.openConnection() as HttpURLConnection
-                connection.requestMethod = "GET"
-                connection.connectTimeout = 10000
-                connection.readTimeout = 10000
-
-                val response = StringBuilder()
-                BufferedReader(InputStreamReader(connection.inputStream)).use { bufferedReader ->
-                    var line: String? = bufferedReader.readLine()
-                    while (line != null) {
-                        response.append(line)
-                        line = bufferedReader.readLine()
-                    }
-                }
-
-                val jsonObject = JSONObject(response.toString())
-
-                latestVersion = jsonObject.getString("name")
-                val latestVersionInt: List<String> = jsonObject.getString("name").split(".")
-                val currentRelease = BuildConfig.VERSION_NAME.split(".")
-
-                for (i in latestVersionInt.indices) {
-                    val currentVersion = latestVersionInt[i].toInt()
-                    val installedVersion = currentRelease[i].toInt()
-
-                    if (currentVersion > installedVersion) {
-                        updateAvailable = true
-                    }
-                }
-
-                latestVersionInformation = jsonObject.getString("body")
-
-            } catch (e: Exception) {
-                requestSuccess = false
-                Log.w(TAG, "checkForUpdate failed", e)
-            }
-
-            launch(Dispatchers.Main) {
-                onUpdateAvailable(
-                    updateAvailable,
-                    latestVersion,
-                    latestVersionInformation,
-                    requestSuccess
-                )
-            }
-        }
-    }
 
     private fun gotoBrowser(url: String) {
         startActivity(Intent(Intent.ACTION_VIEW, url.toUri()))
@@ -439,89 +381,79 @@ class MainActivity : AppCompatActivity() {
         return capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
     }
 
-    private fun compareVersions(current: String, latest: String): Int {
-        val currentParts = current.split(".")
-        val latestParts = latest.split(".")
-        val maxSize = maxOf(currentParts.size, latestParts.size)
-
-        for (i in 0 until maxSize) {
-            val currentValue = currentParts.getOrNull(i)?.toIntOrNull() ?: 0
-            val latestValue = latestParts.getOrNull(i)?.toIntOrNull() ?: 0
-            if (currentValue != latestValue) {
-                return currentValue.compareTo(latestValue)
-            }
-        }
-        return 0
-    }
-
     private fun checkUpdate() {
+        if (managerUpdateJob?.isActive == true) return
         if (!isNetworkAvailable()) {
-            Toast.makeText(
-                this,
-                getString(R.string.networkError),
-                Toast.LENGTH_SHORT
-            ).show()
+            showManagerUpdateError(getString(R.string.manager_update_offline))
             return
         }
-
-        val githubUrl = getString(R.string.githubApi)
-        checkForUpdate(githubUrl) { updateAvailable, latestVersion, latestVersionInformation, requestSuccess ->
-            if (!requestSuccess) {
-                Toast.makeText(
-                    this,
-                    getString(R.string.networkError),
-                    Toast.LENGTH_SHORT
-                ).show()
-                return@checkForUpdate
-            }
-
-            val versionCompare = compareVersions(BuildConfig.VERSION_NAME, latestVersion)
-            if (versionCompare > 0) {
-                Toast.makeText(
-                    this,
-                    getString(R.string.testVersion),
-                    Toast.LENGTH_SHORT
-                ).show()
-                return@checkForUpdate
-            }
-
-            if (updateAvailable) {
-                MaterialAlertDialogBuilder(this@MainActivity)
-                    .setTitle(
-                        getString(
-                            R.string.dialogUpdateDetectedVersion,
-                            BuildConfig.VERSION_NAME,
-                            latestVersion
-                        )
-                    )
-                    .setMessage("${getString(R.string.dialogUpdateAvailableManagerMessage)}\n\n${
-                        getString(
-                            R.string.updateContent
-                        )
-                    }\n$latestVersionInformation"
-                    )
-                    .apply {
-                        setPositiveButton(R.string.ok) { _, _ ->
-                            downloadAPPSetup("https://github.com/lokey0905/POGO_Manager/releases/download/$latestVersion/app-debug.apk")
-                        }
-                        setNegativeButton(R.string.cancel) { _, _ ->
-                            Toast.makeText(
-                                context,
-                                getString(R.string.cancelOperation),
-                                Toast.LENGTH_SHORT
-                            )
-                                .show()
-                        }
-                    }
-                    .show()
+        managerUpdateJob = lifecycleScope.launch {
+            val check = ManagerUpdateRepository.check(applicationContext, getString(R.string.githubApi))
+                ?: return@launch
+            // Do not display a result over another app or on an activity being destroyed.
+            if (!lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED)) return@launch
+            if (check.result !is ManagerUpdateResult.Release) {
+                if (check.cached && check.result == lastManagerUpdateFailure) return@launch
+                lastManagerUpdateFailure = check.result
             } else {
-                Toast.makeText(
-                    this,
-                    getString(R.string.dialogIsLatestVersion) + BuildConfig.VERSION_NAME,
-                    Toast.LENGTH_SHORT
-                ).show()
+                lastManagerUpdateFailure = null
+            }
+            when (val result = check.result) {
+                is ManagerUpdateResult.Release -> showManagerRelease(check, result)
+                is ManagerUpdateResult.RateLimited -> showManagerUpdateError(
+                    getString(
+                        R.string.manager_update_rate_limited,
+                        DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.MEDIUM)
+                            .format(Date(result.retryAtMillis))
+                    )
+                )
+                is ManagerUpdateResult.HttpError -> showManagerUpdateError(
+                    getString(R.string.manager_update_http_error, result.statusCode)
+                )
+                ManagerUpdateResult.InvalidResponse -> showManagerUpdateError(
+                    getString(R.string.manager_update_invalid_response)
+                )
+                is ManagerUpdateResult.NetworkError -> showManagerUpdateError(getString(
+                    when (result.reason) {
+                        UpdateNetworkFailure.DNS -> R.string.manager_update_dns_error
+                        UpdateNetworkFailure.TIMEOUT -> R.string.manager_update_timeout
+                        UpdateNetworkFailure.TLS -> R.string.manager_update_tls_error
+                        UpdateNetworkFailure.CONNECTION -> R.string.manager_update_connection_error
+                    }
+                ))
             }
         }
+    }
+
+    private fun showManagerUpdateError(message: String) {
+        Snackbar.make(binding.root, message, Snackbar.LENGTH_LONG)
+            .setTextMaxLines(5)
+            .setAction(R.string.manager_update_release_page) {
+                gotoBrowser("${getString(R.string.github)}/releases/latest")
+            }
+            .show()
+    }
+
+    private fun showManagerRelease(check: ManagerUpdateCheck, release: ManagerUpdateResult.Release) {
+        val comparison = compareVersions(BuildConfig.VERSION_NAME, release.version)
+        if (comparison >= 0) {
+            if (!check.cached) {
+                val message = if (comparison > 0) getString(R.string.testVersion)
+                else getString(R.string.dialogIsLatestVersion) + BuildConfig.VERSION_NAME
+                Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+            }
+            return
+        }
+        MaterialAlertDialogBuilder(this)
+            .setTitle(getString(R.string.dialogUpdateDetectedVersion, BuildConfig.VERSION_NAME, release.version))
+            .setMessage("${getString(R.string.dialogUpdateAvailableManagerMessage)}\n\n${getString(R.string.updateContent)}\n${release.notes}")
+            .setPositiveButton(R.string.ok) { _, _ ->
+                downloadAPPSetup("https://github.com/lokey0905/POGO_Manager/releases/download/${release.tag}/app-debug.apk")
+            }
+            .setNegativeButton(R.string.cancel) { _, _ ->
+                Toast.makeText(this, getString(R.string.cancelOperation), Toast.LENGTH_SHORT).show()
+            }
+            .show()
     }
 
     private fun checkLocationAccuracy(
