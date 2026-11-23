@@ -5,6 +5,7 @@
     <string name="discord">https://discord.gg/rjz2s42</string>
     <string name="youtube">https://www.youtube.com/@key94lo?sub_confirmation=1</string>
     <string name="github">https://github.com/lokey0905/POGO_Manager</string>
+    <string name="github_releases" translatable="false">https://github.com/lokey0905/POGO_Manager/releases/latest</string>
     <string name="githubApi">https://api.github.com/repos/lokey0905/POGO_Manager/releases/latest</string>
     <string name="github_manual">https://hackmd.io/@lokey0905/B1x_pZAT2</string>
 

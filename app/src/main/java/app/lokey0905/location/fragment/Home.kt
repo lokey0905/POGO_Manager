@@ -470,22 +470,7 @@ class Home : Fragment() {
             R.id.action_settings -> (requireActivity() as app.lokey0905.location.MainActivity).openSettings()
 
             R.id.action_download -> {
-                MaterialAlertDialogBuilder(requireContext())
-                    .setTitle(getString(R.string.download))
-                    .setMessage("是否要重新下載管理器?")
-                    .apply {
-                        setPositiveButton("重新下載") { _, _ ->
-                            gotoBrowser(resources.getString(R.string.url_app))
-                        }
-                        setNeutralButton(R.string.cancel) { _, _ ->
-                            Toast.makeText(
-                                context,
-                                getString(R.string.cancelOperation),
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        }
-                    }
-                    .show()
+                gotoBrowser(getString(R.string.github_releases))
                 true
             }
 
