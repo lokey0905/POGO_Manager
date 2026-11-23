@@ -36,9 +36,9 @@ class AppsPikmin : Fragment(R.layout.fragment_apps_pikmin) {
             refresh.isRefreshing = loading
             header.subtitle = getString(
                 when {
-                    loading -> R.string.catalog_source_loading
+                    loading -> R.string.version_summary_loading_brief
                     failures > 0 -> R.string.version_summary_partial_failure
-                    else -> R.string.catalog_summary_complete
+                    else -> R.string.version_summary_complete
                 }
             )
         }

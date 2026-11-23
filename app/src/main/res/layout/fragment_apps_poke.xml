@@ -23,7 +23,7 @@
             android:layout_height="?collapsingToolbarLayoutLargeSize"
             android:fitsSystemWindows="true"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            app:subtitle="@string/pokemonAppList"
+            app:subtitle="@string/version_summary_loading_brief"
             app:title="@string/pokemonAppList"
             app:titleCollapseMode="scale">
 

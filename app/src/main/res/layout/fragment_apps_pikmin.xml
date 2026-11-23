@@ -20,7 +20,7 @@
             android:fitsSystemWindows="true"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:title="@string/catalog_pikmin_page_title"
-            app:subtitle="@string/catalog_source_loading"
+            app:subtitle="@string/version_summary_loading_brief"
             app:titleCollapseMode="scale">
 
             <com.google.android.material.appbar.MaterialToolbar
